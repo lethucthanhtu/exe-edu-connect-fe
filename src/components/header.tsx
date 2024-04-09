@@ -165,7 +165,7 @@ export default function Header() {
                     <div className='mr-4 hidden lg:block'>{navList}</div>
                     <div className='flex items-center gap-4'>
                         <SearchBar />
-                        {!user ? (
+                        {user ? (
                             <ProfileMenu />
                         ) : (
                             <div className='flex items-center gap-x-1'>
