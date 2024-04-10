@@ -7,6 +7,7 @@ export default function DefaultLayout({ children }) {
         <>
 
             <Header />
+
             {children}
             {/* {React.Children.toArray(children)} */}
             <Footer />
