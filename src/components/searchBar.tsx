@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { capitalize } from '../utils/utils';
 import { Input, IconButton } from '@material-tailwind/react';
-import { useSearchParams } from 'react-router-dom';
+import { Form, useSearchParams } from 'react-router-dom';
 
 export function SearchBar() {
     const [params] = useSearchParams();
@@ -34,7 +34,7 @@ export function SearchBar() {
 
     return (
         <>
-            <form
+            <Form
                 method='get'
                 action='/search'
                 className='relative flex max-w-[24rem]'
@@ -130,7 +130,7 @@ export function SearchBar() {
                         {/* {t('search')} */}
                     </IconButton>
                 </div>
-            </form>
+            </Form>
         </>
     );
 }
