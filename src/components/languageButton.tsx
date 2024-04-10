@@ -18,6 +18,9 @@ export default function LanguageButton() {
                     label='Language'
                     value={i18n.language}
                     onChange={(lang_code) => i18n.changeLanguage(lang_code)}
+                    placeholder={undefined}
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
                 >
                     {LANGUAGES.map(({ code, label }) => (
                         <Option key={code} value={code}>

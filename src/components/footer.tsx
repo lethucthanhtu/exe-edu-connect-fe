@@ -36,6 +36,9 @@ export default function Footer() {
                                     variant='small'
                                     color='blue-gray'
                                     className='mb-4 font-bold uppercase opacity-50'
+                                    placeholder={undefined}
+                                    onPointerEnterCapture={undefined}
+                                    onPointerLeaveCapture={undefined}
                                 >
                                     {title}
                                 </Typography>
@@ -46,6 +49,9 @@ export default function Footer() {
                                             as='li'
                                             color='blue-gray'
                                             className='font-normal'
+                                            placeholder={undefined}
+                                            onPointerEnterCapture={undefined}
+                                            onPointerLeaveCapture={undefined}
                                         >
                                             <a
                                                 href='#'
@@ -60,7 +66,13 @@ export default function Footer() {
                         ))}
                     </div>
                     <div className='basis-1/3 mx-auto px-8 grid w-full grid-cols-1 gap-8 py-12 md:grid-cols-2 lg:grid-cols-4'>
-                        <Typography>Get in touch</Typography>
+                        <Typography
+                            placeholder={undefined}
+                            onPointerEnterCapture={undefined}
+                            onPointerLeaveCapture={undefined}
+                        >
+                            Get in touch
+                        </Typography>
                     </div>
                 </div>
 
@@ -68,6 +80,9 @@ export default function Footer() {
                     <Typography
                         variant='small'
                         className='mb-4 text-center font-normal text-blue-gray-900 md:mb-0'
+                        placeholder={undefined}
+                        onPointerEnterCapture={undefined}
+                        onPointerLeaveCapture={undefined}
                     >
                         &copy; {currentYear}{' '}
                         <a href={import.meta.env.VITE_HOME}>Edu Connect</a>. All
@@ -78,6 +93,9 @@ export default function Footer() {
                             as='a'
                             href='#'
                             className='opacity-80 transition-opacity hover:opacity-100'
+                            placeholder={undefined}
+                            onPointerEnterCapture={undefined}
+                            onPointerLeaveCapture={undefined}
                         >
                             <svg
                                 className='size-5'
@@ -96,6 +114,9 @@ export default function Footer() {
                             as='a'
                             href='#'
                             className='opacity-80 transition-opacity hover:opacity-100'
+                            placeholder={undefined}
+                            onPointerEnterCapture={undefined}
+                            onPointerLeaveCapture={undefined}
                         >
                             <svg
                                 className='size-5'
@@ -114,6 +135,9 @@ export default function Footer() {
                             as='a'
                             href='#'
                             className='opacity-80 transition-opacity hover:opacity-100'
+                            placeholder={undefined}
+                            onPointerEnterCapture={undefined}
+                            onPointerLeaveCapture={undefined}
                         >
                             <svg
                                 className='size-5'
@@ -128,6 +152,9 @@ export default function Footer() {
                             as='a'
                             href='#'
                             className='opacity-80 transition-opacity hover:opacity-100'
+                            placeholder={undefined}
+                            onPointerEnterCapture={undefined}
+                            onPointerLeaveCapture={undefined}
                         >
                             <svg
                                 className='size-5'

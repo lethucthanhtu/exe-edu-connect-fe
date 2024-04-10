@@ -20,9 +20,15 @@ export default function App() {
                                 key={index}
                                 path={route.path}
                                 element={
-                                    <Layout>
+                                    Layout ? (
+                                        <>
+                                            <Layout>
+                                                <Page />
+                                            </Layout>
+                                        </>
+                                    ) : (
                                         <Page />
-                                    </Layout>
+                                    )
                                 }
                             />
                         );

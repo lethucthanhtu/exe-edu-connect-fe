@@ -1,3 +1,4 @@
+import DefaultLayout from '../components/layout/defaultLayout';
 import About from '../pages/about';
 import Course from '../pages/course';
 import Courses from '../pages/courses';
@@ -12,20 +13,20 @@ import User from '../pages/user';
 
 const publicRoutes = [
     // { name: '', path: '/', component: Landing },
-    { name: 'home'      , path: '/'         , component: Home       },
-    { name: 'home_'     , path: '/home'     , component: Home       },
-    { name: 'landing'   , path: '/landing'  , component: Landing    },
-    { name: 'login'     , path: '/login'    , component: Login      },
-    { name: 'signup'    , path: '/signup'   , component: Signup     },
-    { name: 'course'    , path: '/course'   , component: Course     },
-    { name: 'courses'   , path: '/courses'  , component: Courses    },
-    { name: 'about'     , path: '/about'    , component: About      },
-    { name: 'user'      , path: '/user'     , component: User       },
-    { name: 'dashboard' , path: '/dashboard', component: Dashboard  },
-    { name: 'search'    , path: '/search'   , component: Search     },
-    { name: 'error'     , path: '*'         , component: Error      },
+    { name: 'home'      , path: '/'         , component: Home      , layout: DefaultLayout },
+    { name: 'home_'     , path: '/home'     , component: Home      , layout: DefaultLayout },
+    { name: 'landing'   , path: '/landing'  , component: Landing   , layout: DefaultLayout },
+    { name: 'login'     , path: '/login'    , component: Login     , layout: DefaultLayout },
+    { name: 'signup'    , path: '/signup'   , component: Signup    , layout: DefaultLayout },
+    { name: 'course'    , path: '/course'   , component: Course    , layout: DefaultLayout },
+    { name: 'courses'   , path: '/courses'  , component: Courses   , layout: DefaultLayout },
+    { name: 'about'     , path: '/about'    , component: About     , layout: DefaultLayout },
+    { name: 'user'      , path: '/user'     , component: User      , layout: DefaultLayout },
+    { name: 'dashboard' , path: '/dashboard', component: Dashboard , layout: DefaultLayout },
+    { name: 'search'    , path: '/search'   , component: Search    , layout: DefaultLayout },
+    { name: 'error'     , path: '*'         , component: Error     , layout: DefaultLayout },
 ];
 
-const privateRoutes = [];
+const privateRoutes = [{}];
 
 export { publicRoutes, privateRoutes };

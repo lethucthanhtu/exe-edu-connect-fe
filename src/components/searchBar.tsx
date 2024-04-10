@@ -10,17 +10,17 @@ export function SearchBar() {
     const handleChange = ({ target }) => setQuery(target.value);
     const handleClear = () => {
         setQuery('');
-        searchBarRef.current.focus();
+        searchBarRef.current!.focus();
     };
 
     useEffect(() => {
         const handleKeyDown = (event) => {
             if (
                 event.key === '/' &&
-                !searchBarRef.current.contains(document.activeElement)
+                !searchBarRef.current!.contains(document.activeElement)
             ) {
                 event.preventDefault();
-                searchBarRef.current.focus();
+                searchBarRef.current!.focus();
             }
         };
 
@@ -39,9 +39,12 @@ export function SearchBar() {
                     onChange={handleChange}
                     className='pr-20'
                     inputRef={searchBarRef}
-                    containerProps={{
-                        className: 'min-w-0',
-                    }}
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
+                    crossOrigin={undefined}
+                    // containerProps={{
+                    //     className: 'min-w-0',
+                    // }}
                     // icon={
                     //     query && (
                     //         <IconButton
@@ -63,6 +66,9 @@ export function SearchBar() {
                             size='sm'
                             variant='text'
                             onClick={handleClear}
+                            placeholder={undefined}
+                            onPointerEnterCapture={undefined}
+                            onPointerLeaveCapture={undefined}
                         >
                             <svg
                                 className='size-4 text-gray-500 dark:text-white'
@@ -94,6 +100,9 @@ export function SearchBar() {
                         variant='text'
                         color={query ? 'green' : 'blue-gray'}
                         disabled={!query}
+                        placeholder={undefined}
+                        onPointerEnterCapture={undefined}
+                        onPointerLeaveCapture={undefined}
                     >
                         <svg
                             className='size-4'

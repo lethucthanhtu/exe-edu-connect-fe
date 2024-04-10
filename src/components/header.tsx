@@ -15,7 +15,6 @@ import {
 import { SearchBar } from './searchBar';
 import logo from '../assets/edu-connect.svg';
 import { capitalize } from '../utils/utils';
-import { publicRoutes } from '../utils/routes';
 
 // profile menu component
 const profileMenuItems = [
@@ -53,6 +52,9 @@ function ProfileMenu() {
                     variant='text'
                     color='blue-gray'
                     className='flex items-center gap-1 rounded-full p-0.5 lg:ml-auto'
+                    placeholder={undefined}
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
                 >
                     <Avatar
                         variant='circular'
@@ -60,11 +62,19 @@ function ProfileMenu() {
                         alt='tania andrew'
                         className='border border-gray-900 p-0.5'
                         src='https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80'
+                        placeholder={undefined}
+                        onPointerEnterCapture={undefined}
+                        onPointerLeaveCapture={undefined}
                     />
                 </Button>
             </MenuHandler>
-            <MenuList className='p-1 mt-6 shadow-md backdrop-saturate-200 backdrop-blur-2xl'>
-                {profileMenuItems.map(({ label, icon }, key) => {
+            <MenuList
+                className='p-1 mt-6 shadow-md backdrop-saturate-200 backdrop-blur-2xl'
+                placeholder={undefined}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+            >
+                {profileMenuItems.map(({ label }, key) => {
                     const isLastItem = key === profileMenuItems.length - 1;
                     return (
                         <MenuItem
@@ -75,6 +85,9 @@ function ProfileMenu() {
                                     ? 'hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10'
                                     : ''
                             }`}
+                            placeholder={undefined}
+                            onPointerEnterCapture={undefined}
+                            onPointerLeaveCapture={undefined}
                         >
                             {/* {React.createElement(icon, {
                                 className: `sizr ${
@@ -87,6 +100,9 @@ function ProfileMenu() {
                                 variant='small'
                                 className='font-normal'
                                 color={isLastItem ? 'red' : 'inherit'}
+                                placeholder={undefined}
+                                onPointerEnterCapture={undefined}
+                                onPointerLeaveCapture={undefined}
                             >
                                 {label}
                             </Typography>
@@ -101,7 +117,7 @@ function ProfileMenu() {
 export default function Header() {
     const [openNav, setOpenNav] = React.useState(false);
     const [user, setUser] = React.useState(
-        JSON.parse(sessionStorage.getItem('user'))
+        JSON.parse(sessionStorage.getItem('user')!)
     );
     const { t } = useTranslation();
     const home = import.meta.env.VITE_HOME;
@@ -127,6 +143,9 @@ export default function Header() {
                         variant='small'
                         color='blue-gray'
                         className='p-1 font-normal hover:text-green-300 hover:decoration-green-300'
+                        placeholder={undefined}
+                        onPointerEnterCapture={undefined}
+                        onPointerLeaveCapture={undefined}
                     >
                         <a
                             // href={route.path}
@@ -144,12 +163,20 @@ export default function Header() {
 
     return (
         <>
-            <Navbar className='sticky top-0 z-10 h-max max-w-full mb-4 px-4 py-2 lg:px-8 lg:py-2'>
+            <Navbar
+                className='sticky top-0 z-10 h-max max-w-full mb-4 px-4 py-2 lg:px-8 lg:py-2'
+                placeholder={undefined}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+            >
                 <div className='flex items-center justify-between text-blue-gray-900'>
                     <Typography
                         as='a'
                         href={home}
                         className='mr-4 cursor-pointer font-medium'
+                        placeholder={undefined}
+                        onPointerEnterCapture={undefined}
+                        onPointerLeaveCapture={undefined}
                     >
                         <div className='flex items-center justify-center'>
                             <img
@@ -174,6 +201,9 @@ export default function Header() {
                                     size='sm'
                                     // color='green'
                                     className='hidden lg:inline-block'
+                                    placeholder={undefined}
+                                    onPointerEnterCapture={undefined}
+                                    onPointerLeaveCapture={undefined}
                                 >
                                     <span>{t('log in')}</span>
                                 </Button>
@@ -182,6 +212,9 @@ export default function Header() {
                                     size='sm'
                                     color='green'
                                     className='hidden lg:inline-block'
+                                    placeholder={undefined}
+                                    onPointerEnterCapture={undefined}
+                                    onPointerLeaveCapture={undefined}
                                 >
                                     <span>{t('sign up')}</span>
                                 </Button>
@@ -193,6 +226,9 @@ export default function Header() {
                             className='ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden'
                             ripple={false}
                             onClick={() => setOpenNav(!openNav)}
+                            placeholder={undefined}
+                            onPointerEnterCapture={undefined}
+                            onPointerLeaveCapture={undefined}
                         >
                             {openNav ? (
                                 <span className='material-symbols-outlined h-6 w-6'>
@@ -209,7 +245,15 @@ export default function Header() {
                 <MobileNav open={openNav}>
                     {navList}
                     <div className='flex items-center gap-x-1'>
-                        <Button fullWidth variant='text' size='sm' className=''>
+                        <Button
+                            fullWidth
+                            variant='text'
+                            size='sm'
+                            className=''
+                            placeholder={undefined}
+                            onPointerEnterCapture={undefined}
+                            onPointerLeaveCapture={undefined}
+                        >
                             <span>{t('log_in')}</span>
                         </Button>
                         <Button
@@ -217,6 +261,9 @@ export default function Header() {
                             variant='gradient'
                             size='sm'
                             className=''
+                            placeholder={undefined}
+                            onPointerEnterCapture={undefined}
+                            onPointerLeaveCapture={undefined}
                         >
                             <span>{t('sign_up')}</span>
                         </Button>
