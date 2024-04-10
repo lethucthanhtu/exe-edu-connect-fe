@@ -34,7 +34,7 @@ export function SearchBar() {
 
     return (
         <>
-            <Form
+            <form
                 method='get'
                 action='/search'
                 className='relative flex max-w-[24rem]'
@@ -130,7 +130,7 @@ export function SearchBar() {
                         {/* {t('search')} */}
                     </IconButton>
                 </div>
-            </Form>
+            </form>
         </>
     );
 }
