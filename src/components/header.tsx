@@ -15,6 +15,7 @@ import {
 import { SearchBar } from './searchBar';
 import logo from '../assets/edu-connect.svg';
 import { capitalize } from '../utils/utils';
+import { Link } from 'react-router-dom';
 
 // profile menu component
 const profileMenuItems = [
@@ -146,13 +147,13 @@ export default function Header() {
                         onPointerEnterCapture={undefined}
                         onPointerLeaveCapture={undefined}
                     >
-                        <a
+                        <Link
                             // href={route.path}
-                            href={`/${t_name}`}
+                            to={`/${t_name}`}
                             className='flex items-center'
                         >
                             {capitalize(t(t_name))}
-                        </a>
+                        </Link>
                     </Typography>
                 )
                 // )
@@ -195,7 +196,7 @@ export default function Header() {
                             <ProfileMenu />
                         ) : (
                             <div className='flex items-center gap-x-1'>
-                                <a href='/login'>
+                                <Link to='/login'>
                                     <Button
                                         variant='text'
                                         size='sm'
@@ -207,8 +208,8 @@ export default function Header() {
                                     >
                                         <span>{t('log in')}</span>
                                     </Button>
-                                </a>
-                                <a href='/signup'>
+                                </Link>
+                                <Link to='/signup'>
 
                                     <Button
                                         variant='gradient'
@@ -221,7 +222,7 @@ export default function Header() {
                                     >
                                         <span>{t('sign up')}</span>
                                     </Button>
-                                </a>
+                                </Link>
                             </div>
                         )}
 

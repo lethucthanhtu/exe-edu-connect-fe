@@ -1,5 +1,6 @@
 import { Typography } from '@material-tailwind/react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 const SITEMAP = [
     {
@@ -53,12 +54,12 @@ export default function Footer() {
                                             onPointerEnterCapture={undefined}
                                             onPointerLeaveCapture={undefined}
                                         >
-                                            <a
-                                                href='#'
+                                            <Link
+                                                to='#'
                                                 className='inline-block py-1 pr-2 transition-transform hover:scale-105'
                                             >
                                                 {link}
-                                            </a>
+                                            </Link>
                                         </Typography>
                                     ))}
                                 </ul>
