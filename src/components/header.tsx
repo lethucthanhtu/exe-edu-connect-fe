@@ -80,11 +80,10 @@ function ProfileMenu() {
                         <MenuItem
                             key={label}
                             onClick={closeMenu}
-                            className={`flex items-center gap-2 rounded ${
-                                isLastItem
+                            className={`flex items-center gap-2 rounded ${isLastItem
                                     ? 'hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10'
                                     : ''
-                            }`}
+                                }`}
                             placeholder={undefined}
                             onPointerEnterCapture={undefined}
                             onPointerLeaveCapture={undefined}
@@ -117,7 +116,7 @@ function ProfileMenu() {
 export default function Header() {
     const [openNav, setOpenNav] = React.useState(false);
     const [user, setUser] = React.useState(
-        JSON.parse(sessionStorage.getItem('user')!)
+        JSON.parse(sessionStorage.getItem('user'))
     );
     const { t } = useTranslation();
     const home = import.meta.env.VITE_HOME;
@@ -136,7 +135,7 @@ export default function Header() {
                     // publicRoutes.map((route) =>
                     //     route.name !== t_name ? (
                     //         ''
-                    //     ) :
+                    //     ) : (
                     <Typography
                         as='li'
                         key={index}
@@ -172,7 +171,7 @@ export default function Header() {
                 <div className='flex items-center justify-between text-blue-gray-900'>
                     <Typography
                         as='a'
-                        href={home}
+                        href='/'
                         className='mr-4 cursor-pointer font-medium'
                         placeholder={undefined}
                         onPointerEnterCapture={undefined}
@@ -196,28 +195,33 @@ export default function Header() {
                             <ProfileMenu />
                         ) : (
                             <div className='flex items-center gap-x-1'>
-                                <Button
-                                    variant='text'
-                                    size='sm'
-                                    // color='green'
-                                    className='hidden lg:inline-block'
-                                    placeholder={undefined}
-                                    onPointerEnterCapture={undefined}
-                                    onPointerLeaveCapture={undefined}
-                                >
-                                    <span>{t('log in')}</span>
-                                </Button>
-                                <Button
-                                    variant='gradient'
-                                    size='sm'
-                                    color='green'
-                                    className='hidden lg:inline-block'
-                                    placeholder={undefined}
-                                    onPointerEnterCapture={undefined}
-                                    onPointerLeaveCapture={undefined}
-                                >
-                                    <span>{t('sign up')}</span>
-                                </Button>
+                                <a href='/login'>
+                                    <Button
+                                        variant='text'
+                                        size='sm'
+                                        // color='green'
+                                        className='hidden lg:inline-block'
+                                        placeholder={undefined}
+                                        onPointerEnterCapture={undefined}
+                                        onPointerLeaveCapture={undefined}
+                                    >
+                                        <span>{t('log in')}</span>
+                                    </Button>
+                                </a>
+                                <a href='/signup'>
+
+                                    <Button
+                                        variant='gradient'
+                                        size='sm'
+                                        color='green'
+                                        className='hidden lg:inline-block'
+                                        placeholder={undefined}
+                                        onPointerEnterCapture={undefined}
+                                        onPointerLeaveCapture={undefined}
+                                    >
+                                        <span>{t('sign up')}</span>
+                                    </Button>
+                                </a>
                             </div>
                         )}
 

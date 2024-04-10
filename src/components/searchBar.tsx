@@ -2,9 +2,11 @@ import React, { useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { capitalize } from '../utils/utils';
 import { Input, IconButton } from '@material-tailwind/react';
+import { useSearchParams } from 'react-router-dom';
 
 export function SearchBar() {
-    const [query, setQuery] = React.useState('');
+    const [params] = useSearchParams();
+    const [query, setQuery] = React.useState(params.get('q') || '');
     const { t } = useTranslation();
     const searchBarRef = useRef(null);
     const handleChange = ({ target }) => setQuery(target.value);
@@ -12,7 +14,8 @@ export function SearchBar() {
         setQuery('');
         searchBarRef.current!.focus();
     };
-
+    
+    //handle focus search bar
     useEffect(() => {
         const handleKeyDown = (event) => {
             if (
@@ -31,10 +34,15 @@ export function SearchBar() {
 
     return (
         <>
-            <form className='relative flex max-w-[24rem]'>
+            <form
+                method='get'
+                action='/search'
+                className='relative flex max-w-[24rem]'
+            >
                 <Input
                     type='text'
                     label={capitalize(t('search'))}
+                    name='q'
                     value={query}
                     onChange={handleChange}
                     className='pr-20'
@@ -42,23 +50,23 @@ export function SearchBar() {
                     onPointerEnterCapture={undefined}
                     onPointerLeaveCapture={undefined}
                     crossOrigin={undefined}
-                    // containerProps={{
-                    //     className: 'min-w-0',
-                    // }}
-                    // icon={
-                    //     query && (
-                    //         <IconButton
-                    //             size='sm'
-                    //             variant='text'
-                    //             onClick={handleClear}
-                    //             className='!absolute right-8 inset-y-1 rounded'
-                    //         >
-                    //             <span className='material-symbols-outlined size-8'>
-                    //                 close
-                    //             </span>
-                    //         </IconButton>
-                    //     )
-                    // }
+                // containerProps={{
+                //     className: 'min-w-0',
+                // }}
+                // icon={
+                //     query && (
+                //         <IconButton
+                //             size='sm'
+                //             variant='text'
+                //             onClick={handleClear}
+                //             className='!absolute right-8 inset-y-1 rounded'
+                //         >
+                //             <span className='material-symbols-outlined size-8'>
+                //                 close
+                //             </span>
+                //         </IconButton>
+                //     )
+                // }
                 />
                 <div className='flex justify-between !absolute right-1 inset-y-1 '>
                     {query ? (
