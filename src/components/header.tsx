@@ -147,13 +147,13 @@ export default function Header() {
                         onPointerEnterCapture={undefined}
                         onPointerLeaveCapture={undefined}
                     >
-                        <Link
-                            // href={route.path}
-                            to={`/${t_name}`}
+                        <a
+                            href={`/${t_name}`}
+                            // to={`/${t_name}`}
                             className='flex items-center'
                         >
                             {capitalize(t(t_name))}
-                        </Link>
+                        </a>
                     </Typography>
                 )
                 // )

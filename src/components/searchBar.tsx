@@ -14,7 +14,7 @@ export function SearchBar() {
         setQuery('');
         searchBarRef.current!.focus();
     };
-    
+
     //handle focus search bar
     useEffect(() => {
         const handleKeyDown = (event) => {
@@ -34,7 +34,7 @@ export function SearchBar() {
 
     return (
         <>
-            <Form
+            <form
                 method='get'
                 action='/search'
                 className='relative flex max-w-[24rem]'
@@ -50,23 +50,23 @@ export function SearchBar() {
                     onPointerEnterCapture={undefined}
                     onPointerLeaveCapture={undefined}
                     crossOrigin={undefined}
-                // containerProps={{
-                //     className: 'min-w-0',
-                // }}
-                // icon={
-                //     query && (
-                //         <IconButton
-                //             size='sm'
-                //             variant='text'
-                //             onClick={handleClear}
-                //             className='!absolute right-8 inset-y-1 rounded'
-                //         >
-                //             <span className='material-symbols-outlined size-8'>
-                //                 close
-                //             </span>
-                //         </IconButton>
-                //     )
-                // }
+                    // containerProps={{
+                    //     className: 'min-w-0',
+                    // }}
+                    // icon={
+                    //     query && (
+                    //         <IconButton
+                    //             size='sm'
+                    //             variant='text'
+                    //             onClick={handleClear}
+                    //             className='!absolute right-8 inset-y-1 rounded'
+                    //         >
+                    //             <span className='material-symbols-outlined size-8'>
+                    //                 close
+                    //             </span>
+                    //         </IconButton>
+                    //     )
+                    // }
                 />
                 <div className='flex justify-between !absolute right-1 inset-y-1 '>
                     {query ? (
@@ -130,7 +130,7 @@ export function SearchBar() {
                         {/* {t('search')} */}
                     </IconButton>
                 </div>
-            </Form>
+            </form>
         </>
     );
 }

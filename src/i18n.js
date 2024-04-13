@@ -6,8 +6,8 @@ export default i18n
     .use(LanguageDetector)
     .use(initReactI18next)
     .init({
-        debug: true,
-        debugger: true,
+        // debug: true,
+        // debugger: true,
         lng: 'vn',
         fallbackLng: 'en',
         resources: {
