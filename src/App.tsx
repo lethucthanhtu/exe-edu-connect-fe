@@ -1,16 +1,13 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { StaticRouter } from 'react-router-dom/server';
 import DefaultLayout from './components/layout/defaultLayout';
 import { publicRoutes } from './utils/routes';
 
 export default function App() {
     return (
         <>
-            {/* <DefaultLayout>
-                <LanguageButton />
-                <div className='h-screen'></div>
-            </DefaultLayout> */}
-
-            <Router>
+            <StaticRouter location='/'>
+                {/* <Router> */}
                 <Routes>
                     {publicRoutes.map((route, index) => {
                         const Page = route.component;
@@ -20,21 +17,18 @@ export default function App() {
                                 key={index}
                                 path={route.path}
                                 element={
-                                    Layout ? (
-                                        <>
-                                            <Layout>
-                                                <Page />
-                                            </Layout>
-                                        </>
-                                    ) : (
-                                        <Page />
-                                    )
+                                    <>
+                                        <Layout>
+                                            <Page />
+                                        </Layout>
+                                    </>
                                 }
                             />
                         );
                     })}
                 </Routes>
-            </Router>
+                {/* </Router> */}
+            </StaticRouter>
         </>
     );
 }
