@@ -63,14 +63,23 @@ export function createRoutes(routes: TRoute[]) {
         const Layout = route.layout || DefaultLayout;
 
         return (
-            <Route key={route.path} path={route.path}>
+            <Route
+                key={route.path}
+                path={route.path}
+                element={
+                    !route.children && (
+                        <Layout>
+                            <Page />
+                        </Layout>
+                    )
+                }
+            >
                 <Route
                     index
                     element={
                         <Layout>
                             <Page />
                         </Layout>
-                        // <Layout/>
                     }
                 />
                 {

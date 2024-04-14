@@ -11,7 +11,7 @@ const app = express();
 app.use('^/$', (req, res) => {
     fs.readFile(path.resolve('./dist/index.html'), 'utf-8', (err, data) => {
         if (err) {
-            console.err(err);
+            console.log(err);
             return res.status(500).send('Some error happened');
         }
 

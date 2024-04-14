@@ -8,12 +8,9 @@
         "dev": "vite",
         "build": "tsc && vite build",
         "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-        "preview": "vite preview",
-        "ssr": "node server/index.js"
+        "preview": "vite preview"
     },
     "dependencies": {
-        "@babel/preset-env": "^7.24.4",
-        "@babel/register": "^7.23.7",
         "@material-tailwind/react": "^2.1.9",
         "express": "^4.19.2",
         "i18next": "^23.10.1",
