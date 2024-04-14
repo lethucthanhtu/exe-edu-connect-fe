@@ -5,7 +5,7 @@
     "type": "module",
     "scripts": {
         "start": "vite",
-        "dev": "node server",
+        "dev": "cross-env NODE_ENV=development node ./server.js",
         "build": "tsc && npm run build:client && npm run build:server",
         "build:client": "vite build --ssrManifest --outDir dist/client",
         "build:server": "vite build --ssr src/entry-server.tsx --outDir dist/server",
@@ -14,6 +14,7 @@
     },
     "dependencies": {
         "@material-tailwind/react": "^2.1.9",
+        "cross-env": "^7.0.3",
         "express": "^4.19.2",
         "i18next": "^23.10.1",
         "i18next-browser-languagedetector": "^7.2.1",
@@ -37,6 +38,7 @@
         "postcss": "^8.4.38",
         "tailwindcss": "^3.4.3",
         "typescript": "^5.2.2",
-        "vite": "^5.2.0"
+        "vite": "^5.2.0",
+        "vite-plugin-commonjs": "^0.10.1"
     }
 }

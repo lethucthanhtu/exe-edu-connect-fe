@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { ThemeProvider } from '@material-tailwind/react';
-import { StaticRouter as Router } from 'react-router-dom/server';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 import App from './App'
 import './index.css';
@@ -11,7 +11,7 @@ ReactDOM.hydrateRoot(
     document.getElementById('root') as HTMLElement,
     <React.StrictMode>
         <ThemeProvider>
-            <Router location={'/'}>
+            <Router>
                 <App />
             </Router>
         </ThemeProvider>
