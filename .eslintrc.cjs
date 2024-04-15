@@ -24,5 +24,6 @@ module.exports = {
                 reportUsedIgnorePattern: false,
             },
         ],
+        'no-undef': 'off',
     },
 };

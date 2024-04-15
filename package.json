@@ -5,10 +5,12 @@
     "type": "module",
     "scripts": {
         "start": "npm run dev",
-        "dev": "vite",
-        "build": "tsc && vite build",
-        "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-        "preview": "vite preview"
+        "dev": "node server",
+        "build": "npm run build:client && npm run build:server",
+        "build:client": "vite build --ssrManifest --outDir dist/client",
+        "build:server": "vite build --ssr src/entry-server.tsx --outDir dist/server",
+        "preview": "cross-env NODE_ENV=production node server",
+        "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
     },
     "dependencies": {
         "@material-tailwind/react": "^2.1.9",

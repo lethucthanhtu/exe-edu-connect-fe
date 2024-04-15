@@ -27,6 +27,7 @@ export default i18n
                     'log in': 'đăng nhập',
                     'sign up': 'đăng ký',
                     search: 'tim kiếm',
+                    'Go back to Home':'Về trang chủ'
                 },
             },
         },
