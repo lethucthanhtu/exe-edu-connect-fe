@@ -14,7 +14,6 @@ import {
 } from '@material-tailwind/react';
 import { SearchBar } from './searchBar';
 import logo from '../assets/edu-connect.svg';
-import { capitalize } from '../utils/utils';
 import { Link, NavLink } from 'react-router-dom';
 
 // profile menu component
@@ -39,6 +38,19 @@ const profileMenuItems = [
         label: 'Sign Out',
         // icon: PowerIcon,
     },
+];
+
+type TNavItem = {
+    tName: string;
+    name?: string;
+    path?: string;
+};
+
+const navItems: TNavItem[] = [
+    { name: '', tName: 'home', path: '' },
+    { name: '', tName: 'courses', path: '' },
+    { name: '', tName: 'about', path: '' },
+    { name: '', tName: 'contact', path: '' },
 ];
 
 function ProfileMenu() {
@@ -115,29 +127,12 @@ function ProfileMenu() {
     );
 }
 
-export default function Header() {
-    const [openNav, setOpenNav] = React.useState(false);
-    const [user, setUser] = React.useState(
-        JSON.parse(sessionStorage.getItem('user'))
-    );
+function NavList() {
     const { t } = useTranslation();
-    const home = import.meta.env.VITE_HOME;
-
-    const navItems = [
-        { navItem: 'home' },
-        { navItem: 'courses' },
-        { navItem: 'about' },
-        { navItem: 'contact' },
-    ];
-
-    const navList = (
-        <ul className='mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6 capitalize'>
-            {navItems.map(
-                ({ navItem }, index) => (
-                    // publicRoutes.map((route) =>
-                    //     route.name !== navItem ? (
-                    //         ''
-                    //     ) : (
+    return (
+        <>
+            <ul className='mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6 capitalize'>
+                {navItems.map(({ name, tName, path }, index) => (
                     <Typography
                         as='li'
                         key={index}
@@ -149,18 +144,24 @@ export default function Header() {
                         onPointerLeaveCapture={undefined}
                     >
                         <NavLink
-                            // href={`/${navItem}`}
-                            to={`/${navItem}`}
+                            to={`/${path || tName}`}
                             className='flex items-center aria-[current=page]:text-green-400 aria-[current=page]:underline aria-[current=page]:underline-offset-8 aria-[current=page]:decoration-2'
                         >
-                            {t(navItem)}
+                            {t(name || tName)}
                         </NavLink>
                     </Typography>
-                )
-                // )
-            )}
-        </ul>
+                ))}
+            </ul>
+        </>
     );
+}
+
+export default function Header() {
+    const [openNav, setOpenNav] = React.useState(false);
+    const [user, setUser] = React.useState(
+        JSON.parse(sessionStorage.getItem('user'))
+    );
+    const { t } = useTranslation();
 
     return (
         <>
@@ -172,25 +173,28 @@ export default function Header() {
             >
                 <div className='flex items-center justify-between text-blue-gray-900'>
                     <Typography
-                        as='a'
-                        href='/'
-                        className='mr-4 cursor-pointer font-medium'
+                        className='mr-4 cursor-pointer font-medium  select-none'
                         placeholder={undefined}
                         onPointerEnterCapture={undefined}
                         onPointerLeaveCapture={undefined}
                     >
-                        <div className='flex items-center justify-center'>
+                        <Link
+                            to='/'
+                            className='flex items-center justify-center'
+                        >
                             <img
                                 className='h-16'
                                 src={logo}
                                 alt='edu connect'
                             />
-                            <div className='hidden lg:inline-block'>
+                            <span className='hidden lg:inline-block'>
                                 Edu Connect
-                            </div>
-                        </div>
+                            </span>
+                        </Link>
                     </Typography>
-                    <div className='mr-4 hidden lg:block'>{navList}</div>
+                    <div className='mr-4 hidden lg:block'>
+                        <NavList />
+                    </div>
                     <div className='flex items-center gap-4'>
                         <SearchBar />
                         {user ? (
@@ -201,7 +205,6 @@ export default function Header() {
                                     <Button
                                         variant='text'
                                         size='sm'
-                                        // color='green'
                                         className='hidden lg:inline-block'
                                         placeholder={undefined}
                                         onPointerEnterCapture={undefined}
@@ -248,7 +251,7 @@ export default function Header() {
                     </div>
                 </div>
                 <MobileNav open={openNav}>
-                    {navList}
+                    <NavList />
                     <div className='flex items-center gap-x-1'>
                         <Button
                             fullWidth
@@ -259,18 +262,19 @@ export default function Header() {
                             onPointerEnterCapture={undefined}
                             onPointerLeaveCapture={undefined}
                         >
-                            <span>{t('log_in')}</span>
+                            <span>{t('log in')}</span>
                         </Button>
                         <Button
                             fullWidth
                             variant='gradient'
                             size='sm'
+                            color='green'
                             className=''
                             placeholder={undefined}
                             onPointerEnterCapture={undefined}
                             onPointerLeaveCapture={undefined}
                         >
-                            <span>{t('sign_up')}</span>
+                            <span>{t('sign up')}</span>
                         </Button>
                     </div>
                 </MobileNav>

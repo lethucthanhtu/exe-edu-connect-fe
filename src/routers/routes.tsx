@@ -7,6 +7,7 @@ import Error from '../pages/error';
 import Home from '../pages/home';
 import Landing from '../pages/landing';
 import Login from '../pages/login';
+import Profile from '../pages/profile';
 import Search from '../pages/search';
 import Signup from '../pages/signup';
 import User from '../pages/user';
@@ -105,17 +106,28 @@ const routes = createBrowserRouter([
     {
         path: '',
         element: <DefaultLayout />,
-        errorElement: <Error/>,
+        errorElement: <Error />,
         children: [
-            { index: true      , element: <Home />    },
-            { path : 'home'    , element: <Home />    },
-            { path : 'about'   , element: <About />   },
-            { path : 'courses' , element: <Courses /> },
-            { path : 'user/:id', element: <User />    },
+            { index: true        , element: <Home    /> },
+            { path : 'home'      , element: <Home    /> },
+            { path : 'about'     , element: <About   /> },
+            { path : 'courses'   , element: <Courses /> },
+            { path : 'search'    , element: <Search  /> },
+            {
+                path: 'user/:id',
+                // element: <User />,
+                children: [
+                    { index: true     , element: <User    /> },
+                    { path : 'profile', element: <Profile /> },
+                ],
+            },
+            { path : 'course/:id', element: <Course  /> },
+            { path : '*'         , element: <Error   /> },
         ],
     },
     { path: 'login' , element: <Login/>  },
-    { path: 'signup', element: <Signup/> }
+    { path: 'signup', element: <Signup/> },
+    { path: '*'     , element: <Error /> },
 ]);
 
 export default function AppRouter() {

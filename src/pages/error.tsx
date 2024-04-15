@@ -1,7 +1,10 @@
 import { Button, Typography } from '@material-tailwind/react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 export default function Error() {
+    const { t } =useTranslation();
+
     return (
         <>
             <div className='min-h-screen flex flex-grow items-center justify-center bg-gray-50'>
@@ -24,7 +27,7 @@ export default function Error() {
                             onPointerEnterCapture={undefined}
                             onPointerLeaveCapture={undefined}
                         >
-                            Go back to Home
+                            {t('Go back to Home')}
                         </Button>
                     </Link>
                 </Typography>
