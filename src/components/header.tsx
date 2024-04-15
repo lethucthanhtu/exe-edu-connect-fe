@@ -15,7 +15,7 @@ import {
 import { SearchBar } from './searchBar';
 import logo from '../assets/edu-connect.svg';
 import { capitalize } from '../utils/utils';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 // profile menu component
 const profileMenuItems = [
@@ -81,10 +81,11 @@ function ProfileMenu() {
                         <MenuItem
                             key={label}
                             onClick={closeMenu}
-                            className={`flex items-center gap-2 rounded ${isLastItem
+                            className={`flex items-center gap-2 rounded ${
+                                isLastItem
                                     ? 'hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10'
                                     : ''
-                                }`}
+                            }`}
                             placeholder={undefined}
                             onPointerEnterCapture={undefined}
                             onPointerLeaveCapture={undefined}
@@ -123,18 +124,18 @@ export default function Header() {
     const home = import.meta.env.VITE_HOME;
 
     const navItems = [
-        { t_name: 'home', url: '/' },
-        { t_name: 'courses', url: '#' },
-        { t_name: 'about', url: '#' },
-        { t_name: 'contact', url: '#' },
+        { navItem: 'home' },
+        { navItem: 'courses' },
+        { navItem: 'about' },
+        { navItem: 'contact' },
     ];
 
     const navList = (
-        <ul className='mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6'>
+        <ul className='mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6 capitalize'>
             {navItems.map(
-                ({ t_name, url }, index) => (
+                ({ navItem }, index) => (
                     // publicRoutes.map((route) =>
-                    //     route.name !== t_name ? (
+                    //     route.name !== navItem ? (
                     //         ''
                     //     ) : (
                     <Typography
@@ -147,13 +148,13 @@ export default function Header() {
                         onPointerEnterCapture={undefined}
                         onPointerLeaveCapture={undefined}
                     >
-                        <a
-                            href={`/${t_name}`}
-                            // to={`/${t_name}`}
-                            className='flex items-center'
+                        <NavLink
+                            // href={`/${navItem}`}
+                            to={`/${navItem}`}
+                            className='flex items-center aria-[current=page]:text-green-400 aria-[current=page]:underline aria-[current=page]:underline-offset-8 aria-[current=page]:decoration-2'
                         >
-                            {capitalize(t(t_name))}
-                        </a>
+                            {t(navItem)}
+                        </NavLink>
                     </Typography>
                 )
                 // )
@@ -210,7 +211,6 @@ export default function Header() {
                                     </Button>
                                 </Link>
                                 <Link to='/signup'>
-
                                     <Button
                                         variant='gradient'
                                         size='sm'

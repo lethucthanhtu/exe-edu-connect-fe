@@ -1,28 +1,15 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-// import ReactDOM from 'react-dom/client';
-// import { BrowserRouter as Router } from 'react-router-dom';
-import { StaticRouter as Router } from 'react-router-dom/server';
+import ReactDOM from 'react-dom/client';
 import { ThemeProvider } from '@material-tailwind/react';
 
 import App from './App';
 import './index.css';
-import './i18n.js';
+import './i18n/i18n';
 
-// ReactDOM.createRoot(document.getElementById('root')).render(
-//     <React.StrictMode>
-//         <ThemeProvider>
-//             <App />
-//         </ThemeProvider>
-//     </React.StrictMode>
-// );
-ReactDOM.hydrate(
+ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
         <ThemeProvider>
-            <Router location={'/'}>
-                <App />
-            </Router>
+            <App />
         </ThemeProvider>
-    </React.StrictMode>,
-    document.getElementById('root')
+    </React.StrictMode>
 );

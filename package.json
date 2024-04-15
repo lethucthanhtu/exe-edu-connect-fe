@@ -4,16 +4,15 @@
     "version": "0.0.0",
     "type": "module",
     "scripts": {
-        "start": "vite",
-        "dev": "cross-env NODE_ENV=development node ./server.js",
-        "build": "tsc && npm run build:client && npm run build:server",
-        "build:client": "vite build --ssrManifest --outDir dist/client",
-        "build:server": "vite build --ssr src/entry-server.tsx --outDir dist/server",
+        "start": "npm run dev",
+        "dev": "vite",
+        "build": "tsc && vite build",
         "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
         "preview": "vite preview"
     },
     "dependencies": {
         "@material-tailwind/react": "^2.1.9",
+        "axios": "^1.6.8",
         "cross-env": "^7.0.3",
         "express": "^4.19.2",
         "i18next": "^23.10.1",
