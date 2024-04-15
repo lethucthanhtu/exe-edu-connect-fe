@@ -10,7 +10,7 @@ export function capitalize(str: string): string {
  * Upper first letter of all words in String
  * Example: hEllo wORld => Hello World
  */
-export function capitalizes(str: string): string {
+function capitalizes(str: string): string {
     const words = str.split(' ');
     return words
         .map((word) => {

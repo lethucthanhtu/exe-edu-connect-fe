@@ -1,15 +1,12 @@
-import React from 'react';
+import { Outlet } from 'react-router-dom';
 import Footer from '../footer';
 import Header from '../header';
 
-export default function DefaultLayout({ children }) {
+export default function DefaultLayout() {
     return (
         <>
-
             <Header />
-
-            {children}
-            {/* {React.Children.toArray(children)} */}
+            <Outlet />
             <Footer />
         </>
     );

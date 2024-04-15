@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { capitalize } from '../utils/utils';
 import { Input, IconButton } from '@material-tailwind/react';
-import { useSearchParams } from 'react-router-dom';
+import { Form, useSearchParams } from 'react-router-dom';
 
 export function SearchBar() {
     const [params] = useSearchParams();
@@ -14,7 +14,7 @@ export function SearchBar() {
         setQuery('');
         searchBarRef.current!.focus();
     };
-    
+
     //handle focus search bar
     useEffect(() => {
         const handleKeyDown = (event) => {
@@ -50,23 +50,23 @@ export function SearchBar() {
                     onPointerEnterCapture={undefined}
                     onPointerLeaveCapture={undefined}
                     crossOrigin={undefined}
-                // containerProps={{
-                //     className: 'min-w-0',
-                // }}
-                // icon={
-                //     query && (
-                //         <IconButton
-                //             size='sm'
-                //             variant='text'
-                //             onClick={handleClear}
-                //             className='!absolute right-8 inset-y-1 rounded'
-                //         >
-                //             <span className='material-symbols-outlined size-8'>
-                //                 close
-                //             </span>
-                //         </IconButton>
-                //     )
-                // }
+                    // containerProps={{
+                    //     className: 'min-w-0',
+                    // }}
+                    // icon={
+                    //     query && (
+                    //         <IconButton
+                    //             size='sm'
+                    //             variant='text'
+                    //             onClick={handleClear}
+                    //             className='!absolute right-8 inset-y-1 rounded'
+                    //         >
+                    //             <span className='material-symbols-outlined size-8'>
+                    //                 close
+                    //             </span>
+                    //         </IconButton>
+                    //     )
+                    // }
                 />
                 <div className='flex justify-between !absolute right-1 inset-y-1 '>
                     {query ? (
