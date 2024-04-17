@@ -23,11 +23,15 @@ const SITEMAP = [
 
 const currentYear = new Date().getFullYear();
 
+/**
+ * footer component
+ * @returns JSX.Element
+ */
 export default function Footer() {
     const { t } = useTranslation();
 
     return (
-        <footer className='relative w-full border-t border-gray-200'>
+        <footer className='relative w-full mt-auto border-t border-gray-200'>
             <div className='w-full'>
                 <div className='flex flex-row'>
                     <div className='basis-2/3 mx-auto px-8 grid w-full grid-cols-1 gap-8 py-12 md:grid-cols-2 lg:grid-cols-4'>
@@ -77,7 +81,7 @@ export default function Footer() {
                     </div>
                 </div>
 
-                <div className='px-8 flex w-full flex-col items-center bg-green-800 justify-center border-t border-blue-gray-50 py-4 md:flex-row md:justify-between'>
+                <div className='px-8 flex w-full flex-col items-center bg-primary justify-center border-t border-blue-gray-50 py-4 md:flex-row md:justify-between'>
                     <Typography
                         variant='small'
                         className='mb-4 text-center font-normal text-blue-gray-900 md:mb-0'
@@ -85,9 +89,8 @@ export default function Footer() {
                         onPointerEnterCapture={undefined}
                         onPointerLeaveCapture={undefined}
                     >
-                        &copy; {currentYear}{' '}
-                        <a href={import.meta.env.VITE_HOME}>Edu Connect</a>. All
-                        Rights Reserved.
+                        &copy; {currentYear} <Link to='/'>Edu Connect</Link>.
+                        All Rights Reserved.
                     </Typography>
                     <div className='flex gap-4 text-blue-gray-900 sm:justify-center'>
                         <Typography

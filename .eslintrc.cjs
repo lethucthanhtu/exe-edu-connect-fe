@@ -14,16 +14,32 @@ module.exports = {
             'warn',
             { allowConstantExport: true },
         ],
-        'no-unused-vars': [
-            'warn',
+        // 'no-undef': 'off',
+        'no-unused-vars': 'off',
+        '@typescript-eslint/no-unused-vars': 'warn',
+        'no-console': 'error',
+        'no-eval': 'error',
+        'require-jsdoc': [
+            'error',
             {
-                vars: 'all',
-                args: 'after-used',
-                caughtErrors: 'all',
-                ignoreRestSiblings: false,
-                reportUsedIgnorePattern: false,
+                require: {
+                    FunctionDeclaration: true,
+                    MethodDefinition: false,
+                    ClassDeclaration: false,
+                    ArrowFunctionExpression: false,
+                    FunctionExpression: false,
+                },
             },
         ],
-        'no-undef': 'off',
+        'max-len': [
+            'error',
+            120,
+            {
+                code: 120,
+                ignoreStrings: true,
+                ignoreComments: true,
+                ignoreTemplateLiterals: true,
+            },
+        ],
     },
 };

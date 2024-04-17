@@ -2,6 +2,10 @@ import { useTranslation } from 'react-i18next';
 // import { useCountries } from 'use-react-countries';
 import { Select, Option } from '@material-tailwind/react';
 
+/**
+ * language switcher component
+ * @returns JSX.Element
+ */
 export default function LanguageButton() {
     const { i18n } = useTranslation();
     // const { countries } = useCountries();

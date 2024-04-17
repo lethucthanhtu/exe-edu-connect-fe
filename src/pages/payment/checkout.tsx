@@ -1,12 +1,12 @@
 /**
- * 500 page
+ * checkout page
  * @returns JSX.Element
  */
-export default function NotHandleYet() {
+export default function Checkout() {
     return (
         <>
             <div className='flex justify-center'>
-                <span className='text-6xl capitalize'>Not handle yet</span>
+                <span className='text-6xl capitalize'>Checkout</span>
             </div>
         </>
     );

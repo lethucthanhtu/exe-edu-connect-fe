@@ -4,6 +4,10 @@ import { capitalize } from '../utils/utils';
 import { Input, IconButton } from '@material-tailwind/react';
 import { Form, useSearchParams } from 'react-router-dom';
 
+/**
+ * search bar component
+ * @returns JSX.Element
+ */
 export function SearchBar() {
     const [params] = useSearchParams();
     const [query, setQuery] = React.useState(params.get('q') || '');
@@ -37,7 +41,7 @@ export function SearchBar() {
             <Form
                 method='get'
                 action='/search'
-                className='relative flex max-w-[24rem]'
+                className='relative flex max-w-[24rem] hidden lg:block'
             >
                 <Input
                     type='text'

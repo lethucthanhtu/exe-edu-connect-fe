@@ -47,12 +47,16 @@ type TNavItem = {
 };
 
 const navItems: TNavItem[] = [
-    { name: '', tName: 'home', path: '' },
+    { name: '', tName: 'home', path: '/' },
     { name: '', tName: 'courses', path: '' },
     { name: '', tName: 'about', path: '' },
     { name: '', tName: 'contact', path: '' },
 ];
 
+/**
+ * profile menu sub-component
+ * @returns JSX.Element
+ */
 function ProfileMenu() {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
@@ -127,6 +131,10 @@ function ProfileMenu() {
     );
 }
 
+/**
+ * nav list sub-component
+ * @returns JSX.Element
+ */
 function NavList() {
     const { t } = useTranslation();
     return (
@@ -138,14 +146,14 @@ function NavList() {
                         key={index}
                         variant='small'
                         color='blue-gray'
-                        className='p-1 font-normal hover:text-green-300 hover:decoration-green-300'
+                        className='p-1 font-normal hover:text-primary hover:decoration-primary'
                         placeholder={undefined}
                         onPointerEnterCapture={undefined}
                         onPointerLeaveCapture={undefined}
                     >
                         <NavLink
-                            to={`/${path || tName}`}
-                            className='flex items-center aria-[current=page]:text-green-400 aria-[current=page]:underline aria-[current=page]:underline-offset-8 aria-[current=page]:decoration-2'
+                            to={`${path || tName}`}
+                            className='flex items-center aria-[current=page]:text-primary aria-[current=page]:underline aria-[current=page]:underline-offset-8 aria-[current=page]:decoration-2'
                         >
                             {t(name || tName)}
                         </NavLink>
@@ -156,6 +164,10 @@ function NavList() {
     );
 }
 
+/**
+ * header component
+ * @returns JSX.Element
+ */
 export default function Header() {
     const [openNav, setOpenNav] = React.useState(false);
     const [user, setUser] = React.useState(
@@ -173,7 +185,7 @@ export default function Header() {
             >
                 <div className='flex items-center justify-between text-blue-gray-900'>
                     <Typography
-                        className='mr-4 cursor-pointer font-medium  select-none'
+                        className='mr-4 cursor-pointer font-medium select-none'
                         placeholder={undefined}
                         onPointerEnterCapture={undefined}
                         onPointerLeaveCapture={undefined}
