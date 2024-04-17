@@ -1,133 +1,97 @@
-import DefaultLayout from '../components/layout/defaultLayout';
-import About from '../pages/about';
-import Course from '../pages/course';
-import Courses from '../pages/courses';
-import Dashboard from '../pages/dashboard';
-import Error from '../pages/error';
-import Home from '../pages/home';
-import Landing from '../pages/landing';
-import Login from '../pages/login';
-import Profile from '../pages/profile';
-import Search from '../pages/search';
-import Signup from '../pages/signup';
-import User from '../pages/user';
-import Users from '../pages/users';
-import {
-    createBrowserRouter,
-    createRoutesFromElements,
-    Route,
-    RouterProvider,
-    Routes,
-} from 'react-router-dom';
+import { createBrowserRouter, Navigate, RouterProvider, useNavigate } from 'react-router-dom';
 
-// export type TRoute = {
-//     path: string; // path of page
-//     component?: React.ComponentType; // content of page
-//     fallback?: React.ComponentType; // when content error or not found
-//     layout?: React.ComponentType; // layout of page. default: DefaultLayout
-//     title?: string; // title of page
-//     children?: TRoute[]; // sub-path of page
-// };
+//Layout
+import DefaultLayout  from '../components/layout/defaultLayout';
+import NoFooterLayout from '../components/layout/noFooterLayout';
+import NotHandleYet   from '../pages/error/notHandleYet';
 
-// const publicRoutes: TRoute[] = [
-//     // { path: '/', component: Landing            },
-//     { path: '', component: Home },
-//     { path: 'home', component: Home },
-//     { path: 'landing', component: Landing },
-//     { path: 'login', component: Login },
-//     { path: 'signup', component: Signup },
-//     { path: 'course', component: Course },
-//     { path: 'courses', component: Courses },
-//     { path: 'about', component: About },
-//     {
-//         path: 'user',
-//         component: User,
-//         fallback: About,
-//         children: [
-//             {
-//                 path: ':id',
-//                 component: Signup,
-//                 children: [
-//                     { path: 'courses', component: Courses },
-//                     { path: 'profile', component: User },
-//                 ],
-//             },
-//             { path: 'all', component: Users },
-//         ],
-//     },
-//     { path: 'dashboard', component: Dashboard },
-//     { path: 'search', component: Search },
-//     { path: '*', component: Error },
-// ];
+//Page
+import About        from '../pages/about';
+import Course       from '../pages/course/course';
+import Courses      from '../pages/course/courses';
+import Dashboard    from '../pages/user/admin/dashboard';
+import NotFound     from '../pages/error/notFound';
+import Home         from '../pages/home';
+import Landing      from '../pages/landing';
+import Login        from '../pages/login';
+import Profile      from '../pages/user/profile';
+import Search       from '../pages/search';
+import Signup       from '../pages/signup';
+import User         from '../pages/user/user';
+import Users        from '../pages/user/users';
+import Setting      from '../pages/user/setting';
+import CreateCourse from '../pages/course/courseCreate';
+import EditCourse   from '../pages/course/courseEdit';
 
-// const privateRoutes = [{}];
-
-// export { publicRoutes, privateRoutes };
-
-// export const router = createBrowserRouter(
-//     createRoutesFromElements(<Routes>{myRoutes(publicRoutes)}</Routes>)
-// );
-
-// export function myRoutes(routes: TRoute[]) {
-//     return routes.map((route) => {
-//         const Page = route.component || route.fallback || Error;
-//         const Layout = route.layout || DefaultLayout;
-
-//         return (
-//             <Route
-//                 key={route.path}
-//                 path={route.path}
-//                 element={
-//                     !route.children && (
-//                         <Layout>
-//                             <Page />
-//                         </Layout>
-//                     )
-//                 }
-//             >
-//                 <Route
-//                     index
-//                     element={
-//                         <Layout>
-//                             <Page />
-//                         </Layout>
-//                     }
-//                 />
-//                 {
-//                     /*handle child path*/
-//                     route.children && myRoutes(route.children)
-//                 }
-//             </Route>
-//         );
-//     });
-// }
 
 const routes = createBrowserRouter([
     {
         path: '',
         element: <DefaultLayout />,
-        errorElement: <Error />,
+        errorElement: <NotFound />,
         children: [
-            { index: true        , element: <Home    /> },
-            { path : 'home'      , element: <Home    /> },
-            { path : 'about'     , element: <About   /> },
-            { path : 'courses'   , element: <Courses /> },
-            { path : 'search'    , element: <Search  /> },
+            { index: true     , element: <Home    /> },
+            { path : 'home'   , element: <Home    /> },
+            { path : 'about'  , element: <About   /> },
+            { path : 'courses', element: <Courses /> },
+            { path : 'search' , element: <Search  /> },
+            { path : 'landing', element: <Landing /> },
             {
                 path: 'user/:id',
-                // element: <User />,
                 children: [
-                    { index: true     , element: <User    /> },
-                    { path : 'profile', element: <Profile /> },
+                    { index: true           , element: <User         /> },
+                    { path : 'profile'      , element: <Profile      /> },
+                    { path : 'history'      , element: <NotHandleYet /> }, //các khóa học đã học/dạy
+                    { path : 'learn-request', element: <NotHandleYet /> }, //đăng ký học, đợi accept
+                    { path : 'teach-request', element: <NotHandleYet /> }, //đăng ký dạy, đợi accept
+                    { path : 'setting'      , element: <Setting      /> },
+                    { path : 'deposit'      , element: <NotHandleYet /> }, //nạp tiền vào tài khoản
+                    { path : 'withdraw'     , element: <NotHandleYet /> }, //rút tiền về bank/ví điện tử
                 ],
             },
-            { path : 'course/:id', element: <Course  /> },
-            { path : '*'         , element: <Error   /> },
+            {
+                path: 'course',
+                children: [
+                    { index: true           , element: <Navigate to='/'/> }, //work around error page
+                    {
+                        path: ':id',
+                        children: [
+                            { index: true          , element: <Course       /> },
+                            { path : 'edit'        , element: <EditCourse   /> },
+                            { path : 'report'      , element: <NotHandleYet /> }, //báo cáo về khóa học (ex: video, rating,...)
+                            { path : 'request'     , element: <NotHandleYet /> }, //đăng ký học, góc nhìn tutor
+                            { path : 'participants', element: <NotHandleYet /> }, //người đã tham gia khóa học
+                        ],
+                    },
+                    { path : 'create'       , element: <CreateCourse /> },
+                ],
+            },
         ],
     },
-    { path: 'login' , element: <Login/>  },
-    { path: 'signup', element: <Signup/> },
-    { path: '*'     , element: <Error /> },
+    {
+        path: '',
+        element: <NoFooterLayout />,
+        children: [
+            { path: 'login' , element: <Login    /> },
+            { path: 'signup', element: <Signup   /> },
+            {
+                path: 'message',
+                children: [
+                    { index: true         , element: <NotHandleYet /> },
+                    { path : ':message_id', element: <NotHandleYet /> },
+                ],
+            },
+            {
+                path: 'admin',
+                children: [
+                    { path: 'dashboard'  , element: <Dashboard     /> },
+                    { path: 'users'      , element: <Users         /> },
+                ],
+            },
+            { path: 'error' , element: <NotFound /> },
+            { path: '*'     , element: <NotFound /> },
+        ],
+    },
 ]);
 
 export default function AppRouter() {

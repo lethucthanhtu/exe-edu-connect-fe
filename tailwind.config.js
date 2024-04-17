@@ -5,7 +5,9 @@ module.exports = withMT({
     content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
     theme: {
         extend: {
-            primary: 'green'
+            color: {
+                'primary': 'green',
+            },
         },
     },
     plugins: [],
