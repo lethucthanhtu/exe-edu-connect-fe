@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
     Navbar,
-    MobileNav,
+    Collapse,
     Typography,
     Button,
     IconButton,
@@ -12,9 +12,9 @@ import {
     MenuList,
     MenuItem,
 } from '@material-tailwind/react';
+import { Link, NavLink } from 'react-router-dom';
 import { SearchBar } from './searchBar';
 import logo from '../assets/edu-connect.svg';
-import { Link, NavLink } from 'react-router-dom';
 
 // profile menu component
 const profileMenuItems = [
@@ -107,7 +107,7 @@ function ProfileMenu() {
                             onPointerLeaveCapture={undefined}
                         >
                             {/* {React.createElement(icon, {
-                                className: `sizr ${
+                                className: `size ${
                                     isLastItem ? 'text-red-500' : ''
                                 }`,
                                 strokeWidth: 2,
@@ -262,7 +262,7 @@ export default function Header() {
                         </IconButton>
                     </div>
                 </div>
-                <MobileNav open={openNav}>
+                <Collapse open={openNav}>
                     <NavList />
                     <div className='flex items-center gap-x-1'>
                         <Button
@@ -289,7 +289,7 @@ export default function Header() {
                             <span>{t('sign up')}</span>
                         </Button>
                     </div>
-                </MobileNav>
+                </Collapse>
             </Navbar>
         </>
     );

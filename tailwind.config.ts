@@ -11,11 +11,11 @@ module.exports = withMT({
             secondary: '#F7FAFC',
         },
         fontFamily: {
-            sans : ['Roboto', 'sans-serif'],
-            serif: ['Roboto', 'serif'     ],
-            body : ['Roboto', 'sans-serif'],
+            sans: ['Roboto', 'sans-serif'],
+            serif: ['Roboto', 'serif'],
+            body: ['Roboto', 'sans-serif'],
         },
         extend: {},
     },
-    plugins: [],
+    plugins: [require('tailwindcss-animated')],
 });

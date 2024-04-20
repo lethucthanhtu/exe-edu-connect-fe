@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
-// import { useCountries } from 'use-react-countries';
 import { Select, Option } from '@material-tailwind/react';
+import { LANGUAGES } from '../i18n/i18n';
 
 /**
  * language switcher component
@@ -8,12 +8,11 @@ import { Select, Option } from '@material-tailwind/react';
  */
 export default function LanguageButton() {
     const { i18n } = useTranslation();
-    // const { countries } = useCountries();
-    const LANGUAGES = [
-        { label: 'English', code: 'en' },
-        { label: 'Japanese', code: 'jp' },
-        { label: 'Vietnamese', code: 'vn' },
-    ];
+    const handleChangeLng = (lng) => {
+        i18n.changeLanguage(lng);
+        localStorage.setItem('usrLng', lng);
+    };
+    const languageNames = new Intl.DisplayNames(['en'], { type: 'language' });
 
     return (
         <>
@@ -21,14 +20,14 @@ export default function LanguageButton() {
                 <Select
                     label='Language'
                     value={i18n.language}
-                    onChange={(lang_code) => i18n.changeLanguage(lang_code)}
+                    onChange={handleChangeLng}
                     placeholder={undefined}
                     onPointerEnterCapture={undefined}
                     onPointerLeaveCapture={undefined}
                 >
-                    {LANGUAGES.map(({ code, label }) => (
-                        <Option key={code} value={code}>
-                            {label}
+                    {LANGUAGES.map((lng) => (
+                        <Option key={lng} value={lng}>
+                            {languageNames.of(lng.toUpperCase())}
                         </Option>
                     ))}
                 </Select>

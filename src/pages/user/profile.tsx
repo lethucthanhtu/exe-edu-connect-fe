@@ -10,24 +10,6 @@ export default function Profile() {
     // const [ck, setCK] = useState();
     const { id } = useParams();
 
-    // useEffect(() => {
-    //     axios
-    //         .get(
-    //             'https://wifeed.vn/api/thong-tin-co-phieu/danh-sach-ma-chung-khoan',
-    //             {
-    //                 params: {
-    //                     loaidn: 1,
-    //                     san: 'HOSE',
-    //                 },
-    //             }
-    //         )
-    //         .then((res) => {
-    //             // setCK(res.data);
-    //             // eslint-disable-next-line no-console
-    //             console.log(res.data);
-    //         });
-    // }, []);
-
     return (
         <>
             <div className='flex justify-center'>

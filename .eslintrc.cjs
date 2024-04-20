@@ -17,6 +17,7 @@ module.exports = {
         // 'no-undef': 'off',
         'no-unused-vars': 'off',
         '@typescript-eslint/no-unused-vars': 'warn',
+        '@typescript-eslint/no-explicit-any': 0,
         'no-console': 'error',
         'no-eval': 'error',
         'require-jsdoc': [

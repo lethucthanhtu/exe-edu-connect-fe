@@ -70,12 +70,12 @@ const routes = createBrowserRouter([
                     {
                         path: ':course_id',
                         children: [
-                            { index: true          , element: <Course       /> },
-                            { path : 'edit'        , element: <EditCourse   /> },
-                            { path : 'report'      , element: <NotHandleYet /> }, //báo cáo về khóa học (ex: video, rating,...)
-                            { path : 'request'     , element: <NotHandleYet /> }, //đăng ký học, góc nhìn tutor
-                            { path : 'participants', element: <NotHandleYet /> }, //người đã tham gia khóa học
-                            { path : '*'           , element: <Course       /> }, //người đã tham gia khóa học
+                            { index: true          , element: <Course                  /> },
+                            { path : 'edit'        , element: <EditCourse              /> },
+                            { path : 'report'      , element: <NotHandleYet            /> }, //báo cáo về khóa học (ex: video, rating,...)
+                            { path : 'request'     , element: <NotHandleYet            /> }, //đăng ký học, góc nhìn tutor
+                            { path : 'participants', element: <NotHandleYet            /> }, //người đã tham gia khóa học
+                            { path : '*'           , element: <Course                  /> }, //người đã tham gia khóa học
                         ],
                     },
                     { path : 'create'       , element: <CreateCourse           /> },
@@ -101,8 +101,8 @@ const routes = createBrowserRouter([
                     { path: 'users'      , element: <Users                    /> },
                 ],
             },
-            { path: 'error' , element: <NotFound /> },
-            { path: '*'     , element: <NotFound /> },
+            { path: 'error' , element: <NotFound          /> },
+            { path: '*'     , element: <NotFound          /> },
         ],
     },
     { path: 'login'           , element: <Login        /> },
