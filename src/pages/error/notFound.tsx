@@ -2,12 +2,16 @@ import { Button, Typography } from '@material-tailwind/react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
+/**
+ * 404 page
+ * @returns JSX.Element
+ */
 export default function NotFound() {
     const { t } = useTranslation();
 
     return (
         <>
-            <div className='min-h-screen flex flex-grow items-center justify-center bg-gray-50'>
+            <div className='flex flex-grow items-center justify-center bg-gray-50'>
                 <Typography
                     className='rounded-lg bg-white p-8 text-center shadow-xl'
                     placeholder={undefined}

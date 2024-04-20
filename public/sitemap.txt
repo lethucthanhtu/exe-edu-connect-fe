@@ -1,0 +1,6 @@
+https://theeduconnect.vercel.app/
+https://theeduconnect.vercel.app/home
+https://theeduconnect.vercel.app/about
+https://theeduconnect.vercel.app/course
+https://theeduconnect.vercel.app/login
+https://theeduconnect.vercel.app/signup

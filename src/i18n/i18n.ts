@@ -7,8 +7,7 @@ export default i18n
     .use(initReactI18next)
     .init({
         // debug: true,
-        // debugger: true,
-        lng: 'vn',
+        lng: 'vi',
         fallbackLng: 'en',
         resources: {
             en: {
@@ -17,7 +16,7 @@ export default i18n
                     about: 'about us',
                 },
             },
-            vn: {
+            vi: {
                 translation: {
                     greeting: 'xin chào',
                     home: 'trang chủ',
@@ -26,9 +25,18 @@ export default i18n
                     contact: 'liên hệ',
                     'log in': 'đăng nhập',
                     'sign up': 'đăng ký',
-                    search: 'tim kiếm',
-                    'Go back to Home':'Về trang chủ'
+                    search: 'tìm kiếm',
+                    'Go back to Home': 'Về trang chủ',
                 },
             },
+            jp: {
+                translation: {
+                    greeting: 'jp test',
+                },
+            },
+
         },
+        // supportedLngs: ['vi', 'en', 'jp'],
     });
+
+export const LANGUAGES = i18n.languages;

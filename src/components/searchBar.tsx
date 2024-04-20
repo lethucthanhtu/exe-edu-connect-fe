@@ -4,6 +4,10 @@ import { capitalize } from '../utils/utils';
 import { Input, IconButton } from '@material-tailwind/react';
 import { Form, useSearchParams } from 'react-router-dom';
 
+/**
+ * search bar component
+ * @returns JSX.Element
+ */
 export function SearchBar() {
     const [params] = useSearchParams();
     const [query, setQuery] = React.useState(params.get('q') || '');
@@ -37,7 +41,7 @@ export function SearchBar() {
             <Form
                 method='get'
                 action='/search'
-                className='relative flex max-w-[24rem]'
+                className='relative flex max-w-[24rem] hidden lg:block'
             >
                 <Input
                     type='text'
@@ -104,9 +108,9 @@ export function SearchBar() {
                         >
                             <path
                                 stroke='currentColor'
-                                stroke-linecap='round'
-                                stroke-linejoin='round'
-                                stroke-width='2'
+                                strokeLinecap='round'
+                                strokeLinejoin='round'
+                                strokeWidth='2'
                                 d='m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z'
                             />
                         </svg>

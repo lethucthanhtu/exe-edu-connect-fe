@@ -1,10 +1,18 @@
-import LanguageButton from '../components/languageButton';
+import { useTranslation } from 'react-i18next';
 
+/**
+ * home page
+ * @returns JSX.Element
+ */
 export default function Home() {
+    const { t } = useTranslation();
+
     return (
         <>
-            <LanguageButton />
-            <div className='h-screen'>Home</div>
+            {/* <LanguageButton /> */}
+            <div className='flex justify-center'>
+                <span className='text-6xl capitalize'>{t('home')}</span>
+            </div>
         </>
     );
 }
