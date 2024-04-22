@@ -7,11 +7,11 @@ import Header from '../header';
  * @returns JSX.Element
  */
 export default function DefaultLayout() {
-    return (
-        <>
-            <Header />
-            <Outlet />
-            <Footer />
-        </>
-    );
+  return (
+    <>
+      <Header />
+      <Outlet />
+      <Footer />
+    </>
+  );
 }
