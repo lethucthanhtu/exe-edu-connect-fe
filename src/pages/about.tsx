@@ -12,6 +12,7 @@ export default function About() {
       <div className='flex justify-center'>
         <span className='text-6xl capitalize'>{t('about')}</span>
       </div>
+      <div>alo</div>
     </>
   );
 }
