@@ -7,31 +7,32 @@ import { LANGUAGES } from '../i18n/i18n';
  * @returns JSX.Element
  */
 export default function LanguageButton() {
-    const { i18n } = useTranslation();
-    const handleChangeLng = (lng) => {
-        i18n.changeLanguage(lng);
-        localStorage.setItem('usrLng', lng);
-    };
-    const languageNames = new Intl.DisplayNames(['en'], { type: 'language' });
+  const { i18n } = useTranslation();
+  const handleChangeLng = (lng: string) => {
+    i18n.changeLanguage(lng);
+    localStorage.setItem('usrLng', lng);
+  };
 
-    return (
-        <>
-            <div className='w-16'>
-                <Select
-                    label='Language'
-                    value={i18n.language}
-                    onChange={handleChangeLng}
-                    placeholder={undefined}
-                    onPointerEnterCapture={undefined}
-                    onPointerLeaveCapture={undefined}
-                >
-                    {LANGUAGES.map((lng) => (
-                        <Option key={lng} value={lng}>
-                            {languageNames.of(lng.toUpperCase())}
-                        </Option>
-                    ))}
-                </Select>
-            </div>
-        </>
-    );
+  return (
+    <>
+      <div className='w-16'>
+        <Select
+          label='Language'
+          value={i18n.language}
+          onChange={handleChangeLng}
+          placeholder={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+        >
+          {LANGUAGES.map((lng) => (
+            <Option key={lng} value={lng}>
+              {new Intl.DisplayNames([lng], {
+                type: 'language',
+              }).of(lng.toUpperCase())}
+            </Option>
+          ))}
+        </Select>
+      </div>
+    </>
+  );
 }

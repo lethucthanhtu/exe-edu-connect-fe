@@ -5,14 +5,13 @@ import { useTranslation } from 'react-i18next';
  * @returns JSX.Element
  */
 export default function Home() {
-    const { t } = useTranslation();
+  const { t } = useTranslation();
 
-    return (
-        <>
-            {/* <LanguageButton /> */}
-            <div className='flex justify-center'>
-                <span className='text-6xl capitalize'>{t('home')}</span>
-            </div>
-        </>
-    );
+  return (
+    <>
+      <div className='flex justify-center'>
+        <span className='text-6xl capitalize'>{t('home')}</span>
+      </div>
+    </>
+  );
 }

@@ -6,10 +6,10 @@ import Header from '../header';
  * @returns JSX.Element
  */
 export default function NoFooterLayout() {
-    return (
-        <>
-            <Header />
-            <Outlet />
-        </>
-    );
+  return (
+    <>
+      <Header />
+      <Outlet />
+    </>
+  );
 }

@@ -5,15 +5,13 @@ import { useParams } from 'react-router-dom';
  * @returns JSX.Element
  */
 export default function CreateCourse() {
-    const { course_id } = useParams();
+  const { course_id } = useParams();
 
-    return (
-        <>
-            <div className='flex justify-center'>
-                <span className='text-6xl capitalize'>
-                    create course {course_id}
-                </span>
-            </div>
-        </>
-    );
+  return (
+    <>
+      <div className='flex justify-center'>
+        <span className='text-6xl capitalize'>create course {course_id}</span>
+      </div>
+    </>
+  );
 }
