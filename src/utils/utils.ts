@@ -2,27 +2,49 @@
  * Uppercase first letter & lowercase others
  * Example: aPpLe => Apple
  */
-export function capitalize(str: string): string {
-    return str ? str.charAt(0).toUpperCase() + str.slice(1).toLowerCase() : str;
-}
+export const capitalize = (str: string): string =>
+  str ? str.charAt(0).toUpperCase() + str.slice(1).toLowerCase() : str;
 
 /**
- * Upper first letter of all words in String
+ * Upper first letter of all words in String.
+ * Use CSS class 'capitalize' instead
  * Example: hEllo wORld => Hello World
  */
-function capitalizes(str: string): string {
-    const words = str.split(' ');
-    return words
-        .map((word) => {
-            return capitalize(word);
-        })
-        .join(' ');
-}
+const capitalizes = (str: string): string =>
+  str
+    .split(' ')
+    .map((word) => capitalize(word))
+    .join(' ');
 
 /**
  * Format follow CamelCase convention
- * Exmple: hello world => HelloWorld
+ * Example: hello world => HelloWorld
  */
-export function camelCase(str: string): string {
-    return capitalizes(str).replace(/ /g, '');
-}
+export const camelCase = (str: string): string =>
+  capitalizes(str).replace(/ /g, '');
+
+/**
+ *
+ * @param path - path string
+ * @param params
+ * @returns
+ */
+export const pathlify = (path: string, params = {}): string => {
+  let result = path + '?';
+  try {
+    const obj = Object.entries(params);
+    const length = obj.length;
+    //get params & values
+    obj.forEach(([param, value], index) => {
+      result += param + '=' + value;
+      if (index !== length - 1) result += '&';
+    });
+  } catch (error) {
+    result = '';
+    // eslint-disable-next-line no-console
+    console.error(error);
+    // eslint-disable-next-line no-console
+    console.error('Cannot read "params"=', params);
+  }
+  return result;
+};
