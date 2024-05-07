@@ -68,9 +68,7 @@ function SearchResultCard({ code, fullname_vi, loaidn, san }) {
 export default function Search() {
   const [params] = useSearchParams();
   const [searchResult, setSearchResult] = useState([]);
-  const [currentPage, setCurrentPage] = useState(
-    Number(params.get('page')) || 1
-  );
+  const [currentPage, setCurrentPage] = useState(Number(params.get('p')) || 1);
   const [offset, setOffSet] = useState(Number(params.get('offset')) || 25);
   const [loading, setLoading] = useState(false);
   const { t } = useTranslation();
@@ -116,10 +114,9 @@ export default function Search() {
 
   // handle mismatch offset & page
   useEffect(() => {
-    const pages = Math.ceil(searchResult.length / offset);
-    if (currentPage > pages) setCurrentPage(1);
+    // const pages = Math.ceil(searchResult.length / offset);
     if (!offsets.find((o) => o === offset)) setOffSet(25);
-  }, [currentPage, offset, offsets, searchResult.length]);
+  }, [offset, offsets]);
 
   return (
     <>
@@ -142,7 +139,9 @@ export default function Search() {
           onPointerLeaveCapture={undefined}
         >
           {offsets.map((offset) => (
-            <Option value={offset + ''}>{offset}</Option>
+            <Option key={offset} value={offset + ''}>
+              {offset}
+            </Option>
           ))}
         </Select>
       </div>
@@ -157,8 +156,9 @@ export default function Search() {
         ) : (
           <div>
             <div className='mx-4 my-auto grid grid-cols-4 gap-4 justify-around'>
-              {displayResults.map((result) => (
+              {displayResults.map((result, index) => (
                 <SearchResultCard
+                  key={index}
                   code={result.code || result}
                   fullname_vi={result.fullname_vi}
                   loaidn={result.loaidn}
@@ -173,6 +173,8 @@ export default function Search() {
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
                 // paginationPagesDisplay={5}
+                // showPageInput='false'
+                // showNavigateText='false'
               />
             </div>
           </div>

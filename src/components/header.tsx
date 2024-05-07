@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Navbar,
@@ -11,6 +11,11 @@ import {
   Avatar,
   MenuList,
   MenuItem,
+  Tabs,
+  TabsHeader,
+  TabsBody,
+  Tab,
+  TabPanel,
 } from '@material-tailwind/react';
 import { Link, NavLink } from 'react-router-dom';
 import { SearchBar } from './searchBar';
@@ -42,15 +47,15 @@ const profileMenuItems = [
 
 type TNavItem = {
   tName: string;
-  name?: string;
+  value?: string;
   path?: string;
 };
 
 const navItems: TNavItem[] = [
-  { name: '', tName: 'home', path: '/' },
-  { name: '', tName: 'courses', path: '' },
-  { name: '', tName: 'about', path: '' },
-  { name: '', tName: 'contact', path: '' },
+  { value: 'home', tName: 'home', path: '/' },
+  { value: 'courses', tName: 'courses', path: '' },
+  { value: 'about', tName: 'about', path: '' },
+  { value: 'contact', tName: 'contact', path: '' },
 ];
 
 /**
@@ -131,6 +136,43 @@ function ProfileMenu() {
   );
 }
 
+/** */
+function AnimatedNav() {
+  const { t } = useTranslation();
+  const [activeTab, setActiveTab] = useState(t(navItems[0].value));
+
+  return (
+    <Tabs value={activeTab}>
+      <TabsHeader
+        className='mt-2 mb-4 flex flex-col lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6 capitalize rounded-none border-b bg-transparent p-0 gap-8'
+        indicatorProps={{
+          className:
+            'bg-transparent border-b-2 border-primary shadow-none rounded-none',
+        }}
+        placeholder={undefined}
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}
+      >
+        {navItems.map(({ value, tName, path }) => (
+          <Tab
+            key={value}
+            value={value}
+            onClick={() => setActiveTab(value)}
+            className={`w-auto ${activeTab === value ? 'text-primary' : ''}`}
+            placeholder={undefined}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+          >
+            <NavLink to={`${path || tName}`} className='flex items-center'>
+              {t(value || tName)}
+            </NavLink>
+          </Tab>
+        ))}
+      </TabsHeader>
+    </Tabs>
+  );
+}
+
 /**
  * nav list sub-component
  * @returns JSX.Element
@@ -140,7 +182,7 @@ function NavList() {
   return (
     <>
       <ul className='mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6 capitalize'>
-        {navItems.map(({ name, tName, path }, index) => (
+        {navItems.map(({ value: name, tName, path }, index) => (
           <Typography
             as='li'
             key={index}
@@ -196,6 +238,7 @@ export default function Header() {
             </Link>
           </Typography>
           <div className='mr-4 hidden lg:block'>
+            {/* <AnimatedNav /> */}
             <NavList />
           </div>
           <div className='flex items-center gap-4'>
