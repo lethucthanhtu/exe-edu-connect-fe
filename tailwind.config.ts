@@ -7,7 +7,7 @@ module.exports = withMT({
     content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
     theme: {
         colors: {
-            primary: '#4ea852',
+            primary: '#1f635e',
             secondary: '#F7FAFC',
         },
         fontFamily: {
