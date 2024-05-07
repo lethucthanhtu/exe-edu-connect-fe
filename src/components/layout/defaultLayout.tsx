@@ -10,9 +10,7 @@ export default function DefaultLayout() {
   return (
     <>
       <Header />
-      <div className='mx-44'>
-        <Outlet />
-      </div>
+      <Outlet />
       <Footer />
     </>
   );
