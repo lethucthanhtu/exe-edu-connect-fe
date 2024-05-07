@@ -2,23 +2,23 @@
 
 ## actor
 
--   user:
-    -   student
-    -   tutor (extend student)
-    -   admin (extend student)
--   course
+- user:
+  - student
+  - tutor (extend student)
+  - admin (extend student)
+- course
 
 ## use case
 
 ### all role
 
--   request study
--   attend classes (owned or accepted classes)
--   see class report (owned or accepted classes) (custom by role)
--   message
--   deposit
--   withdraw
--   checkout
+- request study
+- attend classes (owned or accepted classes)
+- see class report (owned or accepted classes) (custom by role)
+- message
+- deposit
+- withdraw
+- checkout
 
 ### student
 
@@ -62,6 +62,7 @@
 | course/create                      |          |       |        |
 | course/{course_id}                 |          |       |        |
 | course/{course_id}/edit            |          |       |        |
+| course/{course_id}/register        |          |       |        |
 | course/{course_id}/request         |          |       |        |
 | course/{course_id}/participants    |          |       |        |
 | course/{course_id}/report          |          |       |        |
@@ -96,6 +97,7 @@
 |                                    |          |       |        |
 
 ## API
-1 course - n group  => expire time: course end -> data đi đâu??
-1 group  - n member
+
+1 course - n group => expire time: course end -> data đi đâu??
+1 group - n member
 1 member - n course
