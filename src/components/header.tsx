@@ -13,9 +13,7 @@ import {
   MenuItem,
   Tabs,
   TabsHeader,
-  TabsBody,
   Tab,
-  TabPanel,
 } from '@material-tailwind/react';
 import { Link, NavLink } from 'react-router-dom';
 import { SearchBar } from './searchBar';
@@ -52,10 +50,10 @@ type TNavItem = {
 };
 
 const navItems: TNavItem[] = [
-  { value: 'home', tName: 'home', path: '/' },
-  { value: 'courses', tName: 'courses', path: '' },
-  { value: 'about', tName: 'about', path: '' },
-  { value: 'contact', tName: 'contact', path: '' },
+  { value: 'home'   , tName: 'home'   , path: '/' },
+  { value: 'courses', tName: 'courses', path: ''  },
+  { value: 'about'  , tName: 'about'  , path: ''  },
+  { value: 'contact', tName: 'contact', path: ''  },
 ];
 
 /**
@@ -211,10 +209,8 @@ function NavList() {
  * @returns JSX.Element
  */
 export default function Header() {
-  const [openNav, setOpenNav] = React.useState(false);
-  const [user, setUser] = React.useState(
-    JSON.parse(sessionStorage.getItem('user'))
-  );
+  const [openNav, setOpenNav] = useState(false);
+  const [user, setUser] = useState(JSON.parse(sessionStorage.getItem('user')));
   const { t } = useTranslation();
 
   return (
@@ -261,11 +257,9 @@ export default function Header() {
                 </Link>
                 <Link to='/signup'>
                   <Button
-                    variant='gradient'
                     size='sm'
-                    color='green'
-                    className='hidden lg:inline-block'
-                    placeholder={undefined}
+                    className='hidden lg:inline-block bg-primary'
+                    placeholder={t('sign up')}
                     onPointerEnterCapture={undefined}
                     onPointerLeaveCapture={undefined}
                   >
@@ -277,7 +271,7 @@ export default function Header() {
 
             <IconButton
               variant='text'
-              className='ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden'
+              className='ml-auto size-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden'
               ripple={false}
               onClick={() => setOpenNav(!openNav)}
               placeholder={undefined}
@@ -285,9 +279,9 @@ export default function Header() {
               onPointerLeaveCapture={undefined}
             >
               {openNav ? (
-                <span className='material-symbols-outlined h-6 w-6'>close</span>
+                <span className='material-symbols-outlined size-6'>close</span>
               ) : (
-                <span className='material-symbols-outlined h-6 w-6'>menu</span>
+                <span className='material-symbols-outlined size-6'>menu</span>
               )}
             </IconButton>
           </div>
@@ -308,10 +302,8 @@ export default function Header() {
             </Button>
             <Button
               fullWidth
-              variant='gradient'
               size='sm'
-              color='green'
-              className=''
+              className='bg-primary'
               placeholder={undefined}
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}

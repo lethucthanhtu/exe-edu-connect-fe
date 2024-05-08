@@ -24,9 +24,8 @@ export default function NotFound() {
           </Typography>
           <Link to='/'>
             <Button
-              className='mt-4  px-4 py-2'
+              className='mt-4 px-4 py-2 bg-primary'
               size='lg'
-              color='green'
               placeholder={undefined}
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}

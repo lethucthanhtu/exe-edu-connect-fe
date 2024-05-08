@@ -27,7 +27,6 @@ import Users          from '../pages/user/users';
 import Setting        from '../pages/user/setting';
 import CreateCourse   from '../pages/course/create.course';
 import EditCourse     from '../pages/course/edit.course';
-import SaleForm       from '../pages/payment/saleForm';
 
 /**
  * all route in system
@@ -74,8 +73,7 @@ const routes = createBrowserRouter([
               { index: true           , element: <Course                  /> },
               { path : 'edit'         , element: <EditCourse              /> },
               { path : 'report'       , element: <NotHandleYet            /> }, //báo cáo về khóa học (ex: video, rating,...)
-              { path : 'request'      , element: <NotHandleYet            /> }, //những người nộp đơn đky học
-              { path : 'register'     , element: <NotHandleYet            /> }, //đăng ký học, góc nhìn tutor
+              { path : 'request'      , element: <NotHandleYet            /> }, //đăng ký học, góc nhìn tutor
               { path : 'participants' , element: <NotHandleYet            /> }, //người đã tham gia khóa học
               { path : '*'            , element: <Course                  /> }, //người đã tham gia khóa học
             ],
@@ -104,7 +102,6 @@ const routes = createBrowserRouter([
         ],
       },
       { path : 'error'  , element: <NotFound        /> },
-      { path : 'test'   , element: <SaleForm        /> },
       { path : '*'      , element: <NotFound        /> },
     ],
   },
