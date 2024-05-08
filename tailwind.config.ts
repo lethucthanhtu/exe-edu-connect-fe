@@ -11,6 +11,7 @@ module.exports = withMT({
       'primary-medium': '#77B0AA',
       'primary-light': '#E3FEF7',
       secondary: '#F7FAFC',
+      'secondary-lightGray': '#eaeaea',
     },
     fontFamily: {
       sans: ['Roboto', 'sans-serif'],
