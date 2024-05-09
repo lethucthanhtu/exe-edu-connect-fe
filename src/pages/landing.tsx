@@ -18,10 +18,10 @@ import landing_body3_people1 from '../assets/img/landing_body3_people1.png';
 export default function Landing() {
   return (
     <>
-      <section className='h-auto mb-8 '>
-        <div className='flex flex-col items-center h-auto pb-12 rounded-b-[50px] bg-gradient-to-t from-secondary-lighterBlue to-white'>
+      <section className='h-auto mb-8 w-full'>
+        <div className='flex flex-col items-center h-auto w-full pb-12 rounded-b-[3rem] bg-gradient-to-t from-secondary-lighterBlue to-white'>
           {/*  */}
-          <div className='bg-white h-auto pb-8 rounded-b-[50px]'>
+          <div className='bg-white h-auto w-full pb-8 rounded-b-[3rem]'>
             <span className='z-10 flex flex-col items-center'>
               <h3 className='px-24 text-8xl text-center text-wrap track- font-bold text-primary'>
                 Bạn có đang tìm gia sư không ?
@@ -29,7 +29,7 @@ export default function Landing() {
               {/* <img className='' src={landing_body1_backgroundIMG}></img> */}
             </span>
 
-            <span className='z-20 grid grid-cols-5 h-auto pb-[124px]'>
+            <div className='z-20 grid grid-cols-5 h-auto w-full pb-[8rem]'>
               <div className='flex h-full justify-center '>
                 <img src={landing_body1_group3}></img>
               </div>
@@ -69,7 +69,7 @@ export default function Landing() {
                   </div>
                 </div>
 
-                <div className='absolute -top-28'>
+                <div className='absolute left-1/2 -translate-x-1/4 size-full'>
                   <img src={landing_body1_backgroundIMG}></img>
                 </div>
               </div>
@@ -87,10 +87,10 @@ export default function Landing() {
                   </div>
                 </div>
               </div>
-            </span>
+            </div>
           </div>
           {/*  */}
-          <div className='pb-5 relative mt-20 w-4/5 h-auto rounded-3xl bg-white'>
+          <section className='pb-5 relative mt-20 w-4/5 h-auto rounded-3xl bg-white'>
             <div className='flex w-full justify-center'>
               <div className=' absolute -top-8 h-auto p-3 w-11/12 rounded-2xl bg-secondary-lightestBlue'>
                 <div className='grid grid-cols-5 gap-2'>
@@ -132,7 +132,7 @@ export default function Landing() {
                 </div>
               </div>
             </div>
-          </div>
+          </section>
           {/*  */}
         </div>
         {/*  */}
@@ -192,6 +192,30 @@ export default function Landing() {
                 </div>
               </div>
             </div>
+            {/* <div className='relative flex justify-center size-full mb-12'>
+              <div className='z-10 !rounded-full bg-primary-sub size-[34rem]'></div>
+              <div className='z-20 absolute -top-12'>
+                <img className='h-4/5' src={landing_body3_people1}></img>
+                <div className='w-full h-auto py-2 grid grid-cols-4 bg-primary text-white rounded-2xl'>
+                  <div className='flex flex-col items-center'>
+                    <h1 className='font-semibold'>106+</h1>
+                    <h3 className='text-xs'>Online Course</h3>
+                  </div>
+                  <div className='flex flex-col items-center'>
+                    <h1 className='font-semibold'>426+</h1>
+                    <h3 className='text-xs'>Student & Tutor</h3>
+                  </div>
+                  <div className='flex flex-col items-center'>
+                    <h1 className='font-semibold'>46+</h1>
+                    <h3 className='text-xs'>Quality Tutors</h3>
+                  </div>
+                  <div className='flex flex-col items-center'>
+                    <h1 className='font-semibold'>4.8</h1>
+                    <h3 className='text-xs'>Rating web</h3>
+                  </div>
+                </div>
+              </div>
+            </div> */}
 
             <div className='flex flex-col h-full w-full items-start'>
               <div className='flex flex-col items-center text-center w-4/5'>
