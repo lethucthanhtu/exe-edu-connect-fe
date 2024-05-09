@@ -1,12 +1,15 @@
 import LanguageButton from '../components/languageButton';
-import icon_People_1 from '../assets/img/icon_People_1.png';
-import icon_People_2 from '../assets/img/icon_People_2.png';
-import icon_People_3 from '../assets/img/icon_People_3.png';
-import icon_landing_people_4 from '../assets/img/icon_landing_people_4.png';
-import icon_landing_people_5 from '../assets/img/icon_landing_people_5.png';
-import icon_landing_group5 from '../assets/img/icon_landing_group5.png';
-import icon_landing_groupBG from '../assets/img/icon_landing_groupBG.png';
-import icon_landing_star_fullstar from '../assets/img/icon_landing_star_fullstar.png';
+import landing_body1_group3 from '../assets/img/landing_body1_group3.svg';
+import landing_body1_group5 from '../assets/img/landing_body1_group5.png';
+import landing_body1_people1 from '../assets/img/landing_body1_people1.png';
+import landing_body1_fullStar from '../assets/img/landing_body1_fullStar.png';
+import landing_body1_backgroundIMG from '../assets/img/landing_body1_backgroundIMG.svg';
+import landing_body2_pic1 from '../assets/img/landing_body2_pic1.png';
+import landing_body2_pic2 from '../assets/img/landing_body2_pic2.png';
+import landing_body2_pic3 from '../assets/img/landing_body2_pic3.png';
+import landing_body2_pic4 from '../assets/img/landing_body2_pic4.png';
+import landing_body2_pic5 from '../assets/img/landing_body2_pic5.png';
+import landing_body3_people1 from '../assets/img/landing_body3_people1.png';
 
 /**
  * landing page
@@ -14,84 +17,212 @@ import icon_landing_star_fullstar from '../assets/img/icon_landing_star_fullstar
  */
 export default function Landing() {
   return (
-    <div className='mb-10 h-full'>
-      {/* <LanguageButton />
-      <div className='flex justify-center'>
-        <span className='text-6xl capitalize'>Landing</span>
-      </div> */}
-      <h1 className='z-10 px-44 text-8xl text-center text-wrap track- font-bold text-primary'>
-        Bạn có đang tìm gia sư không ?
-      </h1>
-      <div className='flex '>
-        <div className='grid relative w-3/12'>
-          <div className='grid justify-end grid-col-1 '>
-            <img
-              src={icon_People_1}
-              className='z-10 my-2 size-40 rounded-full bg-[#388984]'
-            ></img>
-            <img
-              src={icon_People_3}
-              className='z-10 size-28 rounded-full bg-[#65C3B7]'
-            ></img>
+    <>
+      <section className='h-auto mb-8 '>
+        <div className='flex flex-col items-center h-auto pb-12 rounded-b-[50px] bg-gradient-to-t from-secondary-lighterBlue to-white'>
+          {/*  */}
+          <div className='bg-white h-auto pb-8 rounded-b-[50px]'>
+            <span className='z-10 flex flex-col items-center'>
+              <h3 className='px-24 text-8xl text-center text-wrap track- font-bold text-primary'>
+                Bạn có đang tìm gia sư không ?
+              </h3>
+              {/* <img className='' src={landing_body1_backgroundIMG}></img> */}
+            </span>
+
+            <span className='z-20 grid grid-cols-5 h-auto pb-[124px]'>
+              <div className='flex h-full justify-center '>
+                <img src={landing_body1_group3}></img>
+              </div>
+
+              <div className='relative col-start-2 col-end-5 flex flex-col p-4 '>
+                <div className='z-20 w-full h-full flex justify-end pr-12'>
+                  <div className=' p-3 w-fit h-fit rounded-xl bg-secondary-lightGray'>
+                    <div className='grid grid-cols-3 h-auto '>
+                      <div className='flex justify-center items-center'>
+                        <div className='size-10 rounded-lg bg-primary'></div>
+                      </div>
+                      <div className='col-span-2 flex flex-col items-center'>
+                        <h3>Student & Tutor</h3>
+                        <h1 className='font-bold text-lg'>426+</h1>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className='z-20 h-full w-full flex pl-14'>
+                  <div className=' p-3 w-fit h-fit rounded-xl bg-secondary-lightGray'>
+                    <div className='grid grid-cols-3 h-auto '>
+                      <div className='flex justify-center items-center'>
+                        <div className='size-10 rounded-lg bg-primary'></div>
+                      </div>
+                      <div className='col-span-2 flex flex-col items-center'>
+                        <h3>Online Course</h3>
+                        <h1 className='font-bold text-lg'>108+</h1>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className='z-20 h-full w-full flex items-end'>
+                  <div className='p-1 size-fit rounded-lg bg-primary-sub'>
+                    <img src={landing_body1_group5}></img>
+                  </div>
+                </div>
+
+                <div className='absolute -top-28'>
+                  <img src={landing_body1_backgroundIMG}></img>
+                </div>
+              </div>
+
+              <div className='flex flex-col justify-center items-center '>
+                <img className='' src={landing_body1_people1}></img>
+                <div className='w-64 h-auto rounded-lg shadow-lg bg-[#eaeaea]'>
+                  <div className='flex mx-3 my-4 items-center'>
+                    <div className='size-8 rounded-full bg-[#d3d3d3]'></div>
+                    <div className='mx-2 font-semibold'>Alex P.</div>
+                    <img className='ml-16' src={landing_body1_fullStar}></img>
+                  </div>
+                  <div className='mx-3 mb-5'>
+                    Rất khuyến khích cho bất cứ ai muốn nâng cấp kỹ năng của họ
+                  </div>
+                </div>
+              </div>
+            </span>
           </div>
-          <div className='grid grid-col-3 absolute w-full h-full justify-start items-center pl-20'>
-            <img
-              src={icon_People_2}
-              className='z-10 size-28 rounded-full bg-[#91b5b3]'
-            ></img>
+          {/*  */}
+          <div className='pb-5 relative mt-20 w-4/5 h-auto rounded-3xl bg-white'>
+            <div className='flex w-full justify-center'>
+              <div className=' absolute -top-8 h-auto p-3 w-11/12 rounded-2xl bg-secondary-lightestBlue'>
+                <div className='grid grid-cols-5 gap-2'>
+                  <button className='text-xl flex justify-center px-3 py-2 bg-secondary-lighterBlue rounded-md'>
+                    Khóa học
+                  </button>
+                  <button className='text-xl flex justify-center px-3 py-1 '>
+                    Môn học
+                  </button>
+                  <button className='text-xl flex justify-center px-3 py-1 '>
+                    Chúng tôi
+                  </button>
+                  <button className='text-xl flex justify-center px-3 py-1 '>
+                    Hoạt động
+                  </button>
+                  <button className='text-xl flex justify-center px-3 py-1 '>
+                    Liên hệ
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div className='pt-12'>
+              <div className=' grid grid-cols-10 grid-rows-2 gap-2 '>
+                <div className='col-start-1 col-end-5 flex justify-center items-center'>
+                  <img src={landing_body2_pic1}></img>
+                </div>
+                <div className='col-start-5 col-end-9 flex justify-center items-center'>
+                  <img src={landing_body2_pic2}></img>
+                </div>
+                <div className='col-start-9 col-span-2 flex justify-center items-center'>
+                  <img src={landing_body2_pic3}></img>
+                </div>
+                <div className='col-start-1 col-end-6 flex justify-center items-center'>
+                  <img src={landing_body2_pic4}></img>
+                </div>
+                <div className='col-start-6 col-end-11 flex justify-center items-center'>
+                  <img src={landing_body2_pic5}></img>
+                </div>
+              </div>
+            </div>
           </div>
+          {/*  */}
         </div>
         {/*  */}
-        <div className='z-10 w-2/12 '>
-          {/* <div className='w-full flex flex-col'> */}
-          <div className='w-full h-44 flex items-end justify-end'>
-            <div className='p-5 w-44 h-20 rounded-2xl flex items-center bg-[#eaeaea]'>
-              <div className=' w-14 h-10 rounded-lg bg-[#246c67]'></div>
-              <div className='flex items-center flex-col size-full text-sm ml-2 '>
-                <h3>Online course</h3>
-                <h1 className='font-bold text-lg '>108+</h1>
+        <div className='pt-28 pb-16'>
+          <div className='grid grid-cols-3'>
+            <div className='flex flex-col h-full w-full items-end'>
+              <div className='flex flex-col items-center text-center w-4/5'>
+                <h1 className='w-full font-semibold text-primary text-4xl'>
+                  {' '}
+                  Phần mềm Online
+                </h1>
+                <div className='mt-2 w-4/5 rounded-2xl text-white bg-primary-medium'>
+                  <h3 className='px-5 py-2'>
+                    Tiện lợi, linh hoạt, cá nhân hóa, tương tác, giàu nội dung,
+                    tiết kiệm chi phí. Nâng cao kết quả học tập, phát triển kỹ
+                    năng, tăng cường sự tự tin, hình thành thói quen học tập
+                    tốt.
+                  </h3>
+                </div>
               </div>
-            </div>
-          </div>
-          <div className='w-full h-36 flex items-end'>
-            <div className='w-full '>
-              <div className='w-9/12 p-2 rounded-lg bg-[#3fb4a5]'>
-                <img src={icon_landing_group5}></img>
-              </div>
-            </div>
-          </div>
-          {/* </div> */}
-        </div>
-        <div className='w-2/12'>
-          <div className='absolute inset-x-72 inset-y-56 '>
-            <img src={icon_landing_groupBG}></img>
-          </div>
-          <div className='absolute inset-x-72 inset-y-[215px]'>
-            <img src={icon_landing_people_5}></img>
-          </div>
-        </div>
-        <div className='w-2/12'>Check_4</div>
 
-        <div className='flex justify-center right-0 w-3/12 '>
-          <div className='relative my-14 size-52 rounded-full bg-[#91b5b3]'></div>
-          <div className='flex flex-col justify-center items-center absolute'>
-            <img className='' src={icon_landing_people_4}></img>
-            <div className='w-64 h-auto rounded-lg shadow-lg bg-[#eaeaea]'>
-              <div className='flex mx-3 my-4 items-center'>
-                <div className='size-8 rounded-full bg-[#d3d3d3]'></div>
-                <div className='mx-2 font-semibold'>Alex P.</div>
-                <img className='ml-16' src={icon_landing_star_fullstar}></img>
+              <div className='mr-28 mt-14 flex flex-col items-center text-center w-4/5'>
+                <h1 className='w-full font-semibold text-primary text-4xl'>
+                  Đội ngũ gia sư
+                </h1>
+                <div className='mt-2 w-4/5 rounded-2xl text-white bg-primary-medium'>
+                  <h3 className='px-5 py-2'>
+                    Đội ngũ gia sư là một phần quan trọng trong hệ thống giáo
+                    dục, đóng góp vào việc nâng cao chất lượng học tập của học
+                    sinh. Gia sư có thể giúp học sinh hiểu bài tốt hơn, ôn luyện
+                    thi cử hiệu quả và phát triển các kỹ năng cần thiết.
+                  </h3>
+                </div>
               </div>
-              <div className='mx-3 mb-5'>
-                Rất khuyến khích cho bất cứ ai muốn nâng cấp kỹ năng của họ
+            </div>
+
+            <div className='relative -top-12 rounded-full bg-primary-sub'>
+              <div className='absolute -top-12'>
+                <img className='h-4/5' src={landing_body3_people1}></img>
+                <div className='w-full h-auto py-2 grid grid-cols-4 bg-primary text-white rounded-2xl'>
+                  <div className='flex flex-col items-center'>
+                    <h1 className='font-semibold'>106+</h1>
+                    <h3 className='text-xs'>Online Course</h3>
+                  </div>
+                  <div className='flex flex-col items-center'>
+                    <h1 className='font-semibold'>426+</h1>
+                    <h3 className='text-xs'>Student & Tutor</h3>
+                  </div>
+                  <div className='flex flex-col items-center'>
+                    <h1 className='font-semibold'>46+</h1>
+                    <h3 className='text-xs'>Quality Tutors</h3>
+                  </div>
+                  <div className='flex flex-col items-center'>
+                    <h1 className='font-semibold'>4.8</h1>
+                    <h3 className='text-xs'>Rating web</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className='flex flex-col h-full w-full items-start'>
+              <div className='flex flex-col items-center text-center w-4/5'>
+                <h1 className='w-full font-semibold text-primary text-4xl'>
+                  Chất lượng gia sư
+                </h1>
+                <div className='mt-2 w-4/5 rounded-2xl text-white bg-primary-medium'>
+                  <h3 className='px-5 py-2'>
+                    Một gia sư tốt không chỉ có kiến thức chuyên môn sâu rộng mà
+                    còn có nhiều phẩm chất khác để truyền đạt kiến thức hiệu quả
+                    và giúp học sinh tiến bộ.
+                  </h3>
+                </div>
+              </div>
+
+              <div className='ml-28 mt-14 flex flex-col items-center text-center w-4/5'>
+                <h1 className='w-full font-semibold text-primary text-4xl'>
+                  Chất lượng học sinh
+                </h1>
+                <div className='mt-2 w-4/5 rounded-2xl text-white bg-primary-medium'>
+                  <h3 className='px-5 py-2'>
+                    Chất lượng học sinh là yếu tố quan trọng quyết định sự phát
+                    triển của đất nước. Do đó, cần có sự quan tâm và đầu tư đúng
+                    mức để đảm bảo chất lượng học sinh ngày càng được nâng cao.
+                  </h3>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        {/* <div className='flex justify-center w-screen'>
-          <img src={icon_landing_people_5}></img>
-        </div> */}
-      </div>
-    </div>
+      </section>
+    </>
   );
 }
