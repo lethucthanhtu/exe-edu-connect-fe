@@ -3,6 +3,8 @@ import landing_body1_group3 from '../assets/img/landing_body1_group3.svg';
 import landing_body1_group5 from '../assets/img/landing_body1_group5.png';
 import landing_body1_people1 from '../assets/img/landing_body1_people1.png';
 import landing_body1_fullStar from '../assets/img/landing_body1_fullStar.png';
+import landing_body1_backgroundCircle from '../assets/img/landing_body1_backgroundCircle.svg';
+import landing_body1_backgroundPeople from '../assets/img/landing_body1_backgroundPeople.svg';
 import landing_body1_backgroundIMG from '../assets/img/landing_body1_backgroundIMG.svg';
 import landing_body2_pic1 from '../assets/img/landing_body2_pic1.png';
 import landing_body2_pic2 from '../assets/img/landing_body2_pic2.png';
@@ -18,69 +20,68 @@ import landing_body3_people1 from '../assets/img/landing_body3_people1.png';
 export default function Landing() {
   return (
     <>
-      <section className='h-auto mb-8 w-full'>
-        <div className='flex flex-col items-center h-auto w-full pb-12 rounded-b-[3rem] bg-gradient-to-t from-secondary-lighterBlue to-white'>
+      <section className='h-auto mb-8 '>
+        <div className='flex flex-col items-center h-auto pb-12 rounded-b-[50px] bg-gradient-to-t from-secondary-lighterBlue to-white'>
           {/*  */}
-          <div className='bg-white h-auto w-full pb-8 rounded-b-[3rem]'>
-            <span className='z-10 flex flex-col items-center'>
+          <div className='bg-white h-auto rounded-b-[50px]'>
+            <div className='z-10 w-full flex flex-col items-center'>
               <h3 className='px-24 text-8xl text-center text-wrap track- font-bold text-primary'>
                 Bạn có đang tìm gia sư không ?
               </h3>
-              {/* <img className='' src={landing_body1_backgroundIMG}></img> */}
-            </span>
+              <img className=' ' src={landing_body1_backgroundCircle} />
+            </div>
 
-            <div className='z-20 grid grid-cols-5 h-auto w-full pb-[8rem]'>
+            <div className='z-20 absolute bottom-0 w-full grid grid-cols-5 gap-4 h-auto pb-[124px]'>
               <div className='flex h-full justify-center '>
-                <img src={landing_body1_group3}></img>
+                <img src={landing_body1_group3} />
               </div>
 
-              <div className='relative col-start-2 col-end-5 flex flex-col p-4 '>
-                <div className='z-20 w-full h-full flex justify-end pr-12'>
-                  <div className=' p-3 w-fit h-fit rounded-xl bg-secondary-lightGray'>
-                    <div className='grid grid-cols-3 h-auto '>
-                      <div className='flex justify-center items-center'>
-                        <div className='size-10 rounded-lg bg-primary'></div>
-                      </div>
-                      <div className='col-span-2 flex flex-col items-center'>
-                        <h3>Student & Tutor</h3>
-                        <h1 className='font-bold text-lg'>426+</h1>
-                      </div>
+              <div className='z-20 size-full flex flex-col justify-center items-end'>
+                <div className='mt-20 p-3 w-fit rounded-xl bg-secondary-lightGray  shadow-2xl'>
+                  <div className='grid grid-cols-3 h-auto'>
+                    <div className='flex justify-center items-center'>
+                      <div className='size-10 rounded-lg bg-primary'></div>
+                    </div>
+                    <div className='col-span-2 flex flex-col items-center'>
+                      <h3>Online Course</h3>
+                      <h1 className='font-bold text-lg'>108+</h1>
                     </div>
                   </div>
                 </div>
+                <div className='z-20 size-full flex ml-4 items-end'>
+                  <div className='p-1 size-fit shadow-2xl rounded-lg bg-primary-sub'>
+                    <img src={landing_body1_group5} />
+                  </div>
+                </div>
+              </div>
 
-                <div className='z-20 h-full w-full flex pl-14'>
-                  <div className=' p-3 w-fit h-fit rounded-xl bg-secondary-lightGray'>
-                    <div className='grid grid-cols-3 h-auto '>
-                      <div className='flex justify-center items-center'>
-                        <div className='size-10 rounded-lg bg-primary'></div>
-                      </div>
-                      <div className='col-span-2 flex flex-col items-center'>
-                        <h3>Online Course</h3>
-                        <h1 className='font-bold text-lg'>108+</h1>
-                      </div>
+              <div className=''>
+                <img
+                  className='absolute left-[20%] -top-[46.4444%]'
+                  src={landing_body1_backgroundPeople}
+                />
+              </div>
+              <div className='z-20 w-full h-full flex'>
+                <div className=' p-3 w-fit h-fit rounded-xl bg-secondary-lightGray shadow-2xl'>
+                  <div className='grid grid-cols-3 h-auto '>
+                    <div className='flex justify-center items-center'>
+                      <div className='size-10 rounded-lg bg-primary'></div>
+                    </div>
+                    <div className='col-span-2 flex flex-col items-center'>
+                      <h3>Student & Tutor</h3>
+                      <h1 className='font-bold text-lg'>426+</h1>
                     </div>
                   </div>
-                </div>
-
-                <div className='z-20 h-full w-full flex items-end'>
-                  <div className='p-1 size-fit rounded-lg bg-primary-sub'>
-                    <img src={landing_body1_group5}></img>
-                  </div>
-                </div>
-
-                <div className='absolute left-1/2 -translate-x-1/4 size-full'>
-                  <img src={landing_body1_backgroundIMG}></img>
                 </div>
               </div>
 
               <div className='flex flex-col justify-center items-center '>
-                <img className='' src={landing_body1_people1}></img>
+                <img className='' src={landing_body1_people1} />
                 <div className='w-64 h-auto rounded-lg shadow-lg bg-[#eaeaea]'>
                   <div className='flex mx-3 my-4 items-center'>
                     <div className='size-8 rounded-full bg-[#d3d3d3]'></div>
                     <div className='mx-2 font-semibold'>Alex P.</div>
-                    <img className='ml-16' src={landing_body1_fullStar}></img>
+                    <img className='ml-16' src={landing_body1_fullStar} />
                   </div>
                   <div className='mx-3 mb-5'>
                     Rất khuyến khích cho bất cứ ai muốn nâng cấp kỹ năng của họ
@@ -90,7 +91,7 @@ export default function Landing() {
             </div>
           </div>
           {/*  */}
-          <section className='pb-5 relative mt-20 w-4/5 h-auto rounded-3xl bg-white'>
+          <div className='pb-5 relative mt-20 w-4/5 h-auto rounded-3xl bg-white'>
             <div className='flex w-full justify-center'>
               <div className=' absolute -top-8 h-auto p-3 w-11/12 rounded-2xl bg-secondary-lightestBlue'>
                 <div className='grid grid-cols-5 gap-2'>
@@ -116,23 +117,23 @@ export default function Landing() {
             <div className='pt-12'>
               <div className=' grid grid-cols-10 grid-rows-2 gap-2 '>
                 <div className='col-start-1 col-end-5 flex justify-center items-center'>
-                  <img src={landing_body2_pic1}></img>
+                  <img src={landing_body2_pic1} />
                 </div>
                 <div className='col-start-5 col-end-9 flex justify-center items-center'>
-                  <img src={landing_body2_pic2}></img>
+                  <img src={landing_body2_pic2} />
                 </div>
                 <div className='col-start-9 col-span-2 flex justify-center items-center'>
-                  <img src={landing_body2_pic3}></img>
+                  <img src={landing_body2_pic3} />
                 </div>
                 <div className='col-start-1 col-end-6 flex justify-center items-center'>
-                  <img src={landing_body2_pic4}></img>
+                  <img src={landing_body2_pic4} />
                 </div>
                 <div className='col-start-6 col-end-11 flex justify-center items-center'>
-                  <img src={landing_body2_pic5}></img>
+                  <img src={landing_body2_pic5} />
                 </div>
               </div>
             </div>
-          </section>
+          </div>
           {/*  */}
         </div>
         {/*  */}
@@ -169,9 +170,10 @@ export default function Landing() {
               </div>
             </div>
 
-            <div className='relative -top-12 rounded-full bg-primary-sub'>
-              <div className='absolute -top-12'>
-                <img className='h-4/5' src={landing_body3_people1}></img>
+            <div className='relative flex justify-center size-full mb-12'>
+              <div className='z-10 rounded-full bg-primary-sub size-[34rem]'></div>
+              <div className='z-20 absolute -top-12'>
+                <img className='' src={landing_body3_people1} />
                 <div className='w-full h-auto py-2 grid grid-cols-4 bg-primary text-white rounded-2xl'>
                   <div className='flex flex-col items-center'>
                     <h1 className='font-semibold'>106+</h1>
@@ -192,30 +194,6 @@ export default function Landing() {
                 </div>
               </div>
             </div>
-            {/* <div className='relative flex justify-center size-full mb-12'>
-              <div className='z-10 !rounded-full bg-primary-sub size-[34rem]'></div>
-              <div className='z-20 absolute -top-12'>
-                <img className='h-4/5' src={landing_body3_people1}></img>
-                <div className='w-full h-auto py-2 grid grid-cols-4 bg-primary text-white rounded-2xl'>
-                  <div className='flex flex-col items-center'>
-                    <h1 className='font-semibold'>106+</h1>
-                    <h3 className='text-xs'>Online Course</h3>
-                  </div>
-                  <div className='flex flex-col items-center'>
-                    <h1 className='font-semibold'>426+</h1>
-                    <h3 className='text-xs'>Student & Tutor</h3>
-                  </div>
-                  <div className='flex flex-col items-center'>
-                    <h1 className='font-semibold'>46+</h1>
-                    <h3 className='text-xs'>Quality Tutors</h3>
-                  </div>
-                  <div className='flex flex-col items-center'>
-                    <h1 className='font-semibold'>4.8</h1>
-                    <h3 className='text-xs'>Rating web</h3>
-                  </div>
-                </div>
-              </div>
-            </div> */}
 
             <div className='flex flex-col h-full w-full items-start'>
               <div className='flex flex-col items-center text-center w-4/5'>
