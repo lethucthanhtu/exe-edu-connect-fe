@@ -11,7 +11,6 @@ export default function Home() {
     <>
       <div className='flex justify-center'>
         <span className='text-6xl capitalize'>{t('home')}</span>
-        {/* <div>test git by TienHoang</div> */}
       </div>
     </>
   );

@@ -10,11 +10,12 @@ import {
   Typography,
 } from '@material-tailwind/react';
 import { useTranslation } from 'react-i18next';
-import human from '../assets/img/human_blob.svg';
-import banner from '../assets/img/about_banner.png';
+import { useState }       from 'react';
+
+import human    from '../assets/img/human_blob.svg';
+import banner   from '../assets/img/about_banner.png';
 import learner1 from '../assets/img/about_learner_1.png';
 import question from '../assets/img/about_question.png';
-import { useState } from 'react';
 
 type TResetButtonProps = {
   className?: string;
@@ -102,14 +103,14 @@ export default function About() {
       {/* <div className='flex justify-center'>
         <span className='text-6xl capitalize'>{t('about')}</span>
       </div> */}
-      <figure className='relative h-64 w-full shadow-lg'>
+      <figure className='relative h-1/3 w-full shadow-lg'>
         <img
           className='size-full rounded-xl object-cover object-center'
           src={banner}
           alt='nature image'
         />
         <figcaption className='absolute bottom-8 left-1/2 w-full -translate-x-1/2 rounded-xl px-6 py-4 saturate-100'>
-          <div className='mx-auto flex justify-center gap-4'>
+          <div className='mx-auto md:flex md:justify-center gap-4'>
             <div className='flex justify-center'>
               <span className='rounded-full lg:size-32 sm:size-8 bg-white/50 saturate-200 backdrop-blur-sm' />
             </div>
@@ -129,7 +130,7 @@ export default function About() {
                 <Chip value='Đam mê' className='bg-primary normal-case' />
               </div>
               <Typography
-                className='text-white w-auto sm:line-clamp-2 md:line-clamp-4 xs:line-clamp-1 px-2 py-1 rounded-md bg-white/20 backdrop-blur-md'
+                className='text-white w-auto sm:line-clamp-2 md:line-clamp-4 px-2 py-1 rounded-md bg-white/20 backdrop-blur-md'
                 variant='paragraph'
                 color='blue-gray'
                 placeholder={undefined}
@@ -164,8 +165,9 @@ export default function About() {
           </div>
         </figcaption>
       </figure>
-      <section className='flex justify-center animate-fade-down'>
-        <div className='flex flex-col justify-center items-start w-1/2 text-primary'>
+      <section className='md:flex md:justify-center md:flex-row-reverse'>
+        <img src={human} className='' />
+        <div className='flex flex-col justify-center md:items-start xs:justify-center md:w-1/2 xs:w-auto text-primary'>
           <Typography
             variant='h2'
             className='uppercase'
@@ -252,12 +254,11 @@ export default function About() {
             </ul>
           </ul>
         </div>
-        <img src={human} />
       </section>
-      <section className='flex justify-center gap-16 bg-gradient-to-r from-primary-medium to-primary-light h-auto w-full py-8 rounded-tl-[5rem] text-primary animate-fade-left'>
+      <section className='md:flex md:justify-center md:gap-16 bg-gradient-to-r from-primary-medium to-primary-light h-auto w-full py-8 rounded-tl-[5rem] text-primary animate-fade-left'>
         <img
           src={learner1}
-          className='h-full basis-1/5 rounded-2xl object-cover object-center'
+          className='md:h-full basis-1/5 rounded-2xl object-cover object-center'
         />
         <div className='flex flex-col justify-center items-start basis-2/5'>
           <Typography
@@ -335,8 +336,8 @@ export default function About() {
         </div>
       </section>
       <section>{/* <img src={learner2}/> */}</section>
-      <section className='w-full h-auto py-10 flex gap-8 justify-center bg-primary-light rounded-tr-[5rem] text-primary animate-fade-right'>
-        <div className='flex flex-col gap-6 w-2/5 justify-center items-start'>
+      <section className='w-full h-auto py-10 md:flex md:justify-center gap-8 bg-primary-light rounded-tr-[5rem] text-primary animate-fade-right'>
+        <div className='flex flex-col gap-6 xs:w-auto md:!w-2/5 justify-center items-start'>
           <Typography
             variant='h2'
             className=''
@@ -369,7 +370,7 @@ export default function About() {
               crossOrigin={undefined}
             />
             <div className='flex gap-2'>
-              <ResetButton className='w-1/5 border-primary text-primary'/>
+              <ResetButton className='w-1/5 border-primary text-primary' />
               <Button
                 className='w-1/5 bg-primary'
                 type='submit'

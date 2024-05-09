@@ -17,6 +17,9 @@ module.exports = withMT({
       serif: ['Roboto', 'serif'],
       body: ['Roboto', 'sans-serif'],
     },
+    screens: {
+      xs: '475px',
+    },
     extend: {
       zIndex: {
         '100': '100',
