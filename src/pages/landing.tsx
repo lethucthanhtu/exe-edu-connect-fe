@@ -8,6 +8,7 @@ import landing_body2_pic2 from '../assets/img/landing_body2_pic2.png';
 import landing_body2_pic3 from '../assets/img/landing_body2_pic3.png';
 import landing_body2_pic4 from '../assets/img/landing_body2_pic4.png';
 import landing_body2_pic5 from '../assets/img/landing_body2_pic5.png';
+import landing_body3_people1 from '../assets/img/landing_body3_people1.png';
 import landing_body1_backgroundIMG from '../assets/img/landing_body1_backgroundIMG.svg';
 
 /**
@@ -17,8 +18,8 @@ import landing_body1_backgroundIMG from '../assets/img/landing_body1_backgroundI
 export default function Landing() {
   return (
     <>
-      <section className='h-auto pb-40'>
-        <div className='flex flex-col items-center h-auto pb-12 rounded-b-[50px] bg-gradient-to-t from-primary-medium to-white'>
+      <section className='h-auto mb-8 '>
+        <div className='flex flex-col items-center h-auto pb-12 rounded-b-[50px] bg-gradient-to-t from-secondary-lighterBlue to-white'>
           {/*  */}
           <div className='bg-white h-auto pb-8 rounded-b-[50px]'>
             <span className='z-10 flex flex-col items-center'>
@@ -132,7 +133,93 @@ export default function Landing() {
           </div>
           {/*  */}
         </div>
-        123
+        {/*  */}
+        <div className='pt-28 pb-16'>
+          <div className='grid grid-cols-3'>
+            <div className='flex flex-col h-full w-full items-end'>
+              <div className='flex flex-col items-center text-center w-4/5'>
+                <h1 className='w-full font-semibold text-primary text-4xl'>
+                  {' '}
+                  Phần mềm Online
+                </h1>
+                <div className='mt-2 w-4/5 rounded-2xl text-white bg-primary-medium'>
+                  <h3 className='px-5 py-2'>
+                    Tiện lợi, linh hoạt, cá nhân hóa, tương tác, giàu nội dung,
+                    tiết kiệm chi phí. Nâng cao kết quả học tập, phát triển kỹ
+                    năng, tăng cường sự tự tin, hình thành thói quen học tập
+                    tốt.
+                  </h3>
+                </div>
+              </div>
+
+              <div className='mr-28 mt-14 flex flex-col items-center text-center w-4/5'>
+                <h1 className='w-full font-semibold text-primary text-4xl'>
+                  Đội ngũ gia sư
+                </h1>
+                <div className='mt-2 w-4/5 rounded-2xl text-white bg-primary-medium'>
+                  <h3 className='px-5 py-2'>
+                    Đội ngũ gia sư là một phần quan trọng trong hệ thống giáo
+                    dục, đóng góp vào việc nâng cao chất lượng học tập của học
+                    sinh. Gia sư có thể giúp học sinh hiểu bài tốt hơn, ôn luyện
+                    thi cử hiệu quả và phát triển các kỹ năng cần thiết.
+                  </h3>
+                </div>
+              </div>
+            </div>
+
+            <div className='relative -top-12 rounded-full bg-primary-sub'>
+              <div className='absolute -top-12'>
+                <img className='h-4/5' src={landing_body3_people1}></img>
+                <div className='w-full h-auto py-2 grid grid-cols-4 bg-primary text-white rounded-2xl'>
+                  <div className='flex flex-col items-center'>
+                    <h1 className='font-semibold'>106+</h1>
+                    <h3 className='text-xs'>Online Course</h3>
+                  </div>
+                  <div className='flex flex-col items-center'>
+                    <h1 className='font-semibold'>426+</h1>
+                    <h3 className='text-xs'>Student & Tutor</h3>
+                  </div>
+                  <div className='flex flex-col items-center'>
+                    <h1 className='font-semibold'>46+</h1>
+                    <h3 className='text-xs'>Quality Tutors</h3>
+                  </div>
+                  <div className='flex flex-col items-center'>
+                    <h1 className='font-semibold'>4.8</h1>
+                    <h3 className='text-xs'>Rating web</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className='flex flex-col h-full w-full items-start'>
+              <div className='flex flex-col items-center text-center w-4/5'>
+                <h1 className='w-full font-semibold text-primary text-4xl'>
+                  Chất lượng gia sư
+                </h1>
+                <div className='mt-2 w-4/5 rounded-2xl text-white bg-primary-medium'>
+                  <h3 className='px-5 py-2'>
+                    Một gia sư tốt không chỉ có kiến thức chuyên môn sâu rộng mà
+                    còn có nhiều phẩm chất khác để truyền đạt kiến thức hiệu quả
+                    và giúp học sinh tiến bộ.
+                  </h3>
+                </div>
+              </div>
+
+              <div className='ml-28 mt-14 flex flex-col items-center text-center w-4/5'>
+                <h1 className='w-full font-semibold text-primary text-4xl'>
+                  Chất lượng học sinh
+                </h1>
+                <div className='mt-2 w-4/5 rounded-2xl text-white bg-primary-medium'>
+                  <h3 className='px-5 py-2'>
+                    Chất lượng học sinh là yếu tố quan trọng quyết định sự phát
+                    triển của đất nước. Do đó, cần có sự quan tâm và đầu tư đúng
+                    mức để đảm bảo chất lượng học sinh ngày càng được nâng cao.
+                  </h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
     </>
   );
