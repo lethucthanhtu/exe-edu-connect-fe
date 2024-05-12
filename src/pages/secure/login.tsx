@@ -14,8 +14,8 @@ export default function Login() {
   const togglePasswordVisiblity = () => setPasswordShown((cur) => !cur);
 
   return (
-    <section className='flex justify-center w-full h-full bg-gradient-to-t from-primary-medium to-primary-light'>
-      <div className='flex xs:flex-col md:!flex-row items-center mt-24 w-4/5 h-3/5 rounded-2xl shadow-xl bg-primary-medium'>
+    <section className='flex justify-center items-center w-full h-[100vh] bg-gradient-to-t from-primary-medium to-primary-light'>
+      <div className='flex xs:flex-col md:!flex-row items-center my-24 w-4/5 h-4/5  rounded-2xl shadow-xl bg-primary-medium'>
         {/* <diva className='flex justify-between items-center w-4/5 h-auto'> */}
           <div className='basis-2/5'>
             <img className='w-4/5 mx-20' src={logo}/>

@@ -101,11 +101,12 @@ const routes = createBrowserRouter([
           { path : 'users'      , element: <Users           /> },
         ],
       },
+      { path : 'login'  , element: <Login           /> },
       { path : 'error'  , element: <NotFound        /> },
       { path : '*'      , element: <NotFound        /> },
     ],
   },
-  { path: 'login'          , element: <Login        /> },
+
   { path: 'signup'         , element: <Signup       /> },
   { path: 'forgot-password', element: <NotHandleYet /> },
   { path: 'reset-password' , element: <NotHandleYet /> },
