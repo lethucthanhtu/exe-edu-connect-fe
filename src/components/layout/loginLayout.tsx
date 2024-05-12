@@ -3,17 +3,12 @@ import { useTranslation } from 'react-i18next';
 import { Outlet } from 'react-router-dom';
 
 import logo from '../../assets/img/BigLogo.svg';
-import { Typography } from '@material-tailwind/react';
-
-type TLoginLayoutProps = {
-  formTitle?: string;
-};
 
 /**
  * loginLayout component
  * @returns JSX.Element
  */
-export default function LoginLayout({ formTitle }: TLoginLayoutProps) {
+export default function LoginLayout() {
   const { t } = useTranslation();
   const [passwordShown, setPasswordShown] = useState(false);
   const togglePasswordVisiblity = () => setPasswordShown((cur) => !cur);
@@ -26,17 +21,7 @@ export default function LoginLayout({ formTitle }: TLoginLayoutProps) {
         </div>
 
         <div className='basis-3/5 size-full flex flex-col justify-center items-center'>
-          <div className='w-2/3 text-left '>
-            <Typography
-              variant='h3'
-              color='white'
-              className='mb-2 flex justify-center capitalize'
-              placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-            >
-              {formTitle}
-            </Typography>
+          <div className='w-2/3'>
             <Outlet />
           </div>
         </div>
