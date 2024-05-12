@@ -33,7 +33,11 @@ export default i18n
                     'forgot password': 'quên mật khẩu',
                     'register new account': 'đăng kí tài khoản',
                     'tutor/student': 'gia sư/học sinh',
+                    'tutor': 'giảng viên',
+                    'student': 'học sinh',
                     'your name': 'tên của bạn',
+                    'send code': 'gửi mã',
+                    'resend code': 'gửi lại mã',
                 },
             },
             jp: {
