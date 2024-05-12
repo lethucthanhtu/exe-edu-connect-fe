@@ -28,9 +28,12 @@ export default i18n
                     search: 'tìm kiếm',
                     'Go back to Home': 'Về trang chủ',
                     password: 'mật khẩu',
+                    'repassword': 'Nhập lại mật khẩu',
                     'change password': 'đổi mật khẩu',
                     'forgot password': 'quên mật khẩu',
-                    'register new account': 'đăng kí tài khoản'
+                    'register new account': 'đăng kí tài khoản',
+                    'tutor/student': 'gia sư/học sinh',
+                    'your name': 'tên của bạn',
                 },
             },
             jp: {
