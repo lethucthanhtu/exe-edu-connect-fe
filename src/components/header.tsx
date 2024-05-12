@@ -50,10 +50,10 @@ type TNavItem = {
 };
 
 const navItems: TNavItem[] = [
-  { value: 'home'   , tName: 'home'   , path: '/' },
-  { value: 'courses', tName: 'courses', path: ''  },
-  { value: 'about'  , tName: 'about'  , path: ''  },
-  { value: 'contact', tName: 'contact', path: ''  },
+  { value: 'home', tName: 'home', path: '/' },
+  { value: 'courses', tName: 'courses', path: '' },
+  { value: 'about', tName: 'about', path: '' },
+  { value: 'contact', tName: 'contact', path: '' },
 ];
 
 /**
@@ -216,12 +216,12 @@ export default function Header() {
   return (
     <>
       <Navbar
-        className='sticky top-0 z-[100] h-max max-w-full px-4 py-2 lg:px-8 lg:py-2'
+        className='sticky top-0 z-max h-max max-w-full px-4 py-2 lg:px-8 lg:py-2'
         placeholder={undefined}
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
       >
-        <div className='flex items-center justify-between text-blue-gray-900'>
+        <section className='flex items-center justify-between text-blue-gray-900'>
           <Typography
             className='mr-4 cursor-pointer font-medium select-none'
             placeholder={undefined}
@@ -285,31 +285,35 @@ export default function Header() {
               )}
             </IconButton>
           </div>
-        </div>
+        </section>
         <Collapse open={openNav}>
           <NavList />
-          <div className='flex items-center gap-x-1'>
-            <Button
-              fullWidth
-              variant='text'
-              size='sm'
-              className=''
-              placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-            >
-              <span>{t('log in')}</span>
-            </Button>
-            <Button
-              fullWidth
-              size='sm'
-              className='bg-primary'
-              placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-            >
-              <span>{t('sign up')}</span>
-            </Button>
+          <div className='flex justify-center items-center w-full gap-x-1'>
+            <Link to='/login' className='w-full'>
+              <Button
+                fullWidth
+                variant='text'
+                size='sm'
+                className='w-full'
+                placeholder={undefined}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+              >
+                <span>{t('log in')}</span>
+              </Button>
+            </Link>
+            <Link to='/signup' className='w-full'>
+              <Button
+                fullWidth
+                size='sm'
+                className='bg-primary w-full'
+                placeholder={undefined}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+              >
+                <span>{t('sign up')}</span>
+              </Button>
+            </Link>
           </div>
         </Collapse>
       </Navbar>
