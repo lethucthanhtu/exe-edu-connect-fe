@@ -26,7 +26,7 @@ export default function Signup() {
             </Typography>
           </div>
 
-          <div className='mb-4'>
+          <div className='flex flex-col gap-4'>
             <Input
               id='role'
               color='gray'
@@ -42,9 +42,6 @@ export default function Signup() {
               onPointerLeaveCapture={undefined}
               crossOrigin={undefined}
             />
-          </div>
-
-          <div className='mb-4'>
             <Input
               id='email'
               color='gray'
@@ -60,9 +57,6 @@ export default function Signup() {
               onPointerLeaveCapture={undefined}
               crossOrigin={undefined}
             />
-          </div>
-
-          <div className='mb-4'>
             <Input
               id='username'
               color='gray'
@@ -78,8 +72,6 @@ export default function Signup() {
               onPointerLeaveCapture={undefined}
               crossOrigin={undefined}
             />
-          </div>
-          <div className='mb-4'>
             <Input
               size='lg'
               placeholder={`${t('password')}...`}
@@ -92,8 +84,6 @@ export default function Signup() {
               onPointerLeaveCapture={undefined}
               crossOrigin={undefined}
             />
-          </div>
-          <div className='mb-4'>
             <Input
               size='lg'
               placeholder={`${t('repassword')}...`}
@@ -106,11 +96,8 @@ export default function Signup() {
               onPointerLeaveCapture={undefined}
               crossOrigin={undefined}
             />
-          </div>
-
-          <div className='flex flex-col justify-center mt-20'>
             <Button
-              className='w-full text-gray-400 bg-secondary-midBlue'
+              className='w-full mt-8 text-gray-400 bg-secondary-midBlue'
               placeholder={undefined}
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
