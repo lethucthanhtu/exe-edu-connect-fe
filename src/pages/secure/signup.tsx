@@ -113,7 +113,7 @@ export default function Signup() {
             />
           </div>
 
-          <div className='flex flex-col justify-center mt-20'>
+          <div className='flex flex-col justify-center mt-16'>
             <Button
               className='w-full text-gray-400 bg-secondary-midBlue'
               placeholder={undefined}

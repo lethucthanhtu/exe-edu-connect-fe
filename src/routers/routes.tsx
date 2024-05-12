@@ -22,6 +22,7 @@ import Login          from '../pages/secure/login';
 import Profile        from '../pages/user/profile';
 import Search         from '../pages/search';
 import Signup         from '../pages/secure/signup';
+import ForgotPassword from '../pages/secure/forgotPassword';
 // import User           from '../pages/user/user';
 import Users          from '../pages/user/users';
 import Setting        from '../pages/user/setting';
@@ -103,6 +104,7 @@ const routes = createBrowserRouter([
       },
       { path: 'login'           , element: <Login           /> },
       { path: 'signup'          , element: <Signup          /> },
+      { path: 'forgotPassword'  , element: <ForgotPassword  /> },
 
       { path : 'error'  , element: <NotFound        /> },
       { path : '*'      , element: <NotFound        /> },

@@ -68,7 +68,7 @@ export default function Login() {
               {t('change password')}
             </Button>
           </Link>
-          <Link to={''}>
+          <Link to={'/forgotPassword'}>
             <Button
               variant='text'
               placeholder={undefined}
