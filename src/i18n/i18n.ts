@@ -27,6 +27,10 @@ export default i18n
                     'sign up': 'đăng ký',
                     search: 'tìm kiếm',
                     'Go back to Home': 'Về trang chủ',
+                    password: 'mật khẩu',
+                    'change password': 'đổi mật khẩu',
+                    'forgot password': 'quên mật khẩu',
+                    'register new account': 'đăng kí tài khoản'
                 },
             },
             jp: {
