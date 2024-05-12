@@ -1,10 +1,6 @@
 import { useState } from 'react';
-
 import { Typography, Input, Button } from '@material-tailwind/react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
-
-import LoginLayout from '../../components/layout/loginLayout';
 
 /**
  * sign up page
@@ -16,7 +12,6 @@ export default function Signup() {
   const togglePasswordVisiblity = () => setPasswordShown((cur) => !cur);
   return (
     <>
-      <LoginLayout>
         <form action='#'>
           <div className='mb-6'>
             <Typography
@@ -124,7 +119,6 @@ export default function Signup() {
             </Button>
           </div>
         </form>
-      </LoginLayout>
     </>
   );
 }

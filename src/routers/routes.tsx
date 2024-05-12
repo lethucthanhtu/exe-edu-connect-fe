@@ -6,8 +6,9 @@ import {
 } from 'react-router-dom';
 
 //Layout
-import DefaultLayout  from '../components/layout/defaultLayout';
 import NoFooterLayout from '../components/layout/noFooterLayout';
+import DefaultLayout  from '../components/layout/defaultLayout';
+import LoginLayout    from '../components/layout/loginLayout';
 import NotHandleYet   from '../pages/error/notHandleYet';
 
 //Page
@@ -101,16 +102,22 @@ const routes = createBrowserRouter([
           { path : 'users'      , element: <Users           /> },
         ],
       },
-      { path: 'login'           , element: <Login           /> },
-      { path: 'signup'          , element: <Signup          /> },
+      {
+        path     : '',
+        element  : <LoginLayout/>,
+        children : [
+          { path : 'login'      , element: <Login           /> },
+          { path : 'signup'     , element: <Signup          /> },
 
+        ],
+      },
       { path : 'error'  , element: <NotFound        /> },
       { path : '*'      , element: <NotFound        /> },
     ],
   },
 
-  { path: 'forgot-password', element: <NotHandleYet /> },
-  { path: 'reset-password' , element: <NotHandleYet /> },
+  { path : 'forgot-password', element: <NotHandleYet /> },
+  { path : 'reset-password' , element: <NotHandleYet /> },
 ]);
 
 /**

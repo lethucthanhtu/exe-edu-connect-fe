@@ -17,6 +17,7 @@ import {
 } from '@material-tailwind/react';
 import { Link, NavLink } from 'react-router-dom';
 import { SearchBar } from './searchBar';
+
 import logo from '../assets/edu-connect.svg';
 
 // profile menu component
