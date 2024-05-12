@@ -15,7 +15,7 @@ export default function Login() {
   return (
       <form
         action='#'
-        className='flex flex-col gap-4 justify-center items-center'
+        className='flex flex-col gap-4 justify-center items-center '
       >
         <Typography
           variant='h3'
@@ -68,7 +68,7 @@ export default function Login() {
               {t('change password')}
             </Button>
           </Link>
-          <Link to={''}>
+          <Link to={'/forgotPassword'}>
             <Button
               className='w-full'
               variant='text'
