@@ -3,8 +3,6 @@ import { Typography, Input, Button } from '@material-tailwind/react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import LoginLayout from '../../components/layout/loginLayout';
-
 /**
  * sign up page
  * @returns JSX.Element
@@ -16,7 +14,6 @@ export default function ForgotPassword() {
 
   return (
     <>
-      <LoginLayout>
         <form
           action='#'
           className='flex flex-col gap-4 justify-center items-center '
@@ -110,7 +107,6 @@ export default function ForgotPassword() {
             </Link>
           </div>
         </form>
-      </LoginLayout>
     </>
   );
 }
