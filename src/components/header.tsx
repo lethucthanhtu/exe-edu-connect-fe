@@ -15,7 +15,7 @@ import {
   TabsHeader,
   Tab,
 } from '@material-tailwind/react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { SearchBar } from './searchBar';
 
 import logo from '../assets/edu-connect.svg';
@@ -138,12 +138,16 @@ function ProfileMenu() {
 /** */
 function AnimatedNav() {
   const { t } = useTranslation();
-  const [activeTab, setActiveTab] = useState(t(navItems[0].value));
+  const location = useLocation();
+
+  const [activeTab, setActiveTab] = useState(
+    location.pathname.replace('/', '') || navItems[0].value
+  );
 
   return (
     <Tabs value={activeTab}>
       <TabsHeader
-        className='mt-2 mb-4 flex flex-col lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6 capitalize rounded-none border-b bg-transparent p-0 gap-8'
+        className='mt-2 mb-4 flex flex-col lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6 capitalize rounded-none bg-transparent gap-8'
         indicatorProps={{
           className:
             'bg-transparent border-b-2 border-primary shadow-none rounded-none',
@@ -157,7 +161,7 @@ function AnimatedNav() {
             key={value}
             value={value}
             onClick={() => setActiveTab(value)}
-            className={`w-auto ${activeTab === value ? 'text-primary' : ''}`}
+            className={`w-auto ${activeTab === value && 'text-primary'}`}
             placeholder={undefined}
             onPointerEnterCapture={undefined}
             onPointerLeaveCapture={undefined}
@@ -235,8 +239,8 @@ export default function Header() {
             </Link>
           </Typography>
           <div className='mr-4 hidden lg:block'>
-            {/* <AnimatedNav /> */}
-            <NavList />
+            <AnimatedNav />
+            {/* <NavList /> */}
           </div>
           <div className='flex items-center gap-4'>
             <SearchBar />

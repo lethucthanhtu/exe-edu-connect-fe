@@ -100,9 +100,6 @@ export default function About() {
 
   return (
     <>
-      {/* <div className='flex justify-center'>
-        <span className='text-6xl capitalize'>{t('about')}</span>
-      </div> */}
       <figure className='relative h-1/3 w-full shadow-lg'>
         <img
           className='size-full rounded-xl object-cover object-center'
