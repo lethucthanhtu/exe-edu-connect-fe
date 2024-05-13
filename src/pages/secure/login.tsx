@@ -13,74 +13,80 @@ export default function Login() {
   const togglePasswordVisiblity = () => setPasswordShown((cur) => !cur);
 
   return (
-      <form
-        action='#'
-        className='flex flex-col gap-4 justify-center items-center '
+    <form
+      action='#'
+      className='flex flex-col gap-4 justify-center items-center '
+    >
+      <Typography
+        variant='h3'
+        color='white'
+        className='mb-2 flex justify-center capitalize'
+        placeholder={undefined}
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}
       >
-        <Typography
-          variant='h3'
-          color='white'
-          className='mb-2 flex justify-center capitalize'
-          placeholder={undefined}
+        {t('log in')}
+      </Typography>
+
+      <div className='flex flex-col justify-center items-center w-full gap-4'>
+        <Input
+          id='email'
+          color='gray'
+          size='lg'
+          type='email'
+          name='email'
+          placeholder={`${t('Email')}...`}
+          className='w-full !bg-secondary-darkBlue text-gray-100 placeholder:opacity-100 placeholder:text-gray-400  '
+          labelProps={{
+            className: 'hidden',
+          }}
           onPointerEnterCapture={undefined}
           onPointerLeaveCapture={undefined}
-        >
-          {t('log in')}
-        </Typography>
-        <div className='flex flex-col justify-center items-center w-full gap-4'>
-          <Input
-            id='email'
-            color='gray'
-            size='lg'
-            type='email'
-            name='email'
-            placeholder={`${t('Email')}...`}
-            className='w-full !bg-secondary-darkBlue text-gray-100 placeholder:opacity-100 placeholder:text-gray-400  '
-            labelProps={{
-              className: 'hidden',
-            }}
+          crossOrigin={undefined}
+        />
+
+        <Input
+          size='lg'
+          placeholder={`${t('password')}...`}
+          labelProps={{
+            className: 'hidden ',
+          }}
+          className='w-full placeholder:capitalize !bg-secondary-darkBlue text-gray-100 placeholder:opacity-100 placeholder:text-gray-400  '
+          type={passwordShown ? 'text' : 'password'}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+          crossOrigin={undefined}
+        />
+      </div>
+
+      <div className='flex w-full justify-between'>
+        <Link to={''}>
+          <Button
+            className='w-full'
+            variant='text'
+            placeholder={undefined}
             onPointerEnterCapture={undefined}
             onPointerLeaveCapture={undefined}
-            crossOrigin={undefined}
-          />
-          <Input
-            size='lg'
-            placeholder={`${t('password')}...`}
-            labelProps={{
-              className: 'hidden ',
-            }}
-            className='w-full placeholder:capitalize !bg-secondary-darkBlue text-gray-100 placeholder:opacity-100 placeholder:text-gray-400  '
-            type={passwordShown ? 'text' : 'password'}
+          >
+            {t('change password')}
+          </Button>
+        </Link>
+
+        <Link to={'/forgotPassword'}>
+          <Button
+            className='w-full'
+            variant='text'
+            placeholder={undefined}
             onPointerEnterCapture={undefined}
             onPointerLeaveCapture={undefined}
-            crossOrigin={undefined}
-          />
-        </div>
-        <div className='flex w-full justify-between'>
-          <Link to={''}>
-            <Button
-              className='w-full'
-              variant='text'
-              placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-            >
-              {t('change password')}
-            </Button>
-          </Link>
-          <Link to={'/forgotPassword'}>
-            <Button
-              className='w-full'
-              variant='text'
-              placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-            >
-              {t('forgot password')}
-            </Button>
-          </Link>
-        </div>
-        <div className='flex flex-col w-full gap-4 justify-center'>
+          >
+            {t('forgot password')}
+          </Button>
+        </Link>
+      </div>
+
+      <div className='flex flex-col w-full gap-4 justify-center'>
+        <Link to={'/home'}>
           <Button
             className='w-full text-gray-400 bg-secondary-midBlue'
             placeholder={undefined}
@@ -89,18 +95,20 @@ export default function Login() {
           >
             {t('log in')}
           </Button>
-          <Link to={'/signup'}>
-            <Button
-              className='w-full bg-none'
-              variant='text'
-              placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-            >
-              {t('register new account')}
-            </Button>
-          </Link>
-        </div>
-      </form>
+        </Link>
+
+        <Link to={'/signup'}>
+          <Button
+            className='w-full bg-none'
+            variant='text'
+            placeholder={undefined}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+          >
+            {t('register new account')}
+          </Button>
+        </Link>
+      </div>
+    </form>
   );
 }
