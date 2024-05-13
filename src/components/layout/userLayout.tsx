@@ -478,91 +478,14 @@ function Sidebar({ img, name, role, ballance = 0 }: TUserProps) {
             </List>
           </AccordionBody>
         </Accordion>
-        {/* <Accordion
-          open={open === 2}
-          icon={
-            <ChevronDownIcon
-              strokeWidth={2.5}
-              className={`mx-auto h-4 w-4 transition-transform ${
-                open === 2 ? 'rotate-180' : ''
-              }`}
-            />
-          }
-          placeholder={undefined}
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-        >
-          <ListItem
-            className='p-0'
-            selected={open === 2}
-            placeholder={undefined}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-          >
-            <AccordionHeader
-              onClick={() => handleOpen(2)}
-              className='border-b-0 p-3'
-              placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-            >
-              <ListItemPrefix
-                placeholder={undefined}
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
-              >
-                <ShoppingBagIcon className='size-5' />
-              </ListItemPrefix>
-              <Typography
-                color='blue-gray'
-                className='mr-auto font-normal'
-                placeholder={undefined}
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
-              >
-                E-Commerce
-              </Typography>
-            </AccordionHeader>
-          </ListItem>
-          <AccordionBody className='py-1'>
-            <List
-              className='p-0'
-              placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-            >
-              <ListItem
-                placeholder={undefined}
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
-              >
-                <ListItemPrefix
-                  placeholder={undefined}
-                  onPointerEnterCapture={undefined}
-                  onPointerLeaveCapture={undefined}
-                >
-                  <ChevronRightIcon strokeWidth={3} className='h-3 w-5' />
-                </ListItemPrefix>
-                Orders
-              </ListItem>
-              <ListItem
-                placeholder={undefined}
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
-              >
-                <ListItemPrefix
-                  placeholder={undefined}
-                  onPointerEnterCapture={undefined}
-                  onPointerLeaveCapture={undefined}
-                >
-                  <ChevronRightIcon strokeWidth={3} className='h-3 w-5' />
-                </ListItemPrefix>
-                Products
-              </ListItem>
-            </List>
-          </AccordionBody>
-        </Accordion> */}
         <hr className='my-2 border-blue-gray-50' />
+      </List>
+      <List
+        className='h-full flex flex-col justify-end'
+        placeholder={undefined}
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}
+      >
         <Link to='setting'>
           <ListItem
             className='hover:bg-primary-light'

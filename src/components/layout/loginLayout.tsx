@@ -26,10 +26,10 @@ export default function LoginLayout() {
             </div>
           </div>
         </div>
-        <span className='absolute -bottom-[3%] -right-[10%] z-10 bg-gradient-to-tl from-primary-sub to-primary-light w-[25%] aspect-square rounded-full'></span>
-        <span className='absolute bottom-8 left-7 z-30 bg-gradient-to-br from-primary-sub to-primary-light w-[15%] aspect-square rounded-full'></span>
-        <span className='absolute bottom-0 left-2 z-40 bg-gradient-to-tl from-primary-sub to-primary-light w-[10%] aspect-square rounded-full'></span>
-        <span className='absolute top-[3%] -left-[8%] z-50 bg-gradient-to-tr from-primary-sub to-primary-light w-[20%] aspect-square rounded-full'></span>
+        <span className='z-10 absolute -bottom-[3%] -right-[10%] bg-gradient-to-tl from-primary-sub to-primary-light w-[25%] aspect-square rounded-full' />
+        <span className='z-30 absolute bottom-8 left-7 bg-gradient-to-br from-primary-sub to-primary-light w-[15%] aspect-square rounded-full' />
+        <span className='z-40 absolute bottom-0 left-2 bg-gradient-to-tl from-primary-sub to-primary-light w-[10%] aspect-square rounded-full' />
+        <span className='z-50 absolute top-[3%] -left-[8%] bg-gradient-to-tr from-primary-sub to-primary-light w-[20%] aspect-square rounded-full' />
       </section>
     </>
   );
