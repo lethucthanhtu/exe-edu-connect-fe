@@ -48,3 +48,6 @@ export const pathlify = (path: string, params = {}): string => {
   }
   return result;
 };
+
+export const currencyFormat = (num: number, currency = 'VNĐ') =>
+  currency + ' ' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');

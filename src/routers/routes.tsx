@@ -24,11 +24,12 @@ import Profile        from '../pages/user/profile';
 import Search         from '../pages/search';
 import Signup         from '../pages/secure/signup';
 import ForgotPassword from '../pages/secure/forgotPassword';
-// import User           from '../pages/user/user';
+import User           from '../pages/user/user';
 import Users          from '../pages/user/users';
 import Setting        from '../pages/user/setting';
 import CreateCourse   from '../pages/course/create.course';
 import EditCourse     from '../pages/course/edit.course';
+import UserLayout from '../components/layout/userLayout';
 
 /**
  * all route in system
@@ -45,26 +46,6 @@ const routes = createBrowserRouter([
       { path : 'courses', element: <Courses         /> },
       { path : 'search' , element: <Search          /> },
       { path : 'landing', element: <Landing         /> },
-      {
-        path     : 'user',
-        children : [
-          { index: true         , element: <Navigate to='/' /> }, //work around error page
-          {
-            path     : ':id',
-            children : [
-              { index: true           , element: <Navigate to='./profile' /> },
-              { path : 'profile'      , element: <Profile                 /> },
-              { path : 'history'      , element: <NotHandleYet            /> }, //các khóa học đã học/dạy
-              { path : 'learn-request', element: <NotHandleYet            /> }, //đăng ký học, đợi accept
-              { path : 'teach-request', element: <NotHandleYet            /> }, //đăng ký dạy, đợi accept
-            ],
-          },
-          { path : 'setting'    , element: <Setting         /> },
-          { path : 'deposit'    , element: <NotHandleYet    /> }, //nạp tiền vào tài khoản
-          { path : 'withdraw'   , element: <NotHandleYet    /> }, //rút tiền về bank/ví điện tử
-          { path : 'checkout'   , element: <NotHandleYet    /> }, //rút tiền về bank/ví điện tử
-        ],
-      },
       {
         path     : 'course',
         children : [
@@ -116,9 +97,28 @@ const routes = createBrowserRouter([
       { path : '*'      , element: <NotFound        /> },
     ],
   },
-
-  { path : 'forgot-password', element: <NotHandleYet /> },
-  { path : 'reset-password' , element: <NotHandleYet /> },
+  {
+        path     : 'user',
+        element: <UserLayout />,
+        children : [
+          { index: true         , element: <Navigate to='/' /> }, //work around error page
+          {
+            path     : ':id',
+            children : [
+              { index: true           , element: <Navigate to='./profile' /> },
+              { path : 'profile'      , element: <Profile                 /> },
+              { path : 'history'      , element: <NotHandleYet            /> }, //các khóa học đã học/dạy
+              { path : 'schedule'     , element: <NotHandleYet            /> }, //các khóa học đã học/dạy
+              { path : 'learn-request', element: <NotHandleYet            /> }, //đăng ký học, đợi accept
+              { path : 'teach-request', element: <NotHandleYet            /> }, //đăng ký dạy, đợi accept
+            ],
+          },
+          { path : 'setting'    , element: <Setting         /> },
+          { path : 'deposit'    , element: <NotHandleYet    /> }, //nạp tiền vào tài khoản
+          { path : 'withdraw'   , element: <NotHandleYet    /> }, //rút tiền về bank/ví điện tử
+          { path : 'checkout'   , element: <NotHandleYet    /> }, //rút tiền về bank/ví điện tử
+        ],
+      },
 ]);
 
 /**
