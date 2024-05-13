@@ -3,8 +3,6 @@ import { Typography, Input, Button } from '@material-tailwind/react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import LoginLayout from '../../components/layout/loginLayout';
-
 /**
  * sign up page
  * @returns JSX.Element
