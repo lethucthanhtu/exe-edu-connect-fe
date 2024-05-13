@@ -26,37 +26,37 @@ export default function Signup() {
   const [openMenu, setOpenMenu] = useState(false);
   return (
     <>
-        <form action='#'>
-          <div className='mb-6'>
-            <Typography
-              variant='h3'
-              color='white'
-              className='mb-2 flex justify-center capitalize'
-              placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-            >
-              {t('register new account')}
-            </Typography>
-          </div>
+      <form action='#'>
+        <div className='mb-6'>
+          <Typography
+            variant='h3'
+            color='white'
+            className='mb-2 flex justify-center capitalize'
+            placeholder={undefined}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+          >
+            {t('register new account')}
+          </Typography>
+        </div>
 
-          <div className='flex flex-col gap-4'>
-            <Select
-              className='bg-secondary-darkBlue '
-              label={`${t('tutor/student')}`}
-              animate={{
-                mount: { y: 0 },
-                unmount: { y: 25 },
-              }}
-              placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-            >
-              <Option className='capitalize'>{`${t('tutor')}`}</Option>
-              <Option className='capitalize'>{`${t('student')}`}</Option>
-            </Select>
+        <div className='flex flex-col gap-4'>
+          <Select
+            className='bg-secondary-darkBlue '
+            label={`${t('tutor/student')}`}
+            animate={{
+              mount: { y: 0 },
+              unmount: { y: 25 },
+            }}
+            placeholder={undefined}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+          >
+            <Option className='capitalize'>{`${t('tutor')}`}</Option>
+            <Option className='capitalize'>{`${t('student')}`}</Option>
+          </Select>
 
-            {/* <Menu>
+          {/* <Menu>
               <MenuHandler className='flex items-center justify-between'>
                 <MenuItem
                   className='capitalize'
@@ -95,63 +95,64 @@ export default function Signup() {
                 </MenuItem>
               </MenuList>
             </Menu> */}
-            <Input
-              id='email'
-              color='gray'
-              size='lg'
-              type='email'
-              name='email'
-              placeholder={`${t('Email')}...`}
-              className='w-full !bg-secondary-darkBlue text-gray-100 placeholder:opacity-100 placeholder:text-gray-400  '
-              labelProps={{
-                className: 'hidden',
-              }}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-              crossOrigin={undefined}
-            />
-            <Input
-              id='username'
-              color='gray'
-              size='lg'
-              type='text'
-              name='username'
-              placeholder={`${t('your name')}...`}
-              className='w-full placeholder:capitalize !bg-secondary-darkBlue text-gray-100 placeholder:opacity-100 placeholder:text-gray-400  '
-              labelProps={{
-                className: 'hidden',
-              }}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-              crossOrigin={undefined}
-            />
-            <Input
-              size='lg'
-              placeholder={`${t('password')}...`}
-              labelProps={{
-                className: 'hidden ',
-              }}
-              className='w-full placeholder:capitalize !bg-secondary-darkBlue text-gray-100 placeholder:opacity-100 placeholder:text-gray-400  '
-              type={passwordShown ? 'text' : 'password'}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-              crossOrigin={undefined}
-            />
-            <Input
-              size='lg'
-              placeholder={`${t('repassword')}...`}
-              labelProps={{
-                className: 'hidden ',
-              }}
-              className='w-full placeholder:capitalize !bg-secondary-darkBlue text-gray-100 placeholder:opacity-100 placeholder:text-gray-400  '
-              type={passwordShown ? 'text' : 'password'}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-              crossOrigin={undefined}
-            />
-          </div>
+          <Input
+            id='email'
+            color='gray'
+            size='lg'
+            type='email'
+            name='email'
+            placeholder={`${t('Email')}...`}
+            className='w-full !bg-secondary-darkBlue text-gray-100 placeholder:opacity-100 placeholder:text-gray-400  '
+            labelProps={{
+              className: 'hidden',
+            }}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+            crossOrigin={undefined}
+          />
+          <Input
+            id='username'
+            color='gray'
+            size='lg'
+            type='text'
+            name='username'
+            placeholder={`${t('your name')}...`}
+            className='w-full placeholder:capitalize !bg-secondary-darkBlue text-gray-100 placeholder:opacity-100 placeholder:text-gray-400  '
+            labelProps={{
+              className: 'hidden',
+            }}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+            crossOrigin={undefined}
+          />
+          <Input
+            size='lg'
+            placeholder={`${t('password')}...`}
+            labelProps={{
+              className: 'hidden ',
+            }}
+            className='w-full placeholder:capitalize !bg-secondary-darkBlue text-gray-100 placeholder:opacity-100 placeholder:text-gray-400  '
+            type={passwordShown ? 'text' : 'password'}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+            crossOrigin={undefined}
+          />
+          <Input
+            size='lg'
+            placeholder={`${t('repassword')}...`}
+            labelProps={{
+              className: 'hidden ',
+            }}
+            className='w-full placeholder:capitalize !bg-secondary-darkBlue text-gray-100 placeholder:opacity-100 placeholder:text-gray-400  '
+            type={passwordShown ? 'text' : 'password'}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+            crossOrigin={undefined}
+          />
+        </div>
 
-          <div className='flex flex-col justify-center mt-10'>
+        <div className='flex flex-col justify-center mt-10'>
+          <Link to={'123'}>
             <Button
               className='w-full text-gray-400 bg-secondary-midBlue'
               placeholder={undefined}
@@ -160,8 +161,9 @@ export default function Signup() {
             >
               {t('sign up')}
             </Button>
-          </div>
-        </form>
+          </Link>
+        </div>
+      </form>
     </>
   );
 }
