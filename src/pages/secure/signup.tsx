@@ -9,11 +9,118 @@ import {
   Menu,
   Select,
   Option,
+  Radio,
+  Card,
+  List,
+  ListItem,
+  ListItemPrefix,
 } from '@material-tailwind/react';
-import { ChevronDownIcon } from '@heroicons/react/24/solid';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import LoginLayout from '../../components/layout/loginLayout';
+import { capitalize } from '../../utils/utils';
+
+/** */
+export function RoleRadioButton() {
+  const { t } = useTranslation();
+  return (
+    <Card
+      className='w-full'
+      placeholder={undefined}
+      onPointerEnterCapture={undefined}
+      onPointerLeaveCapture={undefined}
+    >
+      <List
+        className='flex-row'
+        placeholder={undefined}
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}
+      >
+        <ListItem
+          className='p-0'
+          placeholder={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+        >
+          <label
+            htmlFor='horizontal-list-react'
+            className='flex w-full cursor-pointer items-center px-3 py-2'
+          >
+            <ListItemPrefix
+              className='mr-3'
+              placeholder={undefined}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+            >
+              <Radio
+                name='horizontal-list'
+                color='teal'
+                id='horizontal-list-react'
+                ripple={false}
+                className='hover:before:opacity-0'
+                containerProps={{
+                  className: 'p-0',
+                }}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+                crossOrigin={undefined}
+              />
+            </ListItemPrefix>
+            <Typography
+              color='blue-gray'
+              className='font-medium text-blue-gray-400'
+              placeholder={undefined}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+            >
+              {capitalize(t('tutor'))}
+            </Typography>
+          </label>
+        </ListItem>
+        <ListItem
+          className='p-0'
+          placeholder={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+        >
+          <label
+            htmlFor='horizontal-list-vue'
+            className='flex w-full cursor-pointer items-center px-3 py-2'
+          >
+            <ListItemPrefix
+              className='mr-3'
+              placeholder={undefined}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+            >
+              <Radio
+                name='horizontal-list'
+                color='teal'
+                id='horizontal-list-vue'
+                ripple={false}
+                className='hover:before:opacity-0'
+                containerProps={{
+                  className: 'p-0',
+                }}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+                crossOrigin={undefined}
+              />
+            </ListItemPrefix>
+            <Typography
+              color='blue-gray'
+              className='font-medium text-blue-gray-400'
+              placeholder={undefined}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+            >
+              {capitalize(t('student'))}
+            </Typography>
+          </label>
+        </ListItem>
+      </List>
+    </Card>
+  );
+}
 
 /**
  * sign up page
@@ -26,7 +133,7 @@ export default function Signup() {
   const [openMenu, setOpenMenu] = useState(false);
   return (
     <>
-      <form action='#'>
+      {/* <form action='#'>
         <div className='mb-6'>
           <Typography
             variant='h3'
@@ -55,47 +162,8 @@ export default function Signup() {
             <Option className='capitalize'>{`${t('tutor')}`}</Option>
             <Option className='capitalize'>{`${t('student')}`}</Option>
           </Select>
-
-          {/* <Menu>
-              <MenuHandler className='flex items-center justify-between'>
-                <MenuItem
-                  className='capitalize'
-                  placeholder={undefined}
-                  onPointerEnterCapture={undefined}
-                  onPointerLeaveCapture={undefined}
-                >
-                  {t('tutor/student')}
-                  <ChevronDownIcon
-                    strokeWidth={2.5}
-                    className={`h-3.5 w-3.5 transition-transform ${
-                      openMenu ? 'rotate-90' : ''
-                    }`}
-                  />
-                </MenuItem>
-              </MenuHandler>
-              <MenuList
-                className='w-4/12 h-auto '
-                placeholder={undefined}
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
-              >
-                <MenuItem
-                  placeholder={undefined}
-                  onPointerEnterCapture={undefined}
-                  onPointerLeaveCapture={undefined}
-                >
-                  {t('tutor')}
-                </MenuItem>
-                <MenuItem
-                  placeholder={undefined}
-                  onPointerEnterCapture={undefined}
-                  onPointerLeaveCapture={undefined}
-                >
-                  {t('student')}
-                </MenuItem>
-              </MenuList>
-            </Menu> */}
           <Input
+          color='teal'
             id='email'
             color='gray'
             size='lg'
@@ -162,6 +230,94 @@ export default function Signup() {
               {t('sign up')}
             </Button>
           </Link>
+        </div>
+      </form> */}
+      <form
+        action='#'
+        className='size-full flex flex-col gap-4 justify-center items-center'
+      >
+        <Typography
+          variant='h3'
+          color='teal'
+          className='mb-4'
+          placeholder={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+        >
+          {capitalize(t('register new account'))}
+        </Typography>
+        <div className='flex flex-col md:flex-row w-full justify-start items-center'>
+          <Typography
+            variant='paragraph'
+            className='w-2/12 font-medium text-blue-gray-500'
+            placeholder={undefined}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+          >
+            {capitalize(t('your role'))}
+          </Typography>
+          <RoleRadioButton />
+        </div>
+        <Input
+          color='teal'
+          type='text'
+          label={capitalize(t('your name'))}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+          crossOrigin={undefined}
+        />
+        <Input
+          color='teal'
+          type='email'
+          label='Email'
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+          crossOrigin={undefined}
+        />
+        <Input
+          color='teal'
+          type='password'
+          label='Password'
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+          crossOrigin={undefined}
+        />
+        <Input
+          color='teal'
+          type='password'
+          label='Re-enter Password'
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+          crossOrigin={undefined}
+        />
+        <div className='mt-4 flex flex-col gap-6 w-full'>
+          <Button
+            variant='filled'
+            className='bg-primary'
+            placeholder={undefined}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+          >
+            {t('sign up')}
+          </Button>
+          <Typography
+            variant='paragraph'
+            className='flex gap-1 w-full justify-center items-center'
+            placeholder={undefined}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+          >
+            {`${capitalize(t('have account'))}?`}
+            <Link to='/login'>
+              <Typography
+                variant='paragraph'
+                className='text-primary font-medium hover:underline underline-offset-2'
+                placeholder={undefined}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+              >{`${capitalize(t('sign in now'))}`}</Typography>
+            </Link>
+          </Typography>
         </div>
       </form>
     </>

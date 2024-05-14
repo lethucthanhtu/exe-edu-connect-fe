@@ -5,6 +5,7 @@ import { Outlet } from 'react-router-dom';
 import Logo from '../logo';
 
 import business_svg from '../../assets/svg/undraw_business_deal.svg';
+import LanguageButton from '../languageButton';
 
 /**
  * loginLayout component
@@ -34,22 +35,23 @@ export default function LoginLayout() {
         <span className='z-50 absolute top-[3%] -left-[8%] bg-gradient-to-tr from-primary-sub to-primary-light w-[20%] aspect-square rounded-full' />
       </section> */}
       <section className='relative overflow-hidden flex justify-center items-start md:!items-center size-full bg-gray-100'>
-        <div className='z-30 flex py-2 md:!py-0 mx-4 md:!mx-0 w-full md:!size-4/5 justify-center items-center gap-4 rounded-2xl shadow-xl bg-white'>
+        <div className='z-30 flex w-full py-2 md:!py-0 mt-6 mx-4 md:!m-0 md:!size-4/5 justify-center items-center gap-4 rounded-2xl shadow-xl bg-white'>
           <div className='w-5/12 h-full hidden md:flex flex-col justify-evenly items-center'>
             <div className='flex w-full justify-start items-center'>
               <Logo />
             </div>
             <img className='size-4/5' src={business_svg} />
           </div>
-          <div className='w-full md:!w-6/12 h-full flex md:flex-col justify-center items-center'>
-            <div className='w-2/3'>
+          <div className='size-full md:!w-6/12 flex md:flex-col justify-center items-center'>
+            <div className='w-2/3 h-full'>
               <Outlet />
             </div>
           </div>
         </div>
-        <div className='z-10 absolute aspect-square bg-primary/80 w-[200%] rounded-full shadow-2xl rotate-180 top-1/3 flex justify-center items-center'>
+        <span className='z-10 absolute aspect-square bg-primary/80 w-[200%] rounded-full shadow-2xl rotate-180 top-1/3 flex justify-center items-center'>
           <span className='z-20 aspect-square bg-primary-sub size-[98%] rounded-full' />
-        </div>
+        </span>
+        <LanguageButton className='z-50 absolute bottom-2 md:!top-2 right-2 bg-white md:!bg-transparent' />
       </section>
     </>
   );

@@ -114,11 +114,12 @@ export default function Login() {
       </form> */}
       <form
         action='#'
-        className='flex flex-col gap-4 justify-center items-center '
+        className='flex flex-col size-full gap-4 justify-center items-center'
       >
         <Typography
           variant='h3'
-          className='mb-2 flex justify-center capitalize text-primary'
+          color='teal'
+          className='mb-4 flex justify-center capitalize'
           placeholder={undefined}
           onPointerEnterCapture={undefined}
           onPointerLeaveCapture={undefined}
@@ -173,20 +174,36 @@ export default function Login() {
         </div>
 
         <div className='flex flex-col w-full gap-4 justify-center'>
-          <Link to={'/home'}>
-            <Button
-              className='w-full bg-secondary-midBlue'
-              placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-            >
-              {t('log in')}
-            </Button>
-          </Link>
+          <Button
+            type='submit'
+            className='w-full bg-secondary-midBlue'
+            placeholder={undefined}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+          >
+            {t('log in')}
+          </Button>
+          <Button
+            variant='outlined'
+            color='blue-gray'
+            className='flex justify-center items-center gap-3 border-primary'
+            placeholder={undefined}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+          >
+            <img
+              src='https://docs.material-tailwind.com/icons/google.svg'
+              alt='google'
+              className='size-4'
+            />
+            Continue with Google
+          </Button>
+          <hr className='mt-2 border-blue-gray-50' />
 
           <Link to={'/signup'}>
             <Button
-              className='w-full bg-none'
+              className='w-full bg-none text-primary'
+              // color='teal'
               variant='text'
               placeholder={undefined}
               onPointerEnterCapture={undefined}

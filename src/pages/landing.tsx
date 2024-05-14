@@ -378,7 +378,7 @@ export default function Landing() {
             </div>
 
             <div className='relative flex justify-center size-full mb-12'>
-              <div className='z-10 rounded-full bg-primary-sub size-[34rem]'></div>
+              <div className='z-10 aspect-square rounded-full bg-primary-sub h-[125%]'></div>
               <div className='z-20 absolute -top-12'>
                 <img className='' src={landing_body3_people1} />
                 <div className='w-full h-auto py-2 grid grid-cols-4 bg-primary text-white rounded-2xl'>
