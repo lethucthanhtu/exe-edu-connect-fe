@@ -112,7 +112,6 @@ export default function ForgotPassword() {
               <Button
                 className='w-full capitalize text-gray-400 bg-secondary-midBlue'
                 onClick={handleNext}
-                disabled={isLastStep}
                 placeholder={undefined}
                 onPointerEnterCapture={undefined}
                 onPointerLeaveCapture={undefined}
@@ -205,7 +204,6 @@ export default function ForgotPassword() {
               <Button
                 className='w-full text-gray-400 bg-secondary-midBlue'
                 onClick={handleNext}
-                disabled={isLastStep}
                 placeholder={undefined}
                 onPointerEnterCapture={undefined}
                 onPointerLeaveCapture={undefined}
