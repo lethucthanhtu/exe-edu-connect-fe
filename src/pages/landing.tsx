@@ -235,7 +235,7 @@ export default function Landing() {
     <>
       <section className='h-auto mb-8 '>
         <div className='flex flex-col items-center h-auto pb-12 rounded-b-[50px] bg-gradient-to-t from-secondary-lighterBlue to-white'>
-          <div className='bg-white h-auto rounded-b-[50px]'>
+          <div className='relative bg-white h-auto rounded-b-[50px]'>
             <div className='z-10 w-full flex flex-col items-center'>
               <h3 className='px-24 text-8xl text-center text-wrap track- font-bold text-primary'>
                 Bạn có đang tìm gia sư không ?
@@ -269,7 +269,7 @@ export default function Landing() {
 
               <div className=''>
                 <img
-                  className='absolute left-[20%] -top-[46.4444%]'
+                  className='absolute bottom-0 right-1/2 translate-x-1/2'
                   src={landing_body1_backgroundPeople}
                 />
               </div>
@@ -307,7 +307,7 @@ export default function Landing() {
             <div className='w-full h-auto'>
               <Tabs value='KHÓA HỌC'>
                 <TabsHeader
-                  className='absolute w-11/12 left-1/2 -translate-x-1/2 -top-5 bg-opacity-100 bg-secondary-lightestBlue'
+                  className='absolute w-11/12 left-1/2 -translate-x-1/2 -top-[2.5%] bg-opacity-100 bg-secondary-lightestBlue'
                   indicatorProps={{
                     className:
                       'bg-secondary-lighterBlue shadow-none !text-gray-900',
