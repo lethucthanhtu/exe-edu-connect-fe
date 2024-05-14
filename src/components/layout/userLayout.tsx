@@ -309,7 +309,7 @@ function Sidebar({ img, name, role, ballance = 0 }: TUserProps) {
 
   return (
     <Card
-      className='min-h-screen w-1/5 p-4 shadow-xl shadow-blue-gray-900/5'
+      className='min-h-full w-1/5 p-4 shadow-xl shadow-blue-gray-900/5'
       placeholder={undefined}
       onPointerEnterCapture={undefined}
       onPointerLeaveCapture={undefined}
@@ -530,7 +530,7 @@ function Sidebar({ img, name, role, ballance = 0 }: TUserProps) {
 export default function UserLayout() {
   return (
     <>
-      <section className='flex'>
+      <section className='flex xs:flex-col md:!flex-row'>
         <Sidebar
           name='Lê Thúc Thanh Tú'
           role='admin'

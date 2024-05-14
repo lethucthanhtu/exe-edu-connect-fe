@@ -18,7 +18,7 @@ import {
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { SearchBar } from './searchBar';
 
-import logo from '../assets/edu-connect.svg';
+import Logo from './logo';
 
 // profile menu component
 const profileMenuItems = [
@@ -227,17 +227,7 @@ export default function Header() {
         onPointerLeaveCapture={undefined}
       >
         <section className='flex items-center justify-between text-blue-gray-900'>
-          <Typography
-            className='mr-4 cursor-pointer font-medium select-none'
-            placeholder={undefined}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-          >
-            <Link to='/' className='flex items-center justify-center'>
-              <img className='h-16' src={logo} alt='edu connect' />
-              <span className='hidden lg:inline-block'>Edu Connect</span>
-            </Link>
-          </Typography>
+          <Logo />
           <div className='mr-4 hidden lg:block'>
             <AnimatedNav />
             {/* <NavList /> */}

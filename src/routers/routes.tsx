@@ -30,6 +30,7 @@ import Setting        from '../pages/user/setting';
 import CreateCourse   from '../pages/course/create.course';
 import EditCourse     from '../pages/course/edit.course';
 import UserLayout from '../components/layout/userLayout';
+import Schedule from '../pages/user/schedule';
 
 /**
  * all route in system
@@ -85,19 +86,6 @@ const routes = createBrowserRouter([
         ],
       },
       {
-        path     : '',
-        element  : <LoginLayout/>,
-        children : [
-          { path : 'login'         , element: <Login           /> },
-          { path : 'signup'        , element: <Signup          /> },
-          { path : 'forgotPassword', element: <ForgotPassword  /> },
-        ],
-      },
-      { path : 'error'  , element: <NotFound        /> },
-      { path : '*'      , element: <NotFound        /> },
-    ],
-  },
-  {
         path     : 'user',
         element: <UserLayout />,
         children : [
@@ -108,7 +96,7 @@ const routes = createBrowserRouter([
               { index: true           , element: <Navigate to='./profile' /> },
               { path : 'profile'      , element: <Profile                 /> },
               { path : 'history'      , element: <NotHandleYet            /> }, //các khóa học đã học/dạy
-              { path : 'schedule'     , element: <NotHandleYet            /> }, //các khóa học đã học/dạy
+              { path : 'schedule'     , element: <Schedule                /> }, //các khóa học đã học/dạy
               { path : 'learn-request', element: <NotHandleYet            /> }, //đăng ký học, đợi accept
               { path : 'teach-request', element: <NotHandleYet            /> }, //đăng ký dạy, đợi accept
             ],
@@ -117,6 +105,19 @@ const routes = createBrowserRouter([
           { path : 'deposit'    , element: <NotHandleYet    /> }, //nạp tiền vào tài khoản
           { path : 'withdraw'   , element: <NotHandleYet    /> }, //rút tiền về bank/ví điện tử
           { path : 'checkout'   , element: <NotHandleYet    /> }, //rút tiền về bank/ví điện tử
+        ],
+      },
+      { path : 'error'  , element: <NotFound        /> },
+      { path : '*'      , element: <NotFound        /> },
+    ],
+  },
+        {
+        path     : '',
+        element  : <LoginLayout/>,
+        children : [
+          { path : 'login'         , element: <Login           /> },
+          { path : 'signup'        , element: <Signup          /> },
+          { path : 'forgotPassword', element: <ForgotPassword  /> },
         ],
       },
 ]);
