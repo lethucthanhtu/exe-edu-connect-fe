@@ -18,13 +18,18 @@ import {
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { capitalize } from '../../utils/utils';
+import { InputEmail, InputPassword } from '../../components/input';
+
+type TRoleRadioButtonProps = {
+  className?: string;
+};
 
 /** */
-export function RoleRadioButton() {
+function RoleRadioButton({ className }: TRoleRadioButtonProps) {
   const { t } = useTranslation();
   return (
     <Card
-      className='w-full'
+      className={className}
       placeholder={undefined}
       onPointerEnterCapture={undefined}
       onPointerLeaveCapture={undefined}
@@ -94,6 +99,7 @@ export function RoleRadioButton() {
             >
               <Radio
                 name='horizontal-list'
+                defaultChecked
                 color='teal'
                 id='horizontal-list-vue'
                 ripple={false}
@@ -128,9 +134,30 @@ export function RoleRadioButton() {
  */
 export default function Signup() {
   const { t } = useTranslation();
+  const [pwd, setPwd] = useState('');
+  const [isPasswordValid, setIsPasswordValid] = useState(false);
   const [passwordShown, setPasswordShown] = useState(false);
   const togglePasswordVisiblity = () => setPasswordShown((cur) => !cur);
   const [openMenu, setOpenMenu] = useState(false);
+  const [isPwdValid, setIsPwdValid] = useState(false);
+  const [isCapsLockOn, setIsCapsLockOn] = useState(false);
+
+  const validatePwd = (pwd: string) => {
+    const isValid =
+      pwd.length >= 8 &&
+      /[A-Z]/.test(pwd) && // Contains an uppercase letter
+      /[a-z]/.test(pwd) && // Contains a lowercase letter
+      /[0-9]/.test(pwd) && // Contains a number
+      /[!@#$%^&*]/.test(pwd); // Contains a special character
+    return isValid;
+  };
+
+  const handlePwdChange = (event) => {
+    const newPwd = event.target.value;
+    setPwd(newPwd);
+    setIsPwdValid(validatePwd(newPwd));
+  };
+
   return (
     <>
       {/* <form action='#'>
@@ -163,6 +190,7 @@ export default function Signup() {
             <Option className='capitalize'>{`${t('student')}`}</Option>
           </Select>
           <Input
+          required
           color='teal'
             id='email'
             color='gray'
@@ -179,6 +207,7 @@ export default function Signup() {
             crossOrigin={undefined}
           />
           <Input
+          required
             id='username'
             color='gray'
             size='lg'
@@ -194,6 +223,7 @@ export default function Signup() {
             crossOrigin={undefined}
           />
           <Input
+          required
             size='lg'
             placeholder={`${t('password')}...`}
             labelProps={{
@@ -206,6 +236,7 @@ export default function Signup() {
             crossOrigin={undefined}
           />
           <Input
+          required
             size='lg'
             placeholder={`${t('repassword')}...`}
             labelProps={{
@@ -249,16 +280,17 @@ export default function Signup() {
         <div className='flex flex-col md:flex-row w-full justify-start items-center'>
           <Typography
             variant='paragraph'
-            className='w-2/12 font-medium text-blue-gray-500'
+            className='w-1/4 font-medium text-blue-gray-500'
             placeholder={undefined}
             onPointerEnterCapture={undefined}
             onPointerLeaveCapture={undefined}
           >
             {capitalize(t('your role'))}
           </Typography>
-          <RoleRadioButton />
+          <RoleRadioButton className='w-3/4'/>
         </div>
         <Input
+          required
           color='teal'
           type='text'
           label={capitalize(t('your name'))}
@@ -266,29 +298,12 @@ export default function Signup() {
           onPointerLeaveCapture={undefined}
           crossOrigin={undefined}
         />
-        <Input
+        <InputEmail color='teal' />
+        <InputPassword color='teal' />
+        <InputPassword
           color='teal'
-          type='email'
-          label='Email'
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-          crossOrigin={undefined}
-        />
-        <Input
-          color='teal'
-          type='password'
-          label='Password'
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-          crossOrigin={undefined}
-        />
-        <Input
-          color='teal'
-          type='password'
-          label='Re-enter Password'
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-          crossOrigin={undefined}
+          isConfirmPassword='true'
+          isShowCapsLockAlert='false'
         />
         <div className='mt-4 flex flex-col gap-6 w-full'>
           <Button
