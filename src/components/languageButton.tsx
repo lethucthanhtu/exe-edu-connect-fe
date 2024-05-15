@@ -21,6 +21,7 @@ export default function LanguageButton({ className }: TLanguageButtonProps) {
     <>
       <div className={`w-52 rounded-lg ${className}`}>
         <Select
+          color='teal'
           label='Language'
           value={i18n.language}
           onChange={handleChangeLng}

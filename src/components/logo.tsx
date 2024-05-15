@@ -15,8 +15,8 @@ export default function Logo() {
       onPointerEnterCapture={undefined}
       onPointerLeaveCapture={undefined}
     >
-      <Link to='/' className='flex items-center justify-center'>
-        <img className='h-16' src={logo} alt='edu connect' />
+      <Link to='/' className='flex gap-0.5 items-center justify-center'>
+        <img className='h-16 aspect-square' src={logo} alt='edu connect' />
         <span className='hidden lg:inline-block'>Edu Connect</span>
       </Link>
     </Typography>
