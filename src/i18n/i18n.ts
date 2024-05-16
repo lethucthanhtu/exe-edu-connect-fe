@@ -43,6 +43,7 @@ export default i18n
                     continue: 'tiếp tục',
                     'enter OTP code': 'nhập mã OTP',
                     done: 'xong',
+                    'your role': 'bạn muốn là'
                 },
             },
             jp: {
