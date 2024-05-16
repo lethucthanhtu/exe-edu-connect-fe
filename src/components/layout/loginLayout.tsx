@@ -18,7 +18,7 @@ export default function LoginLayout() {
             <div className='relative h-4/5 w-full flex justify-center items-center'>
               <img className='z-20 h-full' src={theBoy_png} />
               <span className='absolute aspect-square rounded-full w-3/5 bg-primary-sub' />
-              <span className='absolute bottom-2 w-4/5 h-[5%] rounded-t-[50%] rounded-b-[50%] bg-primary-sub' />
+              <span className='absolute bottom-2 w-4/5 h-[5%] rounded-[50%] bg-primary-sub' />
             </div>
           </div>
           <div className='size-full md:!w-6/12 flex md:flex-col justify-center items-center'>
@@ -28,7 +28,7 @@ export default function LoginLayout() {
           </div>
         </div>
         <img
-          className='z-20 absolute h-full -left-[5%]'
+          className='z-20 absolute h-[110%] bottom-1 -left-[7.5%]'
           src={theBoy_png}
         />
         <span className='z-10 absolute aspect-square bg-primary-sub w-[275%] rounded-full shadow-2xl rotate-180 top-[65%] flex justify-center items-center'/>
