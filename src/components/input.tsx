@@ -1,6 +1,6 @@
 import { Input, Typography, type InputProps } from '@material-tailwind/react';
 import { propTypesInputProps } from '@material-tailwind/react/types/components/slider';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { capitalize } from '../utils/utils';
 
@@ -11,7 +11,7 @@ type TInputEmailProps = Omit<
   | 'onPointerEnterCapture'
   | 'onPointerEnterCapture'
   | 'crossOrigin'
-  // | 'required'
+  | 'required'
 >;
 
 /** */
@@ -20,6 +20,7 @@ export function InputEmail({ ...props }: TInputEmailProps) {
     <>
       <Input
         {...props}
+        required
         type='email'
         label='Email'
         onPointerEnterCapture={undefined}
@@ -42,10 +43,8 @@ export function InputPassword({
   ...props
 }: TInputPasswordProps) {
   const { t } = useTranslation();
-  const [isPasswordValid, setIsPasswordValid] = useState(false);
   const [passwordShown, setPasswordShown] = useState(false);
   const togglePasswordVisiblity = () => setPasswordShown((cur) => !cur);
-  const [isPwdValid, setIsPwdValid] = useState(false);
   const [isCapsLockOn, setIsCapsLockOn] = useState(false);
 
   isConfirmPassword = Boolean(isConfirmPassword);
@@ -80,7 +79,7 @@ export function InputPassword({
             xmlns='http://www.w3.org/2000/svg'
             viewBox='0 0 24 24'
             fill='yellow'
-            className='h-6 w-6'
+            className='size-6'
           >
             <path
               fillRule='evenodd'
@@ -108,14 +107,61 @@ export function InputPasswordGroupCheck({
 }: TInputPasswordGroupCheckProps) {
   isAllowValidate = Boolean(isAllowValidate);
   isShowValidateHint = Boolean(isShowValidateHint);
+
+  const validatePwd = (pwd: string) => {
+    const isValid =
+      pwd.length >= 8 &&
+      /[A-Z]/.test(pwd) && // Contains an uppercase letter
+      /[a-z]/.test(pwd) && // Contains a lowercase letter
+      /[0-9]/.test(pwd) && // Contains a number
+      /[!@#$%^&*]/.test(pwd); // Contains a special character
+    return isValid;
+  };
+
+  const [password, setPassword] = useState<string>('');
+  const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const [passwordError, setPasswordError] = useState<string>('');
+  const [confirmPasswordError, setConfirmPasswordError] = useState<string>('');
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const pwd = e.target.value;
+    setPassword(pwd);
+
+    if (!validatePwd(pwd))
+      setPasswordError(
+        'Password must be at least 8 characters long and contain uppercase, lowercase, number, and special character.'
+      );
+    else setPasswordError('');
+  };
+
+  const handleConfirmPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const pwd = e.target.value;
+    setConfirmPassword(pwd);
+
+    if (pwd !== password) setConfirmPasswordError('Passwords do not match.');
+    else setConfirmPasswordError('');
+  };
+
   return (
     <>
-      <InputPassword {...props} />
       <InputPassword
         {...props}
+        color={passwordError ? 'red' : props.color}
+        value={password}
+        onChange={handlePasswordChange}
+      />
+      <InputPassword
+        {...props}
+        color={confirmPasswordError ? 'red' : props.color}
+        value={confirmPassword}
+        onChange={handleConfirmPasswordChange}
         isShowCapsLockAlert='false'
         isConfirmPassword='true'
       />
+      {confirmPasswordError && (
+        <span className='text-red-400 w-full'>{confirmPasswordError}</span>
+      )}
+      {passwordError && <span className='text-red-400'>{passwordError}</span>}
     </>
   );
 }

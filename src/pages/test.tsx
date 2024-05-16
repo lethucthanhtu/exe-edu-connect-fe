@@ -77,7 +77,7 @@ export default function Test() {
           Or
           <span className='font-normal'>'Inspect'</span>
         </Typography>
-        <span className='z-0 absolute aspect-square rounded-full h-2/5 md:h-3/4 shadow-2xl animate-infinite animate-ping'/>
+        <span className='z-0 absolute aspect-square rounded-full h-2/5 md:h-3/4 shadow-2xl animate-infinite animate-ping' />
       </div>
     </>
   );
