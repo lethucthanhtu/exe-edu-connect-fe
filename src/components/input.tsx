@@ -95,3 +95,28 @@ export function InputPassword({
     </div>
   );
 }
+
+type TInputPasswordGroupCheckProps = {
+  isAllowValidate?: boolean | 'true' | 'false';
+  isShowValidateHint?: boolean | 'true' | 'false';
+} & Omit<TInputPasswordProps, 'isShowCapsLockAlert' | 'isConfirmPassword'>;
+
+/** */
+export function InputPasswordGroupCheck({
+  isAllowValidate = true,
+  isShowValidateHint = true,
+  ...props
+}: TInputPasswordGroupCheckProps) {
+  isAllowValidate = Boolean(isAllowValidate);
+  isShowValidateHint = Boolean(isShowValidateHint);
+  return (
+    <>
+      <InputPassword {...props} />
+      <InputPassword
+        {...props}
+        isShowCapsLockAlert='false'
+        isConfirmPassword='true'
+      />
+    </>
+  );
+}

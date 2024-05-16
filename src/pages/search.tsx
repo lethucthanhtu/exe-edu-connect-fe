@@ -11,6 +11,7 @@ import {
   Typography,
 } from '@material-tailwind/react';
 import Pagination from '../components/pagination';
+import Loading from '../components/loading';
 
 /**
  *
@@ -121,8 +122,7 @@ export default function Search() {
   return (
     <>
       <div className='text-6xl flex justify-center'>
-        <span className='capitalize'>{t('search')}</span>
-        {': '}
+        <span className='capitalize'>{t('search')}:</span>
         <span>"{params.get('q')}"</span>
       </div>
       <div className='relative !w-20 ml-20'>
@@ -147,12 +147,7 @@ export default function Search() {
       </div>
       <div className='flex justify-center items-center'>
         {loading ? (
-          <Spinner
-            color='green'
-            className='size-12'
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-          />
+          <Loading color='teal' className='size-12' />
         ) : (
           <div>
             <div className='mx-4 my-auto grid grid-cols-4 gap-4 justify-around'>
