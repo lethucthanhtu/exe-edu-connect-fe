@@ -6,7 +6,7 @@
   "scripts": {
     "start": "vite",
     "dev": "vite --host",
-    "forBE": "npm i && start http://localhost:5173/ && vite",
+    "forBE": "npm i && start http://localhost:5173/test && vite",
     "build": "tsc && vite build",
     "preview": "cross-env NODE_ENV=production node server",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"

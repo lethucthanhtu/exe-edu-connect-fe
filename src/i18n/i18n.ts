@@ -14,6 +14,7 @@ export default i18n
                 translation: {
                     greeting: 'hello',
                     about: 'about us',
+                    repassword: 're-enter password',
                 },
             },
             vi: {
@@ -43,7 +44,7 @@ export default i18n
                     continue: 'tiếp tục',
                     'enter OTP code': 'nhập mã OTP',
                     done: 'xong',
-                    'your role': 'bạn muốn là'
+                    'your role': 'bạn muốn là',
                 },
             },
             jp: {
@@ -51,9 +52,8 @@ export default i18n
                     greeting: 'jp test',
                 },
             },
-
-        },
-        // supportedLngs: ['vi', 'en', 'jp'],
-    });
+    },
+    // supportedLngs: ['vi', 'en', 'jp'],
+  });
 
 export const LANGUAGES = i18n.languages;

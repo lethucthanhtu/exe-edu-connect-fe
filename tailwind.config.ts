@@ -20,6 +20,9 @@ module.exports = withMT({
         midBlue: '#246c67',
         darkBlue: '#003c43',
       },
+      danger: {
+        DEFAULT: '#FA6216',
+      },
     },
     fontFamily: {
       sans: ['Roboto', 'sans-serif'],

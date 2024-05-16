@@ -18,7 +18,12 @@ import {
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { capitalize } from '../../utils/utils';
-import { InputEmail, InputPassword } from '../../components/input';
+import {
+  InputEmail,
+  InputPassword,
+  InputPasswordGroupCheck,
+} from '../../components/input';
+import { FormHeader } from '../../components/form';
 
 type TRoleRadioButtonProps = {
   className?: string;
@@ -140,7 +145,6 @@ export default function Signup() {
   const togglePasswordVisiblity = () => setPasswordShown((cur) => !cur);
   const [openMenu, setOpenMenu] = useState(false);
   const [isPwdValid, setIsPwdValid] = useState(false);
-  const [isCapsLockOn, setIsCapsLockOn] = useState(false);
 
   const validatePwd = (pwd: string) => {
     const isValid =
@@ -160,123 +164,11 @@ export default function Signup() {
 
   return (
     <>
-      {/* <form action='#'>
-        <div className='mb-6'>
-          <Typography
-            variant='h3'
-            color='white'
-            className='mb-2 flex justify-center capitalize'
-            placeholder={undefined}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-          >
-            {t('register new account')}
-          </Typography>
-        </div>
-
-        <div className='flex flex-col gap-4'>
-          <Select
-            className='bg-secondary-darkBlue '
-            label={`${t('tutor/student')}`}
-            animate={{
-              mount: { y: 0 },
-              unmount: { y: 25 },
-            }}
-            placeholder={undefined}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-          >
-            <Option className='capitalize'>{`${t('tutor')}`}</Option>
-            <Option className='capitalize'>{`${t('student')}`}</Option>
-          </Select>
-          <Input
-          required
-          color='teal'
-            id='email'
-            color='gray'
-            size='lg'
-            type='email'
-            name='email'
-            placeholder={`${t('Email')}...`}
-            className='w-full !bg-secondary-darkBlue text-gray-100 placeholder:opacity-100 placeholder:text-gray-400  '
-            labelProps={{
-              className: 'hidden',
-            }}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-            crossOrigin={undefined}
-          />
-          <Input
-          required
-            id='username'
-            color='gray'
-            size='lg'
-            type='text'
-            name='username'
-            placeholder={`${t('your name')}...`}
-            className='w-full placeholder:capitalize !bg-secondary-darkBlue text-gray-100 placeholder:opacity-100 placeholder:text-gray-400  '
-            labelProps={{
-              className: 'hidden',
-            }}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-            crossOrigin={undefined}
-          />
-          <Input
-          required
-            size='lg'
-            placeholder={`${t('password')}...`}
-            labelProps={{
-              className: 'hidden ',
-            }}
-            className='w-full placeholder:capitalize !bg-secondary-darkBlue text-gray-100 placeholder:opacity-100 placeholder:text-gray-400  '
-            type={passwordShown ? 'text' : 'password'}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-            crossOrigin={undefined}
-          />
-          <Input
-          required
-            size='lg'
-            placeholder={`${t('repassword')}...`}
-            labelProps={{
-              className: 'hidden ',
-            }}
-            className='w-full placeholder:capitalize !bg-secondary-darkBlue text-gray-100 placeholder:opacity-100 placeholder:text-gray-400  '
-            type={passwordShown ? 'text' : 'password'}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-            crossOrigin={undefined}
-          />
-        </div>
-
-        <div className='flex flex-col justify-center mt-10'>
-          <Link to={'123'}>
-            <Button
-              className='w-full text-gray-400 bg-secondary-midBlue'
-              placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-            >
-              {t('sign up')}
-            </Button>
-          </Link>
-        </div>
-      </form> */}
       <form
         action='#'
         className='size-full flex flex-col gap-4 justify-center items-center'
       >
-        <Typography
-          variant='h3'
-          color='teal'
-          className='mb-4'
-          placeholder={undefined}
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-        >
-          {capitalize(t('register new account'))}
-        </Typography>
+        <FormHeader label='register new account' />
         <div className='flex flex-col md:flex-row w-full justify-start items-center'>
           <Typography
             variant='paragraph'
@@ -287,7 +179,7 @@ export default function Signup() {
           >
             {capitalize(t('your role'))}
           </Typography>
-          <RoleRadioButton className='w-3/4'/>
+          <RoleRadioButton className='w-3/4' />
         </div>
         <Input
           required
@@ -299,12 +191,7 @@ export default function Signup() {
           crossOrigin={undefined}
         />
         <InputEmail color='teal' />
-        <InputPassword color='teal' />
-        <InputPassword
-          color='teal'
-          isConfirmPassword='true'
-          isShowCapsLockAlert='false'
-        />
+        <InputPasswordGroupCheck color='teal' />
         <div className='mt-4 flex flex-col gap-6 w-full'>
           <Button
             variant='filled'

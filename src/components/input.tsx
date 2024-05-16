@@ -11,7 +11,7 @@ type TInputEmailProps = Omit<
   | 'onPointerEnterCapture'
   | 'onPointerEnterCapture'
   | 'crossOrigin'
-  | 'required'
+  // | 'required'
 >;
 
 /** */
@@ -20,7 +20,6 @@ export function InputEmail({ ...props }: TInputEmailProps) {
     <>
       <Input
         {...props}
-        required
         type='email'
         label='Email'
         onPointerEnterCapture={undefined}
@@ -93,5 +92,30 @@ export function InputPassword({
         </Typography>
       )}
     </div>
+  );
+}
+
+type TInputPasswordGroupCheckProps = {
+  isAllowValidate?: boolean | 'true' | 'false';
+  isShowValidateHint?: boolean | 'true' | 'false';
+} & Omit<TInputPasswordProps, 'isShowCapsLockAlert' | 'isConfirmPassword'>;
+
+/** */
+export function InputPasswordGroupCheck({
+  isAllowValidate = true,
+  isShowValidateHint = true,
+  ...props
+}: TInputPasswordGroupCheckProps) {
+  isAllowValidate = Boolean(isAllowValidate);
+  isShowValidateHint = Boolean(isShowValidateHint);
+  return (
+    <>
+      <InputPassword {...props} />
+      <InputPassword
+        {...props}
+        isShowCapsLockAlert='false'
+        isConfirmPassword='true'
+      />
+    </>
   );
 }

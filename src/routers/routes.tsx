@@ -29,8 +29,9 @@ import Users          from '../pages/user/users';
 import Setting        from '../pages/user/setting';
 import CreateCourse   from '../pages/course/create.course';
 import EditCourse     from '../pages/course/edit.course';
-import UserLayout from '../components/layout/userLayout';
-import Schedule from '../pages/user/schedule';
+import UserLayout     from '../components/layout/userLayout';
+import Schedule       from '../pages/user/schedule';
+import Test           from '../pages/test';
 
 /**
  * all route in system
@@ -108,6 +109,7 @@ const routes = createBrowserRouter([
         ],
       },
       { path : 'error'  , element: <NotFound        /> },
+      { path : 'test'   , element: <Test            /> },
       { path : '*'      , element: <NotFound        /> },
     ],
   },
