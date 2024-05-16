@@ -15,7 +15,7 @@ export default function LoginLayout() {
         <div className='z-30 flex w-full py-2 md:!py-0 mt-6 mx-4 md:!m-0 md:!size-4/5 justify-center items-center gap-4 rounded-2xl shadow-xl bg-white'>
           <div className='w-5/12 h-full hidden md:flex flex-col justify-evenly items-center'>
             <Logo className='flex w-full justify-start items-center' />
-            <div className='relative h-4/5 w-full flex justify-center items-center'>
+            <div className='relative h-4/5 w-full bottom-4 flex justify-center items-center'>
               <img className='z-20 h-full' src={theBoy_png} />
               <span className='absolute aspect-square rounded-full w-3/5 bg-primary-sub' />
               <span className='absolute bottom-2 w-4/5 h-[5%] rounded-[50%] bg-primary-sub' />
