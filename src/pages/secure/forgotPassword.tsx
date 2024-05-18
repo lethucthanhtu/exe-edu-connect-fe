@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { InputEmail, InputPasswordGroupCheck } from '../../components/input';
 import { FormHeader } from '../../components/form';
+import { capitalize } from '../../utils/utils';
 
 type TFormProps = {
   activeStep: number;
@@ -38,7 +39,7 @@ function FormStep1({ activeStep, handleNext }: TFormProps) {
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
             >
-              Vui lòng nhập email để nhận mã OTP
+              {capitalize( t('enter email to receive OTP code'))}
             </Typography>
           </div>
         </div>
@@ -90,7 +91,7 @@ function FormStep2({ activeStep, handleNext }: TFormProps) {
             onPointerEnterCapture={undefined}
             onPointerLeaveCapture={undefined}
           >
-            Mã OTP sẽ được gửi trong giây lát
+            {capitalize(t('OTP code will be sent shortly'))}
           </Typography>
 
           <Input

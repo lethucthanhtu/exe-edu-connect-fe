@@ -43,6 +43,9 @@ export default i18n
                     'resend code': 'gửi lại mã',
                     'continue': 'tiếp tục',
                     'have account': 'bạn đã có tài khoản',
+                    'or': 'hoặc',
+                    'enter email to receive OTP code': 'vui lòng nhập email để nhận mã OTP',
+                    'remember me': 'lưu đăng nhập',
                     'sign in now': 'đăng nhập ngay',
                     'enter OTP code': 'nhập mã OTP',
                     done: 'xong',
@@ -50,6 +53,8 @@ export default i18n
                     'Get in touch with us': 'Liên hệ với chúng tôi',
                     '(+84) 862236759': '0862236759',
                     'FPT University, High-tech, District 9, Ho Chi Minh City': 'Trường Đại Học FPT, Khu công nghệ cao, quận 9, thành phố Hồ Chí Minh',
+                    'language': "ngôn ngữ",
+                    'OTP code will be sent shortly': 'Mã OTP sẽ được gửi trong giây lát',
                 },
             },
             jp: {

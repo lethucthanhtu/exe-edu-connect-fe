@@ -56,7 +56,7 @@ export default function Login() {
 
         <div className='flex w-full justify-between'>
           <Checkbox
-            label={capitalize(t('remember me?'))}
+            label={`${capitalize(t('remember me'))}?`}
             color='teal'
             className='label:text-primary'
             onPointerEnterCapture={undefined}

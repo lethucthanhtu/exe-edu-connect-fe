@@ -3,7 +3,7 @@
  * Example: aPpLe => Apple
  */
 export const capitalize = (str: string): string =>
-  str ? str.charAt(0).toUpperCase() + str.slice(1).toLowerCase() : str;
+  str ? str.charAt(0).toUpperCase() + str.slice(1) : str;
 
 /**
  * Upper first letter of all words in String.
