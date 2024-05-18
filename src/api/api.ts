@@ -1,26 +1,35 @@
 import axios from 'axios';
 
 // const url = import.meta.env.VITE_API_ENDPOINT;
-// const url = 'http://localhost:8082/api/auth/';
+const url = 'http://localhost:8082/api/';
 // const url = 'https://wifeed.vn/api/';
+const token = sessionStorage.getItem('token');
 
-export const api = axios.create({
-  baseURL: import.meta.env.VITE_API_ENDPOINT,
+export const apiUser = axios.create({
+  baseURL: url,
+  headers: {
+    'Access-Control-Allow-Origin': true,
+    Authorization: `Bearer ${token}`,
+  },
+});
+
+export const apiGuest = axios.create({
+  baseURL: url,
   headers: {
     'Access-Control-Allow-Origin': true,
     // Authorization:
   },
 });
 
-export const apiProd = api;
+const api = token ? apiUser : apiGuest;
+export default api;
+
+export const apiProd = apiGuest;
 
 export const apiLocal = axios.create({
-  baseURL: 'http://localhost:8082/api/auth/',
+  baseURL: 'http://localhost:8082/api/',
   headers: {
     'Access-Control-Allow-Origin': true,
+    // Authorization: `Bearer ${token}`,
   },
-});
-
-export const apiTest = axios.create({
-  baseURL: 'https://wifeed.vn/api/',
 });

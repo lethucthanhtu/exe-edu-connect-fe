@@ -10,7 +10,7 @@ import {
   Spinner,
   Typography,
 } from '@material-tailwind/react';
-import Pagination from '../components/pagination';
+import OldPagination from '../components/pagination';
 import Loading from '../components/loading';
 
 /**
@@ -162,7 +162,7 @@ export default function Search() {
               ))}
             </div>
             <div className='flex justify-center mt-auto'>
-              <Pagination
+              <OldPagination
                 length={searchResult.length}
                 offset={offset}
                 currentPage={currentPage}

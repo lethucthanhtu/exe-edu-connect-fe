@@ -1,7 +1,7 @@
-import { Button, IconButton, Typography }                 from '@material-tailwind/react';
-import { Dispatch, SetStateAction, useEffect, useState }  from 'react';
-import { Link, useSearchParams }                          from 'react-router-dom';
-import { pathlify }                                       from '../utils/utils';
+import { Button, IconButton, Typography } from '@material-tailwind/react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
+import { pathlify } from '../utils/utils';
 
 type TPaginationProps = {
   length: number;
@@ -16,8 +16,9 @@ type TPaginationProps = {
 /**
  * pagination component
  * @returns JSX.Element
+ * @deprecated
  */
-export default function Pagination({
+export default function OldPagination({
   length,
   offset = 25,
   currentPage = 1,
@@ -130,7 +131,7 @@ export default function Pagination({
       <Button
         variant='text'
         className='flex items-center gap-2'
-        color='green'
+        color='teal'
         onClick={prev}
         disabled={active === 1}
         placeholder={undefined}

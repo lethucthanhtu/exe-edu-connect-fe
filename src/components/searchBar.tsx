@@ -46,12 +46,13 @@ export function SearchBar() {
         method='get'
         action='/search'
         reloadDocument={window.location.pathname === '/search'}
-        className='relative flex max-w-[24rem] hidden lg:block'
+        className='relative md:flex max-w-[24rem] hidden'
       >
         <Input
           type='text'
           label={capitalize(t('search'))}
           name='q'
+          color='teal'
           value={query}
           className='pr-20'
           onFocus={(event) => {

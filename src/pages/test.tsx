@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { api, apiLocal, apiProd, apiTest } from '../api/api';
+import api, { apiLocal, apiProd } from '../api/api';
 import { Typography } from '@material-tailwind/react';
 
 // eslint-disable-next-line no-console
@@ -10,7 +10,7 @@ export default function Test() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const localAPI = () => {
     apiLocal
-      .get('/roles')
+      .get('/courses', { params: { page: 1, size: 25 } })
       // eslint-disable-next-line no-console
       .then((res) => console.log(res))
       // eslint-disable-next-line no-console
@@ -27,25 +27,9 @@ export default function Test() {
       .catch((err) => console.log(err));
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const publicAPI = () => {
-    apiTest
-      .get('/thong-tin-co-phieu/danh-sach-ma-chung-khoan', {
-        params: {
-          loaidn: 1,
-          san: 'HOSE',
-        },
-      })
-      // eslint-disable-next-line no-console
-      .then((res) => console.log(res))
-      // eslint-disable-next-line no-console
-      .catch((err) => console.log(err));
-  };
-
   useEffect(() => {
     localAPI();
     // prodAPI();
-    // publicAPI();
   }, []);
 
   return (

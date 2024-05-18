@@ -23,14 +23,15 @@ function FormStep1({ activeStep, handleNext }: TFormProps) {
     <>
       <form
         action='#'
-        className={`size-full flex flex-col gap-4 justify-center p-auto items-center
+        onSubmit={handleNext}
+        className={`size-full flex flex-col gap-4 justify-center h-full items-center
                         ${activeStep === 0 ? 'animate-fade-right' : 'hidden'}
                       `}
       >
         <FormHeader label='forgot password' />
         <div className='flex flex-col justify-center items-center w-full gap-1'>
           <div className='flex flex-col gap-6 items-center w-full h-auto'>
-            <InputEmail color='teal' />
+            <InputEmail name='email' color='teal' />
             <Typography
               className=''
               placeholder={undefined}
@@ -43,8 +44,8 @@ function FormStep1({ activeStep, handleNext }: TFormProps) {
         </div>
 
         <Button
-          className='mt-12 w-full bg-secondary-midBlue'
-          onClick={handleNext}
+          type='submit'
+          className='w-full bg-secondary-midBlue'
           placeholder={undefined}
           onPointerEnterCapture={undefined}
           onPointerLeaveCapture={undefined}
@@ -62,10 +63,11 @@ function FormStep2({ activeStep, handleNext }: TFormProps) {
   return (
     <>
       <form
+        onSubmit={handleNext}
         action='#'
         className={`size-full flex flex-col gap-4 justify-center p-auto items-center
-                        ${activeStep === 1 ? 'animate-fade-right' : 'hidden'}
-                      `}
+                    ${activeStep === 1 ? 'animate-fade-right' : 'hidden'}
+                  `}
       >
         <FormHeader label='forgot password' />
         <div className='flex flex-col gap-4 justify-center items-center w-full'>
@@ -105,8 +107,8 @@ function FormStep2({ activeStep, handleNext }: TFormProps) {
           />
         </div>
         <Button
+          type='submit'
           className='w-full bg-secondary-midBlue'
-          onClick={handleNext}
           placeholder={undefined}
           onPointerEnterCapture={undefined}
           onPointerLeaveCapture={undefined}
@@ -129,7 +131,7 @@ function FormStep3({ activeStep }: TFormProps) {
                         ${activeStep === 2 ? 'animate-fade-right' : 'hidden'}
                       `}
       >
-        <FormHeader label='forgot password'/>
+        <FormHeader label='forgot password' />
         <InputPasswordGroupCheck color='teal' />
         <Link className='w-full mt-12' to='/login'>
           <Button

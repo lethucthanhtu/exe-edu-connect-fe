@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
-import { Button, Checkbox } from '@material-tailwind/react';
+import { Alert, Button, Checkbox } from '@material-tailwind/react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { capitalize } from '../../utils/utils';
 import { InputEmail, InputPassword } from '../../components/input';
 import { FormHeader } from '../../components/form';
 import Separator from '../../components/separator';
-import { api, apiTest } from '../../api/api';
+import api from '../../api/api';
+import { AlertPopup } from '../../components/alert';
 
 /**
  * login page
@@ -14,28 +15,43 @@ import { api, apiTest } from '../../api/api';
  */
 export default function Login() {
   const { t } = useTranslation();
+  const [errorMessage, setErrorMessage] = useState<string>('');
+
   const [post, setPost] = useState({
     email: '',
     password: '',
   });
 
   const handleInput = (event) =>
-    setPost({ ...post, [event.target.name]: event.target.event });
+    setPost({ ...post, [event.target.name]: event.target.value });
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    api
+      .post('/auth/login', { ...post })
+      .then((res) => {
+        sessionStorage.setItem('token', res.data?.returnData);
+        // eslint-disable-next-line no-console
+        console.log(res);
+        // eslint-disable-next-line no-console
+        console.log(sessionStorage.getItem('token'));
+      })
+      // eslint-disable-next-line no-console
+      .catch((err) => setErrorMessage(err.response.data.message));
   };
 
   return (
     <>
       <form
-        action='#'
+        // action='#'
+        method='post'
+        onSubmit={handleSubmit}
         className='flex flex-col size-full gap-4 justify-center items-center'
       >
         <FormHeader label='log in' />
         <div className='flex flex-col justify-center items-center w-full gap-4'>
-          <InputEmail name='email' color='teal' />
-          <InputPassword name='password' color='teal' />
+          <InputEmail onChange={handleInput} name='email' color='teal' />
+          <InputPassword onChange={handleInput} name='password' color='teal' />
         </div>
 
         <div className='flex w-full justify-between'>
@@ -101,6 +117,7 @@ export default function Login() {
           </Link>
         </div>
       </form>
+      {errorMessage && <AlertPopup>{errorMessage}</AlertPopup>}
     </>
   );
 }
