@@ -8,6 +8,7 @@ export const api = axios.create({
   baseURL: import.meta.env.VITE_API_ENDPOINT,
   headers: {
     'Access-Control-Allow-Origin': true,
+    // Authorization:
   },
 });
 
@@ -22,4 +23,8 @@ export const apiLocal = axios.create({
 
 export const apiTest = axios.create({
   baseURL: 'https://wifeed.vn/api/',
+});
+
+export const apiReqres = axios.create({
+  baseURL: 'https://reqres.in/api/',
 });

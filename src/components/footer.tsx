@@ -3,23 +3,44 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import LanguageButton from './languageButton';
 import { capitalize } from '../utils/utils';
+import footer_icon_phone from '../assets/img/footer/footer_icon_phone.png';
+import footer_icon_location from '../assets/img/footer/footer_icon_location.png';
+import footer_icon_mail from '../assets/img/footer/footer_icon_mail.png';
 
 const SITEMAP = [
   {
     title: 'Company',
-    links: ['About Us', 'Careers', 'Our Team', 'Projects'],
+    // links: ['Landing', 'About Us', 'Contact'],
+    links: [
+      { name: 'Landing', url: '/landing' },
+      { name: 'About Us', url: '/about' },
+      { name: 'Contact', url: '#' },
+    ],
   },
   {
-    title: 'Help Center',
-    links: ['Discord', 'Twitter', 'GitHub', 'Contact Us'],
+    title: 'Legal',
+    // links: ['Privacy Policy', 'User Policy'],
+    links: [
+      { name: 'Privacy Policy', url: '#' },
+      { name: 'User Policy', url: '#' },
+    ],
+  },
+  {
+    title: 'Features',
+    // links: ['Our Course', 'Post Page', 'Search Page'],
+    links: [
+      { name: 'Our Course', url: '#' },
+      { name: 'Post Page', url: '#' },
+      { name: 'Search Page', url: '#' },
+    ],
   },
   {
     title: 'Resources',
-    links: ['Blog', 'Newsletter', 'Free Products', 'Affiliate Program'],
-  },
-  {
-    title: 'Products',
-    links: ['Templates', 'UI Kits', 'Icons', 'Mockups'],
+    // links: ['Facebook', 'Blog'],
+    links: [
+      { name: 'Facebook', url: 'https://www.facebook.com/Tien.Hoang.0102/' },
+      { name: 'Blog', url: '#' },
+    ],
   },
 ];
 
@@ -35,7 +56,7 @@ export default function Footer() {
   return (
     <footer className='relative w-full mt-auto border-t border-gray-200'>
       <div className='w-full'>
-        <div className='flex flex-row'>
+        <div className='flex md:flex-row flex-col'>
           <div className='basis-2/3 mx-auto px-8 grid w-full grid-cols-1 gap-8 py-12 md:grid-cols-2 lg:grid-cols-4'>
             {SITEMAP.map(({ title, links }, key) => (
               <div key={key} className='w-full'>
@@ -61,10 +82,10 @@ export default function Footer() {
                       onPointerLeaveCapture={undefined}
                     >
                       <Link
-                        to='#'
+                        to={link.url}
                         className='inline-block py-1 pr-2 transition-transform hover:scale-105'
                       >
-                        {link}
+                        {link.name}
                       </Link>
                     </Typography>
                   ))}
@@ -72,15 +93,64 @@ export default function Footer() {
               </div>
             ))}
           </div>
-          <div className='basis-1/3 mx-auto px-8 grid w-full grid-cols-1 gap-8 py-12 md:grid-cols-2 lg:grid-cols-4'>
-            <Typography
-              placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-            >
-              Get in touch
-            </Typography>
-            <LanguageButton />
+
+          <div className='basis-1/3 mx-auto md:px-8 grid w-full grid-cols-1 gap-8 py-12 md:grid-cols-1 lg:grid-cols-1 xs:px-4'>
+            <div className='w-full h-full '>
+              <div className='w-full flex flex-col items-center'>
+                <Typography
+                  className='font-semibold my-4 text-center'
+                  placeholder={undefined}
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                >
+                  {t('Get in touch with us')}
+                </Typography>
+                <div className='w-full h-auto flex flex-col items-center justify-around'>
+                  <div className='flex '>
+                    <span className='material-symbols-outlined text-primary-sub'>
+                      call
+                    </span>
+                    <Typography
+                      className='ml-2 font-normal text-base'
+                      placeholder={undefined}
+                      onPointerEnterCapture={undefined}
+                      onPointerLeaveCapture={undefined}
+                    >
+                      {t('(+84) 862236759')}
+                    </Typography>
+                  </div>
+                  <div className='flex mt-2'>
+                    <span className='material-symbols-outlined text-primary-sub'>
+                      location_on
+                    </span>
+                    <Typography
+                      className='ml-2 font-normal text-base text-center'
+                      placeholder={undefined}
+                      onPointerEnterCapture={undefined}
+                      onPointerLeaveCapture={undefined}
+                    >
+                      {t(
+                        'FPT University, High-tech, District 9, Ho Chi Minh City'
+                      )}
+                    </Typography>
+                  </div>
+                  <div className='flex mt-2'>
+                    <span className='material-symbols-outlined text-primary-sub'>
+                      mail
+                    </span>
+                    <Typography
+                      className='ml-2 font-normal text-base'
+                      placeholder={undefined}
+                      onPointerEnterCapture={undefined}
+                      onPointerLeaveCapture={undefined}
+                    >
+                      educonnect@gmail.com
+                    </Typography>
+                  </div>
+                </div>
+                <LanguageButton className='mt-6' />
+              </div>
+            </div>
           </div>
         </div>
 

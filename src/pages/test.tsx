@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { api, apiLocal, apiProd, apiTest } from '../api/api';
+import { api, apiLocal, apiProd, apiTest, apiReqres } from '../api/api';
 import { Typography } from '@material-tailwind/react';
 
 // eslint-disable-next-line no-console
@@ -7,6 +7,21 @@ console.clear();
 
 /** */
 export default function Test() {
+  // export default async function Test() {
+  // let res = await apiReqres.get('users/', {
+  apiReqres.get('users/', {
+    params: {
+      page: '1',
+    },
+  })
+  // console.log('>>> res: ', res);
+  .then((res) => {
+    console.log('>>> res: ', res.data.data);
+  })
+  
+  //-----------------------------------------------------------
+  // Lê Tú
+  //-----------------------------------------------------------
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const localAPI = () => {
     apiLocal
@@ -77,8 +92,12 @@ export default function Test() {
           Or
           <span className='font-normal'>'Inspect'</span>
         </Typography>
-        <span className='z-0 absolute aspect-square rounded-full h-2/5 md:h-3/4 shadow-2xl animate-infinite animate-ping'/>
+        <span className='z-0 absolute aspect-square rounded-full h-2/5 md:h-3/4 shadow-2xl animate-infinite animate-ping' />
       </div>
     </>
   );
 }
+function then(arg0: (res: any) => void) {
+  throw new Error('Function not implemented.');
+}
+

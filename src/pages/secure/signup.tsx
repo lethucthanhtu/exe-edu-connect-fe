@@ -3,12 +3,6 @@ import {
   Typography,
   Input,
   Button,
-  MenuHandler,
-  MenuItem,
-  MenuList,
-  Menu,
-  Select,
-  Option,
   Radio,
   Card,
   List,
@@ -20,7 +14,6 @@ import { Link } from 'react-router-dom';
 import { capitalize } from '../../utils/utils';
 import {
   InputEmail,
-  InputPassword,
   InputPasswordGroupCheck,
 } from '../../components/input';
 import { FormHeader } from '../../components/form';
@@ -141,8 +134,6 @@ export default function Signup() {
   const { t } = useTranslation();
   const [pwd, setPwd] = useState('');
   const [isPasswordValid, setIsPasswordValid] = useState(false);
-  const [passwordShown, setPasswordShown] = useState(false);
-  const togglePasswordVisiblity = () => setPasswordShown((cur) => !cur);
   const [openMenu, setOpenMenu] = useState(false);
   const [isPwdValid, setIsPwdValid] = useState(false);
 
