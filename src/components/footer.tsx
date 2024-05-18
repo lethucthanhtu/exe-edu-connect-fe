@@ -3,9 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import LanguageButton from './languageButton';
 import { capitalize } from '../utils/utils';
-import footer_icon_phone from '../assets/img/footer/footer_icon_phone.png';
-import footer_icon_location from '../assets/img/footer/footer_icon_location.png';
-import footer_icon_mail from '../assets/img/footer/footer_icon_mail.png';
 
 const SITEMAP = [
   {
