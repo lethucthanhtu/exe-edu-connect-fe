@@ -33,3 +33,7 @@ export const apiLocal = axios.create({
     // Authorization: `Bearer ${token}`,
   },
 });
+
+export const apiReqres = axios.create({
+  baseURL: 'https://reqres.in/api/',
+});

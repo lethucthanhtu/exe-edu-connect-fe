@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import api, { apiLocal, apiProd } from '../api/api';
+import api, { apiLocal, apiProd, apiReqres } from '../api/api';
 import { Typography } from '@material-tailwind/react';
 
 // eslint-disable-next-line no-console
@@ -7,10 +7,27 @@ console.clear();
 
 /** */
 export default function Test() {
+  // export default async function Test() {
+  // let res = await apiReqres.get('users/', {
+  apiReqres
+    .get('users/', {
+      params: {
+        page: '1',
+      },
+    })
+    // console.log('>>> res: ', res);
+    .then((res) => {
+      // eslint-disable-next-line no-console
+      console.log('>>> res: ', res.data.data);
+    });
+
+  //-----------------------------------------------------------
+  // Lê Tú
+  //-----------------------------------------------------------
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const localAPI = () => {
     apiLocal
-      .get('/courses', { params: { page: 1, size: 25 } })
+      .get('/roles')
       // eslint-disable-next-line no-console
       .then((res) => console.log(res))
       // eslint-disable-next-line no-console
@@ -30,6 +47,7 @@ export default function Test() {
   useEffect(() => {
     localAPI();
     // prodAPI();
+    // publicAPI();
   }, []);
 
   return (
