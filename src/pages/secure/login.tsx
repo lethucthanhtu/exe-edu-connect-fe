@@ -1,13 +1,19 @@
-import { useEffect, useState } from 'react';
-import { Alert, Button, Checkbox } from '@material-tailwind/react';
+import { useRef, useEffect, useState, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
-import { capitalize } from '../../utils/utils';
+
+import { Button, Checkbox } from '@material-tailwind/react';
+import { Link, Navigate } from 'react-router-dom';
+
+import { AuthContext } from '../../context/authProvider';
 import { InputEmail, InputPassword } from '../../components/input';
 import { FormHeader } from '../../components/form';
-import Separator from '../../components/separator';
-import api from '../../api/api';
 import { AlertPopup } from '../../components/alert';
+import Separator from '../../components/separator';
+
+import api from '../../api/api';
+import { capitalize } from '../../utils/utils';
+
+const LOGIN_URL = '/auth/login';
 
 /**
  * login page
@@ -15,22 +21,33 @@ import { AlertPopup } from '../../components/alert';
  */
 export default function Login() {
   const { t } = useTranslation();
-  const [errorMessage, setErrorMessage] = useState<string>('');
 
+  // const { setAuth } = useContext(AuthContext);
+
+  const userRef = useRef(null);
+
+  const [success, setSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string>('');
   const [post, setPost] = useState({
     email: '',
     password: '',
   });
 
+  //focus on email when load page
+  useEffect(() => userRef.current.focus(), []);
+
+  const handleGoogleLogin = () => { }
+
   const handleInput = (event) =>
     setPost({ ...post, [event.target.name]: event.target.value });
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     api
-      .post('/auth/login', { ...post })
+      .post(LOGIN_URL, { ...post })
       .then((res) => {
         sessionStorage.setItem('token', res.data?.returnData);
+        setSuccess(true);
         // eslint-disable-next-line no-console
         console.log(res);
         // eslint-disable-next-line no-console
@@ -42,6 +59,7 @@ export default function Login() {
 
   return (
     <>
+      {/* {success && <Navigate to='/'/>} */}
       <form
         // action='#'
         method='post'
@@ -50,7 +68,12 @@ export default function Login() {
       >
         <FormHeader label='log in' />
         <div className='flex flex-col justify-center items-center w-full gap-4'>
-          <InputEmail onChange={handleInput} name='email' color='teal' />
+          <InputEmail
+            inputRef={userRef}
+            onChange={handleInput}
+            name='email'
+            color='teal'
+          />
           <InputPassword onChange={handleInput} name='password' color='teal' />
         </div>
 
@@ -87,21 +110,21 @@ export default function Login() {
           >
             {t('log in')}
           </Button>
-          <Button
-            variant='outlined'
-            color='blue-gray'
-            className='flex justify-center items-center gap-3 border-primary'
-            placeholder={undefined}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-          >
-            <img
-              src='https://docs.material-tailwind.com/icons/google.svg'
-              alt='google'
-              className='size-4'
-            />
-            Continue with Google
-          </Button>
+            <Button
+              variant='outlined'
+              color='blue-gray'
+              className='flex justify-center items-center gap-3 border-primary'
+              placeholder={undefined}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+            >
+              <img
+                src='https://docs.material-tailwind.com/icons/google.svg'
+                alt='google'
+                className='size-4'
+              />
+              Continue with Google
+            </Button>
           <Separator label='or' />
           <Link to={'/signup'}>
             <Button
