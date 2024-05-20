@@ -14,7 +14,10 @@ export default function Profile() {
   return (
     <>
       <div className='flex justify-center'>
-        <span className='text-6xl capitalize'>Profile {Id}</span>
+        <span className='flex justify-center items-center text-xs capitalize'>
+          <span className='material-symbols-outlined'>search</span>
+          123
+        </span>
       </div>
     </>
   );

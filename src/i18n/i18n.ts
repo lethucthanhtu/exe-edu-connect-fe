@@ -35,6 +35,7 @@ export default i18n
                     'change password': 'đổi mật khẩu',
                     'forgot password': 'quên mật khẩu',
                     'register new account': 'đăng kí tài khoản',
+                    'log out': 'đăng xuất',
                     'tutor/student': 'gia sư/học sinh',
                     tutor: 'giảng viên',
                     student: 'học sinh',
@@ -55,6 +56,10 @@ export default i18n
                     'FPT University, High-tech, District 9, Ho Chi Minh City': 'Trường Đại Học FPT, Khu công nghệ cao, quận 9, thành phố Hồ Chí Minh',
                     'language': "ngôn ngữ",
                     'OTP code will be sent shortly': 'Mã OTP sẽ được gửi trong giây lát',
+                    'ballance': 'số dư',
+                    'deposit': 'nạp tiền',
+                    'withdraw': 'rút tiền',
+                    'profile': 'thông tin cá nhân',
                 },
             },
             jp: {

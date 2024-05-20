@@ -24,7 +24,9 @@ import {
 } from '@heroicons/react/24/solid';
 import { ChevronRightIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 import { Link, Outlet, useParams } from 'react-router-dom';
-import { currencyFormat } from '../../utils/utils';
+import { capitalize, currencyFormat } from '../../utils/utils';
+import LanguageButton from '../languageButton';
+import { useTranslation } from 'react-i18next';
 
 type TUserProps = {
   img: string;
@@ -35,129 +37,134 @@ type TUserProps = {
 
 /** */
 function User({ img, name, role, ballance = 0 }: TUserProps) {
+  const { t } = useTranslation();
   try {
     ballance = Number(ballance);
   } catch (error) {
     ballance = 0;
   }
   return (
-    <Card
-      color='transparent'
-      shadow={false}
-      className='w-full'
-      placeholder={undefined}
-      onPointerEnterCapture={undefined}
-      onPointerLeaveCapture={undefined}
-    >
-      <CardHeader
+    <>
+      <Card
         color='transparent'
-        floated={false}
         shadow={false}
-        className='mx-0 flex items-center gap-4 pt-0 pb-8'
+        className='w-full'
         placeholder={undefined}
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
       >
-        <div className='basis-2/5 aspect-square relative'>
-          <Avatar
-            size='xl'
-            variant='circular'
-            src={img}
-            alt='tania andrew'
-            className='!size-full'
-            placeholder={undefined}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-          />
-          <Button
-            // variant='text'
-            className='!absolute !bottom-0 !right-0 size-[5%] rounded-full p-3 text-white bg-secondary-midBlue border-white border-2 flex justify-center items-center'
-            placeholder={undefined}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-          >
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              fill='none'
-              viewBox='0 0 24 24'
-              strokeWidth={1.5}
-              stroke='currentColor'
-              className='size-4 absolute'
-            >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                d='m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125'
-              />
-            </svg>
-          </Button>
-        </div>
-        <div className='flex basis-3/5 w-full flex-col gap-0.5'>
-          <div className='flex items-center justify-between capitalize'>
-            <Typography
-              variant='h6'
-              color='blue-gray'
-              placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-            >
-              {name}
-            </Typography>
-          </div>
-          <Typography
-            color='blue-gray'
-            className='capitalize'
-            placeholder={undefined}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-          >
-            {role}
-          </Typography>
-        </div>
-      </CardHeader>
-      <CardBody
-        className='mb-6 p-0 flex flex-col gap-2'
-        placeholder={undefined}
-        onPointerEnterCapture={undefined}
-        onPointerLeaveCapture={undefined}
-      >
-        <Typography
-          variant='paragraph'
-          className='flex gap-2 items-center'
+        <CardHeader
+          color='transparent'
+          floated={false}
+          shadow={false}
+          className='mx-0 flex flex-col items-center gap-4 pt-0 pb-8'
           placeholder={undefined}
           onPointerEnterCapture={undefined}
           onPointerLeaveCapture={undefined}
         >
-          <span>Ballance</span>
-          <Chip
-            value={`${currencyFormat(ballance)}`}
-            className='w-full flex justify-center bg-primary'
-          />
-        </Typography>
-        <div className='flex gap-2'>
-          <Button
-            variant='filled'
-            size='sm'
-            className='w-full bg-primary-sub'
+          {/* LanguageButton để test, xóa kèm flexcol dòng 58 */}
+          <LanguageButton></LanguageButton>
+          <div className='basis-2/5 aspect-square relative'>
+            <Avatar
+              size='xl'
+              variant='circular'
+              src={img}
+              alt='tania andrew'
+              className='!size-full'
+              placeholder={undefined}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+            />
+            <Button
+              // variant='text'
+              className='!absolute !bottom-0 !right-0 size-[5%] rounded-full p-3 text-white bg-secondary-midBlue border-white border-2 flex justify-center items-center'
+              placeholder={undefined}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+            >
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                fill='none'
+                viewBox='0 0 24 24'
+                strokeWidth={1.5}
+                stroke='currentColor'
+                className='size-4 absolute'
+              >
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  d='m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125'
+                />
+              </svg>
+            </Button>
+          </div>
+          <div className='flex basis-3/5 w-full flex-col gap-0.5'>
+            <div className='flex items-center justify-between capitalize'>
+              <Typography
+                variant='h6'
+                color='blue-gray'
+                placeholder={undefined}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+              >
+                {name}
+              </Typography>
+            </div>
+            <Typography
+              color='blue-gray'
+              className='capitalize'
+              placeholder={undefined}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+            >
+              {t(role)}
+            </Typography>
+          </div>
+        </CardHeader>
+        <CardBody
+          className='mb-6 p-0 flex flex-col gap-2'
+          placeholder={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+        >
+          <Typography
+            variant='paragraph'
+            className='flex gap-2 justify-between items-center'
             placeholder={undefined}
             onPointerEnterCapture={undefined}
             onPointerLeaveCapture={undefined}
           >
-            Deposit
-          </Button>
-          <Button
-            variant='outlined'
-            size='sm'
-            className='w-full border-primary-sub text-primary-sub'
-            placeholder={undefined}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-          >
-            Withdraw
-          </Button>
-        </div>
-      </CardBody>
-    </Card>
+            <span className=''>{capitalize(t('ballance'))}</span>
+            <Chip
+              value={`${currencyFormat(ballance)}`}
+              className='w-3/4 flex justify-center bg-primary'
+            />
+          </Typography>
+          <div className='flex gap-2'>
+            <Button
+              variant='filled'
+              size='sm'
+              className='w-full bg-primary-sub'
+              placeholder={undefined}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+            >
+              {capitalize(t('deposit'))}
+            </Button>
+            <Button
+              variant='outlined'
+              size='sm'
+              className='w-full border-primary-sub text-primary-sub'
+              placeholder={undefined}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+            >
+              {capitalize(t('withdraw'))}
+            </Button>
+          </div>
+        </CardBody>
+      </Card>
+    </>
   );
 }
 
@@ -291,6 +298,7 @@ function UserSkeleton() {
 
 /** */
 function Sidebar({ img, name, role, ballance = 0 }: TUserProps) {
+  const { t } = useTranslation();
   const id = localStorage.getItem('id');
   const [open, setOpen] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -299,13 +307,13 @@ function Sidebar({ img, name, role, ballance = 0 }: TUserProps) {
     setOpen(open === value ? 0 : value);
   };
 
-  useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-    return () => {};
-  }, []);
+  // useEffect(() => {
+  //   setLoading(true);
+  //   setTimeout(() => {
+  //     setLoading(false);
+  //   }, 2000);
+  //   return () => {};
+  // }, []);
 
   return (
     <Card
@@ -339,39 +347,11 @@ function Sidebar({ img, name, role, ballance = 0 }: TUserProps) {
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
             >
-              <UserCircleIcon className='size-5' />
+              <span className='material-symbols-outlined'>account_circle</span>
             </ListItemPrefix>
-            Profile
+            {capitalize(t('profile'))}
           </ListItem>
         </Link>
-        <ListItem
-          className='hover:bg-primary-light'
-          placeholder={undefined}
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-        >
-          <ListItemPrefix
-            placeholder={undefined}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-          >
-            <InboxIcon className='size-5' />
-          </ListItemPrefix>
-          Inbox
-          <ListItemSuffix
-            placeholder={undefined}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-          >
-            <Chip
-              value='14'
-              size='sm'
-              variant='ghost'
-              color='blue-gray'
-              className='rounded-full'
-            />
-          </ListItemSuffix>
-        </ListItem>
         <Link to={`${id}/schedule`}>
           <ListItem
             className='hover:bg-primary-light'
@@ -486,7 +466,7 @@ function Sidebar({ img, name, role, ballance = 0 }: TUserProps) {
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
       >
-        <Link to='setting'>
+        <Link to={`${id}/schedule`}>
           <ListItem
             className='hover:bg-primary-light'
             placeholder={undefined}
@@ -500,7 +480,7 @@ function Sidebar({ img, name, role, ballance = 0 }: TUserProps) {
             >
               <Cog6ToothIcon className='size-5' />
             </ListItemPrefix>
-            Settings
+            {capitalize(t('change password'))}
           </ListItem>
         </Link>
         <ListItem
@@ -516,7 +496,7 @@ function Sidebar({ img, name, role, ballance = 0 }: TUserProps) {
           >
             <PowerIcon className='size-5' />
           </ListItemPrefix>
-          Log Out
+          {capitalize(t('log out'))}
         </ListItem>
       </List>
     </Card>
