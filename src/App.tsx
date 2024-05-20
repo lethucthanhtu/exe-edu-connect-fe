@@ -13,19 +13,18 @@ export default function App() {
 
   //keep BE API alive
   useEffect(() => {
-    const URL = import.meta.env.VITE_API_ENDPOINT;
+    const PRD_URL = import.meta.env.VITE_API_ENDPOINT;
+    const DEV_URL = 'https://exe-edu-connect-be-dev.onrender.com/api/';
+
     const handleInterval = () => {
-      axios
-        .get(`${URL}hello`)
-        .then()
-        .catch();
+      axios.get(`${PRD_URL}hello`).then().catch();
+      axios.get(`${DEV_URL}hello`).then().catch();
     };
 
-    const intervalId = setInterval(handleInterval, 120000); // 120000ms = 2 minutes
+    const min = 2;
+    const intervalId = setInterval(handleInterval, min * 60 * 1000);
 
-    return () => {
-      clearInterval(intervalId);
-    };
+    return () => clearInterval(intervalId);
   }, []);
 
   return (
