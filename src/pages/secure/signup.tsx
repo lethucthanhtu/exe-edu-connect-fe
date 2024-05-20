@@ -8,21 +8,23 @@ import {
   List,
   ListItem,
   ListItemPrefix,
+  Switch,
+  SwitchProps,
 } from '@material-tailwind/react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { capitalize } from '../../utils/utils';
-import {
-  InputEmail,
-  InputPasswordGroupCheck,
-} from '../../components/input';
+import { InputEmail, InputPasswordGroupCheck } from '../../components/input';
 import { FormHeader } from '../../components/form';
 
 type TRoleRadioButtonProps = {
   className?: string;
 };
 
-/** */
+/**
+ * @deprecated
+ *
+ */
 function RoleRadioButton({ className }: TRoleRadioButtonProps) {
   const { t } = useTranslation();
   return (
@@ -126,6 +128,46 @@ function RoleRadioButton({ className }: TRoleRadioButtonProps) {
   );
 }
 
+/** */
+function RoleSwitch({
+  ...props
+}: Omit<
+  SwitchProps,
+  'onPointerEnterCapture' | 'onPointerLeaveCapture' | 'crossOrigin'
+>) {
+  const { t } = useTranslation();
+  return (
+    <span className={`flex justify-center items-center gap-6 border rounded-lg py-1.5 px-4 shadow-xl border-blue-gray-200 ${props.className}`}>
+      <Typography
+        variant='paragraph'
+        color={props.color || 'teal'}
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}
+        placeholder={undefined}
+      >
+        {capitalize(t('student'))}
+      </Typography>
+      <Switch
+        {...props}
+        color={props.color || 'teal'}
+        // className={props.className}
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}
+        crossOrigin={undefined}
+      />
+      <Typography
+        variant='paragraph'
+        color={props.color || 'teal'}
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}
+        placeholder={undefined}
+      >
+        {capitalize(t('tutor'))}
+      </Typography>
+    </span>
+  );
+}
+
 /**
  * sign up page
  * @returns JSX.Element
@@ -160,17 +202,18 @@ export default function Signup() {
         className='size-full flex flex-col gap-4 justify-center items-center'
       >
         <FormHeader label='register new account' />
-        <div className='flex flex-col md:flex-row w-full justify-start items-center'>
+        <div className='flex flex-col md:flex-row w-full justify-center md:gap-4 items-center'>
           <Typography
             variant='paragraph'
-            className='w-1/4 font-medium text-blue-gray-500'
+            className='font-medium text-blue-gray-500'
             placeholder={undefined}
             onPointerEnterCapture={undefined}
             onPointerLeaveCapture={undefined}
           >
             {capitalize(t('your role'))}
           </Typography>
-          <RoleRadioButton className='w-3/4' />
+          {/* <RoleRadioButton className='w-3/4' /> */}
+          <RoleSwitch name='role' className='' />
         </div>
         <Input
           required
