@@ -1,8 +1,4 @@
-import {
-  Alert,
-  AlertProps,
-  Typography,
-} from '@material-tailwind/react';
+import { Alert, AlertProps, Typography } from '@material-tailwind/react';
 import { capitalize } from '../utils/utils';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
@@ -76,13 +72,13 @@ export function AlertList({ title = 'alert', ...props }: TAlertListProps) {
 }
 
 /** */
-export function AlertPopup({ ...props }: Omit<AlertProps, 'color'>) {
+export function AlertPopup({ ...props }: AlertProps) {
   const [open, setOpen] = useState(true);
   return (
     <>
       <Alert
         {...props}
-        color='red'
+        color={props.color || 'red'}
         open={open}
         onClose={() => setOpen(false)}
         icon={props.icon || <AlertIconOutlined />}

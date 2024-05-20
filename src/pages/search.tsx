@@ -7,7 +7,6 @@ import {
   CardBody,
   Option,
   Select,
-  Spinner,
   Typography,
 } from '@material-tailwind/react';
 import OldPagination from '../components/pagination';

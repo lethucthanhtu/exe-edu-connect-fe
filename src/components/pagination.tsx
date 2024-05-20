@@ -16,7 +16,7 @@ type TPaginationProps = {
 /**
  * pagination component
  * @returns JSX.Element
- * @deprecated
+ * @deprecated use Pagination instead
  */
 export default function OldPagination({
   length,
