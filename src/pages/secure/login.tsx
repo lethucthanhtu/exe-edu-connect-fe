@@ -1,4 +1,10 @@
-import { useRef, useEffect, useState, useContext } from 'react';
+import {
+  useRef,
+  useEffect,
+  useState,
+  useContext,
+  MouseEventHandler,
+} from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Button, Checkbox } from '@material-tailwind/react';
@@ -10,7 +16,7 @@ import { FormHeader } from '../../components/form';
 import { AlertPopup } from '../../components/alert';
 import Separator from '../../components/separator';
 
-import api from '../../api/api';
+import api, { API_ENDPOINT } from '../../api/api';
 import { capitalize } from '../../utils/utils';
 
 const LOGIN_URL = '/auth/login';
@@ -36,7 +42,11 @@ export default function Login() {
   //focus on email when load page
   useEffect(() => userRef.current.focus(), []);
 
-  const handleGoogleLogin = () => { }
+  const handleGoogleLogin = (event) => {
+    event.preventDefault();
+    const GOOGLE_LOGIN_URL = `${API_ENDPOINT}auth/login`;
+    window.location.href = GOOGLE_LOGIN_URL;
+  };
 
   const handleInput = (event) =>
     setPost({ ...post, [event.target.name]: event.target.value });
@@ -110,21 +120,22 @@ export default function Login() {
           >
             {t('log in')}
           </Button>
-            <Button
-              variant='outlined'
-              color='blue-gray'
-              className='flex justify-center items-center gap-3 border-primary'
-              placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-            >
-              <img
-                src='https://docs.material-tailwind.com/icons/google.svg'
-                alt='google'
-                className='size-4'
-              />
-              Continue with Google
-            </Button>
+          <Button
+            variant='outlined'
+            color='blue-gray'
+            className='flex justify-center items-center gap-3 border-primary'
+            onClick={handleGoogleLogin}
+            placeholder={undefined}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+          >
+            <img
+              src='https://docs.material-tailwind.com/icons/google.svg'
+              alt='google'
+              className='size-4'
+            />
+            Continue with Google
+          </Button>
           <Separator label='or' />
           <Link to={'/signup'}>
             <Button
