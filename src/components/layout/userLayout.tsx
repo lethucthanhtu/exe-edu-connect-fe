@@ -57,13 +57,11 @@ function User({ img, name, role, ballance = 0 }: TUserProps) {
           color='transparent'
           floated={false}
           shadow={false}
-          className='mx-0 flex flex-col items-center gap-4 pt-0 pb-8'
+          className='mx-0 flex items-center gap-4 pt-0 pb-8'
           placeholder={undefined}
           onPointerEnterCapture={undefined}
           onPointerLeaveCapture={undefined}
         >
-          {/* LanguageButton để test, xóa kèm flexcol dòng 58 */}
-          <LanguageButton></LanguageButton>
           <div className='basis-2/5 aspect-square relative'>
             <Avatar
               size='xl'
@@ -117,7 +115,7 @@ function User({ img, name, role, ballance = 0 }: TUserProps) {
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
             >
-              {t(role)}
+              {role}
             </Typography>
           </div>
         </CardHeader>
@@ -510,7 +508,7 @@ function Sidebar({ img, name, role, ballance = 0 }: TUserProps) {
 export default function UserLayout() {
   return (
     <>
-      <section className='flex xs:flex-col md:!flex-row'>
+      <section className='flex size-full xs:flex-col md:!flex-row'>
         <Sidebar
           name='Lê Thúc Thanh Tú'
           role='admin'
