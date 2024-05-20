@@ -39,7 +39,7 @@ function FormStep1({ activeStep, handleNext }: TFormProps) {
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
             >
-              {capitalize( t('enter email to receive OTP code'))}
+              {capitalize(t('enter email to receive OTP code'), false)}
             </Typography>
           </div>
         </div>
