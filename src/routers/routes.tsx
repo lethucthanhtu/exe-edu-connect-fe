@@ -2,8 +2,11 @@
 import {
   createBrowserRouter,
   Navigate,
+  Outlet,
   RouterProvider,
 } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '../context/authProvider';
 
 //Layout
 import NoFooterLayout from '../components/layout/noFooterLayout';
@@ -24,7 +27,7 @@ import Profile        from '../pages/user/profile';
 import Search         from '../pages/search';
 import Signup         from '../pages/secure/signup';
 import ForgotPassword from '../pages/secure/forgotPassword';
-import User           from '../pages/user/user';
+// import User           from '../pages/user/user';
 import Users          from '../pages/user/users';
 import Setting        from '../pages/user/setting';
 import CreateCourse   from '../pages/course/create.course';
@@ -32,6 +35,14 @@ import EditCourse     from '../pages/course/edit.course';
 import UserLayout     from '../components/layout/userLayout';
 import Schedule       from '../pages/user/schedule';
 import Test           from '../pages/test';
+
+const PrivateRoutesLayout = () => {
+  const { auth } = useContext(AuthContext);
+
+  if (!auth) return <Navigate to='/login' replace />;
+
+  return <Outlet />;
+};
 
 /**
  * all route in system
@@ -113,25 +124,26 @@ const routes = createBrowserRouter([
       { path : '*'      , element: <NotFound        /> },
     ],
   },
-        {
-        path     : '',
-        element  : <LoginLayout/>,
-        children : [
-          { path : 'login'         , element: <Login           /> },
-          { path : 'signup'        , element: <Signup          /> },
-          { path : 'forgotPassword', element: <ForgotPassword  /> },
-        ],
-      },
+  {
+    path     : '',
+    element  : <LoginLayout/>,
+    children : [
+      { path : 'login'         , element: <Login           /> },
+      { path : 'signup'        , element: <Signup          /> },
+      { path : 'forgotPassword', element: <ForgotPassword  /> },
+    ],
+  },
 ]);
 
 /**
  * component to handle all release routes
  * @returns JSX.Element
  */
-export default function AppRouter() {
+export default function AppRouter({ className = '' }) {
+
   return (
-    <>
+    <section className={className}>
       <RouterProvider router={routes} />
-    </>
+    </section>
   );
 }

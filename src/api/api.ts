@@ -11,6 +11,7 @@ export const apiUser = axios.create({
     'Access-Control-Allow-Origin': true,
     Authorization: `Bearer ${token}`,
   },
+  withCredentials: true,
 });
 
 export const apiGuest = axios.create({
@@ -19,6 +20,7 @@ export const apiGuest = axios.create({
     'Access-Control-Allow-Origin': true,
     // Authorization:
   },
+  withCredentials: true,
 });
 
 const api = token ? apiUser : apiGuest;

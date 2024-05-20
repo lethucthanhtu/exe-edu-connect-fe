@@ -5,11 +5,14 @@ import { ThemeProvider } from '@material-tailwind/react';
 import App from './App';
 import './index.css';
 import './i18n/i18n';
+import { AuthProvider } from './context/authProvider';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-    <React.StrictMode>
-        <ThemeProvider>
-            <App />
-        </ThemeProvider>
-    </React.StrictMode>
+  <React.StrictMode>
+    <ThemeProvider>
+      {/* <AuthProvider>
+      </AuthProvider> */}
+        <App />
+    </ThemeProvider>
+  </React.StrictMode>
 );
