@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import NotFound from './error/notFound';
 
 /**
  * home page
@@ -9,9 +10,10 @@ export default function Home() {
 
   return (
     <>
-      <div className='flex justify-center'>
+      {/* <div className='flex justify-center'>
         <span className='text-6xl capitalize'>{t('home')}</span>
-      </div>
+      </div> */}
+      <NotFound/>
     </>
   );
 }
