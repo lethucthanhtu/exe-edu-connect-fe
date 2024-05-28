@@ -3,7 +3,6 @@ import {
   useEffect,
   useState,
   useContext,
-  MouseEventHandler,
 } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -16,7 +15,7 @@ import { FormHeader } from '../../components/form';
 import { AlertPopup } from '../../components/alert';
 import Separator from '../../components/separator';
 
-import api, { API_ENDPOINT } from '../../api/api';
+import api, { BASE_URL } from '../../api/api';
 import { capitalize } from '../../utils/utils';
 
 const LOGIN_URL = '/auth/login';
@@ -44,7 +43,7 @@ export default function Login() {
 
   const handleGoogleLogin = (event) => {
     event.preventDefault();
-    const GOOGLE_LOGIN_URL = `${API_ENDPOINT}auth/login`;
+    const GOOGLE_LOGIN_URL = `${BASE_URL}auth/login`;
     window.location.href = GOOGLE_LOGIN_URL;
   };
 

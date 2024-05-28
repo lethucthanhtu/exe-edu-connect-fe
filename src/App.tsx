@@ -28,6 +28,6 @@ export default function App() {
   }, []);
 
   return (
-    <AppRouter className='font-body flex flex-col h-screen justify-between selection:bg-green-300 selection:text-green-900' />
+    <AppRouter className='font-body flex flex-col h-screen justify-between items-center selection:bg-green-300 selection:text-green-900' />
   );
 }

@@ -11,7 +11,7 @@ export default function NotFound() {
 
   return (
     <>
-      <div className='flex flex-grow items-center justify-center bg-gray-50'>
+      <div className='size-full flex flex-grow items-center justify-center bg-gray-50'>
         <div className='rounded-lg bg-white p-8 text-center shadow-xl'>
           <h1 className='mb-4 text-4xl font-bold'>404</h1>
           <Typography

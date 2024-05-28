@@ -10,6 +10,7 @@
  * @returns string
  */
 export const capitalize = (str: string, isFormat = true): string => {
+  if (!str) return str;
   str = str.trim();
   const firstLetter = str.charAt(0).toUpperCase();
   const others = isFormat ? str.slice(1).toLowerCase() : str.slice(1);
@@ -71,6 +72,11 @@ export const pathlify = (path: string, params = {}): string => {
   return result;
 };
 
+export const numberFormat = (num: number, decimal = 0): string =>
+  Number(num)
+    ? num.toFixed(decimal).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+    : 'NaN';
+
 /**
  * ```
  *  currencyFormat(1000000)       //return 'VND 1,000,000'
@@ -80,5 +86,37 @@ export const pathlify = (path: string, params = {}): string => {
  * @param currency - default = VND
  * @returns
  */
-export const currencyFormat = (num: number, currency = 'VNĐ') =>
-  currency + ' ' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+export const currencyFormat = (
+  num: number,
+  currency = 'VNĐ',
+  decimal = 2,
+  isUniversalFormat = true
+): string =>
+  isUniversalFormat
+    ? currency + ' ' + numberFormat(num, decimal)
+    : numberFormat(num, decimal) + ' ' + currency;
+
+/** */
+export const getWeeksBetweenDates = (
+  startDate: string,
+  endDate: string
+): number => {
+  try {
+    // Parse the input dates
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    // Calculate the difference in milliseconds
+    const ms = end.getTime() - start.getTime();
+
+    // Convert milliseconds to days
+    const days = ms / (1000 * 60 * 60 * 24);
+
+    // Convert days to weeks
+    const weeks = days / 7;
+
+    return weeks;
+  } catch (error) {
+    return 0;
+  }
+};

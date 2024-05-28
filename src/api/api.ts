@@ -1,23 +1,24 @@
 import axios from 'axios';
 
-const URL = 'http://localhost:8082';
-export const API_ENDPOINT = `${URL}/api/`;
-// const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT;
+export const apiCallActivate = false;
+
+// export const BASE_URL = 'https://localhost:8082/';
+export const BASE_URL = import.meta.env.VITE_BASE_URL_DEV;
 const token = sessionStorage.getItem('token');
 
 export const apiUser = axios.create({
-  baseURL: API_ENDPOINT,
+  baseURL: BASE_URL,
   headers: {
-    'Access-Control-Allow-Origin': URL,
+    'Access-Control-Allow-Origin': BASE_URL,
     Authorization: `Bearer ${token}`,
   },
   withCredentials: true,
 });
 
 export const apiGuest = axios.create({
-  baseURL: API_ENDPOINT,
+  baseURL: BASE_URL,
   headers: {
-    'Access-Control-Allow-Origin': URL,
+    'Access-Control-Allow-Origin': BASE_URL,
     // Authorization:
   },
 });
