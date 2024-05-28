@@ -62,6 +62,7 @@ function User({ img, name, role, ballance = 0 }: TUserProps) {
           onPointerEnterCapture={undefined}
           onPointerLeaveCapture={undefined}
         >
+          <LanguageButton />
           <div className='basis-2/5 aspect-square relative'>
             <Avatar
               size='xl'
@@ -362,9 +363,9 @@ function Sidebar({ img, name, role, ballance = 0 }: TUserProps) {
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
             >
-              <Cog6ToothIcon className='size-5' />
+              <span className='material-symbols-outlined'>calendar_month</span>
             </ListItemPrefix>
-            Schedule
+            {capitalize(t('your schedule'))}
           </ListItem>
         </Link>
         <hr className='my-2 border-blue-gray-50' />
@@ -522,3 +523,4 @@ export default function UserLayout() {
     </>
   );
 }
+    
