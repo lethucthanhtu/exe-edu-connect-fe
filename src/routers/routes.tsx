@@ -35,6 +35,8 @@ import EditCourse     from '../pages/course/edit.course';
 import UserLayout     from '../components/layout/userLayout';
 import Schedule       from '../pages/user/schedule';
 import Test           from '../pages/test';
+import Subjects from '../pages/subject/subjects';
+import CourseInSubject from '../pages/subject/course.subject';
 
 const PrivateRoutesLayout = () => {
   const { auth } = useContext(AuthContext);
@@ -48,21 +50,22 @@ const PrivateRoutesLayout = () => {
  * all route in system
  */
 const routes = createBrowserRouter([
+  { path : ''    , element: <Home      /> },
   {
     path        : '',
     element     : <DefaultLayout />,
     errorElement: <NotFound      />,
     children : [
-      { index: true     , element: <Home            /> },
-      { path : 'home'   , element: <Navigate to='/' /> },
-      { path : 'about'  , element: <About           /> },
-      { path : 'courses', element: <Courses         /> },
-      { path : 'search' , element: <Search          /> },
-      { path : 'landing', element: <Landing         /> },
+      // { index: true      , element: <Home            /> },
+      // { path : 'home'    , element: <Navigate to='/' /> },
+      { path : 'about'   , element: <About           /> },
+      { path : 'search'  , element: <Search          /> },
+      { path : 'landing' , element: <Landing         /> },
       {
         path     : 'course',
         children : [
-          { index: true         , element: <Navigate to='/' /> }, //work around error page
+          { index: true         , element: <Navigate to='all'  /> }, //work around error page
+          { path : 'all'        , element: <Courses            /> },
           {
             path     : ':course_id',
             children : [
@@ -76,6 +79,20 @@ const routes = createBrowserRouter([
           },
           { path : 'create'     , element: <CreateCourse    /> },
         ],
+      },
+      {
+        path     : 'subject',
+        children: [
+          { index: true         , element: <Navigate to='all' /> }, //work around error page
+          { path : 'all'        , element: <Subjects          /> },
+          {
+            path     : ':subject_name',
+            children : [
+              { index: true     , element: <Navigate to='courses'   /> },
+              { path : 'courses', element: <CourseInSubject         /> },
+            ]
+          }
+        ]
       },
     ],
   },
