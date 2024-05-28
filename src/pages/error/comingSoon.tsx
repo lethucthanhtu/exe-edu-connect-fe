@@ -7,7 +7,7 @@ import { capitalize } from '../../utils/utils';
  * 404 page
  * @returns JSX.Element
  */
-export default function ComingSon() {
+export default function ComingSoon() {
   const { t } = useTranslation();
 
   return (
@@ -24,10 +24,11 @@ export default function ComingSon() {
             <span className='font-medium mr-1'>
               {`${capitalize(t('Oops!'))}`}
             </span>
-            {`${capitalize(t("Nothing here."), false)}`}
+            {`${capitalize(t('Nothing here.'), false)}`}
             <span className='font-medium mx-1'>
-              {`${capitalize(t('We\'ll be back soon'))}`}
-            </span>.
+              {`${capitalize(t("We'll be back soon"))}`}
+            </span>
+            .
           </Typography>
           <Link to='/'>
             <Button
@@ -37,7 +38,8 @@ export default function ComingSon() {
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
             >
-              {t('Go back to Home')}
+              {/* {t('Go back to Home')} */}
+              Go back to Home
             </Button>
           </Link>
         </div>
