@@ -21,11 +21,22 @@ function CourseCard({
   return (
     <section className='w-full flex justify-center items-center'>
       <div className='flex flex-col gap-4 justify-between items-start'>
-        <Typography variant='h5' className=''>
+        <Typography
+          variant='h5'
+          className=''
+          placeholder={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+        >
           {capitalize(t(title))}
         </Typography>
         <div>
-          <Typography variant='paragraph'>
+          <Typography
+            variant='paragraph'
+            placeholder={undefined}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+          >
             {capitalize(t(description))}
           </Typography>
           <Button
@@ -41,7 +52,14 @@ function CourseCard({
         </div>
       </div>
       <Link to={buttonLink} className='flex justify-center items-end'>
-        <Button className='bg-primary'>{buttonText}</Button>
+        <Button
+          className='bg-primary'
+          placeholder={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+        >
+          {buttonText}
+        </Button>
       </Link>
     </section>
   );
