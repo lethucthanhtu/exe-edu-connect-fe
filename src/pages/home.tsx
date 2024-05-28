@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import ComingSon from './error/comingSoon';
+import ComingSoon from './error/comingSoon';
 
 /**
  * home page
@@ -13,7 +13,7 @@ export default function Home() {
       {/* <div className='flex justify-center'>
         <span className='text-6xl capitalize'>{t('home')}</span>
       </div> */}
-      <ComingSon/>
+      <ComingSoon />
     </>
   );
 }
