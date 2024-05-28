@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Navbar,
@@ -11,10 +11,14 @@ import {
   Avatar,
   MenuList,
   MenuItem,
+  Tabs,
+  TabsHeader,
+  Tab,
 } from '@material-tailwind/react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { SearchBar } from './searchBar';
-import logo from '../assets/edu-connect.svg';
+
+import Logo from './logo';
 
 // profile menu component
 const profileMenuItems = [
@@ -42,15 +46,15 @@ const profileMenuItems = [
 
 type TNavItem = {
   tName: string;
-  name?: string;
+  value?: string;
   path?: string;
 };
 
 const navItems: TNavItem[] = [
-  { name: '', tName: 'home', path: '/' },
-  { name: '', tName: 'courses', path: '' },
-  { name: '', tName: 'about', path: '' },
-  { name: '', tName: 'contact', path: '' },
+  { value: 'home', tName: 'home', path: '/' },
+  { value: 'courses', tName: 'courses', path: 'course' },
+  { value: 'about', tName: 'about', path: '' },
+  { value: 'contact', tName: 'contact', path: '' },
 ];
 
 /**
@@ -131,6 +135,47 @@ function ProfileMenu() {
   );
 }
 
+/** */
+function AnimatedNav() {
+  const { t } = useTranslation();
+  const location = useLocation();
+
+  const [activeTab, setActiveTab] = useState(
+    location.pathname.replace('/', '') || navItems[0].value
+  );
+
+  return (
+    <Tabs value={activeTab}>
+      <TabsHeader
+        className='mt-2 mb-4 flex flex-col lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6 capitalize rounded-none bg-transparent gap-8'
+        indicatorProps={{
+          className:
+            'bg-transparent border-b-2 border-primary shadow-none rounded-none',
+        }}
+        placeholder={undefined}
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}
+      >
+        {navItems.map(({ value, tName, path }) => (
+          <Tab
+            key={value}
+            value={value}
+            onClick={() => setActiveTab(value)}
+            className={`w-auto ${activeTab === value && 'text-primary'}`}
+            placeholder={undefined}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+          >
+            <NavLink to={`${path || tName}`} className='flex items-center'>
+              {t(value || tName)}
+            </NavLink>
+          </Tab>
+        ))}
+      </TabsHeader>
+    </Tabs>
+  );
+}
+
 /**
  * nav list sub-component
  * @returns JSX.Element
@@ -140,7 +185,7 @@ function NavList() {
   return (
     <>
       <ul className='mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6 capitalize'>
-        {navItems.map(({ name, tName, path }, index) => (
+        {navItems.map(({ value: name, tName, path }, index) => (
           <Typography
             as='li'
             key={index}
@@ -169,34 +214,23 @@ function NavList() {
  * @returns JSX.Element
  */
 export default function Header() {
-  const [openNav, setOpenNav] = React.useState(false);
-  const [user, setUser] = React.useState(
-    JSON.parse(sessionStorage.getItem('user'))
-  );
+  const [openNav, setOpenNav] = useState(false);
+  const [user, setUser] = useState(JSON.parse(sessionStorage.getItem('user')));
   const { t } = useTranslation();
 
   return (
     <>
       <Navbar
-        className='sticky top-0 z-10 h-max max-w-full mb-4 px-4 py-2 lg:px-8 lg:py-2'
+        className='sticky top-0 z-max h-max max-w-full px-4 py-2 lg:px-8 lg:py-2'
         placeholder={undefined}
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
       >
-        <div className='flex items-center justify-between text-blue-gray-900'>
-          <Typography
-            className='mr-4 cursor-pointer font-medium select-none'
-            placeholder={undefined}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-          >
-            <Link to='/' className='flex items-center justify-center'>
-              <img className='h-16' src={logo} alt='edu connect' />
-              <span className='hidden lg:inline-block'>Edu Connect</span>
-            </Link>
-          </Typography>
+        <section className='flex items-center justify-between text-blue-gray-900'>
+          <Logo />
           <div className='mr-4 hidden lg:block'>
-            <NavList />
+            <AnimatedNav />
+            {/* <NavList /> */}
           </div>
           <div className='flex items-center gap-4'>
             <SearchBar />
@@ -218,11 +252,9 @@ export default function Header() {
                 </Link>
                 <Link to='/signup'>
                   <Button
-                    variant='gradient'
                     size='sm'
-                    color='green'
-                    className='hidden lg:inline-block'
-                    placeholder={undefined}
+                    className='hidden lg:inline-block bg-primary'
+                    placeholder={t('sign up')}
                     onPointerEnterCapture={undefined}
                     onPointerLeaveCapture={undefined}
                   >
@@ -234,7 +266,7 @@ export default function Header() {
 
             <IconButton
               variant='text'
-              className='ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden'
+              className='ml-auto size-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden'
               ripple={false}
               onClick={() => setOpenNav(!openNav)}
               placeholder={undefined}
@@ -242,39 +274,41 @@ export default function Header() {
               onPointerLeaveCapture={undefined}
             >
               {openNav ? (
-                <span className='material-symbols-outlined h-6 w-6'>close</span>
+                <span className='material-symbols-outlined size-6'>close</span>
               ) : (
-                <span className='material-symbols-outlined h-6 w-6'>menu</span>
+                <span className='material-symbols-outlined size-6'>menu</span>
               )}
             </IconButton>
           </div>
-        </div>
+        </section>
         <Collapse open={openNav}>
           <NavList />
-          <div className='flex items-center gap-x-1'>
-            <Button
-              fullWidth
-              variant='text'
-              size='sm'
-              className=''
-              placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-            >
-              <span>{t('log in')}</span>
-            </Button>
-            <Button
-              fullWidth
-              variant='gradient'
-              size='sm'
-              color='green'
-              className=''
-              placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-            >
-              <span>{t('sign up')}</span>
-            </Button>
+          <div className='flex justify-center items-center w-full gap-x-1'>
+            <Link to='/login' className='w-full'>
+              <Button
+                fullWidth
+                variant='text'
+                size='sm'
+                className='w-full'
+                placeholder={undefined}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+              >
+                <span>{t('log in')}</span>
+              </Button>
+            </Link>
+            <Link to='/signup' className='w-full'>
+              <Button
+                fullWidth
+                size='sm'
+                className='bg-primary w-full'
+                placeholder={undefined}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+              >
+                <span>{t('sign up')}</span>
+              </Button>
+            </Link>
           </div>
         </Collapse>
       </Navbar>

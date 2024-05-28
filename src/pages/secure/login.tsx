@@ -1,7 +1,24 @@
-import { useState } from 'react';
-
-import { Typography, Input, Button } from '@material-tailwind/react';
+import {
+  useRef,
+  useEffect,
+  useState,
+  useContext,
+} from 'react';
 import { useTranslation } from 'react-i18next';
+
+import { Button, Checkbox } from '@material-tailwind/react';
+import { Link, Navigate } from 'react-router-dom';
+
+import { AuthContext } from '../../context/authProvider';
+import { InputEmail, InputPassword } from '../../components/input';
+import { FormHeader } from '../../components/form';
+import { AlertPopup } from '../../components/alert';
+import Separator from '../../components/separator';
+
+import api, { BASE_URL } from '../../api/api';
+import { capitalize } from '../../utils/utils';
+
+const LOGIN_URL = '/auth/login';
 
 /**
  * login page
@@ -9,184 +26,131 @@ import { useTranslation } from 'react-i18next';
  */
 export default function Login() {
   const { t } = useTranslation();
-  const [passwordShown, setPasswordShown] = useState(false);
-  const togglePasswordVisiblity = () => setPasswordShown((cur) => !cur);
+
+  // const { setAuth } = useContext(AuthContext);
+
+  const userRef = useRef(null);
+
+  const [success, setSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [post, setPost] = useState({
+    email: '',
+    password: '',
+  });
+
+  //focus on email when load page
+  useEffect(() => userRef.current.focus(), []);
+
+  const handleGoogleLogin = (event) => {
+    event.preventDefault();
+    const GOOGLE_LOGIN_URL = `${BASE_URL}auth/login`;
+    window.location.href = GOOGLE_LOGIN_URL;
+  };
+
+  const handleInput = (event) =>
+    setPost({ ...post, [event.target.name]: event.target.value });
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    api
+      .post(LOGIN_URL, { ...post })
+      .then((res) => {
+        sessionStorage.setItem('token', res.data?.returnData);
+        setSuccess(true);
+        // eslint-disable-next-line no-console
+        console.log(res);
+        // eslint-disable-next-line no-console
+        console.log(sessionStorage.getItem('token'));
+      })
+      // eslint-disable-next-line no-console
+      .catch((err) => setErrorMessage(err.response.data.message));
+  };
 
   return (
-    <section className='grid text-center h-screen items-center p-8'>
-      <div>
-        <Typography
-          variant='h3'
-          color='blue-gray'
-          className='mb-2 capitalize'
-          placeholder={undefined}
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-        >
-          {t('log in')}
-        </Typography>
-        <Typography
-          className='mb-16 text-gray-600 font-normal text-[18px]'
-          placeholder={undefined}
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-        >
-          Enter your email and password to sign in
-        </Typography>
-        <form action='#' className='mx-auto max-w-[24rem] text-left'>
-          <div className='mb-6'>
-            <label htmlFor='email'>
-              <Typography
-                variant='small'
-                className='mb-2 block font-medium text-gray-900'
-                placeholder={undefined}
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
-              >
-                Your Email
-              </Typography>
-            </label>
-            <Input
-              id='email'
-              color='gray'
-              size='lg'
-              type='email'
-              name='email'
-              placeholder='name@mail.com'
-              className='w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200'
-              labelProps={{
-                className: 'hidden',
-              }}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-              crossOrigin={undefined}
-            />
-          </div>
-          <div className='mb-6'>
-            <label htmlFor='password'>
-              <Typography
-                variant='small'
-                className='mb-2 block font-medium text-gray-900'
-                placeholder={undefined}
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
-              >
-                Password
-              </Typography>
-            </label>
-            <Input
-              size='lg'
-              placeholder='********'
-              labelProps={{
-                className: 'hidden',
-              }}
-              className='w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200'
-              type={passwordShown ? 'text' : 'password'}
-              // icon={
-              //     <i onClick={togglePasswordVisiblity}>
-              //         {passwordShown ? (
-              //             <svg
-              //                 className='size-5 text-gray-800 dark:text-white'
-              //                 aria-hidden='true'
-              //                 xmlns='http://www.w3.org/2000/svg'
-              //                 width='24'
-              //                 height='24'
-              //                 fill='none'
-              //                 viewBox='0 0 24 24'
-              //             >
-              //                 <path
-              //                     stroke='currentColor'
-              //                     stroke-width='2'
-              //                     d='M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z'
-              //                 />
-              //                 <path
-              //                     stroke='currentColor'
-              //                     stroke-width='2'
-              //                     d='M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z'
-              //                 />
-              //             </svg>
-              //         ) : (
-              //             <svg
-              //                 className='size-5 text-gray-800 dark:text-white'
-              //                 aria-hidden='true'
-              //                 xmlns='http://www.w3.org/2000/svg'
-              //                 width='24'
-              //                 height='24'
-              //                 fill='none'
-              //                 viewBox='0 0 24 24'
-              //             >
-              //                 <path
-              //                     stroke='currentColor'
-              //                     stroke-linecap='round'
-              //                     stroke-linejoin='round'
-              //                     stroke-width='2'
-              //                     d='M3.933 13.909A4.357 4.357 0 0 1 3 12c0-1 4-6 9-6m7.6 3.8A5.068 5.068 0 0 1 21 12c0 1-3 6-9 6-.314 0-.62-.014-.918-.04M5 19 19 5m-4 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z'
-              //                 />
-              //             </svg>
-              //         )}
-              //     </i>
-              // }
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-              crossOrigin={undefined}
-            />
-          </div>
-          <Button
-            color='gray'
-            size='lg'
-            className='mt-6'
-            fullWidth
-            placeholder={undefined}
+    <>
+      {/* {success && <Navigate to='/'/>} */}
+      <form
+        // action='#'
+        method='post'
+        onSubmit={handleSubmit}
+        className='flex flex-col size-full gap-4 justify-center items-center'
+      >
+        <FormHeader label='log in' />
+        <div className='flex flex-col justify-center items-center w-full gap-4'>
+          <InputEmail
+            inputRef={userRef}
+            onChange={handleInput}
+            name='email'
+            color='teal'
+          />
+          <InputPassword onChange={handleInput} name='password' color='teal' />
+        </div>
+
+        <div className='flex w-full justify-between'>
+          <Checkbox
+            label={`${capitalize(t('remember me'))}?`}
+            color='teal'
+            className='label:text-primary'
             onPointerEnterCapture={undefined}
             onPointerLeaveCapture={undefined}
-          >
-            sign in
-          </Button>
-          <div className='mt-4 flex justify-end'>
-            <Typography
-              as='a'
-              href='#'
-              color='blue-gray'
-              variant='small'
-              className='font-medium'
+            crossOrigin={undefined}
+          />
+
+          <Link to={'/forgotPassword'}>
+            <Button
+              className='w-full text-primary'
+              variant='text'
               placeholder={undefined}
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
             >
-              <span>{t('Forgot password')}</span>
-            </Typography>
-          </div>
+              {t('forgot password')}
+            </Button>
+          </Link>
+        </div>
+
+        <div className='flex flex-col w-full gap-4 justify-center'>
+          <Button
+            type='submit'
+            className='w-full bg-secondary-midBlue'
+            placeholder={undefined}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+          >
+            {t('log in')}
+          </Button>
           <Button
             variant='outlined'
-            size='lg'
-            className='mt-6 flex h-12 items-center justify-center gap-2'
-            fullWidth
+            color='blue-gray'
+            className='flex justify-center items-center gap-3 border-primary'
+            onClick={handleGoogleLogin}
             placeholder={undefined}
             onPointerEnterCapture={undefined}
             onPointerLeaveCapture={undefined}
           >
             <img
-              src={`https://www.material-tailwind.com/logos/logo-google.png`}
+              src='https://docs.material-tailwind.com/icons/google.svg'
               alt='google'
-              className='h-6 w-6'
+              className='size-4'
             />
-            <span>sign in with google</span>
+            Continue with Google
           </Button>
-          <Typography
-            variant='small'
-            color='gray'
-            className='mt-4 text-center font-normal'
-            placeholder={undefined}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-          >
-            Not registered?{' '}
-            <a href='#' className='font-medium text-gray-900'>
-              Create account
-            </a>
-          </Typography>
-        </form>
-      </div>
-    </section>
+          <Separator label='or' />
+          <Link to={'/signup'}>
+            <Button
+              className='w-full bg-none text-primary'
+              // color='teal'
+              variant='text'
+              placeholder={undefined}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+            >
+              {t('register new account')}
+            </Button>
+          </Link>
+        </div>
+      </form>
+      {errorMessage && <AlertPopup>{errorMessage}</AlertPopup>}
+    </>
   );
 }

@@ -1,6 +1,7 @@
 import { Button, IconButton, Typography } from '@material-tailwind/react';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
+import { pathlify } from '../utils/utils';
 
 type TPaginationProps = {
   length: number;
@@ -8,28 +9,40 @@ type TPaginationProps = {
   currentPage?: number;
   setCurrentPage: Dispatch<SetStateAction<number>>;
   paginationPagesDisplay?: number;
+  showPageInput?: boolean | 'true' | 'false';
+  showNavigateText?: boolean | 'true' | 'false';
 };
 
 /**
  * pagination component
  * @returns JSX.Element
+ * @deprecated use Pagination instead
  */
-export default function Pagination({
+export default function OldPagination({
   length,
   offset = 25,
   currentPage = 1,
   setCurrentPage,
   paginationPagesDisplay = 10,
+  showPageInput = true,
+  showNavigateText = 'true',
 }: TPaginationProps) {
   const [params] = useSearchParams();
 
-  //total pages
+  /**
+   * total pages
+   */
   const pages = Math.ceil(length / offset);
+  if (currentPage > pages) setCurrentPage(1);
 
-  //page number list
+  /**
+   * page number list
+   */
   const pageNumbers = [...Array(pages).keys()];
 
-  //selected page
+  /**
+   * selected page
+   */
   const [active, setActive] = useState(currentPage <= pages ? currentPage : 1);
 
   // handle reset to 1st page when offset change
@@ -42,7 +55,9 @@ export default function Pagination({
     setCurrentPage(newPage);
   };
 
-  //check page input
+  /**
+   * check page input
+   */
   const [isInputValid, setIsInputValid] = useState(true);
   const handleInputError = ({ target }) =>
     setIsInputValid(target.value <= pages);
@@ -53,11 +68,16 @@ export default function Pagination({
       if (goToPage <= pages) setPage(goToPage);
     }
   };
-  //pagination length
+
+  /**
+   * pagination length
+   */
   const pl = paginationPagesDisplay < 0 ? 10 : paginationPagesDisplay;
 
-  //start to effect pagination
-  //current active
+  /**
+   * start to effect pagination
+   * current active
+   */
   const ca = pl / 2;
 
   const pageRangeStart =
@@ -82,7 +102,11 @@ export default function Pagination({
           active + ca
       : pl;
 
-  //page props
+  /**
+   * page props
+   * @param index
+   * @returns
+   */
   const getItemProps = (index) =>
     ({
       variant: active === index ? 'filled' : 'text',
@@ -107,7 +131,7 @@ export default function Pagination({
       <Button
         variant='text'
         className='flex items-center gap-2'
-        color='green'
+        color='teal'
         onClick={prev}
         disabled={active === 1}
         placeholder={undefined}
@@ -131,12 +155,17 @@ export default function Pagination({
             d='M5 12h14M5 12l4-4m-4 4 4 4'
           />
         </svg>
-        Previous
+        {showNavigateText === 'true' && 'Previous'}
       </Button>
       <div className='flex items-center gap-2'>
         {pageNumbers.slice(pageRangeStart, pageRangeEnd).map((i) => (
           <Link
-            to={`/search?q=${params.get('q')}&page=${i + 1}&offset=${offset}`}
+            key={i}
+            to={pathlify('/search', {
+              q: params.get('q'),
+              p: i + 1,
+              offset: params.get('offset') || offset,
+            })}
           >
             <IconButton key={i} {...getItemProps(i + 1)}>
               {i + 1}
@@ -158,19 +187,15 @@ export default function Pagination({
         {pages > 10 && (
           <div
             className={`relative w-20 h-10 ${
-              !isInputValid && 'animate-wiggle animate-infinite'
-            }`}
+              showPageInput === 'false' && 'hidden'
+            } ${!isInputValid && 'animate-wiggle animate-infinite'}`}
           >
             <input
               id='paginationInput'
               type='number'
               className={`peer pr-9 w-full h-full bg-transparent font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none
-                                ${
-                                  isInputValid
-                                    ? 'text-blue-gray-700'
-                                    : 'text-red-700'
-                                }
-                            `}
+                ${isInputValid ? 'text-blue-gray-700' : 'text-red-700'}
+              `}
               onKeyDown={handleInputKeyDown}
               onInputCapture={handleInputError}
             />
@@ -193,7 +218,7 @@ export default function Pagination({
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
       >
-        Next
+        {showNavigateText === 'true' && 'Next'}
         <svg
           className='size-6 text-primary dark:text-white'
           aria-hidden='true'

@@ -11,7 +11,7 @@ export default function NotFound() {
 
   return (
     <>
-      <div className='flex flex-grow items-center justify-center bg-gray-50'>
+      <div className='size-full flex flex-grow items-center justify-center bg-gray-50'>
         <div className='rounded-lg bg-white p-8 text-center shadow-xl'>
           <h1 className='mb-4 text-4xl font-bold'>404</h1>
           <Typography
@@ -24,9 +24,8 @@ export default function NotFound() {
           </Typography>
           <Link to='/'>
             <Button
-              className='mt-4  px-4 py-2'
+              className='mt-4 px-4 py-2 bg-primary'
               size='lg'
-              color='green'
               placeholder={undefined}
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
