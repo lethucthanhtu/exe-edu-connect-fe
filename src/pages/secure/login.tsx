@@ -18,7 +18,7 @@ import Separator from '../../components/separator';
 import api, { BASE_URL } from '../../api/api';
 import { capitalize } from '../../utils/utils';
 
-const LOGIN_URL = '/auth/login';
+const LOGIN_URL = 'api/auth/login';
 
 /**
  * login page
@@ -43,7 +43,7 @@ export default function Login() {
 
   const handleGoogleLogin = (event) => {
     event.preventDefault();
-    const GOOGLE_LOGIN_URL = `${BASE_URL}auth/login`;
+    const GOOGLE_LOGIN_URL = `${BASE_URL}/api/auth/google/login`;
     window.location.href = GOOGLE_LOGIN_URL;
   };
 
@@ -65,6 +65,8 @@ export default function Login() {
       // eslint-disable-next-line no-console
       .catch((err) => setErrorMessage(err.response.data.message));
   };
+
+  //check if user already login/ token still available or not
 
   return (
     <>
