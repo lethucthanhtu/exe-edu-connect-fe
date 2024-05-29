@@ -24,23 +24,18 @@ import Logo from './logo';
 const profileMenuItems = [
   {
     label: 'My Profile',
-    // icon: UserCircleIcon,
   },
   {
     label: 'Edit Profile',
-    // icon: Cog6ToothIcon,
   },
   {
     label: 'Inbox',
-    // icon: InboxArrowDownIcon,
   },
   {
     label: 'Help',
-    // icon: LifebuoyIcon,
   },
   {
     label: 'Sign Out',
-    // icon: PowerIcon,
   },
 ];
 
@@ -51,10 +46,10 @@ type TNavItem = {
 };
 
 const navItems: TNavItem[] = [
-  { value: 'home', tName: 'home', path: '/' },
-  { value: 'courses', tName: 'courses', path: 'course' },
-  { value: 'about', tName: 'about', path: '' },
-  { value: 'contact', tName: 'contact', path: '' },
+  { value: 'home'    , tName: 'home'    , path: '/'       },
+  { value: 'subjects', tName: 'subjects', path: 'subject' },
+  { value: 'about'   , tName: 'about'   , path: ''        },
+  { value: 'contact' , tName: 'contact' , path: ''        },
 ];
 
 /**
