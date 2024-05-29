@@ -30,7 +30,7 @@ export default function Course() {
 
     setCourse(c);
 
-    navigate(`./${title}`);
+    navigate(`./${title}`, {replace:true});
 
     setTimeout(() => {
       setLoading(false);
