@@ -41,13 +41,13 @@ function SubjectCard({
   return (
     <>
       <Card
-        className='w-[30%] relative overflow-hidden flex justify-between'
+        className='md:w-[45%] lg:w-[30%] max-h-[30rem] relative overflow-hidden flex justify-between'
         placeholder={undefined}
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
       >
-        <div className='z-50 w-full absolute flex justify-center bottom-[47.5%]'>
-          <div className='bg-primary-light border border-primary rounded-full w-3/4 px-4 py-1 flex gap-4 justify-center items-center '>
+        <div className='z-50 w-full absolute flex justify-center bottom-[47%] md:bottom-[51.5%] lg:bottom-[47.5%]'>
+          <div className='bg-primary-light border border-primary rounded-full lg:w-3/4 px-4 py-1 flex gap-4 justify-center items-center '>
             <AvatarStack numberOfAvatar={5} size='sm' />
             <Typography
               variant='paragraph'
@@ -142,15 +142,18 @@ export default function Subjects() {
 
   return (
     <>
-      <section id='hero' className='w-full flex justify-between items-center'>
+      <section
+        id='hero'
+        className='w-full flex flex-col md:flex-row justify-between items-center py-4 md:py-0'
+      >
         <div
           id='text-content'
-          className='relative w-1/2 h-full flex justify-center items-center'
+          className='relative md:w-1/2 h-full flex justify-center items-center'
         >
-          <div className='absolute translate-x-1/4 flex flex-col gap-4'>
+          <div className='md:absolute md:translate-x-1/4 flex flex-col gap-4 items-center md:items-start'>
             <Typography
               variant='h1'
-              className=' text-primary text-7xl select-none'
+              className=' text-primary text-3xl md:text-4xl lg:text-7xl text-center md:text-left select-none'
               placeholder={undefined}
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
@@ -159,7 +162,7 @@ export default function Subjects() {
                 t('hãy tham gia các khóa học cùng gia sư của chúng tôi')
               )}
             </Typography>
-            <div className='w-3/4 flex gap-4 justify-start items-center'>
+            <div className='w-3/4 flex flex-col-reverse md:flex-row gap-4 justify-start items-center'>
               <Link to='/course'>
                 <Button
                   className='bg-primary-sub'
@@ -192,7 +195,10 @@ export default function Subjects() {
             </div>
           </div>
         </div>
-        <div id='img-content' className='flex justify-end items-center'>
+        <div
+          id='img-content'
+          className='hidden md:flex justify-end items-center'
+        >
           <div className='relative overflow-hidden'>
             <span className='z-0 bottom-0 translate-x-1/2 absolute aspect-square w-2/4 rounded-full bg-primary-sub' />
             <img src={subject_hero} className='z-20 translate-x-10' />
