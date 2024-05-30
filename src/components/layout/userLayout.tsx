@@ -62,7 +62,6 @@ function User({ img, name, role, ballance = 0 }: TUserProps) {
           onPointerEnterCapture={undefined}
           onPointerLeaveCapture={undefined}
         >
-          <LanguageButton />
           <div className='basis-2/5 aspect-square relative'>
             <Avatar
               size='xl'
@@ -126,41 +125,7 @@ function User({ img, name, role, ballance = 0 }: TUserProps) {
           onPointerEnterCapture={undefined}
           onPointerLeaveCapture={undefined}
         >
-          <Typography
-            variant='paragraph'
-            className='flex gap-2 justify-between items-center'
-            placeholder={undefined}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-          >
-            <span className=''>{capitalize(t('ballance'))}</span>
-            <Chip
-              value={`${currencyFormat(ballance)}`}
-              className='w-3/4 flex justify-center bg-primary'
-            />
-          </Typography>
-          <div className='flex gap-2'>
-            <Button
-              variant='filled'
-              size='sm'
-              className='w-full bg-primary-sub'
-              placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-            >
-              {capitalize(t('deposit'))}
-            </Button>
-            <Button
-              variant='outlined'
-              size='sm'
-              className='w-full border-primary-sub text-primary-sub'
-              placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-            >
-              {capitalize(t('withdraw'))}
-            </Button>
-          </div>
+          <LanguageButton />
         </CardBody>
       </Card>
     </>
@@ -465,7 +430,7 @@ function Sidebar({ img, name, role, ballance = 0 }: TUserProps) {
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
       >
-        <Link to={`${id}/schedule`}>
+        <Link to={`${id}/resetpassword`}>
           <ListItem
             className='hover:bg-primary-light'
             placeholder={undefined}
@@ -523,4 +488,3 @@ export default function UserLayout() {
     </>
   );
 }
-    

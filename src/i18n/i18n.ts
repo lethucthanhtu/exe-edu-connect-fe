@@ -34,6 +34,7 @@ export default i18n
           repassword: 'Nhập lại mật khẩu',
           'change password': 'đổi mật khẩu',
           'forgot password': 'quên mật khẩu',
+          'old password': 'mật khẩu cũ',
           'register new account': 'đăng kí tài khoản',
           'log out': 'đăng xuất',
           'tutor/student': 'gia sư/học sinh',
@@ -54,7 +55,7 @@ export default i18n
           'your role': 'bạn muốn là',
           'Get in touch with us': 'Liên hệ với chúng tôi',
           '(+84) 862236759': '0862236759',
-          'FPT University, High-tech Park, District 9, Ho Chi Minh City':
+          'FPT University, High-tech Park , District 9, Ho Chi Minh City':
             'Trường Đại Học FPT, Khu công nghệ cao, quận 9, thành phố Hồ Chí Minh',
           language: 'ngôn ngữ',
           'OTP code will be sent shortly': 'Mã OTP sẽ được gửi trong giây lát',
@@ -68,6 +69,7 @@ export default i18n
           'day of birth': 'ngày sinh',
           'phone number': 'số điện thoại',
           address: 'địa chỉ',
+          'save change': 'lưu thay đổi',
         },
       },
       jp: {

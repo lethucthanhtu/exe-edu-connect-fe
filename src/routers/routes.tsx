@@ -37,6 +37,7 @@ import Schedule       from '../pages/user/schedule';
 import Test           from '../pages/test';
 import Subjects from '../pages/subject/subjects';
 import CourseInSubject from '../pages/subject/course.subject';
+import ResetPassword from '../pages/user/resetPassword';
 
 const PrivateRoutesLayout = () => {
   const { auth } = useContext(AuthContext);
@@ -128,6 +129,7 @@ const routes = createBrowserRouter([
               { path : 'schedule'     , element: <Schedule                /> }, //các khóa học đã học/dạy
               { path : 'learn-request', element: <NotHandleYet            /> }, //đăng ký học, đợi accept
               { path : 'teach-request', element: <NotHandleYet            /> }, //đăng ký dạy, đợi accept
+              { path : 'resetpassword', element: <ResetPassword           /> }, //đăng ký dạy, đợi accept
             ],
           },
           { path : 'setting'    , element: <Setting         /> },
