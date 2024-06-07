@@ -70,7 +70,7 @@ export default function Login() {
 
   return (
     <>
-      {/* {success && <Navigate to='/'/>} */}
+      {success && <Navigate to='/' replace/>}
       <form
         // action='#'
         method='post'

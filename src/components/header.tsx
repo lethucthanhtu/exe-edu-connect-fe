@@ -19,25 +19,7 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 import { SearchBar } from './searchBar';
 
 import Logo from './logo';
-
-// profile menu component
-const profileMenuItems = [
-  {
-    label: 'My Profile',
-  },
-  {
-    label: 'Edit Profile',
-  },
-  {
-    label: 'Inbox',
-  },
-  {
-    label: 'Help',
-  },
-  {
-    label: 'Sign Out',
-  },
-];
+import api from '../api/api';
 
 type TNavItem = {
   tName: string;
@@ -46,10 +28,10 @@ type TNavItem = {
 };
 
 const navItems: TNavItem[] = [
-  { value: 'home'    , tName: 'home'    , path: '/'       },
+  { value: 'home', tName: 'home', path: '/' },
   { value: 'subjects', tName: 'subjects', path: 'subject' },
-  { value: 'about'   , tName: 'about'   , path: ''        },
-  { value: 'contact' , tName: 'contact' , path: ''        },
+  { value: 'about', tName: 'about', path: '' },
+  { value: 'contact', tName: 'contact', path: '' },
 ];
 
 /**
@@ -57,6 +39,38 @@ const navItems: TNavItem[] = [
  * @returns JSX.Element
  */
 function ProfileMenu() {
+  const handleSignOut = () => {
+    api
+      .get('/api/auth/logout')
+      .then(() => sessionStorage.removeItem('token'))
+      .catch(() => {});
+  };
+
+  // profile menu component
+  const profileMenuItems = [
+    {
+      label: 'My Profile',
+      to: '',
+    },
+    {
+      label: 'Edit Profile',
+      to: '',
+    },
+    {
+      label: 'Inbox',
+      to: '',
+    },
+    {
+      label: 'Help',
+      to: '',
+    },
+    {
+      label: 'Sign Out',
+      to: '',
+      func: handleSignOut,
+    },
+  ];
+
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const closeMenu = () => setIsMenuOpen(false);
@@ -105,12 +119,6 @@ function ProfileMenu() {
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
             >
-              {/* {React.createElement(icon, {
-                                className: `size ${
-                                    isLastItem ? 'text-red-500' : ''
-                                }`,
-                                strokeWidth: 2,
-                            })} */}
               <Typography
                 as='span'
                 variant='small'
@@ -210,7 +218,7 @@ function NavList() {
  */
 export default function Header() {
   const [openNav, setOpenNav] = useState(false);
-  const [user, setUser] = useState(JSON.parse(sessionStorage.getItem('user')));
+  const [token, setToken] = useState(sessionStorage.getItem('token'));
   const { t } = useTranslation();
 
   return (
@@ -229,7 +237,7 @@ export default function Header() {
           </div>
           <div className='flex items-center gap-4'>
             <SearchBar />
-            {user ? (
+            {token ? (
               <ProfileMenu />
             ) : (
               <div className='flex items-center gap-x-1'>
