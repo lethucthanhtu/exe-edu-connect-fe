@@ -27,6 +27,7 @@ import { Link, Outlet, useParams } from 'react-router-dom';
 import { capitalize, currencyFormat } from '../../utils/utils';
 import LanguageButton from '../languageButton';
 import { useTranslation } from 'react-i18next';
+import api from '../../api/api';
 
 type TUserProps = {
   img: string;
@@ -472,15 +473,32 @@ function Sidebar({ img, name, role, ballance = 0 }: TUserProps) {
  * @returns
  */
 export default function UserLayout() {
+  const [user, setUser] = useState({});
+  const [role, setRole] = useState([]);
+  const [id, setId] = useState("");
+  const [errMsg, setErrMsg] = useState('');
+
+
+  useEffect(() => {
+    api
+      .get(`/api/users/`)
+      .then((res) => setUser(res.data.returnData))
+      .catch((err) => setErrMsg(err));
+  }, []);
+// console.log(user);
+
   return (
     <>
       <section className='flex size-full xs:flex-col md:!flex-row'>
-        <Sidebar
-          name='Lê Thúc Thanh Tú'
-          role='admin'
-          ballance='100000000'
-          img='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpL7RVUm2ms3a2zwOqdvUnOAWbQNZtgAxe907htFFYEg&s'
-        />
+        {id === user.id ? (
+          <Sidebar name={user.username} role='student' img={user.avatarurl} />
+        ) : (
+          <Sidebar
+            name='Default'
+            role='student'
+            img='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpL7RVUm2ms3a2zwOqdvUnOAWbQNZtgAxe907htFFYEg&s'
+          />
+        )}
         <div className='size-full'>
           <Outlet />
         </div>
