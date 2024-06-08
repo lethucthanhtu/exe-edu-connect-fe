@@ -115,7 +115,7 @@ export const getWeeksBetweenDates = (
     // Convert days to weeks
     const weeks = days / 7;
 
-    return weeks;
+    return Math.round(weeks);
   } catch (error) {
     return 0;
   }

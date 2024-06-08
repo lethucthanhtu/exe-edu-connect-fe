@@ -404,7 +404,7 @@ function Sidebar({ img, name, role, ballance = 0 }: TUserProps) {
                   Courses
                 </ListItem>
               </Link>
-              <Link to={`${id}/transactions`}>
+              <Link to={`${id}/transactionshistory`}>
                 <ListItem
                   placeholder={undefined}
                   onPointerEnterCapture={undefined}
