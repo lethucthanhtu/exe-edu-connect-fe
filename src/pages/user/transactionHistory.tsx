@@ -35,7 +35,7 @@ export default function TransactionsHistory() {
                     ))}
                 </tr>
                 </thead>
-                <tbody>
+                {/* <tbody>
                 {TABLE_ROWS.map(({ name, job, date }, index) => {
                     const isLast = index === TABLE_ROWS.length - 1;
                     const classes = isLast
@@ -93,7 +93,7 @@ export default function TransactionsHistory() {
                     </tr>
                     );
                 })}
-                </tbody>
+                </tbody> */}
             </table>
             </Card>
         </>
