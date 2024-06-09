@@ -122,7 +122,7 @@ function SubjectCard({
 }
 
 /**
- *
+ * 
  * @returns
  */
 export default function Subjects() {

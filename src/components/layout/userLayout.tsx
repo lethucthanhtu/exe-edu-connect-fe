@@ -5,7 +5,6 @@ import {
   List,
   ListItem,
   ListItemPrefix,
-  ListItemSuffix,
   Chip,
   Accordion,
   AccordionHeader,
@@ -17,10 +16,9 @@ import {
 } from '@material-tailwind/react';
 import {
   PresentationChartBarIcon,
-  UserCircleIcon,
   Cog6ToothIcon,
-  InboxIcon,
   PowerIcon,
+  IdentificationIcon,
 } from '@heroicons/react/24/solid';
 import { ChevronRightIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 import { Link, Outlet, useParams } from 'react-router-dom';
@@ -28,22 +26,18 @@ import { capitalize, currencyFormat } from '../../utils/utils';
 import LanguageButton from '../languageButton';
 import { useTranslation } from 'react-i18next';
 import api from '../../api/api';
+import { TUser } from '../../entity/user';
+import NotFound from '../../pages/error/notFound';
 
 type TUserProps = {
   img: string;
   name: string;
-  role: 'student' | 'tutor' | 'staff' | 'admin';
+  role: string;
   ballance?: number | string;
 };
 
 /** */
-function User({ img, name, role, ballance = 0 }: TUserProps) {
-  const { t } = useTranslation();
-  try {
-    ballance = Number(ballance);
-  } catch (error) {
-    ballance = 0;
-  }
+function User({ img, name, role }: TUserProps) {
   return (
     <>
       <Card
@@ -68,7 +62,7 @@ function User({ img, name, role, ballance = 0 }: TUserProps) {
               size='xl'
               variant='circular'
               src={img}
-              alt='tania andrew'
+              alt='đm không có ảnh'
               className='!size-full'
               placeholder={undefined}
               onPointerEnterCapture={undefined}
@@ -264,7 +258,7 @@ function UserSkeleton() {
 /** */
 function Sidebar({ img, name, role, ballance = 0 }: TUserProps) {
   const { t } = useTranslation();
-  const id = localStorage.getItem('id');
+  const { id } = useParams();
   const [open, setOpen] = useState(0);
   const [loading, setLoading] = useState(false);
 
@@ -388,7 +382,7 @@ function Sidebar({ img, name, role, ballance = 0 }: TUserProps) {
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
             >
-              <Link to={`${id}/courses`}>
+              <Link to={`${id}/courseshistory`}>
                 <ListItem
                   placeholder={undefined}
                   onPointerEnterCapture={undefined}
@@ -473,35 +467,34 @@ function Sidebar({ img, name, role, ballance = 0 }: TUserProps) {
  * @returns
  */
 export default function UserLayout() {
-  const [user, setUser] = useState({});
-  const [role, setRole] = useState([]);
-  const [id, setId] = useState("");
+  const [user, setUser] = useState<TUser>();
+  const { id } = useParams();
   const [errMsg, setErrMsg] = useState('');
-
 
   useEffect(() => {
     api
-      .get(`/api/users/`)
+      .get(`/api/users/${id}`)
       .then((res) => setUser(res.data.returnData))
       .catch((err) => setErrMsg(err));
-  }, []);
-// console.log(user);
+  }, [id]);
 
   return (
     <>
       <section className='flex size-full xs:flex-col md:!flex-row'>
-        {id === user.id ? (
-          <Sidebar name={user.username} role='student' img={user.avatarurl} />
+        {user ? (
+          <>
+            <Sidebar
+              name={user.username}
+              role={user.authorities[0].authority}
+              img={user.avatarurl}
+            />
+            <div className='size-full'>
+              <Outlet />
+            </div>
+          </>
         ) : (
-          <Sidebar
-            name='Default'
-            role='student'
-            img='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpL7RVUm2ms3a2zwOqdvUnOAWbQNZtgAxe907htFFYEg&s'
-          />
+          <NotFound />
         )}
-        <div className='size-full'>
-          <Outlet />
-        </div>
       </section>
     </>
   );
