@@ -25,7 +25,7 @@ import {
 import { ChevronRightIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 import { Link, Outlet, useParams } from 'react-router-dom';
 import { capitalize, currencyFormat } from '../../utils/utils';
-import LanguageButton from '../languageButton';
+import LanguageButton from '../language.button';
 import { useTranslation } from 'react-i18next';
 
 type TUserProps = {

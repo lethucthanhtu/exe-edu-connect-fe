@@ -1,54 +1,52 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import data from '../../courses.data.json';
-import { Spinner } from '@material-tailwind/react';
+
+import api from '../../api/api';
+
 import NotFound from '../error/notFound';
+import Loading from '../../components/loading';
+import CourseDetail from '../../components/course.detail';
 
 /**
  * course page
  * @returns JSX.Element
  */
 export default function Course() {
-  const { course_id } = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
   const [course, setCourse] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  //self-healing url
   useEffect(() => {
     setLoading(true);
+    api.get(`/api/course/${id}`).then((res) => {
+      setCourse(res.data.returnData);
+      setLoading(false);
+    });
+    // .catch(() => navigate('/error', { replace: true }));
+  }, [id, navigate]);
 
-    const c = data.find((item) => item.id === course_id);
+  //self-healing url
+  useEffect(() => {
     const title =
-      c?.title
-        .toLowerCase()
+      course?.name
+        ?.toLowerCase()
         .replace(/\s+/g, '-')
         .normalize('NFD')
         .replace(/[\u0300-\u036f]/g, '')
         .replace(/đ/g, 'd')
-        .replace(/Đ/g, 'D') || 'not-thing-found';
-
-    setCourse(c);
+        .replace(/Đ/g, 'D') || '';
 
     navigate(`./${title}`, { replace: true });
-
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-  }, [course_id, navigate]);
+  }, [course, navigate]);
 
   return (
     <>
       <div className='flex justify-center'>
         {loading ? (
-          <Spinner
-            color='green'
-            className='size-12'
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-          />
+          <Loading />
         ) : course ? (
-          <span className='text-6xl capitalize'>Course {course_id}</span>
+          <CourseDetail course={course} />
         ) : (
           <div className='flex justify-center items-center h-screen'>
             <NotFound />
