@@ -228,7 +228,7 @@ export default function Courses() {
   const [params] = useSearchParams();
   const [page, setPage] = useState(params.get('page') || 1);
   const [size, setSize] = useState(params.get('size') || 25);
-
+  const [placeholderText, setPlaceholderText] = useState("");
   const [courses, setCourses] = useState([]);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [errMsg, setErrMsg] = useState('');
@@ -243,7 +243,19 @@ export default function Courses() {
           size: size,
         },
       })
-      .then((res) => setCourses(res.data.returnData.courseDtos))
+      .then((res) => {
+        setCourses(res.data.returnData.courseDtos)
+      })
+      .catch((err) => setErrMsg(err.message));
+  }, [subject, page, size]);
+
+  //for subject category placeholder text
+  useEffect(() => {
+    api
+      .get(`/api/course/category/${capitalize(subject)}`)
+      .then((res) => {
+        setPlaceholderText(res.data.returnData.description)
+      })
       .catch((err) => setErrMsg(err.message));
   }, [subject, page, size]);
 
@@ -251,16 +263,16 @@ export default function Courses() {
     <section className='container w-full'>
       <CourseSection title={subject || 'courses'} className='mb-6 mt-4'>
         {subject
-          ? 'subject description placeholder'
+          ? placeholderText
           : capitalize(
-              t(`In velit minim qui laboris veniam aute sunt exercitation eiusmod.
+            t(`In velit minim qui laboris veniam aute sunt exercitation eiusmod.
         Nostrud fugiat velit exercitation sunt nulla laboris tempor officia et
         veniam dolor. Id ipsum cupidatat exercitation qui. Anim duis eiusmod ut
         nostrud. Nisi fugiat Lorem nisi nisi incididunt mollit irure pariatur
         deserunt exercitation Lorem dolore. Ad nostrud in irure consectetur.
         Nostrud fugiat velit exercitation sunt nulla laboris tempor officia et
         veniam dolor. Id ipsum`)
-            )}
+          )}
       </CourseSection>
       <section className='flex flex-wrap gap-x-2 gap-y-4 justify-evenly my-12'>
         {courses.map((course) => (
