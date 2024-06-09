@@ -37,6 +37,9 @@ import Schedule        from '../pages/user/schedule';
 import Test            from '../pages/test';
 import Subjects        from '../pages/subject/subjects';
 import CourseInSubject from '../pages/subject/course.subject';
+import ResetPassword from '../pages/user/resetPassword';
+import TransactionsHistory from '../pages/user/transactionHistory';
+import CoursesHistory from '../pages/user/courseHistory';
 
 const PrivateRoutesLayout = () => {
   const { auth } = useContext(AuthContext);
@@ -122,12 +125,14 @@ const routes = createBrowserRouter([
           {
             path     : ':id',
             children : [
-              { index: true           , element: <Navigate to='./profile' replace /> },
-              { path : 'profile'      , element: <Profile                         /> },
-              { path : 'history'      , element: <NotHandleYet                    /> }, //các khóa học đã học/dạy
-              { path : 'schedule'     , element: <Schedule                        /> }, //các khóa học đã học/dạy
-              { path : 'learn-request', element: <NotHandleYet                    /> }, //đăng ký học, đợi accept
-              { path : 'teach-request', element: <NotHandleYet                    /> }, //đăng ký dạy, đợi accept
+              { index: true                     , element: <Navigate to='./profile' replace /> },
+              { path : 'profile'                , element: <Profile                         /> },
+              { path : 'transactionshistory'    , element: <TransactionsHistory             /> }, 
+              { path : 'courseshistory'         , element: <CoursesHistory                  /> }, 
+              { path : 'schedule'               , element: <Schedule                        /> }, 
+              { path : 'learn-request'          , element: <NotHandleYet                    /> }, //đăng ký học, đợi accept
+              { path : 'teach-request'          , element: <NotHandleYet                    /> }, //đăng ký dạy, đợi accept
+              { path : 'resetpassword'          , element: <ResetPassword                   /> }, 
             ],
           },
           { path : 'setting'    , element: <Setting                   /> },

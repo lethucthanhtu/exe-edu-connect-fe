@@ -5,7 +5,6 @@ import {
   List,
   ListItem,
   ListItemPrefix,
-  ListItemSuffix,
   Chip,
   Accordion,
   AccordionHeader,
@@ -17,32 +16,28 @@ import {
 } from '@material-tailwind/react';
 import {
   PresentationChartBarIcon,
-  UserCircleIcon,
   Cog6ToothIcon,
-  InboxIcon,
   PowerIcon,
+  IdentificationIcon,
 } from '@heroicons/react/24/solid';
 import { ChevronRightIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 import { Link, Outlet, useParams } from 'react-router-dom';
 import { capitalize, currencyFormat } from '../../utils/utils';
 import LanguageButton from '../language.button';
 import { useTranslation } from 'react-i18next';
+import api from '../../api/api';
+import { TUser } from '../../entity/user';
+import NotFound from '../../pages/error/notFound';
 
 type TUserProps = {
   img: string;
   name: string;
-  role: 'student' | 'tutor' | 'staff' | 'admin';
+  role: string;
   ballance?: number | string;
 };
 
 /** */
-function User({ img, name, role, ballance = 0 }: TUserProps) {
-  const { t } = useTranslation();
-  try {
-    ballance = Number(ballance);
-  } catch (error) {
-    ballance = 0;
-  }
+function User({ img, name, role }: TUserProps) {
   return (
     <>
       <Card
@@ -67,7 +62,7 @@ function User({ img, name, role, ballance = 0 }: TUserProps) {
               size='xl'
               variant='circular'
               src={img}
-              alt='tania andrew'
+              alt='đm không có ảnh'
               className='!size-full'
               placeholder={undefined}
               onPointerEnterCapture={undefined}
@@ -125,41 +120,7 @@ function User({ img, name, role, ballance = 0 }: TUserProps) {
           onPointerEnterCapture={undefined}
           onPointerLeaveCapture={undefined}
         >
-          <Typography
-            variant='paragraph'
-            className='flex gap-2 justify-between items-center'
-            placeholder={undefined}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-          >
-            <span className=''>{capitalize(t('ballance'))}</span>
-            <Chip
-              value={`${currencyFormat(ballance)}`}
-              className='w-3/4 flex justify-center bg-primary'
-            />
-          </Typography>
-          <div className='flex gap-2'>
-            <Button
-              variant='filled'
-              size='sm'
-              className='w-full bg-primary-sub'
-              placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-            >
-              {capitalize(t('deposit'))}
-            </Button>
-            <Button
-              variant='outlined'
-              size='sm'
-              className='w-full border-primary-sub text-primary-sub'
-              placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-            >
-              {capitalize(t('withdraw'))}
-            </Button>
-          </div>
+          <LanguageButton />
         </CardBody>
       </Card>
     </>
@@ -297,7 +258,7 @@ function UserSkeleton() {
 /** */
 function Sidebar({ img, name, role, ballance = 0 }: TUserProps) {
   const { t } = useTranslation();
-  const id = localStorage.getItem('id');
+  const { id } = useParams();
   const [open, setOpen] = useState(0);
   const [loading, setLoading] = useState(false);
 
@@ -362,9 +323,9 @@ function Sidebar({ img, name, role, ballance = 0 }: TUserProps) {
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
             >
-              <Cog6ToothIcon className='size-5' />
+              <span className='material-symbols-outlined'>calendar_month</span>
             </ListItemPrefix>
-            Schedule
+            {capitalize(t('your schedule'))}
           </ListItem>
         </Link>
         <hr className='my-2 border-blue-gray-50' />
@@ -421,7 +382,7 @@ function Sidebar({ img, name, role, ballance = 0 }: TUserProps) {
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
             >
-              <Link to={`${id}/courses`}>
+              <Link to={`${id}/courseshistory`}>
                 <ListItem
                   placeholder={undefined}
                   onPointerEnterCapture={undefined}
@@ -437,7 +398,7 @@ function Sidebar({ img, name, role, ballance = 0 }: TUserProps) {
                   Courses
                 </ListItem>
               </Link>
-              <Link to={`${id}/transactions`}>
+              <Link to={`${id}/transactionshistory`}>
                 <ListItem
                   placeholder={undefined}
                   onPointerEnterCapture={undefined}
@@ -464,7 +425,7 @@ function Sidebar({ img, name, role, ballance = 0 }: TUserProps) {
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
       >
-        <Link to={`${id}/schedule`}>
+        <Link to={`${id}/resetpassword`}>
           <ListItem
             className='hover:bg-primary-light'
             placeholder={undefined}
@@ -506,18 +467,34 @@ function Sidebar({ img, name, role, ballance = 0 }: TUserProps) {
  * @returns
  */
 export default function UserLayout() {
+  const [user, setUser] = useState<TUser>();
+  const { id } = useParams();
+  const [errMsg, setErrMsg] = useState('');
+
+  useEffect(() => {
+    api
+      .get(`/api/users/${id}`)
+      .then((res) => setUser(res.data.returnData))
+      .catch((err) => setErrMsg(err));
+  }, [id]);
+
   return (
     <>
       <section className='flex size-full xs:flex-col md:!flex-row'>
-        <Sidebar
-          name='Lê Thúc Thanh Tú'
-          role='admin'
-          ballance='100000000'
-          img='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpL7RVUm2ms3a2zwOqdvUnOAWbQNZtgAxe907htFFYEg&s'
-        />
-        <div className='size-full'>
-          <Outlet />
-        </div>
+        {user ? (
+          <>
+            <Sidebar
+              name={user.username}
+              role={user.authorities[0].authority}
+              img={user.avatarurl}
+            />
+            <div className='size-full'>
+              <Outlet />
+            </div>
+          </>
+        ) : (
+          <NotFound />
+        )}
       </section>
     </>
   );
