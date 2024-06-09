@@ -9,7 +9,6 @@ import { useEffect } from 'react';
  */
 export default function App() {
   i18n.changeLanguage(localStorage.getItem('usrLng'));
-  localStorage.setItem('id', '123');
 
   //keep BE API alive
   useEffect(() => {
