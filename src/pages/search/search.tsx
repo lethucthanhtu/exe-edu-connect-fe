@@ -9,8 +9,9 @@ import {
   Select,
   Typography,
 } from '@material-tailwind/react';
-import OldPagination from '../components/pagination';
-import Loading from '../components/loading';
+import OldPagination from '../../components/pagination';
+import Loading from '../../components/loading';
+import { SearchBar, SearchTitle, BriefCourseDetailsCard, FilterBar } from '../../components/search_child_components';
 
 /**
  *
@@ -69,18 +70,11 @@ export default function Search() {
   const [params] = useSearchParams();
   const [searchResult, setSearchResult] = useState([]);
   const [currentPage, setCurrentPage] = useState(Number(params.get('p')) || 1);
-  const [offset, setOffSet] = useState(Number(params.get('offset')) || 25);
+  const [offset, setOffSet] = useState(Number(params.get('offset')) || 15);
   const [loading, setLoading] = useState(false);
   const { t } = useTranslation();
 
-  // //dummy data
-  // useEffect(() => {
-  //     setLoading(true);
-  //     setTimeout(() => {
-  //         setMaCKs([...Array(100).keys()]);
-  //         setLoading(false);
-  //     }, 1000);
-  // }, []);
+
 
   useEffect(() => {
     setLoading(true);
@@ -115,65 +109,49 @@ export default function Search() {
   // handle mismatch offset & page
   useEffect(() => {
     // const pages = Math.ceil(searchResult.length / offset);
-    if (!offsets.find((o) => o === offset)) setOffSet(25);
+    if (!offsets.find((o) => o === offset)) setOffSet(15);
   }, [offset, offsets]);
 
   return (
-    <>
-      <div className='text-6xl flex justify-center'>
-        <span className='capitalize'>{t('search')}:</span>
-        <span>"{params.get('q')}"</span>
+    <div className='mt-5'>
+      <div className='text-center'>
+        <SearchTitle />
       </div>
-      <div className='relative !w-20 ml-20'>
-        <Select
-          label='show'
-          value={offset + ''}
-          onChange={(val) => {
-            setCurrentPage(1);
-            setOffSet(Number(val));
-          }}
-          className=''
-          placeholder={undefined}
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-        >
-          {offsets.map((offset) => (
-            <Option key={offset} value={offset + ''}>
-              {offset}
-            </Option>
-          ))}
-        </Select>
+      <div className='flex justify-center mt-2'>
+        <FilterBar />
       </div>
-      <div className='flex justify-center items-center'>
+      <div className='flex mt-5 '>
         {loading ? (
           <Loading color='teal' className='size-12' />
         ) : (
           <div>
-            <div className='mx-4 my-auto grid grid-cols-4 gap-4 justify-around'>
+            <div className='py-9 my-9 grid grid-cols-1 gap-4 justify-items-center
+            bg-teal-200 p-2 rounded-md'>
               {displayResults.map((result, index) => (
-                <SearchResultCard
-                  key={index}
-                  code={result.code || result}
-                  fullname_vi={result.fullname_vi}
-                  loaidn={result.loaidn}
-                  san={result.san}
+                <BriefCourseDetailsCard
+                  courseid={index}
+                  name={result.fullname_vi}
+                  teacherName='Đào Việt Anh'
+                  rating={5.0}
+                  avatarUrl='https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80'
+                  description={result.san}
                 />
               ))}
             </div>
-            <div className='flex justify-center mt-auto'>
+            <div className='flex justify-center mx-5'>
               <OldPagination
                 length={searchResult.length}
                 offset={offset}
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
-                // paginationPagesDisplay={5}
-                // showPageInput='false'
-                // showNavigateText='false'
+              // paginationPagesDisplay={5}
+              // showPageInput='false'
+              // showNavigateText='false'
               />
             </div>
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 }

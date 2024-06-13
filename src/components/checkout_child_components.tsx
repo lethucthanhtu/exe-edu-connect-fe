@@ -1,7 +1,7 @@
-import { capitalize } from '../../utils/utils';
+import { capitalize } from '../utils/utils';
 import { useTranslation } from 'react-i18next';
 import { size } from '@material-tailwind/react/types/components/avatar';
-import RatingStar from '../../components/ratingStar';
+import RatingStar from './ratingStar';
 import {
     Button,
     Card,
@@ -243,7 +243,7 @@ function BasicTeacherProfileSection() {
                     </Typography>
                 </div>
                 <div className='flex gap-1 '>
-                    <div className='material-symbols-outlined decoration-yellow-300 select-none leading-7'>
+                    <div className='material-symbols-outlined text-yellow-800 select-none leading-7'>
                         Star
                     </div>
                     <Typography

@@ -24,7 +24,7 @@ import Home from '../pages/home';
 import Landing from '../pages/landing';
 import Login from '../pages/secure/login';
 import Profile from '../pages/user/profile';
-import Search from '../pages/search';
+import Search from '../pages/search/search';
 import Signup from '../pages/secure/signup';
 import ForgotPassword from '../pages/secure/forgotPassword';
 // import User            from '../pages/user/user';
