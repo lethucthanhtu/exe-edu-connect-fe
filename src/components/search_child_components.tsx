@@ -1,5 +1,5 @@
 import {
-    Typography, Input, Button, Card, CardHeader, CardBody,
+    Typography, Input, ButtonGroup, Button, Card, CardHeader, CardBody,
     Select, Option
 
 } from "@material-tailwind/react";
@@ -7,10 +7,12 @@ import { useTranslation } from 'react-i18next';
 import { capitalize } from "../utils/utils";
 import Search from '../pages/search/search';
 import { size } from '@material-tailwind/react/types/components/avatar';
-import { useState, createElement, Fragment } from "react";
+import { useState, createElement, Fragment, useEffect } from "react";
 import { TCourse } from '../entity/course';
 import { TCourseBriefDetails } from '../entity/courseBriefDetails'
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
+import axios from "axios";
+import { TCourseCategory } from "../entity/courseCategory";
 /**
  * The EDUCONNECT Search text.
  * @returns JSX.Element
@@ -70,12 +72,35 @@ export function SearchBar() {
     );
 }
 
+
+
 /**
  * The Search Filter bar containing search filter options.
  * @returns JSX.Element
  */
 export function FilterBar() {
     const { t } = useTranslation();
+    const getAllCourseCategoriesUrl = 'https://exe-edu-connect-be-dev.onrender.com/api/course/categories';
+    const [courseCategories, setCourseCategories] = useState<TCourseCategory[]>([]);
+    useEffect(() => {
+        try {
+            axios
+                .get(
+                    getAllCourseCategoriesUrl
+                )
+                .then((res) => {
+                    // eslint-disable-next-line no-console
+                    console.log('Current result:', res);
+                    setCourseCategories(res.data.returnData as TCourseCategory[])
+                }).catch((error) => {
+                    // eslint-disable-next-line no-console
+                    console.log('Current error:', error);
+                });
+        } catch (error) {
+            //Handle additional errors here 
+        }
+    }, []);
+
     return (
         <Card className="w-full max-w-[48rem] flex-row border-4 border-teal-800"
             placeholder={undefined}
@@ -86,25 +111,26 @@ export function FilterBar() {
                 onPointerEnterCapture={undefined}
                 onPointerLeaveCapture={undefined}
                 className='w-full'>
-                <div className='flex w-full justify-items-stretch items-center'>
-                    <Typography variant="h4" className="mx-2 text-secondary-darkBlue leading-9 w-32 px-0 my-0"
+                <div className='grid grid-flow-col auto-cols-auto w-full items-center'>
+                    <Typography variant="h4" className=" text-secondary-darkBlue leading-9 w-24 px-0 my-0"
                         placeholder={undefined}
                         onPointerEnterCapture={undefined}
                         onPointerLeaveCapture={undefined}>
                         {t("Lọc theo")}
                     </Typography>
-                    <div className='mx-10 w-32'>
+                    <div className='w-36 me-5'>
                         <Select label="Khóa học"
                             className="text-teal-800 font-bold text-md"
                             placeholder={undefined}
                             onPointerEnterCapture={undefined}
                             onPointerLeaveCapture={undefined}>
-                            <Option>Toán</Option>
-                            <Option>Vật Lý</Option>
-                            <Option>Tiếng Anh</Option>
+                            {courseCategories.map((courseCategory) => (
+                                <Option>{courseCategory.categoryname}</Option>
+                            ))}
+
                         </Select>
                     </div>
-                    <div className='mx-10 w-32'>
+                    <div className='w-36'>
                         <Select label="Tên giáo viên"
                             className="text-teal-600 font-bold text-md"
                             placeholder={undefined}
@@ -114,16 +140,28 @@ export function FilterBar() {
                             <Option>Giảm dần</Option>
                         </Select>
                     </div>
-                    <div className='mx-9 w-36 justify-end'>
+
+                    <ButtonGroup className='mx-10 w-20'
+                        placeholder={undefined}
+                        onPointerEnterCapture={undefined}
+                        onPointerLeaveCapture={undefined}>
                         <Button
-                            className="bg-primary text-center text-sm"
+                            className="bg-primary text-base min-w-16 px-0"
                             placeholder={undefined}
-                            size="md"
                             onPointerEnterCapture={undefined}
                             onPointerLeaveCapture={undefined}
-                            fullWidth>{capitalize(t("Bắt đầu"))}
+                        >{t("Lọc")}
                         </Button>
-                    </div>
+                        <Button
+                            className="bg-red-800 text-base min-w-20 px-0"
+                            placeholder={undefined}
+                            onPointerEnterCapture={undefined}
+                            onPointerLeaveCapture={undefined}
+                        >{capitalize(t("Đặt lại"))}
+                        </Button>
+
+
+                    </ButtonGroup>
                 </div>
 
             </CardBody>

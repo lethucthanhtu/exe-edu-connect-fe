@@ -2,65 +2,12 @@ import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import {
-  Card,
-  CardBody,
-  Option,
-  Select,
-  Typography,
-} from '@material-tailwind/react';
 import OldPagination from '../../components/pagination';
+import { capitalize } from '../../utils/utils';
 import Loading from '../../components/loading';
+import { Chip } from '@material-tailwind/react';
 import { SearchBar, SearchTitle, BriefCourseDetailsCard, FilterBar } from '../../components/search_child_components';
 
-/**
- *
- */
-function SearchResultCard({ code, fullname_vi, loaidn, san }) {
-  return (
-    <Card
-      className='min-w-10 min-h-8'
-      placeholder={undefined}
-      onPointerEnterCapture={undefined}
-      onPointerLeaveCapture={undefined}
-    >
-      <CardBody
-        placeholder={undefined}
-        onPointerEnterCapture={undefined}
-        onPointerLeaveCapture={undefined}
-      >
-        <Typography
-          variant='h5'
-          color='blue-gray'
-          className='mb-2'
-          placeholder={undefined}
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-        >
-          {fullname_vi}
-        </Typography>
-        <Typography
-          variant='h3'
-          placeholder={undefined}
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-        >
-          {code}
-        </Typography>
-        <Typography
-          variant='h4'
-          placeholder={undefined}
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-        >
-          <span>sàn: {san}</span>
-          <br />
-          <span>loại doanh nghiệp: {loaidn}</span>
-        </Typography>
-      </CardBody>
-    </Card>
-  );
-}
 
 /**
  * search page
@@ -69,8 +16,10 @@ function SearchResultCard({ code, fullname_vi, loaidn, san }) {
 export default function Search() {
   const [params] = useSearchParams();
   const [searchResult, setSearchResult] = useState([]);
+  const [resultsAvailable, setResultsAvailable] = useState(true);
   const [currentPage, setCurrentPage] = useState(Number(params.get('p')) || 1);
-  const [offset, setOffSet] = useState(Number(params.get('offset')) || 15);
+  const [totalPageCount, setTotalPageCount] = useState(0)
+  const offset = 5;
   const [loading, setLoading] = useState(false);
   const { t } = useTranslation();
 
@@ -78,78 +27,78 @@ export default function Search() {
 
   useEffect(() => {
     setLoading(true);
+    const getAllCoursesUrl = 'http://localhost:8082/api/courses';
     try {
       axios
         .get(
-          'https://wifeed.vn/api/thong-tin-co-phieu/danh-sach-ma-chung-khoan',
+          getAllCoursesUrl,
           {
             params: {
-              loaidn: 1,
-              san: 'HOSE',
+              name: params.get('q'),
+              page: currentPage,
+              size: offset,
             },
           }
         )
         .then((res) => {
-          setSearchResult(res.data.data);
+          setSearchResult(res.data.returnData.courseDtos);
+          setTotalPageCount(res.data.returnData.totalPageCount)
           setLoading(false);
+        }).catch((error) => {
+          // eslint-disable-next-line no-console
+          console.log('Current error:', error);
+          setLoading(false);
+          setResultsAvailable(false)
         });
     } catch (error) {
-      // eslint-disable-next-line no-console
-      console.log(error);
+      //Handle additional errors here 
     }
-  }, []);
-
-  const lastIndex = offset * currentPage;
-  const firstIndex = lastIndex - offset;
-  const displayResults = searchResult.slice(firstIndex, lastIndex);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const offsets = [1, 5, 25, 50, 75, 100];
-
-  // handle mismatch offset & page
-  useEffect(() => {
-    // const pages = Math.ceil(searchResult.length / offset);
-    if (!offsets.find((o) => o === offset)) setOffSet(15);
-  }, [offset, offsets]);
+  }, [currentPage]);
 
   return (
-    <div className='mt-5'>
+    <div className='mt-5 w-full'>
       <div className='text-center'>
         <SearchTitle />
       </div>
       <div className='flex justify-center mt-2'>
         <FilterBar />
       </div>
-      <div className='flex mt-5 '>
+      <div className='flex mt-5 justify-center '>
         {loading ? (
-          <Loading color='teal' className='size-12' />
-        ) : (
-          <div>
-            <div className='py-9 my-9 grid grid-cols-1 gap-4 justify-items-center
-            bg-teal-200 p-2 rounded-md'>
-              {displayResults.map((result, index) => (
-                <BriefCourseDetailsCard
-                  courseid={index}
-                  name={result.fullname_vi}
-                  teacherName='Đào Việt Anh'
-                  rating={5.0}
-                  avatarUrl='https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80'
-                  description={result.san}
-                />
-              ))}
-            </div>
-            <div className='flex justify-center mx-5'>
-              <OldPagination
-                length={searchResult.length}
-                offset={offset}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-              // paginationPagesDisplay={5}
-              // showPageInput='false'
-              // showNavigateText='false'
-              />
-            </div>
+          <div className='p-9 m-9 gap-4'>
+            <Loading color='teal' className='size-12' />
           </div>
+        ) : (
+          resultsAvailable ? (
+            <div>
+              <div className='p-9 m-9 grid grid-cols-1 gap-4 
+            bg-teal-200 rounded-md'>
+                {searchResult.map((result, index) => (
+                  <BriefCourseDetailsCard
+                    courseid={result.id}
+                    name={result.name}
+                    teacherName={result.teachername}
+                    rating={5.0}
+                    avatarUrl='https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80'
+                    description={result.description}
+                  />
+                ))}
+              </div>
+              <div className='flex justify-center mx-5'>
+                <OldPagination
+                  totalPageCount={totalPageCount} //determine the total number of pages in the actual database.
+                  offset={offset}
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
+                />
+              </div>
+            </div>
+          ) : (
+            <Chip
+              className="bg-primary text-center text-sm my-10"
+              value={capitalize(t('Chưa có khóa học nào phù hợp với từ khóa bạn đã tìm kiếm. Xin hãy thử với từ khóa khác bạn nhé!'))}
+              size="lg" />
+          )
         )}
       </div>
     </div>
