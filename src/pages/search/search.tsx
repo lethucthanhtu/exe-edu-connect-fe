@@ -22,46 +22,54 @@ export default function Search() {
   const offset = 5;
   const [loading, setLoading] = useState(false);
   const { t } = useTranslation();
-
+  const getAllCoursesUrl = 'https://exe-edu-connect-be-dev.onrender.com/api/courses';
+  const [courseCategory, setCourseCategory] = useState(null);
 
 
   useEffect(() => {
     setLoading(true);
-    const getAllCoursesUrl = 'http://localhost:8082/api/courses';
+
     try {
-      axios
-        .get(
-          getAllCoursesUrl,
-          {
-            params: {
-              name: params.get('q'),
-              page: currentPage,
-              size: offset,
-            },
-          }
-        )
-        .then((res) => {
-          setSearchResult(res.data.returnData.courseDtos);
-          setTotalPageCount(res.data.returnData.totalPageCount)
-          setLoading(false);
-        }).catch((error) => {
-          // eslint-disable-next-line no-console
-          console.log('Current error:', error);
-          setLoading(false);
-          setResultsAvailable(false)
-        });
+      fetchCourses()
     } catch (error) {
       //Handle additional errors here 
     }
-  }, [currentPage]);
+  }, [currentPage, courseCategory]);
 
+  const fetchCourses = () => {
+    axios
+      .get(
+        getAllCoursesUrl,
+        {
+          params: {
+            name: params.get('q'),
+            category: courseCategory,
+            page: currentPage,
+            size: offset,
+          },
+        }
+      )
+      .then((res) => {
+        setSearchResult(res.data.returnData.courseDtos);
+        setTotalPageCount(res.data.returnData.totalPageCount)
+        setLoading(false);
+      }).catch((error) => {
+        // eslint-disable-next-line no-console
+        console.log('Current error:', error);
+        setLoading(false);
+        setResultsAvailable(false)
+      });
+  }
+  const beginFilter = (category: string) => {
+    setCourseCategory(category)
+  }
   return (
     <div className='mt-5 w-full'>
       <div className='text-center'>
         <SearchTitle />
       </div>
       <div className='flex justify-center mt-2'>
-        <FilterBar />
+        <FilterBar courseCategoryChangeHandler={beginFilter} />
       </div>
       <div className='flex mt-5 justify-center '>
         {loading ? (
@@ -75,6 +83,7 @@ export default function Search() {
             bg-teal-200 rounded-md'>
                 {searchResult.map((result, index) => (
                   <BriefCourseDetailsCard
+                    key={index}
                     courseid={result.id}
                     name={result.name}
                     teacherName={result.teachername}

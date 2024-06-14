@@ -7,12 +7,13 @@ import { useTranslation } from 'react-i18next';
 import { capitalize } from "../utils/utils";
 import Search from '../pages/search/search';
 import { size } from '@material-tailwind/react/types/components/avatar';
-import { useState, createElement, Fragment, useEffect } from "react";
+import React, { useState, createElement, Fragment, useEffect, Dispatch, SetStateAction } from "react";
 import { TCourse } from '../entity/course';
 import { TCourseBriefDetails } from '../entity/courseBriefDetails'
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
 import { TCourseCategory } from "../entity/courseCategory";
+import { useNavigate, useNavigationType } from "react-router-dom";
 /**
  * The EDUCONNECT Search text.
  * @returns JSX.Element
@@ -73,15 +74,21 @@ export function SearchBar() {
 }
 
 
-
+type TFilterBarProps = {
+    courseCategoryChangeHandler: (category: string) => void;
+}
 /**
  * The Search Filter bar containing search filter options.
  * @returns JSX.Element
  */
-export function FilterBar() {
+export function FilterBar({ courseCategoryChangeHandler }: TFilterBarProps) {
     const { t } = useTranslation();
     const getAllCourseCategoriesUrl = 'https://exe-edu-connect-be-dev.onrender.com/api/course/categories';
+    const searchCoursesPath = '/search'
+    const [courseCategory, setCourseCategory] = useState("Select");
     const [courseCategories, setCourseCategories] = useState<TCourseCategory[]>([]);
+    const [isFilterButtonDisabled, setIsFilterButtonDisabled] = useState(true)
+    const navigator = useNavigate()
     useEffect(() => {
         try {
             axios
@@ -100,6 +107,19 @@ export function FilterBar() {
             //Handle additional errors here 
         }
     }, []);
+    const resetFilter = () => {
+        navigator(searchCoursesPath)
+        window.location.reload()
+    }
+    const invokeFilterFunctionInParentComponent = () => {
+        courseCategoryChangeHandler(courseCategory)
+    }
+    const handleCourseChange = (val) => {
+        setCourseCategory(val)
+        if (val != null) setIsFilterButtonDisabled(false)
+        else setIsFilterButtonDisabled(true)
+    }
+
 
     return (
         <Card className="w-full max-w-[48rem] flex-row border-4 border-teal-800"
@@ -120,12 +140,17 @@ export function FilterBar() {
                     </Typography>
                     <div className='w-36 me-5'>
                         <Select label="Khóa học"
+                            value={courseCategory}
+                            onChange={handleCourseChange}
                             className="text-teal-800 font-bold text-md"
                             placeholder={undefined}
                             onPointerEnterCapture={undefined}
                             onPointerLeaveCapture={undefined}>
                             {courseCategories.map((courseCategory) => (
-                                <Option>{courseCategory.categoryname}</Option>
+                                <Option key={courseCategory.id}
+                                    value={courseCategory.categoryname} >
+                                    {courseCategory.categoryname}
+                                </Option>
                             ))}
 
                         </Select>
@@ -148,14 +173,17 @@ export function FilterBar() {
                         <Button
                             className="bg-primary text-base min-w-16 px-0"
                             placeholder={undefined}
+                            onClick={invokeFilterFunctionInParentComponent}
                             onPointerEnterCapture={undefined}
                             onPointerLeaveCapture={undefined}
+                            disabled={isFilterButtonDisabled}
                         >{t("Lọc")}
                         </Button>
                         <Button
                             className="bg-red-800 text-base min-w-20 px-0"
                             placeholder={undefined}
                             onPointerEnterCapture={undefined}
+                            onClick={resetFilter}
                             onPointerLeaveCapture={undefined}
                         >{capitalize(t("Đặt lại"))}
                         </Button>
