@@ -134,7 +134,7 @@ function HomeCarousel() {
         <div className='absolute bottom-[5%] w-full hidden lg:inline-flex gap-8 flex-nowrap peer'>
           <ul
             className='flex items-center justify-center gap-8 [&_img]:max-w-none animate-infinite-scroll peer-hover:animate-none'
-            // aria-hidden='false'
+          // aria-hidden='false'
           >
             {imgs.map((img, index) => (
               <li>
@@ -520,7 +520,7 @@ export default function Home() {
         >
           <div className='grid grid-cols-3'>
 
-</div>
+          </div>
         </SectionWithTitle>
       </section>
       <section id='post-rating'></section>

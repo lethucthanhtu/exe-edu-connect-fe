@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import {
   Typography,
   Input,
@@ -16,6 +16,7 @@ import { Link } from 'react-router-dom';
 import { capitalize } from '../../utils/utils';
 import { InputEmail, InputPasswordGroupCheck } from '../../components/input';
 import { FormHeader } from '../../components/form';
+import api, { BASE_URL } from '../../api/api';
 
 type TRoleRadioButtonProps = {
   className?: string;
@@ -136,6 +137,13 @@ function RoleSwitch({
   'onPointerEnterCapture' | 'onPointerLeaveCapture' | 'crossOrigin'
 >) {
   const { t } = useTranslation();
+  const roleToggleRef = useRef(null);
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleRoleChange = (event) => {
+    const isChecked = event.target.checked;
+
+  }
   return (
     <span className={`flex justify-center items-center gap-6 border rounded-lg py-1.5 px-4 shadow-xl border-blue-gray-200 ${props.className}`}>
       <Typography
@@ -150,7 +158,9 @@ function RoleSwitch({
       <Switch
         {...props}
         color={props.color || 'teal'}
+        inputRef={roleToggleRef}
         // className={props.className}
+        // onChange={handleRoleChange}
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
         crossOrigin={undefined}
@@ -178,6 +188,8 @@ export default function Signup() {
   const [isPasswordValid, setIsPasswordValid] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
   const [isPwdValid, setIsPwdValid] = useState(false);
+  const [roleId, setRoleId] = useState<number>(1);
+  // const [roleId, setRoleId] = us(1);
 
   const validatePwd = (pwd: string) => {
     const isValid =
@@ -188,12 +200,21 @@ export default function Signup() {
       /[!@#$%^&*]/.test(pwd); // Contains a special character
     return isValid;
   };
-
+  const handleGoogleRegistration = (event) => {
+    event.preventDefault();
+    const GOOGLE_LOGIN_URL = `${BASE_URL}api/auth/register/google/${roleId}`;
+    window.location.href = GOOGLE_LOGIN_URL;
+  };
   const handlePwdChange = (event) => {
     const newPwd = event.target.value;
     setPwd(newPwd);
     setIsPwdValid(validatePwd(newPwd));
   };
+  const handleRoleChange = (event) => {
+    const isChecked = event.target.checked;
+    if (!isChecked) setRoleId(1)
+    else setRoleId(2)
+  }
 
   return (
     <>
@@ -213,7 +234,7 @@ export default function Signup() {
             {capitalize(t('your role'))}
           </Typography>
           {/* <RoleRadioButton className='w-3/4' /> */}
-          <RoleSwitch name='role' className='' />
+          <RoleSwitch name='role' className='' onChange={handleRoleChange} />
         </div>
         <Input
           required
@@ -236,6 +257,22 @@ export default function Signup() {
           >
             {t('sign up')}
           </Button>
+          <Button
+            variant='outlined'
+            color='blue-gray'
+            className='flex justify-center items-center gap-3 border-primary'
+            onClick={handleGoogleRegistration}
+            placeholder={undefined}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+          >
+            <img
+              src='https://docs.material-tailwind.com/icons/google.svg'
+              alt='google'
+              className='size-4'
+            />
+            Continue with Google
+          </Button>
           <Typography
             variant='paragraph'
             className='flex gap-1 w-full justify-center items-center'
@@ -253,7 +290,9 @@ export default function Signup() {
                 onPointerLeaveCapture={undefined}
               >{`${capitalize(t('sign in now'))}`}</Typography>
             </Link>
+
           </Typography>
+
         </div>
       </form>
     </>

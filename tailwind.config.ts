@@ -46,6 +46,13 @@ module.exports = withMT({
           to: { transform: 'translateX(-100%)' },
         },
       },
+      fontSize: {
+        'search-page-title': '5rem'
+      },
+      colors: {
+        '': '#C9FB5C',
+        'black': '000',
+      }
     },
   },
   plugins: [

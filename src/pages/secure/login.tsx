@@ -43,7 +43,7 @@ export default function Login() {
 
   const handleGoogleLogin = (event) => {
     event.preventDefault();
-    const GOOGLE_LOGIN_URL = `${BASE_URL}/api/auth/google/login`;
+    const GOOGLE_LOGIN_URL = `${BASE_URL}api/auth/login/google`;
     window.location.href = GOOGLE_LOGIN_URL;
   };
 
@@ -70,7 +70,7 @@ export default function Login() {
 
   return (
     <>
-      {success && <Navigate to='/' replace/>}
+      {success && <Navigate to='/' replace />}
       <form
         // action='#'
         method='post'
