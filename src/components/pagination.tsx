@@ -4,7 +4,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { pathlify } from '../utils/utils';
 
 type TPaginationProps = {
-  length: number;
+  totalPageCount: number;
   offset?: number;
   currentPage?: number;
   setCurrentPage: Dispatch<SetStateAction<number>>;
@@ -19,9 +19,9 @@ type TPaginationProps = {
  * @deprecated use Pagination instead
  */
 export default function OldPagination({
-  length,
-  offset = 25,
-  currentPage = 1,
+  totalPageCount,
+  offset,
+  currentPage,
   setCurrentPage,
   paginationPagesDisplay = 10,
   showPageInput = true,
@@ -32,8 +32,8 @@ export default function OldPagination({
   /**
    * total pages
    */
-  const pages = Math.ceil(length / offset);
-  if (currentPage > pages) setCurrentPage(1);
+  const pages = totalPageCount;
+
 
   /**
    * page number list
@@ -84,22 +84,22 @@ export default function OldPagination({
     //start to effect after page ca
     pages >= pl && active > ca
       ? //check if at the end
-        active + ca >= pages
+      active + ca >= pages
         ? //get 1st page of end pagination
-          pages - pl
+        pages - pl
         : // normal case
-          active - ca
+        active - ca
       : 0;
 
   const pageRangeEnd =
     //start to effect after page ca
     pages >= pl && active > ca
       ? //check if at the end
-        active + ca >= pages
+      active + ca >= pages
         ? //get last page of end pagination
-          pages
+        pages
         : // normal case
-          active + ca
+        active + ca
       : pl;
 
   /**
@@ -108,13 +108,13 @@ export default function OldPagination({
    * @returns
    */
   const getItemProps = (index) =>
-    ({
-      variant: active === index ? 'filled' : 'text',
-      color: 'green',
-      onClick: () => {
-        setPage(index);
-      },
-    } as any);
+  ({
+    variant: active === index ? 'filled' : 'text',
+    color: 'green',
+    onClick: () => {
+      setPage(index);
+    },
+  } as any);
 
   const next = () => {
     if (active === pages) return;
@@ -186,9 +186,8 @@ export default function OldPagination({
         )}
         {pages > 10 && (
           <div
-            className={`relative w-20 h-10 ${
-              showPageInput === 'false' && 'hidden'
-            } ${!isInputValid && 'animate-wiggle animate-infinite'}`}
+            className={`relative w-20 h-10 ${showPageInput === 'false' && 'hidden'
+              } ${!isInputValid && 'animate-wiggle animate-infinite'}`}
           >
             <input
               id='paginationInput'

@@ -1,12 +1,12 @@
 
 
 import { size } from '@material-tailwind/react/types/components/avatar';
-import { CheckoutWarningNotification, CheckoutDetails, PaymentOptions, QRSection } from './checkout_child_components';
+import { CheckoutWarningNotification, CheckoutDetails, PaymentOptions, QRSection } from '../../components/checkout_child_components';
 
 
 
 /**
- * Contains the details of the course to be checked out. 
+ * Contains the details of the course to be checked out.
  * @returns JSX.Element
  */
 
@@ -17,10 +17,10 @@ import { CheckoutWarningNotification, CheckoutDetails, PaymentOptions, QRSection
 export default function Checkout() {
   return (
     <>
-      <div className='container mt-5'>
+      <div className='container my-5'>
         <CheckoutWarningNotification />
       </div>
-      <div className='container my-8 px-44'>
+      <div className='container my-10 grid justify-items-center'>
         <div className="flex">
           <div className='me-3'>
             <CheckoutDetails />
