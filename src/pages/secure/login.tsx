@@ -1,15 +1,9 @@
-import {
-  useRef,
-  useEffect,
-  useState,
-  useContext,
-} from 'react';
+import { useRef, useEffect, useState} from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Button, Checkbox } from '@material-tailwind/react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate }   from 'react-router-dom';
 
-import { AuthContext } from '../../context/authProvider';
 import { InputEmail, InputPassword } from '../../components/input';
 import { FormHeader } from '../../components/form';
 import { AlertPopup } from '../../components/alert';
@@ -57,17 +51,11 @@ export default function Login() {
       .then((res) => {
         sessionStorage.setItem('token', res.data?.returnData);
         setSuccess(true);
-        // eslint-disable-next-line no-console
-        console.log(res);
-        // eslint-disable-next-line no-console
-        console.log(sessionStorage.getItem('token'));
       })
-      // eslint-disable-next-line no-console
       .catch((err) => setErrorMessage(err.response.data.message));
   };
 
   //check if user already login/ token still available or not
-
   return (
     <>
       {success && <Navigate to='/' replace />}
