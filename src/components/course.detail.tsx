@@ -1,9 +1,17 @@
-import { Card, CardHeader, Typography } from '@material-tailwind/react';
+import {
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  Typography,
+} from '@material-tailwind/react';
 import { TCourse } from '../entity/entity/course';
 import CourseDetailFooter from './coures.detail.footer';
 import { CourseDetailBody } from './course.detail.body';
 import { CourseDetailHeader } from './course.detail.header';
-import { currencyFormat } from '../utils/utils';
+import { capitalize, currencyFormat } from '../utils/utils';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 type TCourseDetailProps = {
   course: TCourse;
@@ -11,9 +19,10 @@ type TCourseDetailProps = {
 
 /** */
 export default function CourseDetail({ course }: TCourseDetailProps) {
+  const { t } = useTranslation();
   return (
     <>
-      <div className='flex gap-4 justify-center w-full border border-red-500'>
+      <div className='flex gap-4 justify-center items-start w-full mt-4'>
         <div className='basis-3/4'>
           <CourseDetailHeader course={course} />
           <CourseDetailBody course={course} />
@@ -25,7 +34,7 @@ export default function CourseDetail({ course }: TCourseDetailProps) {
           onPointerEnterCapture={undefined}
           onPointerLeaveCapture={undefined}
         >
-          <CardHeader
+          <CardBody
             placeholder={undefined}
             onPointerEnterCapture={undefined}
             onPointerLeaveCapture={undefined}
@@ -39,7 +48,43 @@ export default function CourseDetail({ course }: TCourseDetailProps) {
             >
               {currencyFormat(course.price, 'đ', 0, false)}
             </Typography>
-          </CardHeader>
+            <Typography
+              variant='paragraph'
+              placeholder={undefined}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+            >{`
+              Enim commodo aute cillum sunt irure id ut.
+              Eiusmod ipsum ex in irure deserunt esse aliqua minim deserunt ullamco.
+              Aliquip elit elit ut dolor adipisicing. Veniam cupidatat veniam elit duis Lorem laborum ad ullamco non ex consequat ut Lorem.
+            `}</Typography>
+            <Link to={`/checkout`}>
+              <Button
+                className='bg-primary w-full mt-4'
+                placeholder={undefined}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+              >
+                {capitalize(t(`checkout`))}
+              </Button>
+            </Link>
+            <Typography
+              variant='h6'
+              className='flex flex-col mt-4 gap-2'
+              placeholder={undefined}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+            >
+              <span className='flex justify-between'>
+                {capitalize(t(`start date`))}{' '}
+                <span className='font-normal'>{course.startdate}</span>
+              </span>
+              <span className='flex justify-between'>
+                {capitalize(t(`end date`))}{' '}
+                <span className='font-normal'>{course.enddate}</span>
+              </span>
+            </Typography>
+          </CardBody>
         </Card>
       </div>
     </>

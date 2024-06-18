@@ -1,4 +1,7 @@
-import { TCourse } from "../entity/entity/course";
+import { useTranslation } from 'react-i18next';
+import { TCourse } from '../entity/entity/course';
+import { capitalize } from '../utils/utils';
+import { Typography } from '@material-tailwind/react';
 
 type TCourseDetailBodyProps = {
   course: TCourse;
@@ -6,5 +9,27 @@ type TCourseDetailBodyProps = {
 
 /** */
 export function CourseDetailBody({ course }: TCourseDetailBodyProps) {
-  return (<></>)
+  const { t } = useTranslation();
+  return (
+    <>
+      <Typography
+        variant='h4'
+        placeholder={undefined}
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}
+      >
+        {capitalize(t(`about the course`))}
+        <img className='border rounded-lg aspect-video w-full' src='https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png' />
+
+        <Typography
+          variant='paragraph'
+          placeholder={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+        >
+          {capitalize(t(course.description))}
+        </Typography>
+      </Typography>
+    </>
+  );
 }
