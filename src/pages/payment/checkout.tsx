@@ -6,7 +6,7 @@ import { CheckoutWarningNotification, CheckoutDetails, PaymentOptions, QRSection
 
 
 /**
- * Contains the details of the course to be checked out. 
+ * Contains the details of the course to be checked out.
  * @returns JSX.Element
  */
 

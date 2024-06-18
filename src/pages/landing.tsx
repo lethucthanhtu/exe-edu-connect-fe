@@ -1,4 +1,4 @@
-import LanguageButton from '../components/languageButton';
+import LanguageButton from '../components/language.button';
 import landing_body1_group3 from '../assets/img/landing_body1_group3.svg';
 import landing_body1_group5 from '../assets/img/landing_body1_group5.png';
 import landing_body1_people1 from '../assets/img/landing_body1_people1.png';
