@@ -29,7 +29,7 @@ export default api;
 export const apiProd = apiGuest;
 
 export const apiLocal = axios.create({
-  baseURL: 'http://localhost:8082/api/',
+  baseURL: 'http://localhost:8082',
   headers: {
     'Access-Control-Allow-Origin': true,
     // Authorization: `Bearer ${token}`,

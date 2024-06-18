@@ -71,7 +71,7 @@ const routes = createBrowserRouter([
           { index: true         , element: <Navigate to='all' replace /> }, //work around error page
           { path : 'all'        , element: <Courses                   /> },
           {
-            path     : ':course_id',
+            path     : ':id',
             children : [
               { index: true                 , element: <Course                          /> },
               { path : 'edit'               , element: <EditCourse                      /> },
