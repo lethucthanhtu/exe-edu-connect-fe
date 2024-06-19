@@ -33,7 +33,6 @@ type TUserProps = {
   img: string;
   name: string;
   role: string;
-  ballance?: number | string;
 };
 
 /** */
@@ -256,7 +255,7 @@ function UserSkeleton() {
 }
 
 /** */
-function Sidebar({ img, name, role, ballance = 0 }: TUserProps) {
+function Sidebar({ img, name, role }: TUserProps) {
   const { t } = useTranslation();
   const { id } = useParams();
   const [open, setOpen] = useState(0);
@@ -285,7 +284,7 @@ function Sidebar({ img, name, role, ballance = 0 }: TUserProps) {
         {loading ? (
           <UserSkeleton />
         ) : (
-          <User name={name} role={role} ballance={ballance} img={img} />
+          <User name={name} role={role} img={img} />
         )}
       </div>
       <hr className='mb-2 border-blue-gray-50' />
@@ -371,7 +370,7 @@ function Sidebar({ img, name, role, ballance = 0 }: TUserProps) {
                 onPointerEnterCapture={undefined}
                 onPointerLeaveCapture={undefined}
               >
-                History
+                {capitalize(t('history'))}
               </Typography>
             </AccordionHeader>
           </ListItem>
@@ -395,7 +394,7 @@ function Sidebar({ img, name, role, ballance = 0 }: TUserProps) {
                   >
                     <ChevronRightIcon strokeWidth={3} className='h-3 w-5' />
                   </ListItemPrefix>
-                  Courses
+                  {capitalize(t('courses'))}
                 </ListItem>
               </Link>
               <Link to={`${id}/transactionshistory`}>
@@ -411,13 +410,55 @@ function Sidebar({ img, name, role, ballance = 0 }: TUserProps) {
                   >
                     <ChevronRightIcon strokeWidth={3} className='h-3 w-5' />
                   </ListItemPrefix>
-                  Transactions
+                  {capitalize(t('transactions'))}
                 </ListItem>
               </Link>
             </List>
           </AccordionBody>
         </Accordion>
         <hr className='my-2 border-blue-gray-50' />
+        {role === 'student' ? (
+          <>
+            <Link to={`${id}/rate`}>
+              <ListItem
+                className='hover:bg-primary-light'
+                placeholder={undefined}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+              >
+                <ListItemPrefix
+                  placeholder={undefined}
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                >
+                  <span className='material-symbols-outlined'>star_half</span>
+                </ListItemPrefix>
+                {capitalize(t('rate'))}
+              </ListItem>
+            </Link>
+            <Link to={`${id}/refundrequest`}>
+              <ListItem
+                className='hover:bg-primary-light'
+                placeholder={undefined}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+              >
+                <ListItemPrefix
+                  placeholder={undefined}
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                >
+                  <span className='material-symbols-outlined'>
+                    request_page
+                  </span>
+                </ListItemPrefix>
+                {capitalize(t('refund request'))}
+              </ListItem>
+            </Link>
+          </>
+        ) : (
+          <></>
+        )}
       </List>
       <List
         className='h-full flex flex-col justify-end'
@@ -484,7 +525,7 @@ export default function UserLayout() {
         {user ? (
           <>
             <Sidebar
-              name={user.username}
+              name={user.fullname}
               role={user.authorities[0].authority}
               img={user.avatarurl}
             />

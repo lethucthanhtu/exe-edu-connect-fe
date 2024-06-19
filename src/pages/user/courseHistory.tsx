@@ -7,10 +7,11 @@ const TABLE_HEAD = ['subject', 'student', 'schedule', 'status', ''];
  * @returns
  */
 export default function CoursesHistory() {
-
   return (
     <>
-      <HistoryLayout title='course history' tableHead={TABLE_HEAD}/>
+      <HistoryLayout
+        title='course history'
+        tableHead={TABLE_HEAD} />
     </>
   );
 }

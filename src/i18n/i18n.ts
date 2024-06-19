@@ -71,6 +71,8 @@ export default i18n
           'phone number': 'số điện thoại',
           address: 'địa chỉ',
           'save change': 'lưu thay đổi',
+          history: 'lịch sử',
+          transactions: 'giao dịch',
           'transaction history': 'lịch sử giao dịch',
           'course history': 'lịch sử khóa học',
           time: 'thời gian',
@@ -78,6 +80,8 @@ export default i18n
           'lesson path': 'lộ trình môn học',
           amount: 'số lượng',
           status: 'tình trạng',
+          rate: 'đánh giá',
+          'refund request': 'yêu cầu hoàn tiền',
         },
       },
       jp: {
