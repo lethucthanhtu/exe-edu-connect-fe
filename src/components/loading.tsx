@@ -6,6 +6,8 @@ export default function Loading({ ...props }: SpinnerProps) {
     <>
       <Spinner
         {...props}
+        color='teal'
+        className={`size-12`}
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
       />
