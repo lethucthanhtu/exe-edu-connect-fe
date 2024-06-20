@@ -12,6 +12,7 @@ import { CourseDetailHeader } from './course.detail.header';
 import { capitalize, currencyFormat } from '../utils/utils';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 
 type TCourseDetailProps = {
   course: TCourse;
@@ -46,7 +47,7 @@ export default function CourseDetail({ course }: TCourseDetailProps) {
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
             >
-              {currencyFormat(course.price, 'đ', 0, false)}
+              {currencyFormat(course.price || 0, 'đ', 0, false)}
             </Typography>
             <Typography
               variant='paragraph'
