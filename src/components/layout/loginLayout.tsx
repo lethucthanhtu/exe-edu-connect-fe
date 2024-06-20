@@ -1,14 +1,20 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 import Logo from '../logo';
 import theBoy_png from '../../assets/img/theboy.png';
 import LanguageButton from '../language.button';
+import { useEffect } from 'react';
 
 /**
  * loginLayout component
  * @returns JSX.Element
  */
 export default function LoginLayout() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (sessionStorage.getItem('token')) navigate('/', { replace: true });
+  }, [navigate]);
+
   return (
     <>
       <section className='relative overflow-hidden flex justify-center items-start md:!items-center size-full bg-gray-100'>

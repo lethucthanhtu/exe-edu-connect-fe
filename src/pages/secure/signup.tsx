@@ -16,7 +16,9 @@ import { Link } from 'react-router-dom';
 import { capitalize } from '../../utils/utils';
 import { InputEmail, InputPasswordGroupCheck } from '../../components/input';
 import { FormHeader } from '../../components/form';
-import api, { BASE_URL } from '../../api/api';
+import api from '../../api/api';
+import { GOOGLE_SIGNUP_URL } from '../../utils/config';
+import GoogleButton from '../../components/googleButton';
 
 type TRoleRadioButtonProps = {
   className?: string;
@@ -142,10 +144,11 @@ function RoleSwitch({
 
   const handleRoleChange = (event) => {
     const isChecked = event.target.checked;
-
-  }
+  };
   return (
-    <span className={`flex justify-center items-center gap-6 border rounded-lg py-1.5 px-4 shadow-xl border-blue-gray-200 ${props.className}`}>
+    <span
+      className={`flex justify-center items-center gap-6 border rounded-lg py-1.5 px-4 shadow-xl border-blue-gray-200 ${props.className}`}
+    >
       <Typography
         variant='paragraph'
         color={props.color || 'teal'}
@@ -200,11 +203,7 @@ export default function Signup() {
       /[!@#$%^&*]/.test(pwd); // Contains a special character
     return isValid;
   };
-  const handleGoogleRegistration = (event) => {
-    event.preventDefault();
-    const GOOGLE_LOGIN_URL = `${BASE_URL}api/auth/register/google/${roleId}`;
-    window.location.href = GOOGLE_LOGIN_URL;
-  };
+
   const handlePwdChange = (event) => {
     const newPwd = event.target.value;
     setPwd(newPwd);
@@ -212,9 +211,9 @@ export default function Signup() {
   };
   const handleRoleChange = (event) => {
     const isChecked = event.target.checked;
-    if (!isChecked) setRoleId(1)
-    else setRoleId(2)
-  }
+    if (!isChecked) setRoleId(1);
+    else setRoleId(2);
+  };
 
   return (
     <>
@@ -257,22 +256,7 @@ export default function Signup() {
           >
             {t('sign up')}
           </Button>
-          <Button
-            variant='outlined'
-            color='blue-gray'
-            className='flex justify-center items-center gap-3 border-primary'
-            onClick={handleGoogleRegistration}
-            placeholder={undefined}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-          >
-            <img
-              src='https://docs.material-tailwind.com/icons/google.svg'
-              alt='google'
-              className='size-4'
-            />
-            Continue with Google
-          </Button>
+          <GoogleButton type='signup' roleId={roleId} />
           <Typography
             variant='paragraph'
             className='flex gap-1 w-full justify-center items-center'
@@ -288,11 +272,11 @@ export default function Signup() {
                 placeholder={undefined}
                 onPointerEnterCapture={undefined}
                 onPointerLeaveCapture={undefined}
-              >{`${capitalize(t('sign in now'))}`}</Typography>
+              >
+                {`${capitalize(t('sign in now'))}`}
+              </Typography>
             </Link>
-
           </Typography>
-
         </div>
       </form>
     </>
