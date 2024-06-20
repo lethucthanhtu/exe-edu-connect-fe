@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Navbar,
@@ -20,6 +20,8 @@ import { SearchBar } from './searchBar';
 
 import Logo from './logo';
 import api from '../api/api';
+import { TUser } from '../entity/user';
+import { CURR_USER_DATA_URL, LOGOUT_URL } from '../utils/config';
 
 type TNavItem = {
   tName: string;
@@ -39,18 +41,26 @@ const navItems: TNavItem[] = [
  * @returns JSX.Element
  */
 function ProfileMenu() {
+  const [user, setUser] = useState<TUser>();
+
   const handleSignOut = () => {
     api
-      .get('/api/auth/logout')
+      .get(LOGOUT_URL)
       .then(() => sessionStorage.removeItem('token'))
-      .catch(() => {});
+      .catch(() => {})
+      .finally(() => sessionStorage.removeItem('token'));
   };
 
+  let profileMenuItems = [];
+  useEffect(() => {
+    api.get(CURR_USER_DATA_URL).then((res) => setUser(res.data.returnData));
+  }, []);
+
   // profile menu component
-  const profileMenuItems = [
+  profileMenuItems = [
     {
       label: 'My Profile',
-      to: '',
+      to: user ? `user/${user.id}` : '#',
     },
     {
       label: 'Edit Profile',
@@ -104,33 +114,35 @@ function ProfileMenu() {
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
       >
-        {profileMenuItems.map(({ label }, key) => {
+        {profileMenuItems.map(({ label, to }, key) => {
           const isLastItem = key === profileMenuItems.length - 1;
           return (
-            <MenuItem
-              key={label}
-              onClick={closeMenu}
-              className={`flex items-center gap-2 rounded ${
-                isLastItem
-                  ? 'hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10'
-                  : ''
-              }`}
-              placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-            >
-              <Typography
-                as='span'
-                variant='small'
-                className='font-normal'
-                color={isLastItem ? 'red' : 'inherit'}
+            <Link to={to}>
+              <MenuItem
+                key={label}
+                onClick={isLastItem ? handleSignOut : closeMenu}
+                className={`flex items-center gap-2 rounded ${
+                  isLastItem
+                    ? 'hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10'
+                    : ''
+                }`}
                 placeholder={undefined}
                 onPointerEnterCapture={undefined}
                 onPointerLeaveCapture={undefined}
               >
-                {label}
-              </Typography>
-            </MenuItem>
+                <Typography
+                  as='span'
+                  variant='small'
+                  className='font-normal'
+                  color={isLastItem ? 'red' : 'inherit'}
+                  placeholder={undefined}
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                >
+                  {label}
+                </Typography>
+              </MenuItem>
+            </Link>
           );
         })}
       </MenuList>
@@ -218,7 +230,7 @@ function NavList() {
  */
 export default function Header() {
   const [openNav, setOpenNav] = useState(false);
-  const [token, setToken] = useState(sessionStorage.getItem('token'));
+  const [token] = useState(sessionStorage.getItem('token'));
   const { t } = useTranslation();
 
   return (
