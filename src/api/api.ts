@@ -1,9 +1,8 @@
 import axios from 'axios';
+import { BASE_URL } from '../utils/config';
 
 export const apiCallActivate = false;
 
-// export const BASE_URL = 'https://localhost:8082/';
-export const BASE_URL = import.meta.env.VITE_BASE_URL_DEV;
 const token = sessionStorage.getItem('token');
 
 export const apiUser = axios.create({
