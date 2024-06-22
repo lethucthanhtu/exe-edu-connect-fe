@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Button, Checkbox } from '@material-tailwind/react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 
 import { InputEmail, InputPassword } from '../../components/input';
 import { FormHeader } from '../../components/form';
@@ -23,6 +23,7 @@ export default function Login() {
   const { t } = useTranslation();
 
   const userRef = useRef(null);
+  const navigate = useNavigate();
 
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -49,13 +50,14 @@ export default function Login() {
         setSuccess(true);
         setLoading(false);
       })
-      .catch((err) => setErrorMessage(err.response.data.message));
+      .catch((err) => setErrorMessage(err.response.data.message))
+      .finally(() => setTimeout(() => success && navigate(0), 1000));
   };
 
   //check if user already login/ token still available or not
   return (
     <>
-      {success && <Navigate to='/' replace />}
+      {/* {success && navigate(0)} */}
       <form
         // action='#'
         method='post'
