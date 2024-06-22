@@ -51,7 +51,7 @@ export default function Login() {
         setLoading(false);
       })
       .catch((err) => setErrorMessage(err.response.data.message))
-      .finally(() => setTimeout(() => success && navigate(0), 1000));
+      .finally(() => location.reload());
   };
 
   //check if user already login/ token still available or not

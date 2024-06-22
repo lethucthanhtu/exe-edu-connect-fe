@@ -15,13 +15,14 @@ import {
   TabsHeader,
   Tab,
 } from '@material-tailwind/react';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { SearchBar } from './searchBar';
 
 import Logo from './logo';
 import api from '../api/api';
 import { TUser } from '../entity/user';
 import { CURR_USER_DATA_URL, LOGOUT_URL } from '../utils/config';
+import { capitalize } from '../utils/utils';
 
 type TNavItem = {
   tName: string;
@@ -42,13 +43,19 @@ const navItems: TNavItem[] = [
  */
 function ProfileMenu() {
   const [user, setUser] = useState<TUser>();
+  const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const handleSignOut = () => {
     api
       .get(LOGOUT_URL)
       .then(() => sessionStorage.removeItem('token'))
-      .catch(() => {})
-      .finally(() => sessionStorage.removeItem('token'));
+      // eslint-disable-next-line no-console
+      .catch((err) => console.log(err))
+      .finally(() => {
+        sessionStorage.removeItem('token');
+        setTimeout(() => location.reload(), 1000);
+      });
   };
 
   let profileMenuItems = [];
@@ -74,11 +81,11 @@ function ProfileMenu() {
       label: 'Help',
       to: '',
     },
-    {
-      label: 'Sign Out',
-      to: '',
-      func: handleSignOut,
-    },
+    // {
+    //   label: 'Sign Out',
+    //   to: '',
+    //   func: handleSignOut,
+    // },
   ];
 
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -120,12 +127,15 @@ function ProfileMenu() {
             <Link to={to}>
               <MenuItem
                 key={label}
-                onClick={isLastItem ? handleSignOut : closeMenu}
-                className={`flex items-center gap-2 rounded ${
-                  isLastItem
-                    ? 'hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10'
-                    : ''
-                }`}
+                onClick={closeMenu}
+                className={`flex items-center gap-2 rounded
+                  ${
+                    // isLastItem
+                    //   ? 'hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10'
+                    // :
+                    ''
+                  }
+                    `}
                 placeholder={undefined}
                 onPointerEnterCapture={undefined}
                 onPointerLeaveCapture={undefined}
@@ -134,7 +144,7 @@ function ProfileMenu() {
                   as='span'
                   variant='small'
                   className='font-normal'
-                  color={isLastItem ? 'red' : 'inherit'}
+                  color={'inherit'}
                   placeholder={undefined}
                   onPointerEnterCapture={undefined}
                   onPointerLeaveCapture={undefined}
@@ -145,6 +155,26 @@ function ProfileMenu() {
             </Link>
           );
         })}
+        <MenuItem
+          onClick={handleSignOut}
+          className={`flex items-center gap-2 rounded hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10
+          `}
+          placeholder={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+        >
+          <Typography
+            as='span'
+            variant='small'
+            className='font-normal'
+            color={'red'}
+            placeholder={undefined}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+          >
+            {capitalize(t(`sign out`))}
+          </Typography>
+        </MenuItem>
       </MenuList>
     </Menu>
   );
