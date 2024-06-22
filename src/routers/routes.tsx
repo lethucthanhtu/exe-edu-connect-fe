@@ -40,6 +40,7 @@ import ResetPassword       from '../pages/user/resetPassword';
 import TransactionsHistory from '../pages/user/transactionHistory';
 import CoursesHistory      from '../pages/user/courseHistory';
 import Checkout            from '../pages/payment/checkout';
+import Contact from '../pages/contact';
 
 const PrivateRoutesLayout = () => {
   const { auth } = useContext(AuthContext);
@@ -62,6 +63,7 @@ const routes = createBrowserRouter([
       { index: true            , element: <Home                    /> },
       { path : 'home'          , element: <Navigate to='/' replace /> },
       { path : 'about'         , element: <About                   /> },
+      { path : 'contact'       , element: <Contact                 /> },
       { path : 'search'        , element: <Search                  /> },
       { path : 'landing'       , element: <Landing                 /> },
       { path : 'checkout'      , element: <Checkout                /> },
