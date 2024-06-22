@@ -126,10 +126,18 @@ const routes = createBrowserRouter([
           {
             path     : ':id',
             children : [
-              { index: true                 , element: <Navigate to='./profile' replace /> },
-              { path : 'profile'            , element: <Profile                         /> },
-              { path : 'transactionshistory', element: <TransactionsHistory             /> },
-              { path : 'courseshistory'     , element: <CoursesHistory                  /> },
+              { index: true                 , element: <Navigate to='./profile' replace               /> },
+              { path : 'profile'            , element: <Profile                                       /> },
+              { path : 'transactionshistory', element: <Navigate to='../history/transactions' replace /> },
+              { path : 'courseshistory'     , element: <Navigate to='../history/courses' replace      /> },
+              {
+                path     : 'history',
+                children : [
+                  { index: true          , element: <Navigate to='./courses' replace /> },
+                  { path : 'transactions', element: <TransactionsHistory             /> },
+                  { path : 'courses'     , element: <CoursesHistory                  /> },
+                ]
+              },
               { path : 'schedule'           , element: <Schedule                        /> },
               { path : 'learn-request'      , element: <NotHandleYet                    /> }, //đăng ký học, đợi accept
               { path : 'teach-request'      , element: <NotHandleYet                    /> }, //đăng ký dạy, đợi accept
