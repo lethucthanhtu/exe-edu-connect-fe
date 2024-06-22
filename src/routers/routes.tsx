@@ -41,6 +41,7 @@ import TransactionsHistory from '../pages/user/transactionHistory';
 import CoursesHistory      from '../pages/user/courseHistory';
 import Checkout            from '../pages/payment/checkout';
 import Contact from '../pages/contact';
+import MyProfile from '../pages/myprofile';
 
 const PrivateRoutesLayout = () => {
   const { auth } = useContext(AuthContext);
@@ -152,6 +153,7 @@ const routes = createBrowserRouter([
           { path : 'checkout'   , element: <NotHandleYet              /> }, //rút tiền về bank/ví điện tử
         ],
       },
+      { path : 'my-profile'    , element: <MyProfile               /> },
       { path : 'error'         , element: <NotFound                /> },
       { path : 'test'          , element: <Test                    /> },
       { path : '*'             , element: <NotFound                /> },

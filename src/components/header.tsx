@@ -120,7 +120,7 @@ function ProfileMenu() {
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
       >
-        <Link to={user ? `user/${user.id}` : '#'}>
+        <Link to={user ? `user/${user.id}` : 'my-profile'}>
           <MenuItem
             key={'profile'}
             onClick={closeMenu}
