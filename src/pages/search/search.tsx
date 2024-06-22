@@ -7,6 +7,7 @@ import { capitalize } from '../../utils/utils';
 import Loading from '../../components/loading';
 import { Chip } from '@material-tailwind/react';
 import { SearchBar, SearchTitle, BriefCourseDetailsCard, FilterBar } from '../../components/search_child_components';
+import api from '../../api/api';
 
 
 /**
@@ -22,7 +23,7 @@ export default function Search() {
   const offset = 5;
   const [loading, setLoading] = useState(false);
   const { t } = useTranslation();
-  const getAllCoursesUrl = 'https://exe-edu-connect-be-dev.onrender.com/api/courses';
+  const getAllCoursesUrl = '/api/courses';
   const [courseCategory, setCourseCategory] = useState(null);
 
 
@@ -37,7 +38,7 @@ export default function Search() {
   }, [currentPage, courseCategory]);
 
   const fetchCourses = () => {
-    axios
+    api
       .get(
         getAllCoursesUrl,
         {
@@ -87,7 +88,7 @@ export default function Search() {
                     courseid={result.id}
                     name={result.name}
                     teacherName={result.teachername}
-                    rating={5.0}
+                    rating={result.rating}
                     avatarUrl='https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80'
                     description={result.description}
                   />
