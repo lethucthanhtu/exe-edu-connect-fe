@@ -44,7 +44,6 @@ const navItems: TNavItem[] = [
 function ProfileMenu() {
   const [user, setUser] = useState<TUser>();
   const { t } = useTranslation();
-  const navigate = useNavigate();
 
   const handleSignOut = () => {
     api
@@ -65,10 +64,10 @@ function ProfileMenu() {
 
   // profile menu component
   profileMenuItems = [
-    {
-      label: 'My Profile',
-      to: user ? `user/${user.id}` : '#',
-    },
+    // {
+    //   label: 'My Profile',
+    //   to: user ? `user/${user.id}` : '#',
+    // },
     {
       label: 'Edit Profile',
       to: '',
@@ -121,6 +120,29 @@ function ProfileMenu() {
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
       >
+        <Link to={user ? `user/${user.id}` : '#'}>
+          <MenuItem
+            key={'profile'}
+            onClick={closeMenu}
+            className={`flex items-center gap-2 rounded `}
+            placeholder={undefined}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+          >
+            <Typography
+              as='span'
+              variant='small'
+              className='font-normal'
+              color={'inherit'}
+              placeholder={undefined}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+            >
+              {capitalize(t(`My profile`))}
+            </Typography>
+          </MenuItem>
+        </Link>
+
         {profileMenuItems.map(({ label, to }, key) => {
           const isLastItem = key === profileMenuItems.length - 1;
           return (
