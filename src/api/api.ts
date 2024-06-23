@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { BASE_URL } from '../utils/config';
 
-export const apiCallActivate = false;
+export const apiAliveKeeper = false;
 
 const token = sessionStorage.getItem('token');
 
@@ -18,12 +18,13 @@ export const apiGuest = axios.create({
   baseURL: BASE_URL,
   headers: {
     'Access-Control-Allow-Origin': BASE_URL,
-    // Authorization:
   },
 });
 
 const api = token ? apiUser : apiGuest;
 export default api;
+
+//For testing
 
 export const apiProd = apiGuest;
 
