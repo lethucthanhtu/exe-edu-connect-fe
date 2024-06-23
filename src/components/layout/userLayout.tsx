@@ -488,7 +488,7 @@ export default function UserLayout() {
               <Sidebar
                 user={user}
                 role={
-                  user.authorities ? user.authorities[0]?.authority : 'student'
+                  user.authorities ? user.authorities[0]?.authority : 'not found'
                 }
               />
               <div className='size-full'>
