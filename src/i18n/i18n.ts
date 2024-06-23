@@ -64,6 +64,7 @@ export default i18n
           withdraw: 'rút tiền',
           profile: 'thông tin cá nhân',
           schedule: 'lịch học',
+          'teach-schedule': 'lịch dạy',
           'your schedule': 'lịch của bạn',
           'last name': 'họ',
           'first name': 'tên',

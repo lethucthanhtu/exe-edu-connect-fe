@@ -1,22 +1,20 @@
 import { Button, Input, Typography } from '@material-tailwind/react';
-import axios from 'axios';
-import { useRef, useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-
+// import { useRef, useState } from 'react';
+import { Link, useOutletContext } from 'react-router-dom';
 import { capitalize } from '../../utils/utils';
 import { useTranslation } from 'react-i18next';
-import { InputEmail } from '../../components/input';
 
+interface ProfileContextType {
+  isCUserProfile: boolean;
+}
 /**
  * profile page
  * @returns JSX.Element
  */
 export default function Profile() {
   // const [ck, setCK] = useState();
-  const userRef = useRef(null);
-  const { id } = useParams();
-  const [Id, setId] = useState(localStorage.getItem('id') || id);
   const { t } = useTranslation();
+  const { isCUserProfile } = useOutletContext<ProfileContextType>();
 
   return (
     <>
@@ -38,7 +36,9 @@ export default function Profile() {
               <Input
                 type=''
                 variant='outlined'
+                color='teal'
                 label={capitalize(t('last name'))}
+                disabled={!isCUserProfile}
                 placeholder=''
                 onPointerEnterCapture={undefined}
                 onPointerLeaveCapture={undefined}
@@ -49,6 +49,7 @@ export default function Profile() {
               <Input
                 variant='outlined'
                 label={capitalize(t('first name'))}
+                disabled={!isCUserProfile}
                 placeholder=''
                 onPointerEnterCapture={undefined}
                 onPointerLeaveCapture={undefined}
@@ -60,6 +61,7 @@ export default function Profile() {
                 type='date'
                 variant='outlined'
                 label={capitalize(t('day of birth'))}
+                disabled={!isCUserProfile}
                 placeholder=''
                 onPointerEnterCapture={undefined}
                 onPointerLeaveCapture={undefined}
@@ -73,6 +75,7 @@ export default function Profile() {
               <Input
                 variant='outlined'
                 label={capitalize(t('email'))}
+                disabled={!isCUserProfile}
                 placeholder=''
                 icon={<span className='material-symbols-outlined'>mail</span>}
                 onPointerEnterCapture={undefined}
@@ -84,6 +87,7 @@ export default function Profile() {
               <Input
                 variant='outlined'
                 label={capitalize(t('phone number'))}
+                disabled={!isCUserProfile}
                 placeholder=''
                 icon={
                   <span className='material-symbols-outlined'>
@@ -99,6 +103,7 @@ export default function Profile() {
               <Input
                 variant='outlined'
                 label={capitalize(t('address'))}
+                disabled={!isCUserProfile}
                 placeholder=''
                 icon={
                   <span className='material-symbols-outlined'>location_on</span>
@@ -109,10 +114,10 @@ export default function Profile() {
               />
             </div>
           </div>
-          <Link to={`/home`}>
-            <div className='flex justify-center w-full'>
+          <div className='flex justify-center w-full'>
+            <Link to={`/home`}>
               <Button
-                className='bg-primary w-1/6 py-3'
+                className='bg-primary w-full py-4'
                 variant='filled'
                 size='sm'
                 placeholder={undefined}
@@ -121,8 +126,8 @@ export default function Profile() {
               >
                 {capitalize(t('save change'))}
               </Button>
-            </div>
-          </Link>
+            </Link>
+          </div>
         </div>
       </div>
     </>

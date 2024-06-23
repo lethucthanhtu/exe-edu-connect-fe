@@ -21,7 +21,7 @@ import {
   IdentificationIcon,
 } from '@heroicons/react/24/solid';
 import { ChevronRightIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
-import { Link, Outlet, useParams } from 'react-router-dom';
+import { Link, Outlet, useNavigate, useParams } from 'react-router-dom';
 import { capitalize, currencyFormat } from '../../utils/utils';
 import LanguageButton from '../languageButton';
 import { useTranslation } from 'react-i18next';
@@ -33,10 +33,11 @@ type TUserProps = {
   img: string;
   name: string;
   role: string;
+  isCUserProfile?: boolean;
 };
 
 /** */
-function User({ img, name, role }: TUserProps) {
+function User({ img, name, role}: TUserProps) {
   return (
     <>
       <Card
@@ -255,7 +256,7 @@ function UserSkeleton() {
 }
 
 /** */
-function Sidebar({ img, name, role }: TUserProps) {
+function Sidebar({ img, name, role, isCUserProfile }: TUserProps) {
   const { t } = useTranslation();
   const { id } = useParams();
   const [open, setOpen] = useState(0);
@@ -457,6 +458,7 @@ function Sidebar({ img, name, role }: TUserProps) {
             </Link>
           </>
         ) : (
+          // <NotFound/>
           <></>
         )}
       </List>
@@ -503,21 +505,36 @@ function Sidebar({ img, name, role }: TUserProps) {
   );
 }
 
+const GET_CURR_USER_DATA_URL = `api/users/user`;
+
 /**
  * UserLayout Component
  * @returns
  */
 export default function UserLayout() {
   const [user, setUser] = useState<TUser>();
+  const [isCUserProfile, setIsCUserProfile] = useState(false);
   const { id } = useParams();
+  const navigate = useNavigate();
   const [errMsg, setErrMsg] = useState('');
 
   useEffect(() => {
     api
       .get(`/api/users/${id}`)
-      .then((res) => setUser(res.data.returnData))
+      .then((res) => {
+        const usr = res.data.returnData;
+        setUser(usr);
+        navigate(`${id}/profile`);
+        return usr;
+      })
+      .then((usr) =>
+        api.get(GET_CURR_USER_DATA_URL).then((res) => {
+          const cUsr = res.data.returnData;
+          setIsCUserProfile(usr.id === cUsr.id);
+        })
+      )
       .catch((err) => setErrMsg(err));
-  }, [id]);
+  }, [id, navigate]);
 
   return (
     <>
@@ -528,9 +545,10 @@ export default function UserLayout() {
               name={user.fullname}
               role={user.authorities[0].authority}
               img={user.avatarurl}
+              isCUserProfile={isCUserProfile}
             />
             <div className='size-full'>
-              <Outlet />
+              <Outlet context={{isCUserProfile}}/>
             </div>
           </>
         ) : (
