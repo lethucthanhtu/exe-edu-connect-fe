@@ -119,8 +119,8 @@ export default function Login() {
         </div>
       </form>
       {loading && (
-        <div className='absolute size-full top-0 left-0 flex justify-center items-center border border-red-500'>
-          <Loading className='' />
+        <div className='absolute size-full top-0 left-0'>
+          <Loading middle />
         </div>
       )}
       {errorMessage && <AlertPopup>{errorMessage}</AlertPopup>}
