@@ -1,12 +1,16 @@
 import { Button, Input, Typography } from '@material-tailwind/react';
 // import { useRef, useState } from 'react';
-import { Link, useOutletContext } from 'react-router-dom';
+import { Link, useOutletContext, useParams } from 'react-router-dom';
 import { capitalize } from '../../utils/utils';
 import { useTranslation } from 'react-i18next';
+import api from '../../api/api';
+import { useEffect, useState } from 'react';
+import { TUser } from '../../entity/user';
 
 interface ProfileContextType {
   isCUserProfile: boolean;
 }
+
 /**
  * profile page
  * @returns JSX.Element
@@ -15,7 +19,19 @@ export default function Profile() {
   // const [ck, setCK] = useState();
   const { t } = useTranslation();
   const { isCUserProfile } = useOutletContext<ProfileContextType>();
+  const [user, setUser] = useState<TUser>();
+  const { id } = useParams();
 
+  useEffect(() => {
+    api
+      .get(`/api/users/${id}`)
+      .then((res) => {
+      setUser(res.data.returnData);
+      // eslint-disable-next-line no-console
+      // console.log(res.data.returnData);
+    });
+  }, [id])
+  
   return (
     <>
       <div className='flex justify-center w-full'>
@@ -32,23 +48,11 @@ export default function Profile() {
           </Typography>
           <hr className='my-2 border-blue-gray-50' />
           <div className='my-8 grid grid-cols-2 gap-8'>
-            <div>
+            <div className='col-span-2'>
               <Input
-                type=''
+                defaultValue={user?.fullname}
                 variant='outlined'
-                color='teal'
-                label={capitalize(t('last name'))}
-                disabled={!isCUserProfile}
-                placeholder=''
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
-                crossOrigin={undefined}
-              />
-            </div>
-            <div>
-              <Input
-                variant='outlined'
-                label={capitalize(t('first name'))}
+                label={capitalize(t('full name'))}
                 disabled={!isCUserProfile}
                 placeholder=''
                 onPointerEnterCapture={undefined}
@@ -58,6 +62,7 @@ export default function Profile() {
             </div>
             <div className='col-span-2'>
               <Input
+                defaultValue={user?.dateofbirth}
                 type='date'
                 variant='outlined'
                 label={capitalize(t('day of birth'))}
@@ -73,6 +78,7 @@ export default function Profile() {
           <div className='my-8 grid grid-cols-2 gap-8'>
             <div>
               <Input
+                defaultValue={user?.email}
                 variant='outlined'
                 label={capitalize(t('email'))}
                 disabled={!isCUserProfile}
@@ -85,6 +91,7 @@ export default function Profile() {
             </div>
             <div>
               <Input
+                defaultValue={user?.phone}
                 variant='outlined'
                 label={capitalize(t('phone number'))}
                 disabled={!isCUserProfile}
@@ -101,6 +108,7 @@ export default function Profile() {
             </div>
             <div className='col-span-2'>
               <Input
+                defaultValue={user?.address}
                 variant='outlined'
                 label={capitalize(t('address'))}
                 disabled={!isCUserProfile}
@@ -133,3 +141,4 @@ export default function Profile() {
     </>
   );
 }
+

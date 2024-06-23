@@ -1,9 +1,8 @@
 import axios from 'axios';
+import { BASE_URL } from '../utils/config';
 
-export const apiCallActivate = false;
+export const apiAliveKeeper = false;
 
-// export const BASE_URL = 'https://localhost:8082/';
-export const BASE_URL = import.meta.env.VITE_BASE_URL_DEV;
 const token = sessionStorage.getItem('token');
 
 export const apiUser = axios.create({
@@ -19,23 +18,20 @@ export const apiGuest = axios.create({
   baseURL: BASE_URL,
   headers: {
     'Access-Control-Allow-Origin': BASE_URL,
-    // Authorization:
   },
 });
 
 const api = token ? apiUser : apiGuest;
 export default api;
 
+//For testing
+
 export const apiProd = apiGuest;
 
 export const apiLocal = axios.create({
-  baseURL: 'http://localhost:8082/api/',
+  baseURL: 'http://localhost:8082',
   headers: {
     'Access-Control-Allow-Origin': true,
     // Authorization: `Bearer ${token}`,
   },
-});
-
-export const apiReqres = axios.create({
-  baseURL: 'https://reqres.in/api/',
 });

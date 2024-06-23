@@ -186,7 +186,7 @@ function HomeCarousel() {
 function FeatureTutorCard({ user = {}, isReverse = false }) {
   const { t } = useTranslation();
   const items = [
-    { icon: 'school', num: 200, text: 'students' },
+    { icon: 'school', num: 200, text: 'student' },
     { icon: 'star', num: 4.5, text: 'points' },
     { icon: 'play_circle', num: 8, text: 'courses' },
     { icon: 'rate_review', num: 100, text: 'review' },
@@ -246,7 +246,10 @@ function FeatureTutorCard({ user = {}, isReverse = false }) {
             onPointerEnterCapture={undefined}
             onPointerLeaveCapture={undefined}
           >
-            {capitalize(t(`Cử nhân Sư phạm Anh, Thạc sĩ/Tiến sĩ Ngôn ngữ`))}
+            {capitalize(
+              t(`Bachelor in English studies, PhD in Linguistics`),
+              false
+            )}
           </Typography>
         </div>
         <Typography
@@ -430,7 +433,7 @@ export default function Home() {
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
             >
-              {capitalize(t('outstanding tutor'))}
+              {capitalize(t('outstanding tutors'))}
             </Typography>
           </div>
           <div className='flex flex-col gap-4'>
@@ -503,7 +506,7 @@ export default function Home() {
         </section>
         <SectionWithTitle
           id='student-activity'
-          title='student activity'
+          title='student activities'
           subTitle='Tham gia cộng đồng năng động của chúng tôi để luôn cập nhật tin tức và cơ hội'
         >
           <div className='grid grid-cols-2 gap-4'>
@@ -518,9 +521,7 @@ export default function Home() {
           title={`student's reviews`}
           subTitle='Tìm hiểu xem học viên của chúng tôi nói gì về trải nghiệm học tập của họ'
         >
-          <div className='grid grid-cols-3'>
-
-</div>
+          <div className='grid grid-cols-3'></div>
         </SectionWithTitle>
       </section>
       <section id='post-rating'></section>

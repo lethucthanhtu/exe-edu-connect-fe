@@ -17,6 +17,7 @@ import { useEffect, useState } from 'react';
 import api from '../../api/api';
 
 import subject_hero from '../../assets/img/subjects_hero.png';
+import Loading from '../../components/loading';
 
 type TSubjectCardProps = {
   img?: string;
@@ -131,11 +132,15 @@ export default function Subjects() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [errMsg, setErrMsg] = useState('');
 
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
+    setLoading(true);
     api
       .get('/api/course/categories')
       .then((res) => {
         setSubjects(res.data.returnData);
+        setLoading(false);
       })
       .catch((err) => setErrMsg(err));
   }, []);
@@ -263,7 +268,9 @@ export default function Subjects() {
           {capitalize(t('main courses'))}
         </Typography>
         <div className='container flex flex-wrap gap-x-2 gap-y-4 justify-evenly'>
-          {subjects ? (
+          {loading ? (
+            <Loading />
+          ) : subjects ? (
             <>
               {subjects.map((subject) => (
                 <SubjectCard

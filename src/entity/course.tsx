@@ -6,3 +6,4 @@ export type TCourse = {
   teacherid: number
   courescategoryid: number
 }
+

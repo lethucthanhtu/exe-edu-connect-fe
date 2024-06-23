@@ -14,30 +14,23 @@ import {
   Avatar,
   Button,
 } from '@material-tailwind/react';
-import {
-  PresentationChartBarIcon,
-  Cog6ToothIcon,
-  PowerIcon,
-  IdentificationIcon,
-} from '@heroicons/react/24/solid';
-import { ChevronRightIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 import { Link, Outlet, useNavigate, useParams } from 'react-router-dom';
 import { capitalize, currencyFormat } from '../../utils/utils';
-import LanguageButton from '../languageButton';
+import LanguageButton from '../language.button';
 import { useTranslation } from 'react-i18next';
 import api from '../../api/api';
 import { TUser } from '../../entity/user';
 import NotFound from '../../pages/error/notFound';
+import Loading from '../loading';
 
 type TUserProps = {
-  img: string;
-  name: string;
   role: string;
+  user?: TUser;
   isCUserProfile?: boolean;
 };
 
 /** */
-function User({ img, name, role}: TUserProps) {
+function User({ user, role }: TUserProps) {
   return (
     <>
       <Card
@@ -61,7 +54,7 @@ function User({ img, name, role}: TUserProps) {
             <Avatar
               size='xl'
               variant='circular'
-              src={img}
+              src={user.avatarurl}
               alt='đm không có ảnh'
               className='!size-full'
               placeholder={undefined}
@@ -100,7 +93,7 @@ function User({ img, name, role}: TUserProps) {
                 onPointerEnterCapture={undefined}
                 onPointerLeaveCapture={undefined}
               >
-                {name}
+                {user.fullname}
               </Typography>
             </div>
             <Typography
@@ -114,14 +107,6 @@ function User({ img, name, role}: TUserProps) {
             </Typography>
           </div>
         </CardHeader>
-        <CardBody
-          className='mb-6 p-0 flex flex-col gap-2'
-          placeholder={undefined}
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-        >
-          <LanguageButton />
-        </CardBody>
       </Card>
     </>
   );
@@ -256,7 +241,7 @@ function UserSkeleton() {
 }
 
 /** */
-function Sidebar({ img, name, role, isCUserProfile }: TUserProps) {
+function Sidebar({ user, role }: TUserProps) {
   const { t } = useTranslation();
   const { id } = useParams();
   const [open, setOpen] = useState(0);
@@ -282,11 +267,7 @@ function Sidebar({ img, name, role, isCUserProfile }: TUserProps) {
       onPointerLeaveCapture={undefined}
     >
       <div className='mb-2 p-4 flex justify-center items-center'>
-        {loading ? (
-          <UserSkeleton />
-        ) : (
-          <User name={name} role={role} img={img} />
-        )}
+        {loading ? <UserSkeleton /> : <User user={user} role={role} />}
       </div>
       <hr className='mb-2 border-blue-gray-50' />
       <List
@@ -332,12 +313,13 @@ function Sidebar({ img, name, role, isCUserProfile }: TUserProps) {
         <Accordion
           open={open === 1}
           icon={
-            <ChevronDownIcon
-              strokeWidth={2.5}
-              className={`mx-auto h-4 w-4 transition-transform ${
-                open === 1 ? 'rotate-180' : ''
+            <span
+              className={`material-symbols-outlined mx-auto h-4 w-4 transition-transform ${
+                open === 1 ? 'rotate-90' : ''
               }`}
-            />
+            >
+              keyboard_arrow_right
+            </span>
           }
           placeholder={undefined}
           onPointerEnterCapture={undefined}
@@ -362,7 +344,9 @@ function Sidebar({ img, name, role, isCUserProfile }: TUserProps) {
                 onPointerEnterCapture={undefined}
                 onPointerLeaveCapture={undefined}
               >
-                <PresentationChartBarIcon className='size-5' />
+                <span className='material-symbols-outlined'>
+                  transition_push
+                </span>{' '}
               </ListItemPrefix>
               <Typography
                 color='blue-gray'
@@ -393,7 +377,9 @@ function Sidebar({ img, name, role, isCUserProfile }: TUserProps) {
                     onPointerEnterCapture={undefined}
                     onPointerLeaveCapture={undefined}
                   >
-                    <ChevronRightIcon strokeWidth={3} className='h-3 w-5' />
+                    <span className='material-symbols-outlined'>
+                      chevron_right
+                    </span>
                   </ListItemPrefix>
                   {capitalize(t('courses'))}
                 </ListItem>
@@ -409,7 +395,9 @@ function Sidebar({ img, name, role, isCUserProfile }: TUserProps) {
                     onPointerEnterCapture={undefined}
                     onPointerLeaveCapture={undefined}
                   >
-                    <ChevronRightIcon strokeWidth={3} className='h-3 w-5' />
+                    <span className='material-symbols-outlined'>
+                      chevron_right
+                    </span>{' '}
                   </ListItemPrefix>
                   {capitalize(t('transactions'))}
                 </ListItem>
@@ -480,26 +468,13 @@ function Sidebar({ img, name, role, isCUserProfile }: TUserProps) {
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
             >
-              <Cog6ToothIcon className='size-5' />
+              <span className='material-symbols-outlined'>settings</span>{' '}
             </ListItemPrefix>
             {capitalize(t('change password'))}
           </ListItem>
         </Link>
-        <ListItem
-          className='hover:bg-primary-light'
-          placeholder={undefined}
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-        >
-          <ListItemPrefix
-            placeholder={undefined}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-          >
-            <PowerIcon className='size-5' />
-          </ListItemPrefix>
-          {capitalize(t('log out'))}
-        </ListItem>
+        <hr/>
+        <LanguageButton className='mt-8'/>
       </List>
     </Card>
   );
@@ -517,8 +492,11 @@ export default function UserLayout() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [errMsg, setErrMsg] = useState('');
+  const [loading, setLoading] = useState(false);
+
 
   useEffect(() => {
+    setLoading(true);
     api
       .get(`/api/users/${id}`)
       .then((res) => {
@@ -533,26 +511,33 @@ export default function UserLayout() {
           setIsCUserProfile(usr.id === cUsr.id);
         })
       )
-      .catch((err) => setErrMsg(err));
+      .catch((err) => setErrMsg(err))
+      .finally(() => setLoading(false));
   }, [id, navigate]);
 
   return (
     <>
       <section className='flex size-full xs:flex-col md:!flex-row'>
-        {user ? (
-          <>
-            <Sidebar
-              name={user.fullname}
-              role={user.authorities[0].authority}
-              img={user.avatarurl}
-              isCUserProfile={isCUserProfile}
-            />
-            <div className='size-full'>
+        {!loading ? (
+          user ? (
+            <>
+              <Sidebar
+                user={user}
+                role={
+                  user.authorities ? user.authorities[0]?.authority : 'not found'
+                }
+                isCUserProfile={isCUserProfile}
+
+              />
+              <div className='size-full'>
               <Outlet context={{isCUserProfile}}/>
-            </div>
-          </>
+              </div>
+            </>
+          ) : (
+            <NotFound />
+          )
         ) : (
-          <NotFound />
+          <Loading middle />
         )}
       </section>
     </>

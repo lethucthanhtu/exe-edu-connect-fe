@@ -54,7 +54,7 @@ export default i18n
           done: 'xong',
           'your role': 'bạn muốn là',
           'Get in touch with us': 'Liên hệ với chúng tôi',
-          '(+84) 862236759': '0862236759',
+          '(+84) 862236759': '0862 236 759',
           'FPT University, High-tech Park , District 9, Ho Chi Minh City':
             'Trường Đại Học FPT, Khu công nghệ cao, quận 9, thành phố Hồ Chí Minh',
           language: 'ngôn ngữ',
@@ -68,6 +68,7 @@ export default i18n
           'your schedule': 'lịch của bạn',
           'last name': 'họ',
           'first name': 'tên',
+          'full name':'họ và tên',
           'day of birth': 'ngày sinh',
           'phone number': 'số điện thoại',
           address: 'địa chỉ',
@@ -83,6 +84,18 @@ export default i18n
           status: 'tình trạng',
           rate: 'đánh giá',
           'refund request': 'yêu cầu hoàn tiền',
+          'see more': 'xem thêm',
+          'see more courses': 'xem thêm các khóa học',
+          'see more tutors': 'khám phá các gia sư khác',
+          'trending course': 'khóa học nổi bật',
+          'discover our trending courses that suit your needs':
+            'Khám phá các khóa học nổi bật của chúng tôi mà bạn có thể cần',
+          'outstanding tutors': 'các gia sư nổi bật',
+          'Bachelor in English studies, PhD in Linguistics':
+            'Cử nhân Sư phạm Anh, Thạc sĩ/Tiến sĩ Ngôn ngữ',
+          points: 'đánh giá',
+          review: 'phản hồi',
+          'student activities': 'hoạt động học sinh'
         },
       },
       jp: {

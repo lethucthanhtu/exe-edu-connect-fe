@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Navbar,
@@ -15,11 +15,14 @@ import {
   TabsHeader,
   Tab,
 } from '@material-tailwind/react';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { SearchBar } from './searchBar';
 
 import Logo from './logo';
 import api from '../api/api';
+import { TUser } from '../entity/user';
+import { CURR_USER_DATA_URL, LOGOUT_URL } from '../utils/config';
+import { capitalize } from '../utils/utils';
 
 type TNavItem = {
   tName: string;
@@ -29,7 +32,7 @@ type TNavItem = {
 
 const navItems: TNavItem[] = [
   { value: 'home', tName: 'home', path: '/' },
-  { value: 'subjects', tName: 'subjects', path: 'subject' },
+  { value: 'subject', tName: 'subjects', path: 'subject' },
   { value: 'about', tName: 'about', path: '' },
   { value: 'contact', tName: 'contact', path: '' },
 ];
@@ -39,19 +42,32 @@ const navItems: TNavItem[] = [
  * @returns JSX.Element
  */
 function ProfileMenu() {
+  const [user, setUser] = useState<TUser>();
+  const { t } = useTranslation();
+
   const handleSignOut = () => {
     api
-      .get('/api/auth/logout')
+      .get(LOGOUT_URL)
       .then(() => sessionStorage.removeItem('token'))
-      .catch(() => {});
+      // eslint-disable-next-line no-console
+      .catch((err) => console.log(err))
+      .finally(() => {
+        sessionStorage.removeItem('token');
+        setTimeout(() => location.reload(), 1000);
+      });
   };
 
+  let profileMenuItems = [];
+  useEffect(() => {
+    api.get(CURR_USER_DATA_URL).then((res) => setUser(res.data.returnData));
+  }, []);
+
   // profile menu component
-  const profileMenuItems = [
-    {
-      label: 'My Profile',
-      to: '',
-    },
+  profileMenuItems = [
+    // {
+    //   label: 'My Profile',
+    //   to: user ? `user/${user.id}` : '#',
+    // },
     {
       label: 'Edit Profile',
       to: '',
@@ -64,11 +80,11 @@ function ProfileMenu() {
       label: 'Help',
       to: '',
     },
-    {
-      label: 'Sign Out',
-      to: '',
-      func: handleSignOut,
-    },
+    // {
+    //   label: 'Sign Out',
+    //   to: '',
+    //   func: handleSignOut,
+    // },
   ];
 
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -104,35 +120,83 @@ function ProfileMenu() {
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
       >
-        {profileMenuItems.map(({ label }, key) => {
-          const isLastItem = key === profileMenuItems.length - 1;
-          return (
-            <MenuItem
-              key={label}
-              onClick={closeMenu}
-              className={`flex items-center gap-2 rounded ${
-                isLastItem
-                  ? 'hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10'
-                  : ''
-              }`}
+        <Link to={user ? `user/${user.id}` : 'my-profile'}>
+          <MenuItem
+            key={'profile'}
+            onClick={closeMenu}
+            className={`flex items-center gap-2 rounded `}
+            placeholder={undefined}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+          >
+            <Typography
+              as='span'
+              variant='small'
+              className='font-normal'
+              color={'inherit'}
               placeholder={undefined}
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
             >
-              <Typography
-                as='span'
-                variant='small'
-                className='font-normal'
-                color={isLastItem ? 'red' : 'inherit'}
+              {capitalize(t(`My profile`))}
+            </Typography>
+          </MenuItem>
+        </Link>
+
+        {profileMenuItems.map(({ label, to }, key) => {
+          const isLastItem = key === profileMenuItems.length - 1;
+          return (
+            <Link to={to}>
+              <MenuItem
+                key={label}
+                onClick={closeMenu}
+                className={`flex items-center gap-2 rounded
+                  ${
+                    // isLastItem
+                    //   ? 'hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10'
+                    // :
+                    ''
+                  }
+                    `}
                 placeholder={undefined}
                 onPointerEnterCapture={undefined}
                 onPointerLeaveCapture={undefined}
               >
-                {label}
-              </Typography>
-            </MenuItem>
+                <Typography
+                  as='span'
+                  variant='small'
+                  className='font-normal'
+                  color={'inherit'}
+                  placeholder={undefined}
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                >
+                  {label}
+                </Typography>
+              </MenuItem>
+            </Link>
           );
         })}
+        <MenuItem
+          onClick={handleSignOut}
+          className={`flex items-center gap-2 rounded hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10
+          `}
+          placeholder={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+        >
+          <Typography
+            as='span'
+            variant='small'
+            className='font-normal'
+            color={'red'}
+            placeholder={undefined}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+          >
+            {capitalize(t(`sign out`))}
+          </Typography>
+        </MenuItem>
       </MenuList>
     </Menu>
   );
@@ -218,7 +282,7 @@ function NavList() {
  */
 export default function Header() {
   const [openNav, setOpenNav] = useState(false);
-  const [token, setToken] = useState(sessionStorage.getItem('token'));
+  const [token] = useState(sessionStorage.getItem('token'));
   const { t } = useTranslation();
 
   return (

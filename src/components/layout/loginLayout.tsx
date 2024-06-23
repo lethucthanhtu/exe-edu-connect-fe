@@ -1,14 +1,21 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 import Logo from '../logo';
 import theBoy_png from '../../assets/img/theboy.png';
-import LanguageButton from '../languageButton';
+import LanguageButton from '../language.button';
+import { useEffect } from 'react';
 
 /**
  * loginLayout component
  * @returns JSX.Element
  */
 export default function LoginLayout() {
+  const navigate = useNavigate();
+  useEffect(
+    () => sessionStorage.getItem('token') && navigate('/', { replace: true }),
+    [navigate]
+  );
+
   return (
     <>
       <section className='relative overflow-hidden flex justify-center items-start md:!items-center size-full bg-gray-100'>
@@ -31,7 +38,7 @@ export default function LoginLayout() {
           className='z-20 absolute h-[110%] bottom-1 -left-[7.5%]'
           src={theBoy_png}
         />
-        <span className='z-10 absolute aspect-square bg-primary-sub w-[275%] rounded-full shadow-2xl rotate-180 top-[65%] flex justify-center items-center'/>
+        <span className='z-10 absolute aspect-square bg-primary-sub w-[275%] rounded-full shadow-2xl rotate-180 top-[65%] flex justify-center items-center' />
         <LanguageButton className='z-50 absolute bottom-2 md:!top-2 right-2 bg-white md:!bg-transparent' />
       </section>
     </>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import {
   Typography,
   Input,
@@ -16,6 +16,9 @@ import { Link } from 'react-router-dom';
 import { capitalize } from '../../utils/utils';
 import { InputEmail, InputPasswordGroupCheck } from '../../components/input';
 import { FormHeader } from '../../components/form';
+import api from '../../api/api';
+import { GOOGLE_SIGNUP_URL } from '../../utils/config';
+import GoogleButton from '../../components/googleButton';
 
 type TRoleRadioButtonProps = {
   className?: string;
@@ -136,8 +139,16 @@ function RoleSwitch({
   'onPointerEnterCapture' | 'onPointerLeaveCapture' | 'crossOrigin'
 >) {
   const { t } = useTranslation();
+  const roleToggleRef = useRef(null);
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleRoleChange = (event) => {
+    const isChecked = event.target.checked;
+  };
   return (
-    <span className={`flex justify-center items-center gap-6 border rounded-lg py-1.5 px-4 shadow-xl border-blue-gray-200 ${props.className}`}>
+    <span
+      className={`flex justify-center items-center gap-6 border rounded-lg py-1.5 px-4 shadow-xl border-blue-gray-200 ${props.className}`}
+    >
       <Typography
         variant='paragraph'
         color={props.color || 'teal'}
@@ -150,7 +161,9 @@ function RoleSwitch({
       <Switch
         {...props}
         color={props.color || 'teal'}
+        inputRef={roleToggleRef}
         // className={props.className}
+        // onChange={handleRoleChange}
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
         crossOrigin={undefined}
@@ -178,6 +191,8 @@ export default function Signup() {
   const [isPasswordValid, setIsPasswordValid] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
   const [isPwdValid, setIsPwdValid] = useState(false);
+  const [roleId, setRoleId] = useState<number>(1);
+  // const [roleId, setRoleId] = us(1);
 
   const validatePwd = (pwd: string) => {
     const isValid =
@@ -193,6 +208,11 @@ export default function Signup() {
     const newPwd = event.target.value;
     setPwd(newPwd);
     setIsPwdValid(validatePwd(newPwd));
+  };
+  const handleRoleChange = (event) => {
+    const isChecked = event.target.checked;
+    if (!isChecked) setRoleId(1);
+    else setRoleId(2);
   };
 
   return (
@@ -213,7 +233,7 @@ export default function Signup() {
             {capitalize(t('your role'))}
           </Typography>
           {/* <RoleRadioButton className='w-3/4' /> */}
-          <RoleSwitch name='role' className='' />
+          <RoleSwitch name='role' className='' onChange={handleRoleChange} />
         </div>
         <Input
           required
@@ -236,6 +256,7 @@ export default function Signup() {
           >
             {t('sign up')}
           </Button>
+          <GoogleButton type='signup' roleId={roleId} />
           <Typography
             variant='paragraph'
             className='flex gap-1 w-full justify-center items-center'
@@ -251,7 +272,9 @@ export default function Signup() {
                 placeholder={undefined}
                 onPointerEnterCapture={undefined}
                 onPointerLeaveCapture={undefined}
-              >{`${capitalize(t('sign in now'))}`}</Typography>
+              >
+                {`${capitalize(t('sign in now'))}`}
+              </Typography>
             </Link>
           </Typography>
         </div>

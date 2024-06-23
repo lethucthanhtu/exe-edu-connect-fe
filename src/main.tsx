@@ -8,11 +8,10 @@ import './i18n/i18n';
 import { AuthProvider } from './context/authProvider';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <ThemeProvider>
-      {/* <AuthProvider>
+
+  <ThemeProvider>
+    {/* <AuthProvider>
       </AuthProvider> */}
-        <App />
-    </ThemeProvider>
-  </React.StrictMode>
+    <App />
+  </ThemeProvider>
 );

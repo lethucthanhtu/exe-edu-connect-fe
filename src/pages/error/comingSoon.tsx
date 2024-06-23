@@ -2,14 +2,19 @@ import { Button, Typography } from '@material-tailwind/react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { capitalize } from '../../utils/utils';
-
+import { useNavigate } from "react-router-dom";
 /**
  * 404 page
  * @returns JSX.Element
  */
 export default function ComingSoon() {
   const { t } = useTranslation();
-
+  const navigate = useNavigate();
+  const routeChange = (event) => {
+    event.preventDefault();
+    const path = '/';
+    navigate(path);
+  }
   return (
     <>
       <div className='size-full flex flex-grow items-center justify-center bg-gray-50'>
@@ -35,6 +40,7 @@ export default function ComingSoon() {
               className='mt-4 px-4 py-2 bg-primary'
               size='lg'
               placeholder={undefined}
+              onClick={routeChange}
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
             >
