@@ -28,16 +28,16 @@ import { useTranslation } from 'react-i18next';
 import api from '../../api/api';
 import { TUser } from '../../entity/user';
 import NotFound from '../../pages/error/notFound';
+import Loading from '../loading';
 
 type TUserProps = {
-  img: string;
-  name: string;
   role: string;
   ballance?: number | string;
+  user?: TUser;
 };
 
 /** */
-function User({ img, name, role }: TUserProps) {
+function User({ user, role }: TUserProps) {
   return (
     <>
       <Card
@@ -61,7 +61,7 @@ function User({ img, name, role }: TUserProps) {
             <Avatar
               size='xl'
               variant='circular'
-              src={img}
+              src={user.avatarurl}
               alt='đm không có ảnh'
               className='!size-full'
               placeholder={undefined}
@@ -100,7 +100,7 @@ function User({ img, name, role }: TUserProps) {
                 onPointerEnterCapture={undefined}
                 onPointerLeaveCapture={undefined}
               >
-                {name}
+                {user.fullname}
               </Typography>
             </div>
             <Typography
@@ -256,7 +256,7 @@ function UserSkeleton() {
 }
 
 /** */
-function Sidebar({ img, name, role, ballance = 0 }: TUserProps) {
+function Sidebar({ user, role, ballance = 0 }: TUserProps) {
   const { t } = useTranslation();
   const { id } = useParams();
   const [open, setOpen] = useState(0);
@@ -285,7 +285,7 @@ function Sidebar({ img, name, role, ballance = 0 }: TUserProps) {
         {loading ? (
           <UserSkeleton />
         ) : (
-          <User name={name} role={role} ballance={ballance} img={img} />
+          <User user={user} role={role} ballance={ballance} />
         )}
       </div>
       <hr className='mb-2 border-blue-gray-50' />
@@ -468,32 +468,38 @@ function Sidebar({ img, name, role, ballance = 0 }: TUserProps) {
  */
 export default function UserLayout() {
   const [user, setUser] = useState<TUser>();
+  const [loading, setLoading] = useState(false);
   const { id } = useParams();
-  const [errMsg, setErrMsg] = useState('');
 
   useEffect(() => {
+    setLoading(true);
     api
       .get(`/api/users/${id}`)
       .then((res) => setUser(res.data.returnData))
-      .catch((err) => setErrMsg(err));
+      .finally(() => setLoading(false));
   }, [id]);
 
   return (
     <>
       <section className='flex size-full xs:flex-col md:!flex-row'>
-        {user ? (
-          <>
-            <Sidebar
-              name={user.username}
-              role={user.authorities[0].authority}
-              img={user.avatarurl}
-            />
-            <div className='size-full'>
-              <Outlet />
-            </div>
-          </>
+        {!loading ? (
+          user ? (
+            <>
+              <Sidebar
+                user={user}
+                role={
+                  user.authorities ? user.authorities[0]?.authority : 'student'
+                }
+              />
+              <div className='size-full'>
+                <Outlet />
+              </div>
+            </>
+          ) : (
+            <NotFound />
+          )
         ) : (
-          <NotFound />
+          <Loading middle />
         )}
       </section>
     </>
