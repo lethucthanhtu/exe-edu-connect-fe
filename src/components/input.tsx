@@ -10,7 +10,6 @@ type TInputEmailProps = Omit<
   | 'onPointerEnterCapture'
   | 'onPointerEnterCapture'
   | 'crossOrigin'
-  | 'required'
 >;
 
 /** */
@@ -19,7 +18,7 @@ export function InputEmail({ ...props }: TInputEmailProps) {
     <>
       <Input
         {...props}
-        required
+        // required
         type='email'
         label='Email'
         onPointerEnterCapture={undefined}
