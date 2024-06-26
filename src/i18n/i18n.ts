@@ -68,7 +68,7 @@ export default i18n
           'your schedule': 'lịch của bạn',
           'last name': 'họ',
           'first name': 'tên',
-          'full name':'họ và tên',
+          'full name': 'họ và tên',
           'day of birth': 'ngày sinh',
           'phone number': 'số điện thoại',
           address: 'địa chỉ',
@@ -95,7 +95,9 @@ export default i18n
             'Cử nhân Sư phạm Anh, Thạc sĩ/Tiến sĩ Ngôn ngữ',
           points: 'đánh giá',
           review: 'phản hồi',
-          'student activities': 'hoạt động học sinh'
+          'student activities': 'hoạt động học sinh',
+          'Profile updated successfully': 'cập nhật thông tin thành công',
+          'Failed to update profile': 'không thể cập nhập thông tin',
         },
       },
       jp: {

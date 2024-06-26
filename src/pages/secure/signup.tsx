@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import {
   Typography,
   Input,
@@ -12,13 +12,16 @@ import {
   SwitchProps,
 } from '@material-tailwind/react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { capitalize } from '../../utils/utils';
 import { InputEmail, InputPasswordGroupCheck } from '../../components/input';
 import { FormHeader } from '../../components/form';
 import api from '../../api/api';
-import { GOOGLE_SIGNUP_URL } from '../../utils/config';
+import { GOOGLE_SIGNUP_URL, REGISTER_URL } from '../../utils/config';
 import GoogleButton from '../../components/googleButton';
+import { TUser } from '../../entity/user';
+import { AlertPopup } from '../../components/alert';
+import Loading from '../../components/loading';
 
 type TRoleRadioButtonProps = {
   className?: string;
@@ -132,7 +135,7 @@ function RoleRadioButton({ className }: TRoleRadioButtonProps) {
 }
 
 /** */
-function RoleSwitch({
+export function RoleSwitch({
   ...props
 }: Omit<
   SwitchProps,
@@ -140,11 +143,7 @@ function RoleSwitch({
 >) {
   const { t } = useTranslation();
   const roleToggleRef = useRef(null);
-  const [isChecked, setIsChecked] = useState(false);
 
-  const handleRoleChange = (event) => {
-    const isChecked = event.target.checked;
-  };
   return (
     <span
       className={`flex justify-center items-center gap-6 border rounded-lg py-1.5 px-4 shadow-xl border-blue-gray-200 ${props.className}`}
@@ -162,8 +161,6 @@ function RoleSwitch({
         {...props}
         color={props.color || 'teal'}
         inputRef={roleToggleRef}
-        // className={props.className}
-        // onChange={handleRoleChange}
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
         crossOrigin={undefined}
@@ -187,37 +184,50 @@ function RoleSwitch({
  */
 export default function Signup() {
   const { t } = useTranslation();
-  const [pwd, setPwd] = useState('');
-  const [isPasswordValid, setIsPasswordValid] = useState(false);
-  const [openMenu, setOpenMenu] = useState(false);
-  const [isPwdValid, setIsPwdValid] = useState(false);
-  const [roleId, setRoleId] = useState<number>(1);
-  // const [roleId, setRoleId] = us(1);
+  const [errMsg, setErrMsg] = useState('');
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const [role, setRole] = useState(1);
+  const [formData, setFormData] = useState({
+    role: 1,
+    email: '',
+    fullName: '',
+    password: '',
+  });
 
-  const validatePwd = (pwd: string) => {
-    const isValid =
-      pwd.length >= 8 &&
-      /[A-Z]/.test(pwd) && // Contains an uppercase letter
-      /[a-z]/.test(pwd) && // Contains a lowercase letter
-      /[0-9]/.test(pwd) && // Contains a number
-      /[!@#$%^&*]/.test(pwd); // Contains a special character
-    return isValid;
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setLoading(true);
+    api
+      .post(REGISTER_URL, formData)
+      .then(() => navigate('/login', { replace: true }))
+      .catch((err) => setErrMsg(err.response.data.errorModels[0].detail))
+      .finally(() => setLoading(false));
   };
 
-  const handlePwdChange = (event) => {
-    const newPwd = event.target.value;
-    setPwd(newPwd);
-    setIsPwdValid(validatePwd(newPwd));
-  };
   const handleRoleChange = (event) => {
     const isChecked = event.target.checked;
-    if (!isChecked) setRoleId(1);
-    else setRoleId(2);
+    const r = !isChecked ? 1 : 2;
+    setRole(r);
+    setFormData((prev) => ({
+      ...prev,
+      role: r,
+    }));
+  };
+
+  const handleChangeInput = (event) => {
+    const { name, value } = event.target;
+    setFormData((prev) => ({
+      ...prev,
+      // role: roleId,
+      [name]: value,
+    }));
   };
 
   return (
     <>
       <form
+        // onSubmit={handleSubmit}
         action='#'
         className='size-full flex flex-col gap-4 justify-center items-center'
       >
@@ -233,10 +243,12 @@ export default function Signup() {
             {capitalize(t('your role'))}
           </Typography>
           {/* <RoleRadioButton className='w-3/4' /> */}
-          <RoleSwitch name='role' className='' onChange={handleRoleChange} />
+          <RoleSwitch name='role' onClick={handleRoleChange} />
         </div>
         <Input
           required
+          name='fullName'
+          onChange={handleChangeInput}
           color='teal'
           type='text'
           label={capitalize(t('your name'))}
@@ -244,10 +256,16 @@ export default function Signup() {
           onPointerLeaveCapture={undefined}
           crossOrigin={undefined}
         />
-        <InputEmail color='teal' />
-        <InputPasswordGroupCheck color='teal' />
+        <InputEmail name='email' onChange={handleChangeInput} color='teal' />
+        <InputPasswordGroupCheck
+          name='password'
+          onChange={handleChangeInput}
+          color='teal'
+        />
         <div className='mt-4 flex flex-col gap-6 w-full'>
           <Button
+            // type='submit'
+            onClick={handleSubmit}
             variant='filled'
             className='bg-primary'
             placeholder={undefined}
@@ -256,7 +274,7 @@ export default function Signup() {
           >
             {t('sign up')}
           </Button>
-          <GoogleButton type='signup' roleId={roleId} />
+          <GoogleButton type='signup' roleId={role} />
           <Typography
             variant='paragraph'
             className='flex gap-1 w-full justify-center items-center'
@@ -279,6 +297,12 @@ export default function Signup() {
           </Typography>
         </div>
       </form>
+      {loading && (
+        <div className='absolute size-full top-0 left-0'>
+          <Loading middle />
+        </div>
+      )}
+      {errMsg && <AlertPopup>{errMsg}</AlertPopup>}
     </>
   );
 }

@@ -148,7 +148,7 @@ export function InputPasswordGroupCheck({
       /[A-Z]/.test(pwd) && // Contains an uppercase letter
       /[a-z]/.test(pwd) && // Contains a lowercase letter
       /[0-9]/.test(pwd) && // Contains a number
-      /[!@#$%^&*]/.test(pwd); // Contains a special character
+      /[~!@#$%^&*]/.test(pwd); // Contains a special character
     return isValid;
   };
 
@@ -183,10 +183,11 @@ export function InputPasswordGroupCheck({
         {...props}
         color={passwordError ? 'red' : props.color}
         value={password}
-        onChange={handlePasswordChange}
+        onChangeCapture={handlePasswordChange}
       />
       <InputPassword
         {...props}
+        name={`re-${props.name}` }
         color={confirmPasswordError ? 'red' : props.color}
         value={confirmPassword}
         onChange={handleConfirmPasswordChange}
