@@ -1,4 +1,6 @@
-import { Carousel } from '@material-tailwind/react';
+import { Typography } from '@material-tailwind/react';
+import { t } from 'i18next';
+import { capitalize } from '../../utils/utils';
 
 /**
  * Schedule Component
@@ -6,7 +8,21 @@ import { Carousel } from '@material-tailwind/react';
 export default function Schedule() {
   return (
     <>
-    <h1>alo</h1>
+      <div className='flex justify-center w-full'>
+        <div className='w-10/12 flex flex-col '>
+          <Typography
+            className='pt-8 '
+            variant='h5'
+            color='blue-gray'
+            placeholder={undefined}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+          >
+            {capitalize(t('teach-schedule'))}
+          </Typography>
+          <hr className='my-2 border-blue-gray-50' />
+        </div>
+      </div>
     </>
   );
 }

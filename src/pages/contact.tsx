@@ -146,7 +146,9 @@ export default function Contact() {
               placeholder={undefined}
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
-            >{`(+84) 098 xxx xx xx`}</Typography>
+            >
+              {t('(+84) 862236759')}
+            </Typography>
           </Typography>
         </div>
       </section>

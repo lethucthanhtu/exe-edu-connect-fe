@@ -32,7 +32,7 @@ type TNavItem = {
 
 const navItems: TNavItem[] = [
   { value: 'home', tName: 'home', path: '/' },
-  { value: 'subject', tName: 'subject', path: 'subject' },
+  { value: 'subject', tName: 'subjects', path: 'subject' },
   { value: 'about', tName: 'about', path: '' },
   { value: 'contact', tName: 'contact', path: '' },
 ];

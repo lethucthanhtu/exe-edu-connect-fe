@@ -3,6 +3,7 @@ const PREFIX = 'api/';
 
 export const CURR_USER_DATA_URL = `${PREFIX}users/user`;
 export const SUBJECT_URL        = `${PREFIX}course/categories`;
+export const REGISTER_URL       = `${PREFIX}auth/register`
 export const LOGOUT_URL         = `${PREFIX}auth/logout`;
 export const LOGIN_URL          = `${PREFIX}auth/login`;
 export const GOOGLE_LOGIN_URL   = `${BASE_URL}${PREFIX}auth/login/google`;

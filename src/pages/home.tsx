@@ -134,7 +134,7 @@ function HomeCarousel() {
         <div className='absolute bottom-[5%] w-full hidden lg:inline-flex gap-8 flex-nowrap peer'>
           <ul
             className='flex items-center justify-center gap-8 [&_img]:max-w-none animate-infinite-scroll peer-hover:animate-none'
-          // aria-hidden='false'
+            // aria-hidden='false'
           >
             {imgs.map((img, index) => (
               <li>
@@ -246,7 +246,10 @@ function FeatureTutorCard({ user = {}, isReverse = false }) {
             onPointerEnterCapture={undefined}
             onPointerLeaveCapture={undefined}
           >
-            {capitalize(t(`Cử nhân Sư phạm Anh, Thạc sĩ/Tiến sĩ Ngôn ngữ`))}
+            {capitalize(
+              t(`Bachelor in English studies, PhD in Linguistics`),
+              false
+            )}
           </Typography>
         </div>
         <Typography
@@ -430,7 +433,7 @@ export default function Home() {
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
             >
-              {capitalize(t('outstanding tutor'))}
+              {capitalize(t('outstanding tutors'))}
             </Typography>
           </div>
           <div className='flex flex-col gap-4'>
@@ -503,7 +506,7 @@ export default function Home() {
         </section>
         <SectionWithTitle
           id='student-activity'
-          title='student activity'
+          title='student activities'
           subTitle='Tham gia cộng đồng năng động của chúng tôi để luôn cập nhật tin tức và cơ hội'
         >
           <div className='grid grid-cols-2 gap-4'>
@@ -518,9 +521,7 @@ export default function Home() {
           title={`student's reviews`}
           subTitle='Tìm hiểu xem học viên của chúng tôi nói gì về trải nghiệm học tập của họ'
         >
-          <div className='grid grid-cols-3'>
-
-          </div>
+          <div className='grid grid-cols-3'></div>
         </SectionWithTitle>
       </section>
       <section id='post-rating'></section>
