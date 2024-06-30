@@ -48,11 +48,11 @@ function ProfileMenu() {
   const handleSignOut = () => {
     api
       .get(LOGOUT_URL)
-      .then(() => sessionStorage.removeItem('token'))
+      .then(() => localStorage.removeItem('token'))
       // eslint-disable-next-line no-console
       .catch((err) => console.log(err))
       .finally(() => {
-        sessionStorage.removeItem('token');
+        localStorage.removeItem('token');
         setTimeout(() => location.reload(), 1000);
       });
   };
@@ -220,7 +220,7 @@ function NavList() {
  */
 export default function Header() {
   const [openNav, setOpenNav] = useState(false);
-  const [token] = useState(sessionStorage.getItem('token'));
+  const [token] = useState(localStorage.getItem('token'));
   const { t } = useTranslation();
 
   return (

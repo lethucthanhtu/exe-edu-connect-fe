@@ -3,10 +3,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import api from '../../api/api';
 
-import NotFound from '../error/notFound';
 import Loading from '../../components/loading';
 import CourseDetail from '../../components/course.detail';
-import { TCourse } from '../../entity/entity/course';
 
 /**
  * course page
@@ -37,6 +35,7 @@ export default function Course() {
             .replace(/Đ/g, 'D') || 'not-thing-found';
         navigate(`./${title}`);
       });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

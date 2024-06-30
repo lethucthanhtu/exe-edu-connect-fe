@@ -3,7 +3,7 @@ import { BASE_URL } from '../utils/config';
 
 export const apiAliveKeeper = false;
 
-const token = sessionStorage.getItem('token');
+const token = localStorage.getItem('token');
 
 export const apiUser = axios.create({
   baseURL: BASE_URL,

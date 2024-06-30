@@ -6,7 +6,7 @@ import Loading from '../components/loading';
 
 /** */
 export default function MyProfile() {
-  const token = sessionStorage.getItem('token');
+  const token = localStorage.getItem('token');
   const navigate = useNavigate();
 
   useEffect(() => {

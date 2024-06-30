@@ -22,6 +22,7 @@ import api from '../../api/api';
 import { TUser } from '../../entity/user';
 import NotFound from '../../pages/error/notFound';
 import Loading from '../loading';
+import { DEFAULT_IMG } from '../../utils/config';
 
 type TUserProps = {
   role: string;
@@ -54,9 +55,9 @@ function User({ user, role }: TUserProps) {
             <Avatar
               size='xl'
               variant='circular'
-              src={user.avatarurl}
+              src={user.avatarurl || DEFAULT_IMG}
               alt='đm không có ảnh'
-              className='!size-full'
+              className='!size-full border border-gray-700'
               placeholder={undefined}
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}

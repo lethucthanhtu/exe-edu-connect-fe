@@ -44,13 +44,13 @@ export default function Login() {
       .post(LOGIN_URL, { ...post })
       .then((res) => {
         const token = res.data?.returnData;
-        sessionStorage.setItem('token', token);
+        localStorage.setItem('token', token);
         setLoading(false);
       })
       .catch((err) => setErrorMessage(err.response.data.message))
       .finally(() => {
         setLoading(false);
-        sessionStorage.getItem('token') && location.reload();
+        localStorage.getItem('token') && location.reload();
       });
   };
 
