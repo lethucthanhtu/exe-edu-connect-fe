@@ -107,7 +107,7 @@ export default function Login() {
           >
             {t('log in')}
           </Button>
-          <GoogleButton type='login' />
+          {/* <GoogleButton type='login' /> */}
           <Separator label='or' />
           <Link to={'/signup'}>
             <Button
