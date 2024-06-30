@@ -62,6 +62,7 @@ export default function Login() {
         <FormHeader label='log in' />
         <div className='flex flex-col justify-center items-center w-full gap-4'>
           <InputEmail
+            required
             inputRef={userRef}
             onChange={handleInput}
             name='email'
