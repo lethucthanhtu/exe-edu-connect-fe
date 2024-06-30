@@ -24,7 +24,7 @@ export default function Login() {
 
   const userRef = useRef(null);
   const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState('');
   const [post, setPost] = useState({
     email: '',
     password: '',
@@ -39,6 +39,7 @@ export default function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
+    setErrorMessage('');
     api
       .post(LOGIN_URL, { ...post })
       .then((res) => {
@@ -47,7 +48,10 @@ export default function Login() {
         setLoading(false);
       })
       .catch((err) => setErrorMessage(err.response.data.message))
-      .finally(() => location.reload());
+      .finally(() => {
+        setLoading(false);
+        sessionStorage.getItem('token') && location.reload();
+      });
   };
 
   //check if user already login/ token still available or not
