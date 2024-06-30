@@ -8,54 +8,41 @@ import Loading from '../../components/loading';
 import CourseDetail from '../../components/course.detail';
 import { TCourse } from '../../entity/entity/course';
 
-
-
 /**
  * course page
  * @returns JSX.Element
  */
 export default function Course() {
   const { id } = useParams();
-  const getCourseByIdUrl = `/api/course/${id}`;
-  const [courseDetail, setCourseDetail] = useState<TCourseFullDetails>()
+  const [courseDetail, setCourseDetail] = useState<TCourseFullDetails>();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true)
-    fetchCourseById()
-  }, [])
-
-  const fetchCourseById = () => {
+    setLoading(true);
     api
-      .get(
-        getCourseByIdUrl)
+      .get(`/api/course/${id}`)
       .then((res) => {
-        setCourseDetail(res.data.returnData)
+        setCourseDetail(res.data.returnData);
         setLoading(false);
-      }).catch((error) => {
-        // eslint-disable-next-line no-console
-        console.log('Current error:', error);
-        setLoading(false);
+      })
+      .finally(() => {
+        const title =
+          courseDetail.name
+            .toLowerCase()
+            .replace(/\s+/g, '-')
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/đ/g, 'd')
+            .replace(/Đ/g, 'D') || 'not-thing-found';
+        navigate(`./${title}`);
       });
-  }
-
+  }, []);
 
   return (
     <>
       <div className='container flex justify-center'>
-        {
-          loading ? (
-            <Loading />
-          ) : (
-            <CourseDetail course={courseDetail} />
-            //       :
-            //     (
-            //   <div className='flex justify-center items-center h-screen'>
-            //     <NotFound />
-            //   </div>
-            // )
-          )}
+        {loading ? <Loading /> : <CourseDetail course={courseDetail} />}
       </div>
     </>
   );

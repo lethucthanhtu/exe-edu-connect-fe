@@ -9,10 +9,13 @@ import CourseCard from '../../components/course.card';
 
 import { capitalize } from '../../utils/utils';
 import api from '../../api/api';
+import { TCourse } from '../../entity/entity/course';
+import Loading from '../../components/loading';
+import { COURSES_URL } from '../../utils/config';
 
 type TSectionProps = {
   title: string;
-  children: ReactNode;
+  children?: ReactNode;
   className?: string;
 };
 
@@ -30,7 +33,7 @@ function CourseSection({ title, children, className }: TSectionProps) {
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
       >
-        {capitalize(t(title))}
+        {capitalize(t(title) || 'course title')}
       </Typography>
       <Typography
         variant='paragraph'
@@ -67,23 +70,28 @@ export default function Courses() {
   const [params] = useSearchParams();
   const [page, setPage] = useState(params.get('page') || 1);
   const [size, setSize] = useState(params.get('size') || 25);
-  const [placeholderText, setPlaceholderText] = useState("");
-  const [courses, setCourses] = useState([]);
+
+  const [placeholderText, setPlaceholderText] = useState('');
+  const [courses, setCourses] = useState<Array<TCourse>>();
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [errMsg, setErrMsg] = useState('');
+  const [loading, setLoading] = useState(false);
 
   //for subject/{subject}/courses page
   useEffect(() => {
+    setLoading(true);
     api
-      .get('/api/courses', {
+      .get(COURSES_URL, {
         params: {
-          category: capitalize(subject),
+          category: capitalize(subject) || '',
           page: page,
           size: size,
         },
       })
       .then((res) => {
-        setCourses(res.data.returnData.courseDtos)
+        setCourses(res.data.returnData.coursedtos);
+        setLoading(false);
       })
       .catch((err) => setErrMsg(err.message));
   }, [subject, page, size]);
@@ -91,51 +99,35 @@ export default function Courses() {
   //for subject category placeholder text
   useEffect(() => {
     api
-      .get(`/api/course/category/${capitalize(subject)}`)
-      .then((res) => {
-        setPlaceholderText(res.data.returnData.description)
-      })
+      .get(`api/course/category/${capitalize(subject)}`)
+      .then((res) => setPlaceholderText(res.data.returnData.description))
       .catch((err) => setErrMsg(err.message));
   }, [subject, page, size]);
 
   return (
     <section className='container w-full'>
-      <CourseSection title={subject || 'courses'} className='mb-6 mt-4'>
+      <CourseSection title={subject} className='mb-6 mt-4'>
         {subject
           ? placeholderText
           : capitalize(
-            t(`In velit minim qui laboris veniam aute sunt exercitation eiusmod.
+              t(`In velit minim qui laboris veniam aute sunt exercitation eiusmod.
         Nostrud fugiat velit exercitation sunt nulla laboris tempor officia et
         veniam dolor. Id ipsum cupidatat exercitation qui. Anim duis eiusmod ut
         nostrud. Nisi fugiat Lorem nisi nisi incididunt mollit irure pariatur
         deserunt exercitation Lorem dolore. Ad nostrud in irure consectetur.
         Nostrud fugiat velit exercitation sunt nulla laboris tempor officia et
         veniam dolor. Id ipsum`)
-          )}
+            )}
       </CourseSection>
       <section className='flex flex-wrap gap-x-2 gap-y-4 justify-evenly my-12'>
-        {courses.map((course) => (
-          <CourseCard
-            id={course.id}
-            name={course.name}
-            price={course.price}
-            description={course.description}
-            startDate={course.startdate}
-            endDate={course.enddate}
-            subject={course.categoryname}
-          />
-        ))}
+        {!loading ? (
+          courses?.map((course) => <CourseCard course={course} />)
+        ) : (
+          <Loading middle />
+        )}
       </section>
       <CourseSection title='Đánh giá của chúng tôi' className='mb-6 mt-6'>
-        {`${capitalize(
-          t(` Aute voluptate elit veniam velit consectetur fugiat cupidatat et sunt
-        reprehenderit occaecat Lorem eu. Dolor laborum culpa quis commodo labore
-        proident labore tempor mollit. Sint tempor ut incididunt nisi sunt. Aute
-        voluptate elit veniam velit consectetur fugiat cupidatat et sunt
-        reprehenderit occaecat Lorem eu. Dolor laborum culpa quis commodo labore
-        proident labore tempor mollit. Sint tempor ut incididunt nisi sunt. Aute
-        voluptate elit veniam velit consectetur fugiat cupidatat`)
-        )}`}
+        {`${capitalize(t(``))}`}
       </CourseSection>
       <div className='grid grid-cols-2 gap-4 gap-y-8 mb-6'>
         <Review />
