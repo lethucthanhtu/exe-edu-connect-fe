@@ -40,8 +40,8 @@ import ResetPassword       from '../pages/user/resetPassword';
 import TransactionsHistory from '../pages/user/transactionHistory';
 import CoursesHistory      from '../pages/user/courseHistory';
 import Checkout            from '../pages/payment/checkout';
-import Contact from '../pages/contact';
-import MyProfile from '../pages/myprofile';
+import Contact             from '../pages/contact';
+import MyProfile           from '../pages/myprofile';
 
 const PrivateRoutesLayout = () => {
   const { auth } = useContext(AuthContext);
@@ -61,13 +61,13 @@ const routes = createBrowserRouter([
     element : <DefaultLayout />,
     errorElement: <NotFound  />,
     children: [
-      { index: true            , element: <Home                    /> },
-      { path : 'home'          , element: <Navigate to='/' replace /> },
-      { path : 'about'         , element: <About                   /> },
-      { path : 'contact'       , element: <Contact                 /> },
-      { path : 'search'        , element: <Search                  /> },
-      { path : 'landing'       , element: <Landing                 /> },
-      { path : 'checkout'      , element: <Checkout                /> },
+      { index: true            , element: <Home                                      /> },
+      { path : 'home'          , element: <Navigate to='/' replace                   /> },
+      { path : 'about'         , element: <About                                     /> },
+      { path : 'contact'       , element: <Contact                                   /> },
+      { path : 'search'        , element: <Search                                    /> },
+      { path : 'landing'       , element: <Landing                                   /> },
+      { path : 'checkout'      , element: <Checkout                                  /> },
       {
         path     : 'course',
         children : [
@@ -76,12 +76,12 @@ const routes = createBrowserRouter([
           {
             path     : ':id',
             children : [
-              { index: true                 , element: <Course                          /> },
-              { path : 'edit'               , element: <EditCourse                      /> },
-              { path : 'report'             , element: <NotHandleYet                    /> }, //báo cáo về khóa học (ex: video, rating,...)
-              { path : 'request'            , element: <NotHandleYet                    /> }, //đăng ký học, góc nhìn tutor
-              { path : 'participants'       , element: <NotHandleYet                    /> }, //người đã tham gia khóa học
-              { path : '*'                  , element: <Course                          /> }, //người đã tham gia khóa học
+              { index: true                 , element: <Course                                        /> },
+              { path : 'edit'               , element: <EditCourse                                    /> },
+              { path : 'report'             , element: <NotHandleYet                                  /> }, //báo cáo về khóa học (ex: video, rating,...)
+              { path : 'request'            , element: <NotHandleYet                                  /> }, //đăng ký học, góc nhìn tutor
+              { path : 'participants'       , element: <NotHandleYet                                  /> }, //người đã tham gia khóa học
+              { path : '*'                  , element: <Course                                        /> }, //người đã tham gia khóa học
             ],
           },
           { path : 'create'     , element: <CreateCourse              /> },
@@ -95,8 +95,8 @@ const routes = createBrowserRouter([
           {
             path     : ':subject',
             children : [
-              { index: true                 , element: <Navigate to='courses' replace   /> },
-              { path : 'courses'            , element: <Courses                         /> },
+              { index: true                 , element: <Navigate to='courses' replace                 /> },
+              { path : 'courses'            , element: <Courses                                       /> },
             ],
           },
         ],
@@ -141,10 +141,10 @@ const routes = createBrowserRouter([
                   { path : 'courses'     , element: <CoursesHistory                  /> },
                 ]
               },
-              { path : 'schedule'           , element: <Schedule                        /> },
-              { path : 'learn-request'      , element: <NotHandleYet                    /> }, //đăng ký học, đợi accept
-              { path : 'teach-request'      , element: <NotHandleYet                    /> }, //đăng ký dạy, đợi accept
-              { path : 'resetpassword'      , element: <ResetPassword                   /> },
+              { path : 'schedule'           , element: <Schedule                                      /> },
+              { path : 'learn-request'      , element: <NotHandleYet                                  /> }, //đăng ký học, đợi accept
+              { path : 'teach-request'      , element: <NotHandleYet                                  /> }, //đăng ký dạy, đợi accept
+              { path : 'resetpassword'      , element: <ResetPassword                                 /> },
             ],
           },
           { path : 'setting'    , element: <Setting                   /> },
@@ -153,19 +153,19 @@ const routes = createBrowserRouter([
           { path : 'checkout'   , element: <NotHandleYet              /> }, //rút tiền về bank/ví điện tử
         ],
       },
-      { path : 'my-profile'    , element: <MyProfile               /> },
-      { path : 'error'         , element: <NotFound                /> },
-      { path : 'test'          , element: <Test                    /> },
-      { path : '*'             , element: <NotFound                /> },
+      { path : 'my-profile'    , element: <MyProfile                                 /> },
+      { path : 'error'         , element: <NotFound                                  /> },
+      { path : 'test'          , element: <Test                                      /> },
+      { path : '*'             , element: <NotFound                                  /> },
     ],
   },
   {
     path     : '',
     element  : <LoginLayout />,
     children : [
-      { path : 'login'         , element: <Login                   /> },
-      { path : 'signup'        , element: <Signup                  /> },
-      { path : 'forgotPassword', element: <ForgotPassword          /> },
+      { path : 'login'         , element: <Login                                     /> },
+      { path : 'signup'        , element: <Signup                                    /> },
+      { path : 'forgotPassword', element: <ForgotPassword                            /> },
     ],
   },
 ]);
