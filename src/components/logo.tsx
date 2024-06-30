@@ -20,7 +20,11 @@ export default function Logo({ className }: TLogoProps) {
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
       >
-        <Link to='/' className='flex gap-0.5 items-center justify-center'>
+        <Link
+          to='/home'
+          replace
+          className='flex gap-0.5 items-center justify-center'
+        >
           <img className='h-16 aspect-square' src={logo} alt='edu connect' />
           <span className='hidden lg:inline-block'>Edu Connect</span>
         </Link>
