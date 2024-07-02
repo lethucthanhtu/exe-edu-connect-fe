@@ -10,7 +10,7 @@ import { AlertPopup } from '../../components/alert';
 import Separator from '../../components/separator';
 
 import api from '../../api/api';
-import { capitalize } from '../../utils/utils';
+import { capitalize, validatePwd } from '../../utils/utils';
 import Loading from '../../components/loading';
 import { LOGIN_URL } from '../../utils/config';
 import GoogleButton from '../../components/googleButton';
@@ -33,25 +33,38 @@ export default function Login() {
   //focus on email when load page
   useEffect(() => userRef.current.focus(), []);
 
-  const handleInput = (event) =>
-    setPost({ ...post, [event.target.name]: event.target.value });
+  const handleInput = (event) => {
+    // if (event.target.name === 'password') {
+    //   setErrorMessage('Failed to login');
+    // }
 
+    setPost({ ...post, [event.target.name]: event.target.value });
+  };
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
     setErrorMessage('');
-    api
-      .post(LOGIN_URL, { ...post })
-      .then((res) => {
-        const token = res.data?.returnData;
-        localStorage.setItem('token', token);
-        setLoading(false);
-      })
-      .catch((err) => setErrorMessage(err.response.data.message))
-      .finally(() => {
-        setLoading(false);
-        localStorage.getItem('token') && location.reload();
-      });
+
+    if (!post.password) setErrorMessage('');
+    else if (!validatePwd(post.password)) {
+      setErrorMessage(`Failed to login. Please check your email and password.`);
+      setLoading(false);
+    } else {
+      setErrorMessage('');
+
+      api
+        .post(LOGIN_URL, { ...post })
+        .then((res) => {
+          const token = res.data.returnData;
+          localStorage.setItem('token', token);
+          setLoading(false);
+        })
+        .catch((err) => setErrorMessage(err.response.data.message))
+        .finally(() => {
+          setLoading(false);
+          localStorage.getItem('token') && location.reload();
+        });
+    }
   };
 
   //check if user already login/ token still available or not
