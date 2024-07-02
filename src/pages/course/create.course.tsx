@@ -81,9 +81,6 @@ export default function CreateCourse() {
     event.preventDefault();
     setOpen(!open);
     handleGenerateMeetingRoom;
-    console.log(meetUrl);
-
-    console.log(draft);
   };
 
   return (
