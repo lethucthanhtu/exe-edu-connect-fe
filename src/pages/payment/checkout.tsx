@@ -47,7 +47,7 @@ export default function Checkout() {
           </div>
           <div className='ms-3'>
             <PaymentOptions />
-            <QRSection />
+            <QRSection course={course}/>
           </div>
         </div>
       </div>

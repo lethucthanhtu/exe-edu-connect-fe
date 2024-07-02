@@ -102,7 +102,8 @@ export default i18n
           'FPT University': 'Đại học FPT',
           'software engineering': 'kĩ thuật phần mềm',
           'start date': 'ngày bắt đầu',
-          'end date':'ngày kết thúc',
+          'end date': 'ngày kết thúc',
+          message : 'nội dung chuyển khoản', 
         },
       },
       jp: {

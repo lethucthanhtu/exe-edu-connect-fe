@@ -1,7 +1,8 @@
-import { capitalize } from '../utils/utils';
+import { capitalize, currencyFormat } from '../utils/utils';
 import { useTranslation } from 'react-i18next';
 import { size } from '@material-tailwind/react/types/components/avatar';
 import RatingStar from './ratingStar';
+import QRMomoTienHoang from '../assets/img/QRMomoTienHoang/QR_MOMO.jpg';
 import {
   Button,
   Card,
@@ -126,7 +127,7 @@ export function PaymentOptions() {
  * The QR section for customers to finish the payment.
  * @returns JSX.Element
  */
-export function QRSection() {
+export function QRSection({course, }: TCheckoutDetailProps) {
   const { t } = useTranslation();
   return (
     <Card
@@ -153,7 +154,7 @@ export function QRSection() {
         </Typography>
         <img
           className='h-36 w-36 my-5 mx-auto'
-          src='https://firebasestorage.googleapis.com/v0/b/educonnectdb.appspot.com/o/qrcode_114505109_9889a306594a1e15645f5f69b3e4c7a8.png?alt=media&token=0e554a93-e542-455e-9b09-f23be72904fe'
+          src={QRMomoTienHoang}
           alt='nature image'
         />
         <Typography
@@ -174,7 +175,7 @@ export function QRSection() {
           onPointerEnterCapture={undefined}
           onPointerLeaveCapture={undefined}
         >
-          {t('0.000.000 VNĐ')}
+          {currencyFormat(course?.price || 0, 'đ', 0, false)}
         </Typography>
         <div className='flex gap-1 justify-center mt-2'>
           <Typography
@@ -194,7 +195,7 @@ export function QRSection() {
             onPointerLeaveCapture={undefined}
             color='black'
           >
-            {'1234 567 890'}
+            {'0862 236 759'}
           </Typography>
         </div>
         <div className='flex gap-1 justify-center mt-2'>
@@ -215,7 +216,28 @@ export function QRSection() {
             onPointerLeaveCapture={undefined}
             color='black'
           >
-            {'Đào Việt Anh'}
+            {'Hoàng Trọng Tiến'}
+          </Typography>
+        </div>
+        <div className='flex gap-1 justify-center mt-2'>
+          <Typography
+            variant='paragraph'
+            placeholder={undefined}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+            color='black'
+          >
+            {`${capitalize(t('message'))}:`}
+          </Typography>
+          <Typography
+            className='leading-7'
+            variant='h6'
+            placeholder={undefined}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+            color='black'
+          >
+            {`Theeduconnect: ${course?.id} - `}
           </Typography>
         </div>
         <hr className='border-gray-300 my-4' />
