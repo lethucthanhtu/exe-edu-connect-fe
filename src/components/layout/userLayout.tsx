@@ -22,16 +22,17 @@ import api from '../../api/api';
 import { TUser } from '../../entity/user';
 import NotFound from '../../pages/error/notFound';
 import Loading from '../loading';
-import { DEFAULT_IMG } from '../../utils/config';
+import { CURR_USER_DATA_URL, DEFAULT_IMG } from '../../utils/config';
 
 type TUserProps = {
   role: string;
   user?: TUser;
   isCUserProfile?: boolean;
+  loading?: boolean;
 };
 
 /** */
-function User({ user, role }: TUserProps) {
+function User({ user, role, isCUserProfile = false }: TUserProps) {
   return (
     <>
       <Card
@@ -62,28 +63,30 @@ function User({ user, role }: TUserProps) {
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
             />
-            <Button
-              // variant='text'
-              className='!absolute !bottom-0 !right-0 size-[5%] rounded-full p-3 text-white bg-secondary-midBlue border-white border-2 flex justify-center items-center'
-              placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-            >
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                fill='none'
-                viewBox='0 0 24 24'
-                strokeWidth={1.5}
-                stroke='currentColor'
-                className='size-4 absolute'
+            {isCUserProfile && (
+              <Button
+                // variant='text'
+                className='!absolute !bottom-0 !right-0 size-[5%] rounded-full p-3 text-white bg-secondary-midBlue border-white border-2 flex justify-center items-center'
+                placeholder={undefined}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
               >
-                <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  d='m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125'
-                />
-              </svg>
-            </Button>
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  strokeWidth={1.5}
+                  stroke='currentColor'
+                  className='size-4 absolute'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    d='m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125'
+                  />
+                </svg>
+              </Button>
+            )}
           </div>
           <div className='flex basis-3/5 w-full flex-col gap-0.5'>
             <div className='flex items-center justify-between capitalize'>
@@ -145,7 +148,7 @@ function UserSkeleton() {
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
             />
-            <Button
+            {/* <Button
               // variant='text'
               className='!absolute !bottom-0 !right-0 size-[5%] rounded-full p-3 text-white bg-secondary-midBlue border-white border-2 flex justify-center items-center'
               placeholder={undefined}
@@ -166,7 +169,7 @@ function UserSkeleton() {
                   d='m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125'
                 />
               </svg>
-            </Button>
+            </Button> */}
           </div>
           <div className='flex basis-3/5 w-full flex-col gap-4 animate-pulse'>
             <div className='flex items-center justify-between capitalize'>
@@ -194,7 +197,7 @@ function UserSkeleton() {
             </Typography>
           </div>
         </CardHeader>
-        <CardBody
+        {/* <CardBody
           className='mb-6 p-0 flex flex-col gap-2'
           placeholder={undefined}
           onPointerEnterCapture={undefined}
@@ -235,40 +238,33 @@ function UserSkeleton() {
               Withdraw
             </Button>
           </div>
-        </CardBody>
+        </CardBody> */}
       </Card>
     </>
   );
 }
 
 /** */
-function Sidebar({ user, role }: TUserProps) {
+function Sidebar({ user, role, loading, isCUserProfile }: TUserProps) {
   const { t } = useTranslation();
   const { id } = useParams();
   const [open, setOpen] = useState(0);
-  const [loading, setLoading] = useState(false);
 
-  const handleOpen = (value) => {
-    setOpen(open === value ? 0 : value);
-  };
-
-  // useEffect(() => {
-  //   setLoading(true);
-  //   setTimeout(() => {
-  //     setLoading(false);
-  //   }, 2000);
-  //   return () => {};
-  // }, []);
+  const handleOpen = (value) => setOpen(open === value ? 0 : value);
 
   return (
     <Card
-      className='min-h-full w-1/5 p-4 shadow-xl shadow-blue-gray-900/5'
+      className='min-h-full w-1/5 p-4 shadow-xl border-r-4'
       placeholder={undefined}
       onPointerEnterCapture={undefined}
       onPointerLeaveCapture={undefined}
     >
       <div className='mb-2 p-4 flex justify-center items-center'>
-        {loading ? <UserSkeleton /> : <User user={user} role={role} />}
+        {loading ? (
+          <UserSkeleton />
+        ) : (
+          <User user={user} role={role} isCUserProfile={isCUserProfile} />
+        )}
       </div>
       <hr className='mb-2 border-blue-gray-50' />
       <List
@@ -293,82 +289,54 @@ function Sidebar({ user, role }: TUserProps) {
             {capitalize(t('profile'))}
           </ListItem>
         </Link>
-        <Link to={`${id}/schedule`}>
-          <ListItem
-            className='hover:bg-primary-light'
-            placeholder={undefined}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-          >
-            <ListItemPrefix
-              placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-            >
-              <span className='material-symbols-outlined'>calendar_month</span>
-            </ListItemPrefix>
-            {capitalize(t('your schedule'))}
-          </ListItem>
-        </Link>
-        <hr className='my-2 border-blue-gray-50' />
-        <Accordion
-          open={open === 1}
-          icon={
-            <span
-              className={`material-symbols-outlined mx-auto h-4 w-4 transition-transform ${
-                open === 1 ? 'rotate-90' : ''
-              }`}
-            >
-              keyboard_arrow_right
-            </span>
-          }
-          placeholder={undefined}
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-        >
-          <ListItem
-            className='p-0'
-            selected={open === 1}
-            placeholder={undefined}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-          >
-            <AccordionHeader
-              onClick={() => handleOpen(1)}
-              className='border-b-0 p-3'
-              placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-            >
-              <ListItemPrefix
+        {isCUserProfile && (
+          <>
+            <Link to={`${id}/schedule`}>
+              <ListItem
+                className='hover:bg-primary-light'
                 placeholder={undefined}
                 onPointerEnterCapture={undefined}
                 onPointerLeaveCapture={undefined}
               >
-                <span className='material-symbols-outlined'>
-                  transition_push
-                </span>{' '}
-              </ListItemPrefix>
-              <Typography
-                color='blue-gray'
-                className='mr-auto font-normal'
-                placeholder={undefined}
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
-              >
-                {capitalize(t('history'))}
-              </Typography>
-            </AccordionHeader>
-          </ListItem>
-          <AccordionBody className='py-1'>
-            <List
-              className='p-0'
+                <ListItemPrefix
+                  placeholder={undefined}
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                >
+                  <span className='material-symbols-outlined'>
+                    calendar_month
+                  </span>
+                </ListItemPrefix>
+                {capitalize(t('your schedule'))}
+              </ListItem>
+            </Link>
+            <hr className='my-2 border-blue-gray-50' />
+
+            <Accordion
+              open={open === 1}
+              icon={
+                <span
+                  className={`material-symbols-outlined mx-auto h-4 w-4 transition-transform ${
+                    open === 1 ? 'rotate-90' : ''
+                  }`}
+                >
+                  keyboard_arrow_right
+                </span>
+              }
               placeholder={undefined}
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
             >
-              <Link to={`${id}/courseshistory`}>
-                <ListItem
+              <ListItem
+                className='p-0'
+                selected={open === 1}
+                placeholder={undefined}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+              >
+                <AccordionHeader
+                  onClick={() => handleOpen(1)}
+                  className='border-b-0 p-3'
                   placeholder={undefined}
                   onPointerEnterCapture={undefined}
                   onPointerLeaveCapture={undefined}
@@ -379,34 +347,70 @@ function Sidebar({ user, role }: TUserProps) {
                     onPointerLeaveCapture={undefined}
                   >
                     <span className='material-symbols-outlined'>
-                      chevron_right
-                    </span>
-                  </ListItemPrefix>
-                  {capitalize(t('courses'))}
-                </ListItem>
-              </Link>
-              <Link to={`${id}/transactionshistory`}>
-                <ListItem
-                  placeholder={undefined}
-                  onPointerEnterCapture={undefined}
-                  onPointerLeaveCapture={undefined}
-                >
-                  <ListItemPrefix
-                    placeholder={undefined}
-                    onPointerEnterCapture={undefined}
-                    onPointerLeaveCapture={undefined}
-                  >
-                    <span className='material-symbols-outlined'>
-                      chevron_right
+                      transition_push
                     </span>{' '}
                   </ListItemPrefix>
-                  {capitalize(t('transactions'))}
-                </ListItem>
-              </Link>
-            </List>
-          </AccordionBody>
-        </Accordion>
-        <hr className='my-2 border-blue-gray-50' />
+                  <Typography
+                    color='blue-gray'
+                    className='mr-auto font-normal'
+                    placeholder={undefined}
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
+                  >
+                    {capitalize(t('history'))}
+                  </Typography>
+                </AccordionHeader>
+              </ListItem>
+              <AccordionBody className='py-1'>
+                <List
+                  className='p-0'
+                  placeholder={undefined}
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                >
+                  <Link to={`${id}/courseshistory`}>
+                    <ListItem
+                      placeholder={undefined}
+                      onPointerEnterCapture={undefined}
+                      onPointerLeaveCapture={undefined}
+                    >
+                      <ListItemPrefix
+                        placeholder={undefined}
+                        onPointerEnterCapture={undefined}
+                        onPointerLeaveCapture={undefined}
+                      >
+                        <span className='material-symbols-outlined'>
+                          chevron_right
+                        </span>
+                      </ListItemPrefix>
+                      {capitalize(t('courses'))}
+                    </ListItem>
+                  </Link>
+                  <Link to={`${id}/transactionshistory`}>
+                    <ListItem
+                      placeholder={undefined}
+                      onPointerEnterCapture={undefined}
+                      onPointerLeaveCapture={undefined}
+                    >
+                      <ListItemPrefix
+                        placeholder={undefined}
+                        onPointerEnterCapture={undefined}
+                        onPointerLeaveCapture={undefined}
+                      >
+                        <span className='material-symbols-outlined'>
+                          chevron_right
+                        </span>{' '}
+                      </ListItemPrefix>
+                      {capitalize(t('transactions'))}
+                    </ListItem>
+                  </Link>
+                </List>
+              </AccordionBody>
+            </Accordion>
+            <hr className='my-2 border-blue-gray-50' />
+          </>
+        )}
+
         {role === 'student' ? (
           <>
             <Link to={`${id}/rate`}>
@@ -457,25 +461,27 @@ function Sidebar({ user, role }: TUserProps) {
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
       >
-        <Link to={`${id}/resetpassword`}>
-          <ListItem
-            className='hover:bg-primary-light'
-            placeholder={undefined}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-          >
-            <ListItemPrefix
+        {isCUserProfile && (
+          <Link to={`${id}/resetpassword`}>
+            <ListItem
+              className='hover:bg-primary-light'
               placeholder={undefined}
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
             >
-              <span className='material-symbols-outlined'>settings</span>{' '}
-            </ListItemPrefix>
-            {capitalize(t('change password'))}
-          </ListItem>
-        </Link>
-        <hr/>
-        <LanguageButton className='mt-8'/>
+              <ListItemPrefix
+                placeholder={undefined}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+              >
+                <span className='material-symbols-outlined'>settings</span>{' '}
+              </ListItemPrefix>
+              {capitalize(t('change password'))}
+            </ListItem>
+          </Link>
+        )}
+        <hr />
+        <LanguageButton className='mt-8' />
       </List>
     </Card>
   );
@@ -495,7 +501,6 @@ export default function UserLayout() {
   const [errMsg, setErrMsg] = useState('');
   const [loading, setLoading] = useState(false);
 
-
   useEffect(() => {
     setLoading(true);
     api
@@ -506,11 +511,13 @@ export default function UserLayout() {
         navigate(`${id}/profile`);
         return usr;
       })
-      .then((usr) =>
-        api.get(GET_CURR_USER_DATA_URL).then((res) => {
-          const cUsr = res.data.returnData;
-          setIsCUserProfile(usr.id === cUsr.id);
-        })
+      .then(
+        (usr) =>
+          localStorage.getItem('token') &&
+          api.get(GET_CURR_USER_DATA_URL).then((res) => {
+            const cUsr = res.data.returnData;
+            setIsCUserProfile(usr.id === cUsr.id);
+          })
       )
       .catch((err) => setErrMsg(err))
       .finally(() => setLoading(false));
@@ -519,27 +526,31 @@ export default function UserLayout() {
   return (
     <>
       <section className='flex size-full xs:flex-col md:!flex-row'>
-        {!loading ? (
+        {
+          // !loading ? (
           user ? (
             <>
               <Sidebar
                 user={user}
                 role={
-                  user.authorities ? user.authorities[0]?.authority : 'not found'
+                  user.authorities
+                    ? user.authorities[0]?.authority
+                    : 'not found'
                 }
                 isCUserProfile={isCUserProfile}
-
+                loading={loading}
               />
               <div className='size-full'>
-              <Outlet context={{isCUserProfile}}/>
+                <Outlet context={{ isCUserProfile, user }} />
               </div>
             </>
           ) : (
             <NotFound />
           )
-        ) : (
-          <Loading middle />
-        )}
+          // ) : (
+          //   <Loading middle />
+          // )
+        }
       </section>
     </>
   );
