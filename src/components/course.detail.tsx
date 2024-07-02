@@ -21,6 +21,12 @@ type TCourseDetailProps = {
 /** */
 export default function CourseDetail({ course }: TCourseDetailProps) {
   const { t } = useTranslation();
+
+  const handleClickCheckout = () => {
+    // sessionStorage.setItem('teacherId', course.teachername);
+    sessionStorage.setItem('teacherId', '26');
+    sessionStorage.setItem('courseId', `${course.id}`);
+  };
   return (
     <>
       <div className='flex gap-4 justify-center items-start w-full mt-4'>
@@ -61,6 +67,7 @@ export default function CourseDetail({ course }: TCourseDetailProps) {
             `}</Typography>
             <Link to={`/checkout`}>
               <Button
+                onClick={handleClickCheckout}
                 className='bg-primary w-full mt-4'
                 placeholder={undefined}
                 onPointerEnterCapture={undefined}
