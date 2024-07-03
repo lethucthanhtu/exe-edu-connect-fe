@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { capitalize } from "../../utils/utils";
 import { SignupTeacherDetails } from "../../entity/signup.teacher.details";
 import { useState } from "react";
+import { type InputProps } from '@material-tailwind/react';
 
 /** */
 export function TeacherSignupLabel() {
@@ -111,44 +112,122 @@ export function SignupSectionChip({ content }: TSignupSectionChipParams) {
 
 
 type TTextSectionProps = {
-    label: string;
-    type: string;
-    isCompulsory: boolean;
     handleChange: (e: any) => void;
 }
+    & Omit<
+        InputProps,
+        | 'onPointerEnterCapture'
+        | 'onPointerEnterCapture'
+        | 'crossOrigin'
+    >;
 /** */
-export function InputWithLabel({ label, type, isCompulsory, handleChange }: TTextSectionProps) {
+export function TextInputWithLabel({ handleChange, ...props }: TTextSectionProps) {
     const { t } = useTranslation();
-
     return (
         <div>
-            <div className="flex">
-                <Typography
-                    variant="lead"
-                    placeholder={undefined}
-                    onPointerEnterCapture={undefined}
-                    onPointerLeaveCapture={undefined}>
-                    {t(capitalize(label))}
-                </Typography>
-                {isCompulsory ? (
-                    <div className="text-red-500 text-center mx-2">*</div>
-                ) : (<></>)}
-
-            </div>
             <Input
+                {...props}
+                // required={isCompulsory}
                 crossOrigin={true}
                 size="lg"
-                type={type}
                 placeholder="Type..."
-                className="!border !border-gray-300 bg-white text-3xl shadow-gray-900/5 ring-4 ring-transparent placeholder:text-gray-500"
-                labelProps={{
-                    className: "hidden",
-                }}
                 containerProps={{ className: "min-w-[100px]" }}
                 onPointerEnterCapture={undefined}
                 onPointerLeaveCapture={undefined}
                 onChange={handleChange}
             />
         </div>
+    )
+}
+
+
+
+type TSelectItem = {
+    key: number,
+    value: string,
+}
+type TSelectInputWithLabelProps = {
+    label: string;
+    items: TSelectItem[];
+    handleChange: (e: any) => void;
+} & Omit<
+    InputProps,
+    | 'onPointerEnterCapture'
+    | 'onPointerEnterCapture'
+    | 'crossOrigin'
+    | 'required'
+>;
+/** */
+export function SelectInputWithLabel({ label, items, handleChange }: TSelectInputWithLabelProps) {
+    const { t } = useTranslation();
+    return (
+        <div>
+            <Select label={label}
+                placeholder={undefined}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+                onChange={handleChange}>
+                {items.map((item) => (
+                    <Option key={item.key} value={item.value}>{capitalize(t(item.value))}</Option>
+                ))}
+            </Select>
+        </div>
+    )
+}
+
+type TDateTimeInputWithLabelProps = {
+    // label: string;        
+    handleChange: (e: any) => void;
+} & Omit<
+    InputProps,
+    | 'onPointerEnterCapture'
+    | 'onPointerEnterCapture'
+    | 'crossOrigin'
+>;
+
+/** */
+export function DateTimeInputWithLabel({ handleChange, ...props }: TDateTimeInputWithLabelProps) {
+    const { t } = useTranslation();
+    return (
+        <div>
+            <Input
+                {...props}
+                crossOrigin={true}
+                size="lg"
+                placeholder="Type..."
+                // containerProps={{ className: "min-w-[100px]" }}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+                onChange={handleChange}
+            />
+        </div>
+    )
+
+}
+
+
+type TImageUploaderProps = {
+    acceptFileTypes: string;
+    handleChange: (e: any) => void
+} & Omit<
+    InputProps,
+    | 'onPointerEnterCapture'
+    | 'onPointerEnterCapture'
+    | 'crossOrigin'
+>;
+/** */
+export function ImageUploader({ acceptFileTypes, handleChange, ...props }: TImageUploaderProps) {
+    return (
+        <Input
+            {...props}
+            crossOrigin={true}
+            size="lg"
+            type="file"
+            accept={acceptFileTypes}
+            placeholder="Type..."
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+            onChange={handleChange}
+        />
     )
 }

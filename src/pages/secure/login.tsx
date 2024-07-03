@@ -13,7 +13,6 @@ import api from '../../api/api';
 import { capitalize } from '../../utils/utils';
 import Loading from '../../components/loading';
 import { LOGIN_URL } from '../../utils/config';
-import GoogleButton from '../../components/googleButton';
 
 /**
  * login page
@@ -103,7 +102,6 @@ export default function Login() {
           >
             {t('log in')}
           </Button>
-          <GoogleButton type='login' />
           <Separator label='or' />
           <Link to={'/signup'}>
             <Button

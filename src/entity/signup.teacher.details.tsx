@@ -5,4 +5,7 @@ export type SignupTeacherDetails = {
     address: string,
     email: string,
     phone: string,
+    occupation: string,
+    school: string,
+    specialization: string,   
 }
