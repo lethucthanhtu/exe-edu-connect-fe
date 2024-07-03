@@ -1,12 +1,15 @@
 import {
     Typography, Input, Button, Card, CardHeader, CardBody,
-    Chip, Select, Option
+    Chip, Select, Option, DialogHeader, Dialog, DialogBody, DialogFooter,
+    DialogProps,
+    DialogHeaderProps
 } from "@material-tailwind/react";
 import { useTranslation } from "react-i18next";
 import { capitalize } from "../../utils/utils";
 import { SignupTeacherDetails } from "../../entity/signup.teacher.details";
 import { useState } from "react";
 import { type InputProps } from '@material-tailwind/react';
+import { useNavigate } from "react-router-dom";
 
 /** */
 export function TeacherSignupLabel() {
@@ -229,5 +232,50 @@ export function ImageUploader({ acceptFileTypes, handleChange, ...props }: TImag
             onPointerLeaveCapture={undefined}
             onChange={handleChange}
         />
+    )
+}
+type TSuccessfulRegistrationDialog = {
+    isOpen: boolean;
+    handleOpen: () => void;
+}
+/** */
+export function SuccessfulRegistrationDialog({ isOpen, handleOpen }: TSuccessfulRegistrationDialog) {
+    const { t } = useTranslation()
+    const navigate = useNavigate()
+    const navigateToHomePage = () => {
+        handleOpen()
+        navigate('/');
+    }
+    return (
+        <Dialog onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+            placeholder={undefined}
+            open={isOpen} handler={handleOpen}>
+            <DialogHeader
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+                placeholder={undefined}
+            >
+                {t("information")}
+            </DialogHeader>
+            <DialogBody
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+                placeholder={undefined}>
+                {t("successfully updated the profile for teacher")}.
+            </DialogBody>
+            <DialogFooter
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+                placeholder={undefined}>
+                <Button
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
+                    placeholder={undefined} variant="gradient" color="green"
+                    onClick={navigateToHomePage}>
+                    <span>{t("confirm")}</span>
+                </Button>
+            </DialogFooter>
+        </Dialog>
     )
 }
