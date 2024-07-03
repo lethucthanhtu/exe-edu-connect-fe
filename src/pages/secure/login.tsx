@@ -13,7 +13,6 @@ import api from '../../api/api';
 import { capitalize, validatePwd } from '../../utils/utils';
 import Loading from '../../components/loading';
 import { LOGIN_URL } from '../../utils/config';
-import GoogleButton from '../../components/googleButton';
 
 /**
  * login page

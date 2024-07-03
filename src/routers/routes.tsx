@@ -42,8 +42,9 @@ import Rate from '../pages/user/student/rate';
 import RefundRequest from '../pages/user/student/refundRequest';
 import CoursesHistory      from '../pages/user/courseHistory';
 import Checkout            from '../pages/payment/checkout';
-import Contact             from '../pages/contact';
-import MyProfile           from '../pages/myprofile';
+import Contact from '../pages/contact';
+import MyProfile from '../pages/myprofile';
+import SignupTeacher from '../pages/signup_teacher/signup.teacher';
 
 const PrivateRoutesLayout = () => {
   const { auth } = useContext(AuthContext);
@@ -172,6 +173,13 @@ const routes = createBrowserRouter([
       { path : 'forgotPassword', element: <ForgotPassword                            /> },
     ],
   },
+  {
+    path: 'signup/teacher',
+    element:<NoFooterLayout/>,
+    children: [
+      {index:true,element:<SignupTeacher/>}
+    ]
+  }
 ]);
 
 /**
