@@ -37,7 +37,7 @@ export default function Table({ tableHead }: TTableProps) {
                     onPointerLeaveCapture={undefined}
                   >
                     {capitalize(t(head))}{' '}
-                    <ChevronUpDownIcon strokeWidth={2} className='h-4 w-4' />
+                    {/* <ChevronUpDownIcon strokeWidth={2} className='h-4 w-4' /> */}
                   </Typography>
                 </th>
               ))}

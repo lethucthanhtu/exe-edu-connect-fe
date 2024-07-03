@@ -1,6 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import api, { apiLocal, apiProd} from '../api/api';
 import { Typography } from '@material-tailwind/react';
+import { RoleSwitch } from './secure/signup';
 
 // eslint-disable-next-line no-console
 console.clear();
@@ -33,8 +34,21 @@ export default function Test() {
     // publicAPI();
   }, []);
 
+  const [roleId, setRoleId] = useState<number>(1);
+
+
+    const handleRoleChange = (event) => {
+    const isChecked = event.target.checked;
+    if (!isChecked) setRoleId(1);
+    else setRoleId(2);
+    // eslint-disable-next-line no-console
+    console.log(isChecked);
+    
+  };
+
   return (
     <>
+      <RoleSwitch name='role' className='' onChange={handleRoleChange} />
       <div className='relative overflow-hidden size-full gap-2 md:gap-8 flex flex-col justify-center items-center select-none animate-fade-down'>
         <Typography
           variant='h1'

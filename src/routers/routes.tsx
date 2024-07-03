@@ -38,6 +38,8 @@ import Test                from '../pages/test';
 import Subjects            from '../pages/subject/subjects';
 import ResetPassword       from '../pages/user/resetPassword';
 import TransactionsHistory from '../pages/user/transactionHistory';
+import Rate from '../pages/user/student/rate';
+import RefundRequest from '../pages/user/student/refundRequest';
 import CoursesHistory      from '../pages/user/courseHistory';
 import Checkout            from '../pages/payment/checkout';
 import Contact from '../pages/contact';
@@ -145,6 +147,8 @@ const routes = createBrowserRouter([
               { path : 'schedule'           , element: <Schedule                        /> },
               { path : 'learn-request'      , element: <NotHandleYet                    /> }, //đăng ký học, đợi accept
               { path : 'teach-request'      , element: <NotHandleYet                    /> }, //đăng ký dạy, đợi accept
+              { path : 'rate'               , element: <Rate                            /> },
+              { path : 'refundrequest'      , element: <RefundRequest                   /> },
               { path : 'resetpassword'      , element: <ResetPassword                   /> },
             ],
           },

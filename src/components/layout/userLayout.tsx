@@ -14,14 +14,7 @@ import {
   Avatar,
   Button,
 } from '@material-tailwind/react';
-import {
-  PresentationChartBarIcon,
-  Cog6ToothIcon,
-  PowerIcon,
-  IdentificationIcon,
-} from '@heroicons/react/24/solid';
-import { ChevronRightIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
-import { Link, Outlet, useParams } from 'react-router-dom';
+import { Link, Outlet, useNavigate, useParams } from 'react-router-dom';
 import { capitalize, currencyFormat } from '../../utils/utils';
 import LanguageButton from '../language.button';
 import { useTranslation } from 'react-i18next';
@@ -32,8 +25,8 @@ import Loading from '../loading';
 
 type TUserProps = {
   role: string;
-  ballance?: number | string;
   user?: TUser;
+  isCUserProfile?: boolean;
 };
 
 /** */
@@ -114,14 +107,6 @@ function User({ user, role }: TUserProps) {
             </Typography>
           </div>
         </CardHeader>
-        <CardBody
-          className='mb-6 p-0 flex flex-col gap-2'
-          placeholder={undefined}
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-        >
-          <LanguageButton />
-        </CardBody>
       </Card>
     </>
   );
@@ -256,7 +241,7 @@ function UserSkeleton() {
 }
 
 /** */
-function Sidebar({ user, role, ballance = 0 }: TUserProps) {
+function Sidebar({ user, role }: TUserProps) {
   const { t } = useTranslation();
   const { id } = useParams();
   const [open, setOpen] = useState(0);
@@ -282,11 +267,7 @@ function Sidebar({ user, role, ballance = 0 }: TUserProps) {
       onPointerLeaveCapture={undefined}
     >
       <div className='mb-2 p-4 flex justify-center items-center'>
-        {loading ? (
-          <UserSkeleton />
-        ) : (
-          <User user={user} role={role} ballance={ballance} />
-        )}
+        {loading ? <UserSkeleton /> : <User user={user} role={role} />}
       </div>
       <hr className='mb-2 border-blue-gray-50' />
       <List
@@ -332,12 +313,13 @@ function Sidebar({ user, role, ballance = 0 }: TUserProps) {
         <Accordion
           open={open === 1}
           icon={
-            <ChevronDownIcon
-              strokeWidth={2.5}
-              className={`mx-auto h-4 w-4 transition-transform ${
-                open === 1 ? 'rotate-180' : ''
+            <span
+              className={`material-symbols-outlined mx-auto h-4 w-4 transition-transform ${
+                open === 1 ? 'rotate-90' : ''
               }`}
-            />
+            >
+              keyboard_arrow_right
+            </span>
           }
           placeholder={undefined}
           onPointerEnterCapture={undefined}
@@ -362,7 +344,9 @@ function Sidebar({ user, role, ballance = 0 }: TUserProps) {
                 onPointerEnterCapture={undefined}
                 onPointerLeaveCapture={undefined}
               >
-                <PresentationChartBarIcon className='size-5' />
+                <span className='material-symbols-outlined'>
+                  transition_push
+                </span>{' '}
               </ListItemPrefix>
               <Typography
                 color='blue-gray'
@@ -371,7 +355,7 @@ function Sidebar({ user, role, ballance = 0 }: TUserProps) {
                 onPointerEnterCapture={undefined}
                 onPointerLeaveCapture={undefined}
               >
-                History
+                {capitalize(t('history'))}
               </Typography>
             </AccordionHeader>
           </ListItem>
@@ -393,9 +377,11 @@ function Sidebar({ user, role, ballance = 0 }: TUserProps) {
                     onPointerEnterCapture={undefined}
                     onPointerLeaveCapture={undefined}
                   >
-                    <ChevronRightIcon strokeWidth={3} className='h-3 w-5' />
+                    <span className='material-symbols-outlined'>
+                      chevron_right
+                    </span>
                   </ListItemPrefix>
-                  Courses
+                  {capitalize(t('courses'))}
                 </ListItem>
               </Link>
               <Link to={`${id}/transactionshistory`}>
@@ -409,15 +395,60 @@ function Sidebar({ user, role, ballance = 0 }: TUserProps) {
                     onPointerEnterCapture={undefined}
                     onPointerLeaveCapture={undefined}
                   >
-                    <ChevronRightIcon strokeWidth={3} className='h-3 w-5' />
+                    <span className='material-symbols-outlined'>
+                      chevron_right
+                    </span>{' '}
                   </ListItemPrefix>
-                  Transactions
+                  {capitalize(t('transactions'))}
                 </ListItem>
               </Link>
             </List>
           </AccordionBody>
         </Accordion>
         <hr className='my-2 border-blue-gray-50' />
+        {role === 'student' ? (
+          <>
+            <Link to={`${id}/rate`}>
+              <ListItem
+                className='hover:bg-primary-light'
+                placeholder={undefined}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+              >
+                <ListItemPrefix
+                  placeholder={undefined}
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                >
+                  <span className='material-symbols-outlined'>star_half</span>
+                </ListItemPrefix>
+                {capitalize(t('rate'))}
+              </ListItem>
+            </Link>
+            <Link to={`${id}/refundrequest`}>
+              <ListItem
+                className='hover:bg-primary-light'
+                placeholder={undefined}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+              >
+                <ListItemPrefix
+                  placeholder={undefined}
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                >
+                  <span className='material-symbols-outlined'>
+                    request_page
+                  </span>
+                </ListItemPrefix>
+                {capitalize(t('refund request'))}
+              </ListItem>
+            </Link>
+          </>
+        ) : (
+          // <NotFound/>
+          <></>
+        )}
       </List>
       <List
         className='h-full flex flex-col justify-end'
@@ -437,30 +468,19 @@ function Sidebar({ user, role, ballance = 0 }: TUserProps) {
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
             >
-              <Cog6ToothIcon className='size-5' />
+              <span className='material-symbols-outlined'>settings</span>{' '}
             </ListItemPrefix>
             {capitalize(t('change password'))}
           </ListItem>
         </Link>
-        <ListItem
-          className='hover:bg-primary-light'
-          placeholder={undefined}
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-        >
-          <ListItemPrefix
-            placeholder={undefined}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-          >
-            <PowerIcon className='size-5' />
-          </ListItemPrefix>
-          {capitalize(t('log out'))}
-        </ListItem>
+        <hr/>
+        <LanguageButton className='mt-8'/>
       </List>
     </Card>
   );
 }
+
+const GET_CURR_USER_DATA_URL = `api/users/user`;
 
 /**
  * UserLayout Component
@@ -468,16 +488,32 @@ function Sidebar({ user, role, ballance = 0 }: TUserProps) {
  */
 export default function UserLayout() {
   const [user, setUser] = useState<TUser>();
-  const [loading, setLoading] = useState(false);
+  const [isCUserProfile, setIsCUserProfile] = useState(false);
   const { id } = useParams();
+  const navigate = useNavigate();
+  const [errMsg, setErrMsg] = useState('');
+  const [loading, setLoading] = useState(false);
+
 
   useEffect(() => {
     setLoading(true);
     api
       .get(`/api/users/${id}`)
-      .then((res) => setUser(res.data.returnData))
+      .then((res) => {
+        const usr = res.data.returnData;
+        setUser(usr);
+        navigate(`${id}/profile`);
+        return usr;
+      })
+      .then((usr) =>
+        api.get(GET_CURR_USER_DATA_URL).then((res) => {
+          const cUsr = res.data.returnData;
+          setIsCUserProfile(usr.id === cUsr.id);
+        })
+      )
+      .catch((err) => setErrMsg(err))
       .finally(() => setLoading(false));
-  }, [id]);
+  }, [id, navigate]);
 
   return (
     <>
@@ -490,9 +526,11 @@ export default function UserLayout() {
                 role={
                   user.authorities ? user.authorities[0]?.authority : 'not found'
                 }
+                isCUserProfile={isCUserProfile}
+
               />
               <div className='size-full'>
-                <Outlet />
+              <Outlet context={{isCUserProfile}}/>
               </div>
             </>
           ) : (
