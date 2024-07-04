@@ -4,9 +4,12 @@ import { useOutletContext, useParams } from 'react-router-dom';
 import { capitalize } from '../../utils/utils';
 import { useTranslation } from 'react-i18next';
 import api from '../../api/api';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { TUser } from '../../entity/user';
 import { InputEmail } from '../../components/input';
+import { AlertPopup } from '../../components/alert';
+import { IDOL_IMG } from '../../utils/config';
+import Separator from '../../components/separator';
 
 interface ProfileContextType {
   isCUserProfile: boolean;
@@ -21,6 +24,8 @@ export default function Profile() {
   const { t } = useTranslation();
   const { isCUserProfile } = useOutletContext<ProfileContextType>();
   const [user, setUser] = useState<TUser>();
+  const [message, setMessage] = useState('');
+  const [errMsg, setErrMsg] = useState('');
   const [formData, setFormData] = useState({
     username: '',
     fullname: '',
@@ -45,13 +50,16 @@ export default function Profile() {
         return usr;
       })
       .then((usr) => {
+        const { name, value } = usr;
+        //         setFormData({...prev,
+        // [name]: value}
+        // )
+
         setFormData({
           username: usr.username,
           fullname: usr.fullname,
           dateofbirth: usr.dateofbirth,
-          avatarurl:
-            usr.avatarurl ||
-            'https://t.vietgiaitri.com/2021/9/9/chia-se-len-fanpage-video-ghep-sieu-dinh-cua-fan-viet-thanh-nu-eimi-fukada-boi-roi-khi-bi-cdm-viet-doi-tri-an-cac-6052818.jpeg',
+          avatarurl: usr.avatarurl || IDOL_IMG,
           email: usr.email,
           phone: usr.phone,
           address: usr.address,
@@ -62,7 +70,7 @@ export default function Profile() {
       });
   }, [id]);
 
-  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -70,23 +78,31 @@ export default function Profile() {
     }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setMessage('');
+    setErrMsg('');
     api
       .put(`/api/users/${id}`, formData)
       .then((res) => {
         setUser(res.data.returnData);
-        alert(t('Profile updated successfully.'));
+        setMessage('Profile updated successfully.');
       })
-      .catch((err) => {
-        // eslint-disable-next-line no-console
-        console.error(err);
-        alert(t('Failed to update profile!'));
-      });
+      .catch(() => setErrMsg('Failed to update profile!'));
+  };
+
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files[0];
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    // api.put
   };
 
   return (
     <>
-      <div className='flex justify-center w-full'>
+      <form onSubmit={handleSubmit} className='flex justify-center w-full'>
         <div className='w-10/12 flex flex-col '>
           <Typography
             className='pt-8 '
@@ -98,103 +114,115 @@ export default function Profile() {
           >
             {capitalize(t('profile'))}
           </Typography>
-          <hr className='my-2 border-blue-gray-50' />
-          <div className='my-8 grid grid-cols-2 gap-8'>
-            <div className='col-span-2'>
-              <Input
-                name='fullname'
-                value={formData?.fullname}
-                onChange={handleChangeInput}
-                variant='outlined'
-                label={capitalize(t('full name'))}
-                disabled={!isCUserProfile}
-                placeholder=''
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
-                crossOrigin={undefined}
-              />
-            </div>
-            <div className='col-span-2'>
-              <Input
-                name='dateofbirth'
-                value={formData?.dateofbirth}
-                onChange={handleChangeInput}
-                type='date'
-                variant='outlined'
-                label={capitalize(t('day of birth'))}
-                disabled={!isCUserProfile}
-                placeholder=''
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
-                crossOrigin={undefined}
-              />
-            </div>
-          </div>
-          <hr className='my-2 border-blue-gray-50' />
-          <div className='my-8 grid grid-cols-2 gap-8'>
-            <div>
-              <InputEmail
-                name='email'
-                value={formData?.email}
-                onChange={handleChangeInput}
-                disabled
-                placeholder=''
-                icon={<span className='material-symbols-outlined'>mail</span>}
-              />
-            </div>
-            <div>
-              <Input
-                name='phone'
-                value={formData?.phone}
-                onChange={handleChangeInput}
-                type='tel'
-                variant='outlined'
-                label={capitalize(t('phone number'))}
-                disabled={!isCUserProfile}
-                placeholder=''
-                icon={
-                  <span className='material-symbols-outlined'>
-                    phone_iphone
-                  </span>
-                }
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
-                crossOrigin={undefined}
-              />
-            </div>
-            <div className='col-span-2'>
-              <Input
-                name='address'
-                value={formData?.address}
-                onChange={handleChangeInput}
-                variant='outlined'
-                label={capitalize(t('address'))}
-                disabled={!isCUserProfile}
-                placeholder=''
-                icon={
-                  <span className='material-symbols-outlined'>location_on</span>
-                }
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
-                crossOrigin={undefined}
-              />
-            </div>
-          </div>
-          <div className='flex justify-center w-full'>
-            <Button
-              onClick={handleSubmit}
-              className='bg-primary w-2/12 py-4'
-              variant='filled'
-              size='sm'
-              placeholder={undefined}
+          <Separator className='mt-4 mb-6' />
+          <div className='flex gap-8'>
+            <Input
+              className='basis-1/2'
+              color='teal'
+              name='fullname'
+              value={formData?.fullname}
+              onChange={handleChangeInput}
+              variant='outlined'
+              label={capitalize(t('full name'))}
+              disabled={!isCUserProfile}
+              placeholder=''
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
-            >
-              {capitalize(t('save change'))}
-            </Button>
+              crossOrigin={undefined}
+            />
+            <Input
+              className='basis-1/2'
+              color='teal'
+              name='dateofbirth'
+              value={formData?.dateofbirth}
+              onChange={handleChangeInput}
+              type='date'
+              variant='outlined'
+              label={capitalize(t('day of birth'))}
+              disabled={!isCUserProfile}
+              placeholder=''
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+              crossOrigin={undefined}
+            />
           </div>
+          <Separator className='mt-4 mb-6' />
+          <div className='flex gap-8 mb-6'>
+            <InputEmail
+              className='basis-1/2'
+              name='email'
+              value={formData?.email}
+              onChange={handleChangeInput}
+              readOnly={isCUserProfile}
+              disabled={!isCUserProfile}
+              icon={<span className='material-symbols-outlined'>mail</span>}
+            />
+            <Input
+              className='basis-1/2'
+              name='phone'
+              color='teal'
+              value={formData?.phone}
+              onChange={handleChangeInput}
+              type='tel'
+              variant='outlined'
+              label={capitalize(t('phone number'))}
+              disabled={!isCUserProfile}
+              icon={
+                <span className='material-symbols-outlined'>phone_iphone</span>
+              }
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+              crossOrigin={undefined}
+            />
+          </div>
+          <Input
+            color='teal'
+            name='address'
+            className=''
+            value={formData?.address}
+            onChange={handleChangeInput}
+            variant='outlined'
+            label={capitalize(t('address'))}
+            disabled={!isCUserProfile}
+            placeholder=''
+            icon={
+              <span className='material-symbols-outlined'>location_on</span>
+            }
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+            crossOrigin={undefined}
+          />
+          <Separator className='mt-4 mb-6' />
+
+          <Input
+            label={capitalize(t(`profile picture`))}
+            onChange={handleFileChange}
+            type='file'
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+            crossOrigin={undefined}
+          />
+
+          {isCUserProfile && (
+            <div className='flex justify-center w-full mt-6'>
+              <Button
+                // onClick={handleSubmit}
+                type='submit'
+                className='bg-primary w-2/12 py-4'
+                variant='filled'
+                size='sm'
+                placeholder={undefined}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+              >
+                {capitalize(t('save change'))}
+              </Button>
+            </div>
+          )}
         </div>
-      </div>
+      </form>
+      {message && <AlertPopup color='green'>{message}</AlertPopup>}
+      {errMsg && <AlertPopup>{errMsg}</AlertPopup>}
     </>
   );
 }

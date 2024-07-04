@@ -5,7 +5,6 @@ import {
   DialogBody,
   DialogFooter,
   DialogHeader,
-  Input,
   Textarea,
   Typography,
 } from '@material-tailwind/react';
@@ -259,7 +258,7 @@ export default function About() {
           </ul>
         </div>
       </section>
-      <section className='md:flex md:justify-center md:gap-16 bg-primary-sub h-auto w-full py-8 rounded-tl-[5rem] rounded-br-[10rem] text-white animate-fade-left'>
+      <section className='md:flex md:justify-center md:gap-16 bg-primary-sub h-auto w-full py-8 rounded-tl-[5rem] rounded-br-[10rem] text-white'>
         <img
           src={learner1}
           className='md:h-full aspect-video w-1/3 rounded-2xl object-cover object-center'
@@ -339,7 +338,7 @@ export default function About() {
           </ul>
         </div>
       </section>
-      <div className='my-16'/>
+      <div className='my-16' />
       <section className='w-full h-auto py-10 md:flex md:justify-center gap-8 bg-primary-sub rounded-tr-[10rem] text-white'>
         <div className='flex flex-col gap-6 xs:w-auto md:!w-2/5 justify-center items-start'>
           <Typography
@@ -367,7 +366,7 @@ export default function About() {
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
             />
-            <InputEmail name='email' className='bg-white'/>
+            <InputEmail name='email' className='bg-white' />
             <div className='flex gap-2'>
               <ResetButton className='w-1/5 border-primary text-primary' />
               <Button
@@ -377,7 +376,7 @@ export default function About() {
                 onPointerEnterCapture={undefined}
                 onPointerLeaveCapture={undefined}
               >
-                { capitalize(t('send'))}
+                {capitalize(t('send'))}
               </Button>
             </div>
           </form>

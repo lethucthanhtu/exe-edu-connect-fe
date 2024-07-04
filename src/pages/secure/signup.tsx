@@ -274,7 +274,7 @@ export default function Signup() {
           >
             {t('sign up')}
           </Button>
-          <GoogleButton type='signup' roleId={role} />
+          {/* <GoogleButton type='signup' roleId={roleId} /> */}
           <Typography
             variant='paragraph'
             className='flex gap-1 w-full justify-center items-center'

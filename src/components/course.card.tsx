@@ -16,27 +16,14 @@ import {
   capitalize,
   currencyFormat,
 } from '../utils/utils';
+import { TCourse } from '../entity/entity/course';
 
 type TCourseCardProps = {
-  id: number;
-  name: string;
-  price: number;
-  description: string;
-  startDate: string;
-  endDate: string;
-  subject: string;
+  course?: TCourse;
 };
 
 /** */
-export default function CourseCard({
-  id,
-  name = 'courses',
-  price,
-  description,
-  startDate,
-  endDate,
-  subject,
-}: TCourseCardProps) {
+export default function CourseCard({ course }: TCourseCardProps) {
   const { t } = useTranslation();
   const [isFav, setIsFav] = useState(false);
   return (
@@ -86,10 +73,16 @@ export default function CourseCard({
         <div className='group mb-4 inline-flex flex-wrap items-center gap-3'>
           <Chip
             className='bg-primary-sub'
-            value={`${getWeeksBetweenDates(startDate, endDate)} ${t('weeks')}`}
+            value={`${getWeeksBetweenDates(
+              course.startdate,
+              course.enddate
+            )} ${t('weeks')}`}
           />
-          <Link to={`/subject/${subject.toLowerCase()}`}>
-            <Chip value={subject} className='bg-primary-sub hover:shadow-md' />
+          <Link to={`/subject/${course.categoryname.toLowerCase()}`}>
+            <Chip
+              value={course.categoryname}
+              className='bg-primary-sub hover:shadow-md'
+            />
           </Link>
         </div>
         <div className='mb-3 flex items-center justify-between'>
@@ -101,7 +94,7 @@ export default function CourseCard({
             onPointerEnterCapture={undefined}
             onPointerLeaveCapture={undefined}
           >
-            {capitalize(t(name))}
+            {capitalize(t(course.name))}
           </Typography>
           <Typography
             color='blue-gray'
@@ -132,7 +125,7 @@ export default function CourseCard({
           onPointerEnterCapture={undefined}
           onPointerLeaveCapture={undefined}
         >
-          {capitalize(t(description))}
+          {capitalize(t(course.description))}
         </Typography>
         <Typography
           variant='h6'
@@ -141,7 +134,7 @@ export default function CourseCard({
           onPointerEnterCapture={undefined}
           onPointerLeaveCapture={undefined}
         >
-          {currencyFormat(price, 'VNĐ', 0, false)}
+          {currencyFormat(course.price, 'VNĐ', 0, false)}
         </Typography>
       </CardBody>
       <CardFooter
@@ -150,7 +143,7 @@ export default function CourseCard({
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
       >
-        <Link to={`/course/${id}`}>
+        <Link to={`/course/${course.id}`}>
           <Button
             size='lg'
             fullWidth={true}

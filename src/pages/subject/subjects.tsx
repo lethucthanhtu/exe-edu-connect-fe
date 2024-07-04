@@ -18,6 +18,7 @@ import api from '../../api/api';
 
 import subject_hero from '../../assets/img/subjects_hero.png';
 import Loading from '../../components/loading';
+import { SUBJECT_URL } from '../../utils/config';
 
 type TSubjectCardProps = {
   img?: string;
@@ -123,7 +124,7 @@ function SubjectCard({
 }
 
 /**
- * 
+ *
  * @returns
  */
 export default function Subjects() {
@@ -137,7 +138,7 @@ export default function Subjects() {
   useEffect(() => {
     setLoading(true);
     api
-      .get('/api/course/categories')
+      .get(SUBJECT_URL)
       .then((res) => {
         setSubjects(res.data.returnData);
         setLoading(false);

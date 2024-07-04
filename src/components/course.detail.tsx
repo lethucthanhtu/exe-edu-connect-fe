@@ -2,7 +2,6 @@ import {
   Button,
   Card,
   CardBody,
-  CardHeader,
   Typography,
 } from '@material-tailwind/react';
 import { TCourse } from '../entity/entity/course';
@@ -12,7 +11,6 @@ import { CourseDetailHeader } from './course.detail.header';
 import { capitalize, currencyFormat } from '../utils/utils';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
 
 type TCourseDetailProps = {
   course: TCourse;
@@ -55,7 +53,7 @@ export default function CourseDetail({ course }: TCourseDetailProps) {
             >
               {currencyFormat(course.price || 0, 'đ', 0, false)}
             </Typography>
-            <Typography
+            {/* <Typography
               variant='paragraph'
               placeholder={undefined}
               onPointerEnterCapture={undefined}
@@ -64,7 +62,7 @@ export default function CourseDetail({ course }: TCourseDetailProps) {
               Enim commodo aute cillum sunt irure id ut.
               Eiusmod ipsum ex in irure deserunt esse aliqua minim deserunt ullamco.
               Aliquip elit elit ut dolor adipisicing. Veniam cupidatat veniam elit duis Lorem laborum ad ullamco non ex consequat ut Lorem.
-            `}</Typography>
+            `}</Typography> */}
             <Link to={`/checkout`}>
               <Button
                 onClick={handleClickCheckout}

@@ -86,7 +86,7 @@ function HomeCarousel() {
           <Typography
             variant='h1'
             color='white'
-            className='text-7xl uppercase w-3/5'
+            className='text-[300%] uppercase w-3/5'
             placeholder={undefined}
             onPointerEnterCapture={undefined}
             onPointerLeaveCapture={undefined}
@@ -186,10 +186,10 @@ function HomeCarousel() {
 function FeatureTutorCard({ user = {}, isReverse = false }) {
   const { t } = useTranslation();
   const items = [
-    { icon: 'school', num: 200, text: 'student' },
-    { icon: 'star', num: 4.5, text: 'points' },
-    { icon: 'play_circle', num: 8, text: 'courses' },
-    { icon: 'rate_review', num: 100, text: 'review' },
+    { icon: 'school'     , num: 200, text: 'students' },
+    { icon: 'star'       , num: 4.5, text: 'points'   },
+    { icon: 'play_circle', num: 8  , text: 'courses'  },
+    { icon: 'rate_review', num: 100, text: 'review'   },
   ];
   return (
     <div

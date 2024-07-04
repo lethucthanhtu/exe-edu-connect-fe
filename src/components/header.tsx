@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Navbar,
@@ -15,13 +15,13 @@ import {
   TabsHeader,
   Tab,
 } from '@material-tailwind/react';
-import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { SearchBar } from './searchBar';
 
 import Logo from './logo';
 import api from '../api/api';
 import { TUser } from '../entity/user';
-import { CURR_USER_DATA_URL, LOGOUT_URL } from '../utils/config';
+import { CURR_USER_DATA_URL, DEFAULT_IMG, LOGOUT_URL } from '../utils/config';
 import { capitalize } from '../utils/utils';
 
 type TNavItem = {
@@ -48,46 +48,20 @@ function ProfileMenu() {
   const handleSignOut = () => {
     api
       .get(LOGOUT_URL)
-      .then(() => sessionStorage.removeItem('token'))
+      .then(() => localStorage.removeItem('token'))
       // eslint-disable-next-line no-console
       .catch((err) => console.log(err))
       .finally(() => {
-        sessionStorage.removeItem('token');
+        localStorage.removeItem('token');
         setTimeout(() => location.reload(), 1000);
       });
   };
 
-  let profileMenuItems = [];
   useEffect(() => {
     api.get(CURR_USER_DATA_URL).then((res) => setUser(res.data.returnData));
   }, []);
 
-  // profile menu component
-  profileMenuItems = [
-    // {
-    //   label: 'My Profile',
-    //   to: user ? `user/${user.id}` : '#',
-    // },
-    {
-      label: 'Edit Profile',
-      to: '',
-    },
-    {
-      label: 'Inbox',
-      to: '',
-    },
-    {
-      label: 'Help',
-      to: '',
-    },
-    // {
-    //   label: 'Sign Out',
-    //   to: '',
-    //   func: handleSignOut,
-    // },
-  ];
-
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const closeMenu = () => setIsMenuOpen(false);
 
@@ -105,9 +79,9 @@ function ProfileMenu() {
           <Avatar
             variant='circular'
             size='sm'
-            alt='tania andrew'
+            alt='img'
             className='border border-gray-900 p-0.5'
-            src='https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80'
+            src={user?.avatarurl || DEFAULT_IMG}
             placeholder={undefined}
             onPointerEnterCapture={undefined}
             onPointerLeaveCapture={undefined}
@@ -142,45 +116,9 @@ function ProfileMenu() {
             </Typography>
           </MenuItem>
         </Link>
-
-        {profileMenuItems.map(({ label, to }, key) => {
-          const isLastItem = key === profileMenuItems.length - 1;
-          return (
-            <Link to={to}>
-              <MenuItem
-                key={label}
-                onClick={closeMenu}
-                className={`flex items-center gap-2 rounded
-                  ${
-                    // isLastItem
-                    //   ? 'hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10'
-                    // :
-                    ''
-                  }
-                    `}
-                placeholder={undefined}
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
-              >
-                <Typography
-                  as='span'
-                  variant='small'
-                  className='font-normal'
-                  color={'inherit'}
-                  placeholder={undefined}
-                  onPointerEnterCapture={undefined}
-                  onPointerLeaveCapture={undefined}
-                >
-                  {label}
-                </Typography>
-              </MenuItem>
-            </Link>
-          );
-        })}
         <MenuItem
           onClick={handleSignOut}
-          className={`flex items-center gap-2 rounded hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10
-          `}
+          className={`flex items-center gap-2 rounded hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10`}
           placeholder={undefined}
           onPointerEnterCapture={undefined}
           onPointerLeaveCapture={undefined}
@@ -282,7 +220,7 @@ function NavList() {
  */
 export default function Header() {
   const [openNav, setOpenNav] = useState(false);
-  const [token] = useState(sessionStorage.getItem('token'));
+  const [token] = useState(localStorage.getItem('token'));
   const { t } = useTranslation();
 
   return (
