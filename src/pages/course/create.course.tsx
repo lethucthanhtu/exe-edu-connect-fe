@@ -322,14 +322,6 @@ export default function CreateCourse() {
                 onPointerLeaveCapture={undefined}
                 crossOrigin={undefined}
               />
-              <Button
-                // eslint-disable-next-line no-console
-                onClick={() => console.log(schedules, draft)}
-                children={'alo'}
-                placeholder={undefined}
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
-              />
               {subjects && (
                 <Select
                   label={capitalize(t(`subject`))}
