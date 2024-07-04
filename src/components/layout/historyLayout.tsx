@@ -6,6 +6,7 @@ import Table from '../table';
 type THistoryLayoutProps = {
   title: string;
   tableHead: string[];
+  // tableRow: { [key: string]: any }[];
 };
 
 /**

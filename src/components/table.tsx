@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 type TTableProps = {
   tableHead: string[];
+  // tableRow: string[];
 };
 
 /**

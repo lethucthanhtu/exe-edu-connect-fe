@@ -103,7 +103,8 @@ export default i18n
           'software engineering': 'kĩ thuật phần mềm',
           'start date': 'ngày bắt đầu',
           'end date': 'ngày kết thúc',
-          message : 'nội dung chuyển khoản', 
+          message: 'nội dung chuyển khoản', 
+          'course price': 'giá tiền môn học'
         },
       },
       jp: {
