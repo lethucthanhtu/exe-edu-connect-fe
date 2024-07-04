@@ -47,16 +47,16 @@ export default function SaleForm() {
 }
 
 export const handlePaymentAction = async ({ request }) => {
-  console.log(request);
+  // console.log(request);
 
   const data = await request.formData();
   // eslint-disable-next-line no-console
-  console.log(data);
+  // console.log(data);
 
   const submission = {
     'payment-method': data.get('payment-method'),
   };
-  console.log(submission);
+  // console.log(submission);
 
   return submission;
 };

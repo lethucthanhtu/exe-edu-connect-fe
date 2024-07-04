@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from 'react';
 import api, { apiLocal, apiProd} from '../api/api';
 import { Typography } from '@material-tailwind/react';
@@ -43,7 +44,7 @@ export default function Test() {
     else setRoleId(2);
     // eslint-disable-next-line no-console
     console.log(isChecked);
-    
+
   };
 
   return (
