@@ -9,19 +9,198 @@ import {
   List,
   ListItem,
   ListItemPrefix,
+  ListItemSuffix,
+  Menu,
+  MenuHandler,
+  MenuItem,
+  MenuList,
   Option,
   Select,
   Textarea,
   Typography,
 } from '@material-tailwind/react';
 import { capitalize } from '../../utils/utils';
-import { useSSR, useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import Separator from '../../components/separator';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { COURSES_URL, MEET_URL, SUBJECT_URL } from '../../utils/config';
 import api from '../../api/api';
 import { TSubject } from '../../entity/entity/subject';
 import { AlertPopup } from '../../components/alert';
+import { sl } from 'date-fns/locale';
+import { daysInWeek } from 'date-fns/constants';
+
+type TScheduleDate = {
+  dayofweek: string;
+  starttime: string;
+  duration: number;
+};
+
+type TCreateCourse = {
+  name: string;
+  description: string;
+  price: number;
+  startdate: string;
+  enddate: string;
+  categoryid: number;
+  meeturl: string;
+  scheduleRequest: TScheduleDate[];
+};
+
+type TDayProps = {
+  day: string;
+  checkList: any[];
+  setCheckList: any;
+  schedules: TScheduleDate[];
+  setSchedules: any;
+  // draft: TCreateCourse;
+  // setDraft: any;
+  // handleCheckDay: (event) => void;
+  // handleCheckList: (event) => void;
+};
+
+/** */
+function Days({
+  day,
+  checkList,
+  setCheckList,
+  schedules,
+  setSchedules,
+}: // draft,
+// setDraft,
+TDayProps) {
+  const { t } = useTranslation();
+  const [isChecked, setIsChecked] = useState(false);
+  const [schedule, setSchedule] = useState<TScheduleDate>({
+    dayofweek: '',
+    duration: 60,
+    starttime: '',
+  });
+
+  const handleNewSchedule = (event: ChangeEvent<HTMLInputElement>) => {
+    let sList = schedules;
+
+    const et = event.target;
+    const key = et.accessKey.toUpperCase();
+
+    // check if schedule exist
+    let sche = schedules.find((s) => s.dayofweek === key);
+
+    if (sche) {
+      // delete if exist (add again later)
+      sList = sList.filter((s) => s.dayofweek !== key);
+      sche = { ...schedule, [et.name]: et.value };
+      setSchedule(sche);
+    } else {
+      sche = schedule;
+      sche.dayofweek = key;
+      setSchedule((prev) => ({ ...prev, [et.name]: et.value }));
+    }
+    sList.push(sche);
+    setSchedules(sList);
+
+    // let d = draft;
+    // d.scheduleRequest = s
+  };
+
+  const handleCheckDay = (event: ChangeEvent<HTMLInputElement>) => {
+    let checks = checkList;
+    let sList = schedules;
+    const et = event.target;
+    const checked = et.checked;
+    const key = et.accessKey.toUpperCase();
+    setIsChecked(checked);
+
+    if (checked) {
+      checks.push(key);
+    } else {
+      checks = checks.filter((curr) => curr !== key);
+
+      sList = sList.filter((s) => s.dayofweek !== key);
+      setSchedules(sList);
+    }
+
+    checks = [...new Set(checks)];
+
+    setCheckList(checks);
+    // console.log(checks);
+  };
+  return (
+    <span className='flex gap-2 justify-between w-full'>
+      <ListItem
+        className='p-0'
+        placeholder={undefined}
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}
+      >
+        <label className='flex w-full cursor-pointer items-center px-2'>
+          <ListItemPrefix
+            className='mr-3'
+            placeholder={undefined}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+          >
+            <Checkbox
+              id='horizontal-list-react'
+              color='teal'
+              accessKey={day}
+              onChange={handleCheckDay}
+              key={day}
+              ripple={false}
+              className='hover:before:opacity-0'
+              containerProps={{
+                className: 'p-0',
+              }}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+              crossOrigin={undefined}
+            />
+          </ListItemPrefix>
+          <ListItem
+            // className='w-full'
+            placeholder={undefined}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+          >
+            {capitalize(t(day))}
+          </ListItem>
+        </label>
+      </ListItem>
+      <div className='basis-2/3 flex flex-wrap sm:flex-nowrap justify-end gap-2'>
+        <Input
+          accessKey={day}
+          label={capitalize(t(`start time`))}
+          type='time'
+          name='starttime'
+          disabled={!isChecked}
+          value={isChecked && undefined}
+          onChange={handleNewSchedule}
+          className='basis-2/3'
+          color='teal'
+          required={isChecked}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+          crossOrigin={undefined}
+        />
+        <Input
+          value={isChecked && undefined}
+          disabled={!isChecked}
+          onChange={handleNewSchedule}
+          accessKey={day}
+          color='teal'
+          required={isChecked}
+          name='duration'
+          label={capitalize(t(`duration (min)`))}
+          className='basis-1/2'
+          type='number'
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+          crossOrigin={undefined}
+        />
+      </div>
+    </span>
+  );
+}
 
 /**
  * create course page
@@ -36,16 +215,21 @@ export default function CreateCourse() {
   const [meetUrl, setMeetUrl] = useState('');
   const [message, setMessage] = useState('');
   const [errMsg, setErrMsg] = useState('');
-  const [draft, setDraft] = useState({
-    name: '',
-    description: '',
-    price: 0,
-    startdate: '',
-    enddate: '',
-    categoryid: 1,
-  });
+  const [draft, setDraft] = useState<TCreateCourse>();
+  const [checkList, setCheckList] = useState([]);
+  const [schedules, setSchedules] = useState<Array<TScheduleDate>>([]);
 
-  const DAYS = [
+  // const DAYS = new Map<string, string>([
+  //   ['MON', 'monday'],
+  //   ['TUE', 'tuesday'],
+  //   ['WED', 'wednesday'],
+  //   ['THU', 'thursday'],
+  //   ['FRI', 'friday'],
+  //   ['SAT', 'saturday'],
+  //   ['SUN', 'sunday'],
+  // ]);
+
+  const days = [
     'monday',
     'tuesday',
     'wednesday',
@@ -70,6 +254,8 @@ export default function CreateCourse() {
     setIsAccept(event.target.checked);
 
   const handleGenerateMeetingRoom = () => {
+    setErrMsg('');
+    setMessage('');
     setOpen(!open);
     if (!meetUrl) api.post(MEET_URL).then((res) => setMeetUrl(res.data));
   };
@@ -81,6 +267,15 @@ export default function CreateCourse() {
     event.preventDefault();
     setOpen(!open);
     handleGenerateMeetingRoom;
+
+    draft.meeturl = meetUrl;
+    draft.scheduleRequest = schedules;
+    setDraft(draft);
+  };
+
+  const handleChooseSubject = (event) => {
+    // eslint-disable-next-line no-console
+    console.log(event);
   };
 
   return (
@@ -101,7 +296,7 @@ export default function CreateCourse() {
         <span className='border-2 border-primary p-4 rounded-xl flex flex-col gap-4 mb-4'>
           <Separator label='general information' />
           <span className='flex gap-4'>
-            <span className='basis-1/2 flex flex-col gap-4'>
+            <span className='basis-1/3 flex flex-col gap-4'>
               <Input
                 color='teal'
                 type='text'
@@ -127,10 +322,19 @@ export default function CreateCourse() {
                 onPointerLeaveCapture={undefined}
                 crossOrigin={undefined}
               />
+              <Button
+                // eslint-disable-next-line no-console
+                onClick={() => console.log(schedules, draft)}
+                children={'alo'}
+                placeholder={undefined}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+              />
               {subjects && (
                 <Select
                   label={capitalize(t(`subject`))}
                   value=''
+                  onChange={handleChooseSubject}
                   placeholder={undefined}
                   onPointerEnterCapture={undefined}
                   onPointerLeaveCapture={undefined}
@@ -152,7 +356,7 @@ export default function CreateCourse() {
                 crossOrigin={undefined}
               />
             </span>
-            <span className='flex flex-col gap-4 p-2 basis-1/2 border-primary border-2 rounded-xl'>
+            <span className='flex flex-col gap-4 p-2 basis-2/3 border-primary border-2 rounded-xl'>
               <Separator label='date and time' className='' />
               <Input
                 color='teal'
@@ -178,42 +382,22 @@ export default function CreateCourse() {
                 onPointerLeaveCapture={undefined}
                 crossOrigin={undefined}
               />
+              <Separator label='schedule' className='' />
+
               <List
-                className='flex-row'
+                className='flex w-full'
                 placeholder={undefined}
                 onPointerEnterCapture={undefined}
                 onPointerLeaveCapture={undefined}
               >
-                {DAYS.map((d) => (
-                  <ListItem
-                    className='p-0'
-                    placeholder={undefined}
-                    onPointerEnterCapture={undefined}
-                    onPointerLeaveCapture={undefined}
-                  >
-                    <label className='flex cursor-pointer items-center px-2 py-2'>
-                      <ListItemPrefix
-                        className='mr-3'
-                        placeholder={undefined}
-                        onPointerEnterCapture={undefined}
-                        onPointerLeaveCapture={undefined}
-                      >
-                        <Checkbox
-                          id='horizontal-list-react'
-                          color='teal'
-                          ripple={false}
-                          className='hover:before:opacity-0'
-                          containerProps={{
-                            className: 'p-0',
-                          }}
-                          onPointerEnterCapture={undefined}
-                          onPointerLeaveCapture={undefined}
-                          crossOrigin={undefined}
-                        />
-                      </ListItemPrefix>
-                      {capitalize(t(d))}
-                    </label>
-                  </ListItem>
+                {days.map((d) => (
+                  <Days
+                    day={d}
+                    checkList={checkList}
+                    setCheckList={setCheckList}
+                    schedules={schedules}
+                    setSchedules={setSchedules}
+                  />
                 ))}
               </List>
             </span>
@@ -382,6 +566,7 @@ export default function CreateCourse() {
         </span>
       </form>
       {message && <AlertPopup>{message}</AlertPopup>}
+      {errMsg && <AlertPopup>{errMsg}</AlertPopup>}
     </>
   );
 }
