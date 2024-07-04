@@ -65,7 +65,7 @@ export default function Profile() {
           address: usr.address,
           status: true,
           balance: 1,
-          roleid: usr.authorities[0].authority === 'student' ? 1 : 2,
+          roleid: usr.role[0].id,
         });
       });
   }, [id]);
@@ -87,6 +87,11 @@ export default function Profile() {
       .then((res) => {
         setUser(res.data.returnData);
         setMessage('Profile updated successfully.');
+      })
+      .then(() => {
+        setTimeout(() => {
+          location.reload();
+        }, 4000);
       })
       .catch(() => setErrMsg('Failed to update profile!'));
   };

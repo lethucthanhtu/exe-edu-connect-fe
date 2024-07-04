@@ -29,7 +29,7 @@ export const apiGuest = axios.create({
   },
 });
 
-const api = token ? apiLocal : apiGuest;
+const api = token ? apiUser : apiGuest;
 export default api;
 
 //For testing
