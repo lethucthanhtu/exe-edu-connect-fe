@@ -14,6 +14,14 @@ export const apiUser = axios.create({
   withCredentials: true,
 });
 
+export const apiLocal = axios.create({
+  baseURL: 'http://localhost:8082',
+  headers: {
+    'Access-Control-Allow-Origin': true,
+    Authorization: `Bearer ${token}`,
+  },
+});
+
 export const apiGuest = axios.create({
   baseURL: BASE_URL,
   headers: {
@@ -21,17 +29,17 @@ export const apiGuest = axios.create({
   },
 });
 
-const api = token ? apiUser : apiGuest;
+const api = token ? apiLocal : apiGuest;
 export default api;
 
 //For testing
 
 export const apiProd = apiGuest;
 
-export const apiLocal = axios.create({
-  baseURL: 'http://localhost:8082',
-  headers: {
-    'Access-Control-Allow-Origin': true,
-    // Authorization: `Bearer ${token}`,
-  },
-});
+// export const apiLocal = axios.create({
+//   baseURL: 'http://localhost:8082',
+//   headers: {
+//     'Access-Control-Allow-Origin': true,
+//     Authorization: `Bearer ${token}`,
+//   },
+// });
