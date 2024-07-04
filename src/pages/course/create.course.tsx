@@ -274,8 +274,8 @@ export default function CreateCourse() {
   };
 
   const handleChooseSubject = (event) => {
-    // eslint-disable-next-line no-console
-    console.log(event);
+    draft.categoryid = event;
+    setDraft(draft);
   };
 
   return (
