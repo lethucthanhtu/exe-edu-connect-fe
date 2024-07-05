@@ -13,16 +13,16 @@ export function CourseDetailBody({ course }: TCourseDetailBodyProps) {
   return (
     <>
       <Typography
-        variant='h4'
+        variant='h3'
         placeholder={undefined}
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
       >
         {capitalize(t(`about the course`))}
-        <img className='border rounded-lg aspect-video w-full' src='https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png' />
+        {/* <img className='border rounded-lg aspect-video w-full' src='https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png' /> */}
 
         <Typography
-          variant='paragraph'
+          variant='lead'
           placeholder={undefined}
           onPointerEnterCapture={undefined}
           onPointerLeaveCapture={undefined}

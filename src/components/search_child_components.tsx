@@ -202,6 +202,11 @@ export function FilterBar({ courseCategoryChangeHandler }: TFilterBarProps) {
  */
 export function BriefCourseDetailsCard(courseBriefDetails: TCourseBriefDetails) {
     const { t } = useTranslation();
+    const navigate = useNavigate();
+    const goToCourseDetailByCourseId = () => {
+        const url = `/course/${courseBriefDetails.courseid}`
+        navigate(url)
+    }
     return (
         <Card className="w-full max-w-[48rem] flex-row"
             placeholder={undefined}
@@ -268,7 +273,8 @@ export function BriefCourseDetailsCard(courseBriefDetails: TCourseBriefDetails) 
                     <Button variant="text" className="flex gap-2 text-teal-800"
                         placeholder={undefined}
                         onPointerEnterCapture={undefined}
-                        onPointerLeaveCapture={undefined}>
+                        onPointerLeaveCapture={undefined}
+                        onClick={goToCourseDetailByCourseId}>
                         {t("Xem thêm")}
                         <svg
                             xmlns="http://www.w3.org/2000/svg"

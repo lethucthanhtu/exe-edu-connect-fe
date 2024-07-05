@@ -51,7 +51,7 @@ module.exports = withMT({
       },
       colors: {
         '': '#C9FB5C',
-        'black': '000',
+        'black': '#000000',
       }
     },
   },

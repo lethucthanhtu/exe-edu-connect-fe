@@ -51,8 +51,8 @@ export default function Search() {
         }
       )
       .then((res) => {
-        setSearchResult(res.data.returnData.courseDtos);
-        setTotalPageCount(res.data.returnData.totalPageCount)
+        setSearchResult(res.data.returnData.coursedtos);
+        setTotalPageCount(res.data.returnData.totalpagecount)
         setLoading(false);
       }).catch((error) => {
         // eslint-disable-next-line no-console

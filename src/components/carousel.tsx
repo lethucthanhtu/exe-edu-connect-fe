@@ -7,7 +7,6 @@ import { Button } from '@material-tailwind/react';
 /** */
 export default function Carousel({ imgs = [''] }) {
   // : TCarouselProps
-  console.log(imgs);
 
   return (
     <>

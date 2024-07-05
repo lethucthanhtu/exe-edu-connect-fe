@@ -14,14 +14,14 @@ export function CourseDetailHeader({ course }: TCourseHeaderProps) {
   return (
     <div>
       <Typography
-        className='text-6xl mb-4'
+        className='text-5xl mb-4'
         placeholder={undefined}
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
       >
         {course.name}
       </Typography>
-      <div className='flex items-center gap-4 pt-0 pb-8'>
+      <div className='flex items-center gap-4 my-8'>
         <Avatar
           size='lg'
           variant='circular'
@@ -33,7 +33,7 @@ export function CourseDetailHeader({ course }: TCourseHeaderProps) {
         />
         <div className='flex w-full flex-col gap-0.5'>
           <Typography
-            variant='h5'
+            variant='h4'
             color='blue-gray'
             className='capitalize'
             placeholder={undefined}
@@ -43,6 +43,7 @@ export function CourseDetailHeader({ course }: TCourseHeaderProps) {
             {course.teachername}
           </Typography>
           <Typography
+            variant='lead'
             color='blue-gray'
             placeholder={undefined}
             onPointerEnterCapture={undefined}
@@ -54,4 +55,16 @@ export function CourseDetailHeader({ course }: TCourseHeaderProps) {
       </div>
     </div>
   );
+}
+
+
+/** */
+export function CourseCoverImage() {
+  return (
+    <img
+      src="https://via.placeholder.com/600x400"
+      alt="Example"
+      className="w-full h-auto"
+    />
+  )
 }

@@ -108,8 +108,8 @@ export default function About() {
           src={banner}
           alt='nature image'
         />
-        <figcaption className='absolute bottom-8 left-1/2 w-full -translate-x-1/2 rounded-xl px-6 py-4 saturate-100'>
-          <div className='mx-auto md:flex md:justify-center gap-4'>
+        <figcaption className='absolute my-auto bottom-8 left-1/2 w-full -translate-x-1/2 rounded-xl px-6 py-4 saturate-100'>
+          <div className='mx-auto md:flex md:justify-center gap-4 bg-black bg-opacity-60 rounded-lg'>
             <div className='flex justify-center'>
               <span className='rounded-full lg:size-32 sm:size-8 bg-white/50 saturate-200 backdrop-blur-sm' />
             </div>
@@ -170,7 +170,7 @@ export default function About() {
       </figure>
       <section className='md:flex md:justify-center md:flex-row-reverse'>
         <img src={human} className='' />
-        <div className='flex flex-col justify-center md:items-start xs:justify-center md:w-1/2 xs:w-auto text-primary'>
+        <div className='flex flex-col justify-center md:items-start xs:justify-center md:w-1/2 xs:w-auto text-primary mx-5'>
           <Typography
             variant='h2'
             className='uppercase'
@@ -184,7 +184,7 @@ export default function About() {
             <li className='list-disc'>
               <Typography
                 as='li'
-                variant='paragraph'
+                variant='lead'
                 className=''
                 placeholder={undefined}
                 onPointerEnterCapture={undefined}
@@ -197,7 +197,7 @@ export default function About() {
             <li className='list-disc'>
               <Typography
                 as='li'
-                variant='paragraph'
+                variant='lead'
                 className=''
                 placeholder={undefined}
                 onPointerEnterCapture={undefined}
@@ -206,7 +206,7 @@ export default function About() {
                 Tìm được gia sư giỏi với chi phí thấp.
               </Typography>
             </li>
-            <Typography
+            {/* <Typography
               as='li'
               variant='paragraph'
               className='font-medium'
@@ -215,47 +215,47 @@ export default function About() {
               onPointerLeaveCapture={undefined}
             >
               Dự án nhằm mục đích:
-            </Typography>
-            <ul className='ml-8'>
-              <li className='list-disc'>
-                <Typography
-                  as='li'
-                  variant='paragraph'
-                  className=''
-                  placeholder={undefined}
-                  onPointerEnterCapture={undefined}
-                  onPointerLeaveCapture={undefined}
-                >
-                  Cung cấp cho sinh viên cao đẳng/đại học cơ hội kiếm tiền và
-                  tích lũy kinh nghiệm.
-                </Typography>
-              </li>
-              <li className='list-disc'>
-                <Typography
-                  as='li'
-                  variant='paragraph'
-                  className=''
-                  placeholder={undefined}
-                  onPointerEnterCapture={undefined}
-                  onPointerLeaveCapture={undefined}
-                >
-                  Giúp học sinh phát triển kỹ năng và kiến thức.
-                </Typography>
-              </li>
-              <li className='list-disc'>
-                <Typography
-                  as='li'
-                  variant='paragraph'
-                  className=''
-                  placeholder={undefined}
-                  onPointerEnterCapture={undefined}
-                  onPointerLeaveCapture={undefined}
-                >
-                  Hỗ trợ học sinh trung học trong học tập
-                </Typography>
-              </li>
-            </ul>
+            </Typography> */}
+
+            <li className='list-disc'>
+              <Typography
+                as='li'
+                variant='lead'
+                className=''
+                placeholder={undefined}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+              >
+                Cung cấp cho sinh viên cao đẳng/đại học cơ hội kiếm tiền và
+                tích lũy kinh nghiệm.
+              </Typography>
+            </li>
+            <li className='list-disc'>
+              <Typography
+                as='li'
+                variant='lead'
+                className=''
+                placeholder={undefined}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+              >
+                Giúp học sinh phát triển kỹ năng và kiến thức.
+              </Typography>
+            </li>
+            <li className='list-disc'>
+              <Typography
+                as='li'
+                variant='lead'
+                className=''
+                placeholder={undefined}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+              >
+                Hỗ trợ học sinh trung học trong học tập
+              </Typography>
+            </li>
           </ul>
+
         </div>
       </section>
       <section className='md:flex md:justify-center md:gap-16 bg-primary-sub h-auto w-full py-8 rounded-tl-[5rem] rounded-br-[10rem] text-white'>
