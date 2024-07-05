@@ -33,9 +33,9 @@ function CourseSection({ title, children, className }: TSectionProps) {
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
       >
-        {capitalize(t(title) || 'course title')}
+        {capitalize(t(title) || 'all courses')}
       </Typography>
-      <Typography
+      {/* <Typography
         variant='paragraph'
         className='w-3/4'
         placeholder={undefined}
@@ -53,7 +53,7 @@ function CourseSection({ title, children, className }: TSectionProps) {
             </button>
           )}
         </span>
-      </Typography>
+      </Typography> */}
     </div>
   );
 }
@@ -110,14 +110,14 @@ export default function Courses() {
         {subject
           ? placeholderText
           : capitalize(
-              t(`In velit minim qui laboris veniam aute sunt exercitation eiusmod.
+            t(`In velit minim qui laboris veniam aute sunt exercitation eiusmod.
         Nostrud fugiat velit exercitation sunt nulla laboris tempor officia et
         veniam dolor. Id ipsum cupidatat exercitation qui. Anim duis eiusmod ut
         nostrud. Nisi fugiat Lorem nisi nisi incididunt mollit irure pariatur
         deserunt exercitation Lorem dolore. Ad nostrud in irure consectetur.
         Nostrud fugiat velit exercitation sunt nulla laboris tempor officia et
         veniam dolor. Id ipsum`)
-            )}
+          )}
       </CourseSection>
       <section className='flex flex-wrap gap-x-2 gap-y-4 justify-evenly my-12'>
         {!loading ? (

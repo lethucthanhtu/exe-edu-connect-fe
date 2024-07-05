@@ -40,6 +40,7 @@ export default function SignupTeacher() {
   const putRequestHeaders = {
     headers: {
       'Content-Type': 'multipart/form-data',
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
     },
   };
 
@@ -72,23 +73,20 @@ export default function SignupTeacher() {
   const registerTeacher = async (event) => {
     event.preventDefault();
     setLoading(true);
-    // const formData = prepareFormData();
-    // api.put(
-    //   SIGNUP_TEACHER_URL, formData, putRequestHeaders)
-    //   .then((res) => {
-    //     setLoading(false);
-    //     handleOpen();
-    //   })
-    //   .catch((err) => setErrorMessage(err.response.data.message))
+    const formData = prepareFormData();
+    api.put(
+      SIGNUP_TEACHER_URL, formData, putRequestHeaders)
+      .then((res) => {
+        setLoading(false);
+        handleOpen();
+      })
+      .catch((err) => setErrorMessage(err.response.data.message))
     handleOpen()
   };
 
   const prepareFormData = (): FormData => {
     const formData = new FormData();
     formData.append('request', JSON.stringify(teacherDetails));
-    // formData.append('cardphoto', cardphoto);
-    // formData.append('nationalid', nationalid);
-    // formData.append('cv', cv);
     for (let i = 0; i < certificates.length; i++) {
       formData.append('certificates', certificates[i]);
     }
