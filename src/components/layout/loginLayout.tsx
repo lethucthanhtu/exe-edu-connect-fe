@@ -12,7 +12,10 @@ import { useEffect } from 'react';
 export default function LoginLayout() {
   const navigate = useNavigate();
   useEffect(
-    () => localStorage.getItem('token') && navigate('/', { replace: true }),
+    () => {
+      localStorage.getItem('token') && navigate('/', { replace: true })
+      return () => { }
+    },
     [navigate]
   );
 

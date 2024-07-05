@@ -195,12 +195,20 @@ export default function Signup() {
     password: '',
   });
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
     api
       .post(REGISTER_URL, formData)
-      .then(() => navigate('/login', { replace: true }))
+      .then((res) => {
+        const token = res.data.returnData;
+        if (token == null)
+          navigate('/login', { replace: true })
+        else {
+          localStorage.setItem('token', token);
+          navigate('/signup/teacher')
+        }
+      })
       .catch((err) => setErrMsg(err.response.data.errorModels[0].detail))
       .finally(() => setLoading(false));
   };
@@ -245,7 +253,7 @@ export default function Signup() {
           {/* <RoleRadioButton className='w-3/4' /> */}
           <RoleSwitch name='role' onClick={handleRoleChange} />
         </div>
-        <Input
+        {/* <Input
           required
           name='fullName'
           onChange={handleChangeInput}
@@ -255,7 +263,7 @@ export default function Signup() {
           onPointerEnterCapture={undefined}
           onPointerLeaveCapture={undefined}
           crossOrigin={undefined}
-        />
+        /> */}
         <InputEmail name='email' onChange={handleChangeInput} color='teal' />
         <InputPasswordGroupCheck
           name='password'

@@ -31,17 +31,23 @@ import ol3 from '../assets/img/home/online_learning_3.jpg';
 import oc from '../assets/img/home/offline_class.jpg';
 import grade from '../assets/img/home/grade.jpg';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 // const imgs = require.context('../assets/img/home')
 
 /** */
 function HomeCarousel() {
   const { t } = useTranslation();
-
+  const navigate = useNavigate();
   const [displayImg, setDisplayImg] = useState(0);
 
   const imgs = [h1, h2, h3, h4, h5, h6, h7];
+  const viewAllCourses = () => {
+    navigate('/course/all')
+  }
+  const goToSignupPage = () => {
+    navigate('/signup')
+  }
 
   useEffect(() => {
     const handleInterval = () =>
@@ -54,7 +60,7 @@ function HomeCarousel() {
   }, [displayImg, setDisplayImg, imgs.length]);
 
   return (
-    <section className='h-4/5'>
+    <section className='h-full'>
       <div className='relative flex h-full justify-center overflow-hidden'>
         <Carousel
           className='rounded-xl lg:hidden'
@@ -73,20 +79,22 @@ function HomeCarousel() {
               className='aspect-video object-cover'
             />
           ))}
+
         </Carousel>
         <img
           src={imgs[displayImg]}
-          className='w-screen aspect-video hidden lg:block object-cover rounded-xl'
+          className='w-screen aspect-video hidden bg-opacity-60 lg:block object-cover rounded-xl'
         />
 
         <div
           id='hero-text'
-          className='absolute container w-full hidden lg:flex flex-col gap-4 justify-center items-start bg-black/30 mt-24 px-8 py-4 rounded-xl'
+          className='absolute container hidden lg:flex w-full flex-col gap-4 justify-center mt-24 
+          bg-black bg-opacity-55 px-8 py-4 rounded-xl'
         >
           <Typography
             variant='h1'
             color='white'
-            className='text-[300%] uppercase w-3/5'
+            className='text-[300%] uppercase w-full'
             placeholder={undefined}
             onPointerEnterCapture={undefined}
             onPointerLeaveCapture={undefined}
@@ -117,6 +125,7 @@ function HomeCarousel() {
               placeholder={undefined}
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
+              onClick={viewAllCourses}
             >
               {capitalize(t('see more courses'))}
             </Button>
@@ -126,6 +135,7 @@ function HomeCarousel() {
               placeholder={undefined}
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
+              onClick={goToSignupPage}
             >
               {capitalize(t('sign up'))}
             </Button>
@@ -134,7 +144,7 @@ function HomeCarousel() {
         <div className='absolute bottom-[5%] w-full hidden lg:inline-flex gap-8 flex-nowrap peer'>
           <ul
             className='flex items-center justify-center gap-8 [&_img]:max-w-none animate-infinite-scroll peer-hover:animate-none'
-            // aria-hidden='false'
+          // aria-hidden='false'
           >
             {imgs.map((img, index) => (
               <li>
@@ -186,10 +196,10 @@ function HomeCarousel() {
 function FeatureTutorCard({ user = {}, isReverse = false }) {
   const { t } = useTranslation();
   const items = [
-    { icon: 'school'     , num: 200, text: 'students' },
-    { icon: 'star'       , num: 4.5, text: 'points'   },
-    { icon: 'play_circle', num: 8  , text: 'courses'  },
-    { icon: 'rate_review', num: 100, text: 'review'   },
+    { icon: 'school', num: 200, text: 'students' },
+    { icon: 'star', num: 4.5, text: 'points' },
+    { icon: 'play_circle', num: 8, text: 'courses' },
+    { icon: 'rate_review', num: 100, text: 'review' },
   ];
   return (
     <div

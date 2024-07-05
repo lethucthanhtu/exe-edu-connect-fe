@@ -242,6 +242,7 @@ type TSuccessfulRegistrationDialog = {
 export function SuccessfulRegistrationDialog({ isOpen, handleOpen }: TSuccessfulRegistrationDialog) {
     const { t } = useTranslation()
     const navigate = useNavigate()
+
     const navigateToHomePage = () => {
         handleOpen()
         navigate('/');
@@ -261,7 +262,8 @@ export function SuccessfulRegistrationDialog({ isOpen, handleOpen }: TSuccessful
             <DialogBody
                 onPointerEnterCapture={undefined}
                 onPointerLeaveCapture={undefined}
-                placeholder={undefined}>
+                placeholder={undefined}
+                className="text-2xl">
                 {t("successfully updated the profile for teacher")}.
             </DialogBody>
             <DialogFooter

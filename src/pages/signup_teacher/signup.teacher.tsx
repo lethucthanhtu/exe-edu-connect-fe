@@ -9,30 +9,32 @@ import {
   ImageUploader,
   SuccessfulRegistrationDialog,
 } from './signup.teacher.child.components';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SignupTeacherDetails } from '../../entity/signup.teacher.details';
 import { Button, ButtonGroup } from '@material-tailwind/react';
 import api from '../../api/api';
 import axios from 'axios';
+import Loading from '../../components/loading';
 /** */
 export default function SignupTeacher() {
   const { t } = useTranslation();
   const personalInfoSectionChipTxt = 'personal information';
   const [errorMessage, setErrorMessage] = useState<string>('');
+  const [loading, setLoading] = useState(false);
   const SIGNUP_TEACHER_URL = '/api/teacher/profile';
   const applicationSectionChipTxt = 'application';
   const acceptedImageFormats = '.jpg,.png';
-  const sexes = [
-    { key: 1, value: 'male' },
-    { key: 2, value: 'female' },
-    { key: 3, value: 'prefer not to say' },
-  ];
+  // const sexes = [
+  //   { key: 1, value: 'male' },
+  //   { key: 2, value: 'female' },
+  //   { key: 3, value: 'prefer not to say' },
+  // ];
   const [isSuccessfulDialogShown, setIsSuccessfulDialogShown] =
     useState<boolean>();
 
-  const [cardphoto, setCardphoto] = useState<File>();
-  const [nationalid, setNationalid] = useState<File>();
-  const [cv, setCv] = useState<File>();
+  // const [cardphoto, setCardphoto] = useState<File>();
+  // const [nationalid, setNationalid] = useState<File>();
+  // const [cv, setCv] = useState<File>();
   const [certificates, setCertificates] = useState<File[]>();
   const handleOpen = () => setIsSuccessfulDialogShown(!isSuccessfulDialogShown);
   const putRequestHeaders = {
@@ -51,6 +53,7 @@ export default function SignupTeacher() {
     school: '',
     specialization: '',
   });
+
   const handleTextInput = (event) => {
     setTeacherDetails({
       ...teacherDetails,
@@ -68,17 +71,16 @@ export default function SignupTeacher() {
 
   const registerTeacher = async (event) => {
     event.preventDefault();
-    const formData = prepareFormData();
-    handleOpen();
+    setLoading(true);
+    // const formData = prepareFormData();
     // api.put(
-    //     SIGNUP_TEACHER_URL, formData, putRequestHeaders)
-    //     .then((res) => {
-    //         console.log(res)
-    //         const token = res.data?.returnData;
-    //         // sessionStorage.setItem('token', token);
-    //     })
-    //     .catch((err) => setErrorMessage(err.response.data.message))
-    // .finally(() => location.reload());
+    //   SIGNUP_TEACHER_URL, formData, putRequestHeaders)
+    //   .then((res) => {
+    //     setLoading(false);
+    //     handleOpen();
+    //   })
+    //   .catch((err) => setErrorMessage(err.response.data.message))
+    handleOpen()
   };
 
   const prepareFormData = (): FormData => {
@@ -101,6 +103,11 @@ export default function SignupTeacher() {
         isOpen={isSuccessfulDialogShown}
         handleOpen={handleOpen}
       />
+      {loading && (
+        <div className='absolute size-full top-0 left-0'>
+          <Loading middle />
+        </div>
+      )}
       <form method='post' onSubmit={registerTeacher}>
         <div className='my-8'>
           <SignupSectionChip content={t(personalInfoSectionChipTxt)} />
