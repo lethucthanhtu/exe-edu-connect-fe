@@ -43,11 +43,11 @@ function HomeCarousel() {
 
   const imgs = [h1, h2, h3, h4, h5, h6, h7];
   const viewAllCourses = () => {
-    navigate('/course/all')
-  }
+    navigate('/course/all');
+  };
   const goToSignupPage = () => {
-    navigate('/signup')
-  }
+    navigate('/signup');
+  };
 
   useEffect(() => {
     const handleInterval = () =>
@@ -79,7 +79,6 @@ function HomeCarousel() {
               className='aspect-video object-cover'
             />
           ))}
-
         </Carousel>
         <img
           src={imgs[displayImg]}
@@ -99,7 +98,7 @@ function HomeCarousel() {
             onPointerEnterCapture={undefined}
             onPointerLeaveCapture={undefined}
           >
-            {capitalize(t('bạn có đang tìm kiếm gia sư trực tuyến không?'))}
+            {capitalize(t('are you looking for an online tutor?'))}
             <Typography
               variant='paragraph'
               className='mt-2 normal-case'
@@ -109,14 +108,9 @@ function HomeCarousel() {
             >
               {capitalize(
                 t(
-                  `Gia sư trực tuyến là một phương pháp học tập hiệu quả và tiện lợi,
-              mang đến nhiều lợi ích cho học sinh trong thời đại công nghệ số.
-              Gia sư trực tuyến đang nổi lên như một giải pháp học tập hiệu quả và
-              tiện lợi trong thời đại công nghệ số. Hình thức này mang đến nhiều ưu điểm
-              vượt trội so với phương pháp học truyền thống, đáp ứng nhu cầu học tập
-              đa dạng của học sinh ở mọi lứa tuổi và trình độ.`
+                  `Online tutoring is an effective and convenient learning method, bringing many benefits to students in the digital age. Online tutoring is emerging as an effective and convenient learning solution in the digital age. This form brings many outstanding advantages compared to traditional learning methods, meeting the diverse learning needs of students of all ages and levels.`
                 )
-              )}
+              ,false)}
             </Typography>
           </Typography>
           <div className='inline-flex gap-4'>
@@ -144,7 +138,7 @@ function HomeCarousel() {
         <div className='absolute bottom-[5%] w-full hidden lg:inline-flex gap-8 flex-nowrap peer'>
           <ul
             className='flex items-center justify-center gap-8 [&_img]:max-w-none animate-infinite-scroll peer-hover:animate-none'
-          // aria-hidden='false'
+            // aria-hidden='false'
           >
             {imgs.map((img, index) => (
               <li>
@@ -427,9 +421,8 @@ export default function Home() {
           id='trending-course'
           title='trending course'
           subTitle='discover our trending courses that suit your needs'
-        >
-          alo
-        </SectionWithTitle>
+          children={undefined}
+        />
         <section id='feature-tutor' className='w-full flex flex-col gap-6'>
           <div
             id='separator'
@@ -487,7 +480,7 @@ export default function Home() {
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
             >
-              {capitalize(t('chất lượng học sinh được đảm bảo'))}
+              {capitalize(t('student quality is guaranteed'))}
             </Typography>
             <Typography
               variant='paragraph'
@@ -497,10 +490,9 @@ export default function Home() {
             >
               {capitalize(
                 t(
-                  `Chất lượng học sinh tham gia khóa học sẽ được đảm bảo một cách uy tín.
-                  Cam kết sau thời gian tham gia các khóa học,
-                  học sinh sẽ gặt hái được các kết quả học tập tốt hơn.`
-                )
+                  `The quality of students participating in the course will be guaranteed in a reputable way. Commitment that after participating in courses, students will achieve better learning results.`
+                ),
+                false
               )}
             </Typography>
             <Button
@@ -517,7 +509,7 @@ export default function Home() {
         <SectionWithTitle
           id='student-activity'
           title='student activities'
-          subTitle='Tham gia cộng đồng năng động của chúng tôi để luôn cập nhật tin tức và cơ hội'
+          subTitle='join our dynamic community to stay up to date with news and opportunities'
         >
           <div className='grid grid-cols-2 gap-4'>
             <StudentActivityCard />
@@ -529,7 +521,7 @@ export default function Home() {
         <SectionWithTitle
           id='student-rating'
           title={`student's reviews`}
-          subTitle='Tìm hiểu xem học viên của chúng tôi nói gì về trải nghiệm học tập của họ'
+          subTitle='find out what our students have to say about their learning experience'
         >
           <div className='grid grid-cols-3'></div>
         </SectionWithTitle>

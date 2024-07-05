@@ -45,6 +45,7 @@ import Checkout            from '../pages/payment/checkout';
 import Contact from '../pages/contact';
 import MyProfile from '../pages/myprofile';
 import SignupTeacher from '../pages/signup_teacher/signup.teacher';
+import CompleteCheckout from '../pages/payment/complete_checkout';
 
 const PrivateRoutesLayout = () => {
   const { auth } = useContext(AuthContext);
@@ -64,13 +65,14 @@ const routes = createBrowserRouter([
     element : <DefaultLayout />,
     errorElement: <NotFound  />,
     children: [
-      { index: true            , element: <Home                                      /> },
-      { path : 'home'          , element: <Navigate to='/' replace                   /> },
-      { path : 'about'         , element: <About                                     /> },
-      { path : 'contact'       , element: <Contact                                   /> },
-      { path : 'search'        , element: <Search                                    /> },
-      { path : 'landing'       , element: <Landing                                   /> },
-      { path : 'checkout'      , element: <Checkout                                  /> },
+      { index: true                     , element: <Home                                      /> },
+      { path : 'home'                   , element: <Navigate to='/' replace                   /> },
+      { path : 'about'                  , element: <About                                     /> },
+      { path : 'contact'                , element: <Contact                                   /> },
+      { path : 'search'                 , element: <Search                                    /> },
+      { path : 'landing'                , element: <Landing                                   /> },
+      { path : 'checkout'               , element: <Checkout                                  /> },
+      { path : 'complete-checkout'      , element: <CompleteCheckout                                  /> },
       {
         path     : 'course',
         children : [

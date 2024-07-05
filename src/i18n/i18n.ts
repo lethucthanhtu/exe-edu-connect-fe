@@ -103,13 +103,27 @@ export default i18n
           'software engineering': 'kĩ thuật phần mềm',
           'start date': 'ngày bắt đầu',
           'end date': 'ngày kết thúc',
-          message: 'nội dung chuyển khoản', 
-          'course price': 'giá tiền môn học'
+          message: 'nội dung chuyển khoản',
+          'course price': 'giá tiền môn học',
+          'are you looking for an online tutor?':
+            'bạn có đang tìm kiếm gia sư trực tuyến không?',
+          'Online tutoring is an effective and convenient learning method, bringing many benefits to students in the digital age. Online tutoring is emerging as an effective and convenient learning solution in the digital age. This form brings many outstanding advantages compared to traditional learning methods, meeting the diverse learning needs of students of all ages and levels.':
+            'Gia sư trực tuyến là một phương pháp học tập hiệu quả và tiện lợi, mang đến nhiều lợi ích cho học sinh trong thời đại công nghệ số. Gia sư trực tuyến đang nổi lên như một giải pháp học tập hiệu quả và tiện lợi trong thời đại công nghệ số. Hình thức này mang đến nhiều ưu điểm vượt trội so với phương pháp học truyền thống, đáp ứng nhu cầu học tập đa dạng của học sinh ở mọi lứa tuổi và trình độ.',
+          'student quality is guaranteed': 'chất lượng học viên được đảm bảo',
+          'The quality of students participating in the course will be guaranteed in a reputable way. Commitment that after participating in courses, students will achieve better learning results.':
+            'Chất lượng học sinh tham gia khóa học sẽ được đảm bảo một cách uy tín. Cam kết sau thời gian tham gia các khóa học, học sinh sẽ gặt hái được các kết quả học tập tốt hơn',
+          'join our dynamic community to stay up to date with news and opportunities':
+            'tham gia cộng đồng năng động của chúng tôi để luôn cập nhật tin tức và cơ hội',
+          'find out what our students have to say about their learning experience':
+            'tìm hiểu xem học viên của chúng tôi nói gì về trải nghiệm học tập của họ',
+          'join now': 'tham gia ngay',
+          'main courses': 'các khóa học chính',
+          'complete the payment ':'hoàn tất thanh toán',
         },
-      },
-      jp: {
-        translation: {
-          greeting: 'jp test',
+        jp: {
+          translation: {
+            greeting: 'jp test',
+          },
         },
       },
     },

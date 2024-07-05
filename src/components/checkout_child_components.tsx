@@ -20,6 +20,8 @@ import { useEffect, useState } from 'react';
 import { TUser } from '../entity/user';
 import User from '../pages/user/user';
 import { TCourse } from '../entity/entity/course';
+import { Link } from 'react-router-dom';
+import Loading from './loading';
 
 type TCheckoutDetailProps = {
   teacher?: TUser;
@@ -127,8 +129,9 @@ export function PaymentOptions() {
  * The QR section for customers to finish the payment.
  * @returns JSX.Element
  */
-export function QRSection({course, }: TCheckoutDetailProps) {
+export function QRSection({ course }: TCheckoutDetailProps) {
   const { t } = useTranslation();
+
   return (
     <Card
       className='mt-2 w-96'
@@ -241,15 +244,18 @@ export function QRSection({course, }: TCheckoutDetailProps) {
           </Typography>
         </div>
         <hr className='border-gray-300 my-4' />
-        <Button
-          className='bg-primary text-center text-sm'
-          placeholder={undefined}
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-          fullWidth
-        >
-          {capitalize(t('Hủy'))}
-        </Button>
+        <Link to={'/complete-checkout'}>
+          <Button
+            // onClick={handleClickCheckout}
+            className='bg-primary text-center text-sm'
+            placeholder={undefined}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+            fullWidth
+          >
+            {capitalize(t('hoàn tất thanh toán'))}
+          </Button>
+        </Link>
       </CardBody>
     </Card>
   );
