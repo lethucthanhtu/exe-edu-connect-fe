@@ -348,7 +348,7 @@ function Sidebar({ user, role, loading, isCUserProfile }: TUserProps) {
                   >
                     <span className='material-symbols-outlined'>
                       transition_push
-                    </span>{' '}
+                    </span>
                   </ListItemPrefix>
                   <Typography
                     color='blue-gray'
