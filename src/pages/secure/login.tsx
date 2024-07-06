@@ -1,24 +1,18 @@
-import {
-  useRef,
-  useEffect,
-  useState,
-  useContext,
-} from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Button, Checkbox } from '@material-tailwind/react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-import { AuthContext } from '../../context/authProvider';
 import { InputEmail, InputPassword } from '../../components/input';
 import { FormHeader } from '../../components/form';
 import { AlertPopup } from '../../components/alert';
 import Separator from '../../components/separator';
 
-import api, { BASE_URL } from '../../api/api';
-import { capitalize } from '../../utils/utils';
-
-const LOGIN_URL = '/auth/login';
+import api from '../../api/api';
+import { capitalize, validatePwd } from '../../utils/utils';
+import Loading from '../../components/loading';
+import { LOGIN_URL } from '../../utils/config';
 
 /**
  * login page
@@ -27,12 +21,9 @@ const LOGIN_URL = '/auth/login';
 export default function Login() {
   const { t } = useTranslation();
 
-  // const { setAuth } = useContext(AuthContext);
-
   const userRef = useRef(null);
-
-  const [success, setSuccess] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const [post, setPost] = useState({
     email: '',
     password: '',
@@ -41,34 +32,43 @@ export default function Login() {
   //focus on email when load page
   useEffect(() => userRef.current.focus(), []);
 
-  const handleGoogleLogin = (event) => {
-    event.preventDefault();
-    const GOOGLE_LOGIN_URL = `${BASE_URL}auth/login`;
-    window.location.href = GOOGLE_LOGIN_URL;
-  };
+  const handleInput = (event) => {
+    // if (event.target.name === 'password') {
+    //   setErrorMessage('Failed to login');
+    // }
 
-  const handleInput = (event) =>
     setPost({ ...post, [event.target.name]: event.target.value });
-
+  };
   const handleSubmit = async (event) => {
     event.preventDefault();
-    api
-      .post(LOGIN_URL, { ...post })
-      .then((res) => {
-        sessionStorage.setItem('token', res.data?.returnData);
-        setSuccess(true);
-        // eslint-disable-next-line no-console
-        console.log(res);
-        // eslint-disable-next-line no-console
-        console.log(sessionStorage.getItem('token'));
-      })
-      // eslint-disable-next-line no-console
-      .catch((err) => setErrorMessage(err.response.data.message));
+    setLoading(true);
+    setErrorMessage('');
+
+    if (!post.password) setErrorMessage('');
+    else if (!validatePwd(post.password)) {
+      setErrorMessage(`Failed to login. Please check your email and password.`);
+      setLoading(false);
+    } else {
+      setErrorMessage('');
+
+      api
+        .post(LOGIN_URL, { ...post })
+        .then((res) => {
+          const token = res.data.returnData;
+          localStorage.setItem('token', token);
+          setLoading(false);
+        })
+        .catch((err) => setErrorMessage(err.response.data.message))
+        .finally(() => {
+          setLoading(false);
+          localStorage.getItem('token') && location.reload();
+        });
+    }
   };
 
+  //check if user already login/ token still available or not
   return (
     <>
-      {/* {success && <Navigate to='/'/>} */}
       <form
         // action='#'
         method='post'
@@ -78,6 +78,7 @@ export default function Login() {
         <FormHeader label='log in' />
         <div className='flex flex-col justify-center items-center w-full gap-4'>
           <InputEmail
+            required
             inputRef={userRef}
             onChange={handleInput}
             name='email'
@@ -119,27 +120,11 @@ export default function Login() {
           >
             {t('log in')}
           </Button>
-          <Button
-            variant='outlined'
-            color='blue-gray'
-            className='flex justify-center items-center gap-3 border-primary'
-            onClick={handleGoogleLogin}
-            placeholder={undefined}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-          >
-            <img
-              src='https://docs.material-tailwind.com/icons/google.svg'
-              alt='google'
-              className='size-4'
-            />
-            Continue with Google
-          </Button>
+          {/* <GoogleButton type='login' /> */}
           <Separator label='or' />
           <Link to={'/signup'}>
             <Button
               className='w-full bg-none text-primary'
-              // color='teal'
               variant='text'
               placeholder={undefined}
               onPointerEnterCapture={undefined}
@@ -150,6 +135,11 @@ export default function Login() {
           </Link>
         </div>
       </form>
+      {loading && (
+        <div className='absolute size-full top-0 left-0'>
+          <Loading middle />
+        </div>
+      )}
       {errorMessage && <AlertPopup>{errorMessage}</AlertPopup>}
     </>
   );

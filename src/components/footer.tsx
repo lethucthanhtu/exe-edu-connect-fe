@@ -1,13 +1,12 @@
 import { Typography } from '@material-tailwind/react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import LanguageButton from './languageButton';
+import LanguageButton from './language.button';
 import { capitalize } from '../utils/utils';
 
 const SITEMAP = [
   {
     title: 'Company',
-    // links: ['Landing', 'About Us', 'Contact'],
     links: [
       { name: 'Landing', url: '/landing' },
       { name: 'About Us', url: '/about' },
@@ -16,7 +15,6 @@ const SITEMAP = [
   },
   {
     title: 'Legal',
-    // links: ['Privacy Policy', 'User Policy'],
     links: [
       { name: 'Privacy Policy', url: '#' },
       { name: 'User Policy', url: '#' },
@@ -24,7 +22,6 @@ const SITEMAP = [
   },
   {
     title: 'Features',
-    // links: ['Our Course', 'Post Page', 'Search Page'],
     links: [
       { name: 'Our Course', url: '#' },
       { name: 'Post Page', url: '#' },

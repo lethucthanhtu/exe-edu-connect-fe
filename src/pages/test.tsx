@@ -1,29 +1,14 @@
-import { useEffect } from 'react';
-import api, { apiLocal, apiProd, apiReqres } from '../api/api';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useEffect, useState } from 'react';
+import api, { apiLocal, apiProd} from '../api/api';
 import { Typography } from '@material-tailwind/react';
+import { RoleSwitch } from './secure/signup';
 
 // eslint-disable-next-line no-console
 console.clear();
 
 /** */
 export default function Test() {
-  // export default async function Test() {
-  // let res = await apiReqres.get('users/', {
-  apiReqres
-    .get('users/', {
-      params: {
-        page: '1',
-      },
-    })
-    // console.log('>>> res: ', res);
-    .then((res) => {
-      // eslint-disable-next-line no-console
-      console.log('>>> res: ', res.data.data);
-    });
-
-  //-----------------------------------------------------------
-  // Lê Tú
-  //-----------------------------------------------------------
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const localAPI = () => {
     apiLocal
@@ -50,8 +35,21 @@ export default function Test() {
     // publicAPI();
   }, []);
 
+  const [roleId, setRoleId] = useState<number>(1);
+
+
+    const handleRoleChange = (event) => {
+    const isChecked = event.target.checked;
+    if (!isChecked) setRoleId(1);
+    else setRoleId(2);
+    // eslint-disable-next-line no-console
+    console.log(isChecked);
+
+  };
+
   return (
     <>
+      <RoleSwitch name='role' className='' onChange={handleRoleChange} />
       <div className='relative overflow-hidden size-full gap-2 md:gap-8 flex flex-col justify-center items-center select-none animate-fade-down'>
         <Typography
           variant='h1'

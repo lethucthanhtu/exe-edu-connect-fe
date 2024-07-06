@@ -6,14 +6,19 @@ import {
   CardHeader,
   Typography,
 } from '@material-tailwind/react';
-import { capitalize, numberFormat } from '../../utils/utils';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+
 import { AvatarStack } from '../../components/avatarStack';
-import subject_hero from '../../assets/img/subjects_hero.png';
 import RatingStar from '../../components/ratingStar';
-import { Link } from 'react-router-dom';
+
+import { capitalize, numberFormat } from '../../utils/utils';
 import { useEffect, useState } from 'react';
 import api from '../../api/api';
+
+import subject_hero from '../../assets/img/subjects_hero.png';
+import Loading from '../../components/loading';
+import { SUBJECT_URL } from '../../utils/config';
 
 type TSubjectCardProps = {
   img?: string;
@@ -38,44 +43,44 @@ function SubjectCard({
   return (
     <>
       <Card
-        className='w-1/5 overflow-hidden'
+        className='md:w-[45%] lg:w-[30%] max-h-[30rem] relative overflow-hidden flex justify-between'
         placeholder={undefined}
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
       >
+        <div className='z-50 w-full absolute flex justify-center bottom-[47%] md:bottom-[51.5%] lg:bottom-[47.5%]'>
+          <div className='bg-primary-light border border-primary rounded-full lg:w-3/4 px-4 py-1 flex gap-4 justify-center items-center '>
+            <AvatarStack numberOfAvatar={5} size='sm' />
+            <Typography
+              variant='paragraph'
+              placeholder={undefined}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+            >
+              <span className='font-semibold'>
+                {`+ ${numberFormat(numberOfCourses)} `}
+              </span>
+              {capitalize(t('courses'))}
+            </Typography>
+          </div>
+        </div>
         <CardHeader
           floated={false}
           shadow={false}
           color='transparent'
-          className='relative m-0 rounded-none'
+          className=' m-0 rounded-none'
           placeholder={undefined}
           onPointerEnterCapture={undefined}
           onPointerLeaveCapture={undefined}
         >
-          <img src={img} />
+          <img src={img} className='z-10' />
         </CardHeader>
         <CardBody
-          className='relative'
+          className='h-1/3'
           placeholder={undefined}
           onPointerEnterCapture={undefined}
           onPointerLeaveCapture={undefined}
         >
-          <div className='w-full flex justify-center items-center'>
-            <div className='z-50 absolute -top-[15%] bg-primary-light border border-primary rounded-full w-4/5 px-2 py-1 flex gap-4 justify-center items-center'>
-              <AvatarStack numberOfAvatar={5} size='sm' />
-              <Typography
-                variant='paragraph'
-                placeholder={undefined}
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
-              >
-                <span className='font-semibold'>
-                  {`+ ${numberFormat(numberOfCourses)} `}
-                </span>
-                {capitalize(t('courses'))}
-              </Typography>
-            </div>
-          </div>
           <Typography
             variant='h4'
             className='text-primary capitalize'
@@ -88,7 +93,7 @@ function SubjectCard({
           <Typography
             variant='lead'
             color='gray'
-            className='mt-3 font-normal'
+            className='mt-3 font-normal line-clamp-3'
             placeholder={undefined}
             onPointerEnterCapture={undefined}
             onPointerLeaveCapture={undefined}
@@ -97,19 +102,19 @@ function SubjectCard({
           </Typography>
         </CardBody>
         <CardFooter
-          className='flex items-center justify-end'
+          className='flex items-end justify-end'
           placeholder={undefined}
           onPointerEnterCapture={undefined}
           onPointerLeaveCapture={undefined}
         >
-          <Link to={`../${linkTo || subject}`}>
+          <Link to={`../${linkTo || subject.toLowerCase()}`}>
             <Button
-              className='bg-primary'
+              className='bg-primary-sub'
               placeholder={undefined}
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
             >
-              {t('join')}
+              {t('see more')}
             </Button>
           </Link>
         </CardFooter>
@@ -128,24 +133,33 @@ export default function Subjects() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [errMsg, setErrMsg] = useState('');
 
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
+    setLoading(true);
     api
-      .get('/api/course/categories')
-      .then((res) => setSubjects(res.data.returnData))
+      .get(SUBJECT_URL)
+      .then((res) => {
+        setSubjects(res.data.returnData);
+        setLoading(false);
+      })
       .catch((err) => setErrMsg(err));
   }, []);
 
   return (
     <>
-      <section id='hero' className='w-full flex justify-between items-center'>
+      <section
+        id='hero'
+        className='w-full flex flex-col md:flex-row justify-between items-center py-4 md:py-0'
+      >
         <div
           id='text-content'
-          className='relative w-1/2 h-full flex justify-center items-center'
+          className='relative md:w-1/2 h-full flex justify-center items-center'
         >
-          <div className='absolute translate-x-1/4 flex flex-col gap-4'>
+          <div className='md:absolute md:translate-x-1/4 flex flex-col gap-4 items-center md:items-start'>
             <Typography
               variant='h1'
-              className=' text-primary text-7xl select-none'
+              className=' text-primary text-3xl md:text-4xl lg:text-7xl text-center md:text-left select-none'
               placeholder={undefined}
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
@@ -154,15 +168,17 @@ export default function Subjects() {
                 t('hãy tham gia các khóa học cùng gia sư của chúng tôi')
               )}
             </Typography>
-            <div className='w-3/4 flex gap-4 justify-start items-center'>
-              <Button
-                className='bg-primary-sub'
-                placeholder={undefined}
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
-              >
-                {t('tham gia ngay')}
-              </Button>
+            <div className='w-3/4 flex flex-col-reverse md:flex-row gap-4 justify-start items-center'>
+              <Link to='/course'>
+                <Button
+                  className='bg-primary-sub'
+                  placeholder={undefined}
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                >
+                  {t('join now')}
+                </Button>
+              </Link>
               <div id='rating' className='flex gap-2'>
                 <AvatarStack numberOfAvatar={3} />
                 <Typography
@@ -185,7 +201,10 @@ export default function Subjects() {
             </div>
           </div>
         </div>
-        <div id='img-content' className='flex justify-end items-center'>
+        <div
+          id='img-content'
+          className='hidden md:flex justify-end items-center'
+        >
           <div className='relative overflow-hidden'>
             <span className='z-0 bottom-0 translate-x-1/2 absolute aspect-square w-2/4 rounded-full bg-primary-sub' />
             <img src={subject_hero} className='z-20 translate-x-10' />
@@ -238,7 +257,7 @@ export default function Subjects() {
       </section>
       <section
         id='content'
-        className='w-full pt-8 pb-4 bg-primary-light flex flex-col gap-4 justify-center items-center'
+        className='w-full pt-8 pb-12 bg-primary-light flex flex-col gap-4 justify-center items-center'
       >
         <Typography
           variant='h1'
@@ -249,19 +268,10 @@ export default function Subjects() {
         >
           {capitalize(t('main courses'))}
         </Typography>
-        <div className='flex flex-wrap gap-x-2 gap-y-4 justify-center items-center'>
-          {subjects ? (
-            <Typography
-              variant='paragraph'
-              className='text-3xl'
-              placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-            >
-              <span className='font-medium'>{capitalize(t('Oops!'))}</span>
-              <span className='ml-2'>{capitalize(t('No courses found.'))}</span>
-            </Typography>
-          ) : (
+        <div className='container flex flex-wrap gap-x-2 gap-y-4 justify-evenly'>
+          {loading ? (
+            <Loading />
+          ) : subjects ? (
             <>
               {subjects.map((subject) => (
                 <SubjectCard
@@ -270,15 +280,21 @@ export default function Subjects() {
                   numberOfCourses={subject.totalCourses}
                 />
               ))}
-              {/* <Button
-                variant='outlined'
-                className='text-primary border-primary bg-white'
+            </>
+          ) : (
+            <>
+              <Typography
+                variant='paragraph'
+                className='text-3xl'
                 placeholder={undefined}
                 onPointerEnterCapture={undefined}
                 onPointerLeaveCapture={undefined}
               >
-                {t('see more')}
-              </Button> */}
+                <span className='font-medium'>{capitalize(t('Oops!'))}</span>
+                <span className='ml-2'>
+                  {capitalize(t('No courses found.'))}
+                </span>
+              </Typography>
             </>
           )}
         </div>

@@ -82,7 +82,7 @@ export function AlertPopup({ ...props }: AlertProps) {
         open={open}
         onClose={() => setOpen(false)}
         icon={props.icon || <AlertIconOutlined />}
-        className='absolute top-2 left-4 w-1/5 animate-shake animate-twice'
+        className='absolute !z-max top-2 left-4 w-1/5 animate-shake animate-twice'
       >
         {props.children}
       </Alert>

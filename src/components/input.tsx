@@ -1,7 +1,7 @@
 import { Input, Typography, type InputProps } from '@material-tailwind/react';
 import { ChangeEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { capitalize } from '../utils/utils';
+import { capitalize, validatePwd } from '../utils/utils';
 
 type TInputEmailProps = Omit<
   InputProps,
@@ -10,7 +10,6 @@ type TInputEmailProps = Omit<
   | 'onPointerEnterCapture'
   | 'onPointerEnterCapture'
   | 'crossOrigin'
-  | 'required'
 >;
 
 /** */
@@ -19,7 +18,8 @@ export function InputEmail({ ...props }: TInputEmailProps) {
     <>
       <Input
         {...props}
-        required
+        color={props.color || 'teal'}
+        // required
         type='email'
         label='Email'
         onPointerEnterCapture={undefined}
@@ -142,15 +142,15 @@ export function InputPasswordGroupCheck({
   isAllowValidate = Boolean(isAllowValidate);
   isShowValidateHint = Boolean(isShowValidateHint);
 
-  const validatePwd = (pwd: string) => {
-    const isValid =
-      pwd.length >= 8 &&
-      /[A-Z]/.test(pwd) && // Contains an uppercase letter
-      /[a-z]/.test(pwd) && // Contains a lowercase letter
-      /[0-9]/.test(pwd) && // Contains a number
-      /[!@#$%^&*]/.test(pwd); // Contains a special character
-    return isValid;
-  };
+  // const validatePwd = (pwd: string) => {
+  //   const isValid =
+  //     pwd.length >= 8 &&
+  //     /[A-Z]/.test(pwd) && // Contains an uppercase letter
+  //     /[a-z]/.test(pwd) && // Contains a lowercase letter
+  //     /[0-9]/.test(pwd) && // Contains a number
+  //     /[~!@#$%^&*]/.test(pwd); // Contains a special character
+  //   return isValid;
+  // };
 
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
@@ -183,10 +183,11 @@ export function InputPasswordGroupCheck({
         {...props}
         color={passwordError ? 'red' : props.color}
         value={password}
-        onChange={handlePasswordChange}
+        onChangeCapture={handlePasswordChange}
       />
       <InputPassword
         {...props}
+        name={`re-${props.name}`}
         color={confirmPasswordError ? 'red' : props.color}
         value={confirmPassword}
         onChange={handleConfirmPasswordChange}

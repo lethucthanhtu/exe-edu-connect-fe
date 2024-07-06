@@ -115,8 +115,18 @@ export const getWeeksBetweenDates = (
     // Convert days to weeks
     const weeks = days / 7;
 
-    return weeks;
+    return Math.round(weeks);
   } catch (error) {
     return 0;
   }
+};
+
+export const validatePwd = (pwd: string) => {
+  const isValid =
+    pwd.length >= 8 &&
+    /[A-Z]/.test(pwd) && // Contains an uppercase letter
+    /[a-z]/.test(pwd) && // Contains a lowercase letter
+    /[0-9]/.test(pwd) && // Contains a number
+    /[~!@#$%^&*]/.test(pwd); // Contains a special character
+  return isValid;
 };

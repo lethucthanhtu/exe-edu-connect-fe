@@ -5,17 +5,19 @@ import {
   DialogBody,
   DialogFooter,
   DialogHeader,
-  Input,
   Textarea,
   Typography,
 } from '@material-tailwind/react';
 import { useTranslation } from 'react-i18next';
-import { useState }       from 'react';
+import { useState } from 'react';
 
-import human    from '../assets/img/human_blob.svg';
-import banner   from '../assets/img/about_banner.png';
+import human from '../assets/img/human_blob.svg';
+import banner from '../assets/img/about_banner.png';
 import learner1 from '../assets/img/about_learner_1.png';
 import question from '../assets/img/about_question.png';
+import { capitalize } from '../utils/utils';
+import { Link } from 'react-router-dom';
+import { InputEmail } from '../components/input';
 
 type TResetButtonProps = {
   className?: string;
@@ -106,8 +108,8 @@ export default function About() {
           src={banner}
           alt='nature image'
         />
-        <figcaption className='absolute bottom-8 left-1/2 w-full -translate-x-1/2 rounded-xl px-6 py-4 saturate-100'>
-          <div className='mx-auto md:flex md:justify-center gap-4'>
+        <figcaption className='absolute my-auto bottom-8 left-1/2 w-full -translate-x-1/2 rounded-xl px-6 py-4 saturate-100'>
+          <div className='mx-auto md:flex md:justify-center gap-4 bg-black bg-opacity-60 rounded-lg'>
             <div className='flex justify-center'>
               <span className='rounded-full lg:size-32 sm:size-8 bg-white/50 saturate-200 backdrop-blur-sm' />
             </div>
@@ -120,7 +122,7 @@ export default function About() {
                 onPointerEnterCapture={undefined}
                 onPointerLeaveCapture={undefined}
               >
-                Câu chuyện của chúng tôi
+                {capitalize(t('Our story'))}
               </Typography>
               <div className='flex gap-4 my-2'>
                 <Chip value='Giáo dục' className='bg-primary normal-case' />
@@ -142,29 +144,33 @@ export default function About() {
               </Typography>
             </div>
             <div className='flex flex-col justify-center gap-4'>
-              <Button
-                className='w-full normal-case bg-primary'
-                placeholder={undefined}
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
-              >
-                Liên hệ với chúng tôi
-              </Button>
-              <Button
-                className='w-full normal-case'
-                placeholder={undefined}
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
-              >
-                Xem khóa học
-              </Button>
+              <Link to='/contact'>
+                <Button
+                  className='w-full bg-primary'
+                  placeholder={undefined}
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                >
+                  {capitalize(t('contact us'))}
+                </Button>
+              </Link>
+              <Link to='/course'>
+                <Button
+                  className='w-full'
+                  placeholder={undefined}
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                >
+                  {capitalize(t('view courses'))}
+                </Button>
+              </Link>
             </div>
           </div>
         </figcaption>
       </figure>
       <section className='md:flex md:justify-center md:flex-row-reverse'>
         <img src={human} className='' />
-        <div className='flex flex-col justify-center md:items-start xs:justify-center md:w-1/2 xs:w-auto text-primary'>
+        <div className='flex flex-col justify-center md:items-start xs:justify-center md:w-1/2 xs:w-auto text-primary mx-5'>
           <Typography
             variant='h2'
             className='uppercase'
@@ -178,7 +184,7 @@ export default function About() {
             <li className='list-disc'>
               <Typography
                 as='li'
-                variant='paragraph'
+                variant='lead'
                 className=''
                 placeholder={undefined}
                 onPointerEnterCapture={undefined}
@@ -191,7 +197,7 @@ export default function About() {
             <li className='list-disc'>
               <Typography
                 as='li'
-                variant='paragraph'
+                variant='lead'
                 className=''
                 placeholder={undefined}
                 onPointerEnterCapture={undefined}
@@ -200,7 +206,7 @@ export default function About() {
                 Tìm được gia sư giỏi với chi phí thấp.
               </Typography>
             </li>
-            <Typography
+            {/* <Typography
               as='li'
               variant='paragraph'
               className='font-medium'
@@ -209,53 +215,53 @@ export default function About() {
               onPointerLeaveCapture={undefined}
             >
               Dự án nhằm mục đích:
-            </Typography>
-            <ul className='ml-8'>
-              <li className='list-disc'>
-                <Typography
-                  as='li'
-                  variant='paragraph'
-                  className=''
-                  placeholder={undefined}
-                  onPointerEnterCapture={undefined}
-                  onPointerLeaveCapture={undefined}
-                >
-                  Cung cấp cho sinh viên cao đẳng/đại học cơ hội kiếm tiền và
-                  tích lũy kinh nghiệm.
-                </Typography>
-              </li>
-              <li className='list-disc'>
-                <Typography
-                  as='li'
-                  variant='paragraph'
-                  className=''
-                  placeholder={undefined}
-                  onPointerEnterCapture={undefined}
-                  onPointerLeaveCapture={undefined}
-                >
-                  Giúp học sinh phát triển kỹ năng và kiến thức.
-                </Typography>
-              </li>
-              <li className='list-disc'>
-                <Typography
-                  as='li'
-                  variant='paragraph'
-                  className=''
-                  placeholder={undefined}
-                  onPointerEnterCapture={undefined}
-                  onPointerLeaveCapture={undefined}
-                >
-                  Hỗ trợ học sinh trung học trong học tập
-                </Typography>
-              </li>
-            </ul>
+            </Typography> */}
+
+            <li className='list-disc'>
+              <Typography
+                as='li'
+                variant='lead'
+                className=''
+                placeholder={undefined}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+              >
+                Cung cấp cho sinh viên cao đẳng/đại học cơ hội kiếm tiền và
+                tích lũy kinh nghiệm.
+              </Typography>
+            </li>
+            <li className='list-disc'>
+              <Typography
+                as='li'
+                variant='lead'
+                className=''
+                placeholder={undefined}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+              >
+                Giúp học sinh phát triển kỹ năng và kiến thức.
+              </Typography>
+            </li>
+            <li className='list-disc'>
+              <Typography
+                as='li'
+                variant='lead'
+                className=''
+                placeholder={undefined}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+              >
+                Hỗ trợ học sinh trung học trong học tập
+              </Typography>
+            </li>
           </ul>
+
         </div>
       </section>
-      <section className='md:flex md:justify-center md:gap-16 bg-gradient-to-r from-primary-medium to-primary-light h-auto w-full py-8 rounded-tl-[5rem] text-primary animate-fade-left'>
+      <section className='md:flex md:justify-center md:gap-16 bg-primary-sub h-auto w-full py-8 rounded-tl-[5rem] rounded-br-[10rem] text-white'>
         <img
           src={learner1}
-          className='md:h-full basis-1/5 rounded-2xl object-cover object-center'
+          className='md:h-full aspect-video w-1/3 rounded-2xl object-cover object-center'
         />
         <div className='flex flex-col justify-center items-start basis-2/5'>
           <Typography
@@ -332,8 +338,8 @@ export default function About() {
           </ul>
         </div>
       </section>
-      <section>{/* <img src={learner2}/> */}</section>
-      <section className='w-full h-auto py-10 md:flex md:justify-center gap-8 bg-primary-light rounded-tr-[5rem] text-primary animate-fade-right'>
+      <div className='my-16' />
+      <section className='w-full h-auto py-10 md:flex md:justify-center gap-8 bg-primary-sub rounded-tr-[10rem] text-white'>
         <div className='flex flex-col gap-6 xs:w-auto md:!w-2/5 justify-center items-start'>
           <Typography
             variant='h2'
@@ -342,7 +348,7 @@ export default function About() {
             onPointerEnterCapture={undefined}
             onPointerLeaveCapture={undefined}
           >
-            Liên hệ với chúng tôi
+            {capitalize(t('contact us'))}
           </Typography>
           <Typography
             variant='paragraph'
@@ -351,21 +357,16 @@ export default function About() {
             onPointerEnterCapture={undefined}
             onPointerLeaveCapture={undefined}
           >
-            Có một câu hỏi hoặc cần hỗ trợ? Liên lạc với chúng tôi ngay.
+            {capitalize(t('Have question? Contact us.'), false)}
           </Typography>
           <form className='w-full flex flex-col gap-6'>
             <Textarea
-              label='Câu hỏi của bạn'
+              className='bg-white'
+              label={capitalize(t('yours question'))}
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
             />
-            <Input
-              type='email'
-              label='Email'
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-              crossOrigin={undefined}
-            />
+            <InputEmail name='email' className='bg-white' />
             <div className='flex gap-2'>
               <ResetButton className='w-1/5 border-primary text-primary' />
               <Button
@@ -375,12 +376,12 @@ export default function About() {
                 onPointerEnterCapture={undefined}
                 onPointerLeaveCapture={undefined}
               >
-                Gửi
+                {capitalize(t('send'))}
               </Button>
             </div>
           </form>
         </div>
-        <img src={question} className='rounded-2xl' />
+        <img src={question} className='aspect-video w-1/3 rounded-2xl' />
       </section>
     </>
   );
