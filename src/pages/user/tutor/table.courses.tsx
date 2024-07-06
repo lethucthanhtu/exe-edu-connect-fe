@@ -12,50 +12,84 @@ import {
   Typography,
 } from '@material-tailwind/react';
 import { t } from 'i18next';
-import { capitalize } from '../../utils/utils';
 import {
   MagnifyingGlassIcon,
   ArrowDownTrayIcon,
   PencilIcon,
 } from '@heroicons/react/24/solid';
 import { useTranslation } from 'react-i18next';
-import { Link, useOutletContext, useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import api from '../../api/api';
-import { log } from 'console';
-import { TUser } from '../../entity/user';
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { clear } from 'console';
+import api from '../../../api/api';
+import { capitalize } from '../../../utils/utils';
 
-// const TABLE_HEAD = ['Transaction', 'Amount'    , 'Date'    , 'Status', ''];
-const TABLE_HEAD = ['ID', 'Start time', 'Duration', 'Link', ''];
+const TABLE_HEAD = ['Transaction', 'Amount', 'Date', 'Status', ''];
 
-type TSchedule = {
-  id: number;
-  starttime: string;
-  duration: number;
-  meeturl: string;
-  courseid: number;
-  studentid: number;
-};
-
-interface TUserContext {
-  isCUserProfile: boolean;
-  user: TUser;
-}
+const TABLE_ROWS = [
+  {
+    img: 'https://docs.material-tailwind.com/img/logos/logo-spotify.svg',
+    name: 'Spotify',
+    amount: '$2,500',
+    date: 'Wed 3:00pm',
+    status: 'paid',
+    account: 'visa',
+    accountNumber: '1234',
+    expiry: '06/2026',
+  },
+  {
+    img: 'https://docs.material-tailwind.com/img/logos/logo-amazon.svg',
+    name: 'Amazon',
+    amount: '$5,000',
+    date: 'Wed 1:00pm',
+    status: 'paid',
+    account: 'master-card',
+    accountNumber: '1234',
+    expiry: '06/2026',
+  },
+  {
+    img: 'https://docs.material-tailwind.com/img/logos/logo-pinterest.svg',
+    name: 'Pinterest',
+    amount: '$3,400',
+    date: 'Mon 7:40pm',
+    status: 'pending',
+    account: 'master-card',
+    accountNumber: '1234',
+    expiry: '06/2026',
+  },
+  {
+    img: 'https://docs.material-tailwind.com/img/logos/logo-google.svg',
+    name: 'Google',
+    amount: '$1,000',
+    date: 'Wed 5:00pm',
+    status: 'paid',
+    account: 'visa',
+    accountNumber: '1234',
+    expiry: '06/2026',
+  },
+  {
+    img: 'https://docs.material-tailwind.com/img/logos/logo-netflix.svg',
+    name: 'netflix',
+    amount: '$14,000',
+    date: 'Wed 3:30am',
+    status: 'cancelled',
+    account: 'visa',
+    accountNumber: '1234',
+    expiry: '06/2026',
+  },
+];
 
 /**
  * Schedule Component
  */
-export default function Schedule() {
+export default function CourseTable() {
   const { t } = useTranslation();
-  const [data, setData] = useState<Array<TSchedule>>([]);
-  const { user } = useOutletContext<TUserContext>();
 
-  const { id } = useParams();
+  // const { id } = useParams();
 
   useEffect(() => {
-    api
-      .get(`/api/course-schedules/student/${id}`)
-      .then((res) => setData(res.data.returnData))
+    console.clear();
+    api.get(`/api/course-schedules/student/22`).then((res) => console.log(res));
   }, []);
 
   return (
@@ -131,91 +165,85 @@ export default function Schedule() {
                 </tr>
               </thead>
               <tbody>
-                {/* {TABLE_ROWS.map(({ name, amount, date, status }, index) => { */}
+                {TABLE_ROWS.map(({ name, amount, date, status }, index) => {
+                  const isLast = index === TABLE_ROWS.length - 1;
+                  const classes = isLast
+                    ? 'p-4'
+                    : 'p-4 border-b border-blue-gray-50';
 
-                {data.map(
-                  (
-                    { id, starttime, duration, meeturl, courseid, studentid },
-                    index
-                  ) => {
-                    const isLast = index === data.length - 1;
-                    const classes = isLast
-                      ? 'p-4'
-                      : 'p-4 border-b border-blue-gray-50';
-
-                    return (
-                      <tr key={courseid}>
-                        <td className={classes}>
-                          <div className='flex items-center gap-3'>
-                            <Typography
-                              variant='small'
-                              color='blue-gray'
-                              className='font-bold'
-                              placeholder={undefined}
-                              onPointerEnterCapture={undefined}
-                              onPointerLeaveCapture={undefined}
-                            >
-                              {courseid}
-                            </Typography>
-                          </div>
-                        </td>
-                        <td className={classes}>
+                  return (
+                    <tr key={name}>
+                      <td className={classes}>
+                        <div className='flex items-center gap-3'>
                           <Typography
                             variant='small'
                             color='blue-gray'
-                            className='font-normal'
+                            className='font-bold'
                             placeholder={undefined}
                             onPointerEnterCapture={undefined}
                             onPointerLeaveCapture={undefined}
                           >
-                            {starttime}
+                            {name}
                           </Typography>
-                        </td>
-                        <td className={classes}>
-                          <Typography
-                            variant='small'
-                            color='blue-gray'
-                            className='font-normal'
+                        </div>
+                      </td>
+                      <td className={classes}>
+                        <Typography
+                          variant='small'
+                          color='blue-gray'
+                          className='font-normal'
+                          placeholder={undefined}
+                          onPointerEnterCapture={undefined}
+                          onPointerLeaveCapture={undefined}
+                        >
+                          {amount}
+                        </Typography>
+                      </td>
+                      <td className={classes}>
+                        <Typography
+                          variant='small'
+                          color='blue-gray'
+                          className='font-normal'
+                          placeholder={undefined}
+                          onPointerEnterCapture={undefined}
+                          onPointerLeaveCapture={undefined}
+                        >
+                          {date}
+                        </Typography>
+                      </td>
+                      <td className={classes}>
+                        <div className='w-max'>
+                          <Chip
+                            size='sm'
+                            variant='ghost'
+                            value={status}
+                            color={
+                              status === 'paid'
+                                ? 'green'
+                                : status === 'pending'
+                                ? 'amber'
+                                : 'red'
+                            }
+                          />
+                        </div>
+                      </td>
+                      <td className={classes}>
+                        <Tooltip content='Edit User'>
+                          <IconButton
+                            variant='text'
                             placeholder={undefined}
                             onPointerEnterCapture={undefined}
                             onPointerLeaveCapture={undefined}
                           >
-                            {duration}
-                          </Typography>
-                        </td>
-                        <td className={classes}>
-                          <div className='w-max'>
-                            <Link to={meeturl}>
-                              <Button
-                                variant='text'
-                                className='text-primary'
-                                placeholder={undefined}
-                                onPointerEnterCapture={undefined}
-                                onPointerLeaveCapture={undefined}
-                              >
-                                {capitalize(t(`Link`))}
-                              </Button>
-                            </Link>
-                          </div>
-                        </td>
-                        <td className={classes}>
-                          <Tooltip content='Edit User'>
-                            <IconButton
-                              variant='text'
-                              placeholder={undefined}
-                              onPointerEnterCapture={undefined}
-                              onPointerLeaveCapture={undefined}
-                            >
-                              <span className='material-symbols-outlined'>
-                                edit
-                              </span>
-                            </IconButton>
-                          </Tooltip>
-                        </td>
-                      </tr>
-                    );
-                  }
-                )}
+                            <span className='material-symbols-outlined'>
+                              edit
+                            </span>
+                          </IconButton>
+                        </Tooltip>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </CardBody>

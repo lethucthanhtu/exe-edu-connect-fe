@@ -38,14 +38,15 @@ import Test                from '../pages/test';
 import Subjects            from '../pages/subject/subjects';
 import ResetPassword       from '../pages/user/resetPassword';
 import TransactionsHistory from '../pages/user/transactionHistory';
-import Rate from '../pages/user/student/rate';
-import RefundRequest from '../pages/user/student/refundRequest';
+import Rate                from '../pages/user/student/rate';
+import RefundRequest       from '../pages/user/student/refundRequest';
 import CoursesHistory      from '../pages/user/courseHistory';
 import Checkout            from '../pages/payment/checkout';
-import Contact from '../pages/contact';
-import MyProfile from '../pages/myprofile';
-import SignupTeacher from '../pages/signup_teacher/signup.teacher';
-import CompleteCheckout from '../pages/payment/complete_checkout';
+import Contact             from '../pages/contact';
+import MyProfile           from '../pages/myprofile';
+import SignupTeacher       from '../pages/signup_teacher/signup.teacher';
+import CompleteCheckout    from '../pages/payment/complete_checkout';
+import CourseTable         from '../pages/user/tutor/table.courses';
 
 const PrivateRoutesLayout = () => {
   const { auth } = useContext(AuthContext);
@@ -147,6 +148,7 @@ const routes = createBrowserRouter([
                 ]
               },
               { path : 'schedule'           , element: <Schedule                        /> },
+              { path : 'tutor/courses'      , element: <CourseTable                     /> },
               { path : 'learn-request'      , element: <NotHandleYet                    /> }, //đăng ký học, đợi accept
               { path : 'teach-request'      , element: <NotHandleYet                    /> }, //đăng ký dạy, đợi accept
               { path : 'rate'               , element: <Rate                            /> },

@@ -348,7 +348,7 @@ function Sidebar({ user, role, loading, isCUserProfile }: TUserProps) {
                   >
                     <span className='material-symbols-outlined'>
                       transition_push
-                    </span>{' '}
+                    </span>
                   </ListItemPrefix>
                   <Typography
                     color='blue-gray'
@@ -452,7 +452,42 @@ function Sidebar({ user, role, loading, isCUserProfile }: TUserProps) {
           </>
         ) : (
           // <NotFound/>
-          <></>
+          <>
+            <Link to={`/course/create`}>
+              <ListItem
+                className='hover:bg-primary-light'
+                placeholder={undefined}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+              >
+                <ListItemPrefix
+                  placeholder={undefined}
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                >
+                  <span className='material-symbols-outlined'>post_add</span>
+                </ListItemPrefix>
+                {capitalize(t('create course'))}
+              </ListItem>
+            </Link>
+            <Link to={`${id}/tutor/courses`}>
+              <ListItem
+                className='hover:bg-primary-light'
+                placeholder={undefined}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+              >
+                <ListItemPrefix
+                  placeholder={undefined}
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                >
+                  <span className='material-symbols-outlined'>school</span>
+                </ListItemPrefix>
+                {capitalize(t('your course'))}
+              </ListItem>
+            </Link>
+          </>
         )}
       </List>
       <List
