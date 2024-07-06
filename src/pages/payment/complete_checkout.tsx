@@ -1,4 +1,5 @@
 import { Typography } from '@material-tailwind/react';
+import DoneTick from "../../assets/img/QRMomoTienHoang/DoneTick.png";
 
 /**
  *
@@ -6,14 +7,8 @@ import { Typography } from '@material-tailwind/react';
 export default function CompleteCheckout() {
   return (
     <>
-      <div className='w-full h-full flex flex-col items-center pt-10 bg-red-100'>
-        <Typography
-          placeholder={undefined}
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-        >
-          <span className='material-symbols-outlined'>price_check</span>
-        </Typography>
+      <div className='w-full h-full flex flex-col items-center'>
+        <img src={DoneTick} />
         <Typography
           placeholder={undefined}
           onPointerEnterCapture={undefined}

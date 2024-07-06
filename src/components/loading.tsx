@@ -14,7 +14,7 @@ export default function Loading({ middle = false, ...props }: TLoadingProps) {
       <Spinner
         {...props}
         color='teal'
-        className={`size-12`}
+        className={`size-12`|| props.className}
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
       />

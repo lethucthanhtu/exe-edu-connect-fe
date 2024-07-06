@@ -199,7 +199,7 @@ export default function Schedule() {
                           </div>
                         </td>
                         <td className={classes}>
-                          <Tooltip content='Edit User'>
+                          <Tooltip content='Edit Status'>
                             <IconButton
                               variant='text'
                               placeholder={undefined}
