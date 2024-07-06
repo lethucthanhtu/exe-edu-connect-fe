@@ -13,6 +13,7 @@ import Separator from '../../components/separator';
 
 interface ProfileContextType {
   isCUserProfile: boolean;
+  user: TUser;
 }
 
 /**
