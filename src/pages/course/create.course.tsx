@@ -288,6 +288,12 @@ export default function CreateCourse() {
       })
       .catch((err) => {
         setErrMsg(err.message);
+        // eslint-disable-next-line no-console
+        console.clear();
+        // eslint-disable-next-line no-console
+        console.log('data to send',draft);
+        // eslint-disable-next-line no-console
+        console.log(err);
       })
       .finally(() => setApiLoading(false));
   };
