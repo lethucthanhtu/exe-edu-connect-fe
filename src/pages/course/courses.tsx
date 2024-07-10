@@ -12,6 +12,7 @@ import api from '../../api/api';
 import { TCourse } from '../../entity/entity/course';
 import Loading from '../../components/loading';
 import { COURSES_URL } from '../../utils/config';
+import { AlertPopup } from '../../components/alert';
 
 type TSectionProps = {
   title: string;
@@ -91,9 +92,9 @@ export default function Courses() {
       })
       .then((res) => {
         setCourses(res.data.returnData.coursedtos);
-        setLoading(false);
       })
-      .catch((err) => setErrMsg(err.message));
+      .catch((err) => setErrMsg(err.message))
+      .finally(() => setLoading(false));
   }, [subject, page, size]);
 
   //for subject category placeholder text
@@ -110,14 +111,14 @@ export default function Courses() {
         {subject
           ? placeholderText
           : capitalize(
-            t(`In velit minim qui laboris veniam aute sunt exercitation eiusmod.
+              t(`In velit minim qui laboris veniam aute sunt exercitation eiusmod.
         Nostrud fugiat velit exercitation sunt nulla laboris tempor officia et
         veniam dolor. Id ipsum cupidatat exercitation qui. Anim duis eiusmod ut
         nostrud. Nisi fugiat Lorem nisi nisi incididunt mollit irure pariatur
         deserunt exercitation Lorem dolore. Ad nostrud in irure consectetur.
         Nostrud fugiat velit exercitation sunt nulla laboris tempor officia et
         veniam dolor. Id ipsum`)
-          )}
+            )}
       </CourseSection>
       <section className='flex flex-wrap gap-x-2 gap-y-4 justify-evenly my-12'>
         {!loading ? (
@@ -135,6 +136,7 @@ export default function Courses() {
         <Review />
         <Review />
       </div>
+      {errMsg && <AlertPopup>{errMsg}</AlertPopup>}
     </section>
   );
 }
