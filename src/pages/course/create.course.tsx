@@ -52,7 +52,7 @@ type TCreateCourse = {
   enddate: string;
   categoryid: number;
   meeturl: string;
-  scheduleRequest: TScheduleDate[];
+  schedulerequests: TScheduleDate[];
 };
 
 type TDayProps = {
@@ -90,6 +90,7 @@ TDayProps) {
 
     const et = event.target;
     const key = et.accessKey.toUpperCase();
+    const val = Number(et.value) || et.value;
 
     // check if schedule exist
     let sche = schedules.find((s) => s.dayofweek === key);
@@ -97,12 +98,12 @@ TDayProps) {
     if (sche) {
       // delete if exist (add again later)
       sList = sList.filter((s) => s.dayofweek !== key);
-      sche = { ...schedule, [et.name]: et.value };
+      sche = { ...schedule, [et.name]: val };
       setSchedule(sche);
     } else {
       sche = schedule;
       sche.dayofweek = key;
-      setSchedule((prev) => ({ ...prev, [et.name]: et.value }));
+      setSchedule((prev) => ({ ...prev, [et.name]: val }));
     }
     sList.push(sche);
     setSchedules(sList);
@@ -219,6 +220,7 @@ export default function CreateCourse() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [apiLoading, setApiLoading] = useState(false);
   const [user, setUser] = useState<TUser>();
   const [subjects, setSubjects] = useState<Array<TSubject>>();
   const [isAccept, setIsAccept] = useState(true);
@@ -240,7 +242,7 @@ export default function CreateCourse() {
         .then((res) => setUser(res.data.returnData))
         .then(
           () =>
-            user?.role[0].rolename.toLowerCase() !== 'teacher' &&
+            user.role[0].rolename.toLowerCase() !== 'teacher' &&
             navigate('/', { replace: true })
         )
         .catch((err) => err)
@@ -274,11 +276,19 @@ export default function CreateCourse() {
     api.post(MEET_URL).then((res) => setMeetUrl(res.data));
   }, []);
 
-  const handleConfirmCreate = () =>
+  const handleConfirmCreate = () => {
+    setApiLoading(true);
+    setErrMsg('');
+
     api
       .post(COURSES_URL, draft)
-      .then((res) => setMessage(res.data.message))
-      .catch((err) => setErrMsg(err.message));
+      .then((res) => {
+        setMessage(res.data.message);
+        setOpen(!open);
+      })
+      .catch((err) => setErrMsg(err.message))
+      .finally(() => setApiLoading(false));
+  };
 
   const handleAcceptToS = (event: ChangeEvent<HTMLInputElement>) =>
     setIsAccept(event.target.checked);
@@ -290,8 +300,11 @@ export default function CreateCourse() {
     if (!meetUrl) api.post(MEET_URL).then((res) => setMeetUrl(res.data));
   };
 
-  const handleChange = (event) =>
-    setDraft({ ...draft, [event.target.name]: event.target.value });
+  const handleChange = (event) => {
+    const et = event.target;
+    const val = Number(et.value) || et.value;
+    setDraft({ ...draft, [et.name]: val });
+  };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -299,12 +312,12 @@ export default function CreateCourse() {
     handleGenerateMeetingRoom;
 
     draft.meeturl = meetUrl;
-    draft.scheduleRequest = schedules;
+    draft.schedulerequests = schedules;
     setDraft(draft);
   };
 
   const handleChooseSubject = (event) => {
-    draft.categoryid = event;
+    draft.categoryid = Number(event);
     setDraft(draft);
   };
 
@@ -509,6 +522,7 @@ export default function CreateCourse() {
                     onPointerEnterCapture={undefined}
                     onPointerLeaveCapture={undefined}
                   >
+                    {apiLoading && <Loading middle />}
                     <span className='relative flex w-full mb-4'>
                       <Input
                         type='text'
@@ -591,7 +605,7 @@ export default function CreateCourse() {
           </span>
         </form>
       )}
-      {message && <AlertPopup>{message}</AlertPopup>}
+      {message && <AlertPopup color='green'>{message}</AlertPopup>}
       {errMsg && <AlertPopup>{errMsg}</AlertPopup>}
     </>
   );
