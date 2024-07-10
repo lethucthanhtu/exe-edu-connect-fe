@@ -196,7 +196,7 @@ function HomeCarousel() {
 }
 
 /** */
-function FeatureTutorCard({ user, isReverse = false }) {
+function FeatureTutorCard({ user , isReverse = false }) {
   const { t } = useTranslation();
   const items = [
     { icon: 'school', num: 200, text: 'students' },
