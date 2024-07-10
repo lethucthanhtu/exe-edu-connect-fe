@@ -9,11 +9,6 @@ import {
   List,
   ListItem,
   ListItemPrefix,
-  ListItemSuffix,
-  Menu,
-  MenuHandler,
-  MenuItem,
-  MenuList,
   Option,
   Select,
   Textarea,
@@ -24,7 +19,7 @@ import { useTranslation } from 'react-i18next';
 import Separator from '../../components/separator';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import {
-  COURSES_URL,
+  COURSE_URL,
   CURR_USER_DATA_URL,
   MEET_URL,
   SUBJECT_URL,
@@ -32,8 +27,6 @@ import {
 import api from '../../api/api';
 import { TSubject } from '../../entity/entity/subject';
 import { AlertPopup } from '../../components/alert';
-import { sl } from 'date-fns/locale';
-import { daysInWeek } from 'date-fns/constants';
 import { useNavigate } from 'react-router-dom';
 import { TUser } from '../../entity/user';
 import Loading from '../../components/loading';
@@ -281,7 +274,7 @@ export default function CreateCourse() {
     setErrMsg('');
 
     api
-      .post(COURSES_URL, draft)
+      .post(COURSE_URL, draft)
       .then((res) => {
         setMessage(res.data.message);
         setOpen(!open);
