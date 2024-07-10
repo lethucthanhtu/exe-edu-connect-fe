@@ -1,9 +1,4 @@
-import {
-  Button,
-  Card,
-  CardBody,
-  Typography,
-} from '@material-tailwind/react';
+import { Button, Card, CardBody, Typography } from '@material-tailwind/react';
 import { TCourse } from '../entity/entity/course';
 import CourseDetailFooter from './coures.detail.footer';
 import { CourseDetailBody } from './course.detail.body';
@@ -21,8 +16,7 @@ export default function CourseDetail({ course }: TCourseDetailProps) {
   const { t } = useTranslation();
 
   const handleClickCheckout = () => {
-    // sessionStorage.setItem('teacherId', course.teachername);
-    sessionStorage.setItem('teacherId', '26');
+    sessionStorage.setItem('teacherId', `${course.teacherid}`);
     sessionStorage.setItem('courseId', `${course.id}`);
   };
   return (

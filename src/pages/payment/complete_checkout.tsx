@@ -1,5 +1,5 @@
 import { Typography } from '@material-tailwind/react';
-import doneTick from '../../assets/img/QRMomoTienHoang/doneTick.png';
+import doneTick from '../../assets/img/QRMomoTienHoang/DoneTick.png';
 import Separator from '../../components/separator';
 import { capitalize } from '../../utils/utils';
 import { useTranslation } from 'react-i18next';

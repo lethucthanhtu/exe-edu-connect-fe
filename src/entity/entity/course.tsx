@@ -5,6 +5,7 @@ export type TCourse = {
   price: number;
   startdate: string;
   enddate: string;
+  teacherid: number;
   teachername: string;
   categoryname: string;
 };
