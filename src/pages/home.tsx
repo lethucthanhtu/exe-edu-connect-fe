@@ -28,6 +28,14 @@ import sf2 from '../assets/img/home/self_learning_2.jpg';
 import ol1 from '../assets/img/home/online_learning_1.jpg';
 import ol2 from '../assets/img/home/online_learning_2.jpg';
 import ol3 from '../assets/img/home/online_learning_3.jpg';
+import avaActivity_1 from '../assets/img/home/avaActivity_1.jpg';
+import avaActivity_2 from '../assets/img/home/avaActivity_2.png';
+import avaActivity_3 from '../assets/img/home/avaActivity_3.jpg';
+import avaActivity_4 from '../assets/img/home/avaActivity_4.jpg';
+import imgActivity_1 from '../assets/img/home/imgActivity_1.png';
+import imgActivity_2 from '../assets/img/home/imgActivity_2.png';
+import imgActivity_3 from '../assets/img/home/imgActivity_3.png';
+import imgActivity_4 from '../assets/img/home/imgActivity_4.png';
 import oc from '../assets/img/home/offline_class.jpg';
 import grade from '../assets/img/home/grade.jpg';
 import { useEffect, useState } from 'react';
@@ -43,11 +51,11 @@ function HomeCarousel() {
 
   const imgs = [h1, h2, h3, h4, h5, h6, h7];
   const viewAllCourses = () => {
-    navigate('/course/all')
-  }
+    navigate('/course/all');
+  };
   const goToSignupPage = () => {
-    navigate('/signup')
-  }
+    navigate('/signup');
+  };
 
   useEffect(() => {
     const handleInterval = () =>
@@ -79,7 +87,6 @@ function HomeCarousel() {
               className='aspect-video object-cover'
             />
           ))}
-
         </Carousel>
         <img
           src={imgs[displayImg]}
@@ -88,7 +95,7 @@ function HomeCarousel() {
 
         <div
           id='hero-text'
-          className='absolute container hidden lg:flex w-full flex-col gap-4 justify-center mt-24 
+          className='absolute container hidden lg:flex w-full flex-col gap-4 justify-center mt-24
           bg-black bg-opacity-55 px-8 py-4 rounded-xl'
         >
           <Typography
@@ -99,7 +106,7 @@ function HomeCarousel() {
             onPointerEnterCapture={undefined}
             onPointerLeaveCapture={undefined}
           >
-            {capitalize(t('bạn có đang tìm kiếm gia sư trực tuyến không?'))}
+            {capitalize(t('are you looking for an online tutor?'))}
             <Typography
               variant='paragraph'
               className='mt-2 normal-case'
@@ -109,13 +116,9 @@ function HomeCarousel() {
             >
               {capitalize(
                 t(
-                  `Gia sư trực tuyến là một phương pháp học tập hiệu quả và tiện lợi,
-              mang đến nhiều lợi ích cho học sinh trong thời đại công nghệ số.
-              Gia sư trực tuyến đang nổi lên như một giải pháp học tập hiệu quả và
-              tiện lợi trong thời đại công nghệ số. Hình thức này mang đến nhiều ưu điểm
-              vượt trội so với phương pháp học truyền thống, đáp ứng nhu cầu học tập
-              đa dạng của học sinh ở mọi lứa tuổi và trình độ.`
-                )
+                  `Online tutoring is an effective and convenient learning method, bringing many benefits to students in the digital age. Online tutoring is emerging as an effective and convenient learning solution in the digital age. This form brings many outstanding advantages compared to traditional learning methods, meeting the diverse learning needs of students of all ages and levels.`
+                ),
+                false
               )}
             </Typography>
           </Typography>
@@ -144,7 +147,7 @@ function HomeCarousel() {
         <div className='absolute bottom-[5%] w-full hidden lg:inline-flex gap-8 flex-nowrap peer'>
           <ul
             className='flex items-center justify-center gap-8 [&_img]:max-w-none animate-infinite-scroll peer-hover:animate-none'
-          // aria-hidden='false'
+            // aria-hidden='false'
           >
             {imgs.map((img, index) => (
               <li>
@@ -193,7 +196,7 @@ function HomeCarousel() {
 }
 
 /** */
-function FeatureTutorCard({ user = {}, isReverse = false }) {
+function FeatureTutorCard({ user, isReverse = false }) {
   const { t } = useTranslation();
   const items = [
     { icon: 'school', num: 200, text: 'students' },
@@ -212,7 +215,7 @@ function FeatureTutorCard({ user = {}, isReverse = false }) {
           className='relative flex justify-center items-center'
         >
           <span className='z-0 absolute bottom-[2.5%] aspect-square w-4/5 rounded-full bg-primary-sub' />
-          <img src={ft1} className='z-10' />
+          <img src={user.img} className='z-10' />
           <span className='w-full rounded-2xl bg-primary-medium grid grid-cols-2' />
         </div>
         <div className='grid grid-cols-2 py-8 px-8 gap-4 bg-primary-light rounded-xl'>
@@ -244,7 +247,7 @@ function FeatureTutorCard({ user = {}, isReverse = false }) {
             onPointerEnterCapture={undefined}
             onPointerLeaveCapture={undefined}
           >
-            {/* {t(user.fullname)} */} Lê Thúc Thanh Tú
+            {user.name}
             <span className='material-symbols-outlined text-primary select-none ml-2'>
               verified
             </span>
@@ -256,10 +259,7 @@ function FeatureTutorCard({ user = {}, isReverse = false }) {
             onPointerEnterCapture={undefined}
             onPointerLeaveCapture={undefined}
           >
-            {capitalize(
-              t(`Bachelor in English studies, PhD in Linguistics`),
-              false
-            )}
+            {user.role}
           </Typography>
         </div>
         <Typography
@@ -269,17 +269,7 @@ function FeatureTutorCard({ user = {}, isReverse = false }) {
           onPointerEnterCapture={undefined}
           onPointerLeaveCapture={undefined}
         >
-          {`Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen bookLorem Ipsum is simply dummy
-          text of the printing and typesetting industry. Lorem Ipsum has been
-          the industry's standard dummy text ever since the 1500s, when an
-          unknown printer took a galley of type and scrambled it to make a type
-          specimen bookLorem Ipsum is simply dummy text of the printing and
-          typesetting industry. Lorem Ipsum has been the industry's standard
-          dummy text ever since the 1500s, when an unknown printer took a galley
-          of type and scrambled it to make a type specimen book`}
+          {user.des}
         </Typography>
         <Link to='/' className=' inline-flex justify-end w-full pr-4'>
           <Button
@@ -298,7 +288,7 @@ function FeatureTutorCard({ user = {}, isReverse = false }) {
 }
 
 /** */
-function StudentActivityCard() {
+function StudentActivityCard({ user }) {
   const { t } = useTranslation();
   return (
     <>
@@ -318,7 +308,7 @@ function StudentActivityCard() {
             <Avatar
               size='lg'
               variant='circular'
-              src='https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80'
+              src={user.avaUrl}
               alt='tania andrew'
               placeholder={undefined}
               onPointerEnterCapture={undefined}
@@ -332,7 +322,7 @@ function StudentActivityCard() {
                 onPointerEnterCapture={undefined}
                 onPointerLeaveCapture={undefined}
               >
-                Tania Andrew
+                {user.name}
               </Typography>
               <div className='5 flex items-center gap-0'></div>
               <Typography
@@ -341,17 +331,21 @@ function StudentActivityCard() {
                 onPointerEnterCapture={undefined}
                 onPointerLeaveCapture={undefined}
               >
-                Frontend Lead @ Google
+                {user.role}
               </Typography>
             </div>
           </div>
-          <img src={grade} className='aspect-video w-full rounded-lg' />
+          <img
+            src={user.imgActivity}
+            className='aspect-video w-full rounded-lg'
+          />
           <Typography
+            variant='h6'
             placeholder={undefined}
             onPointerEnterCapture={undefined}
             onPointerLeaveCapture={undefined}
           >
-            {capitalize(t('something something'))}
+            {user.des}
           </Typography>
         </CardBody>
 
@@ -361,7 +355,7 @@ function StudentActivityCard() {
           onPointerEnterCapture={undefined}
           onPointerLeaveCapture={undefined}
         >
-          <Chip value={capitalize(t('mathematics'))} className='bg-primary' />
+          <Chip value={user.subject} className='bg-primary' />
         </CardFooter>
       </Card>
     </>
@@ -415,7 +409,55 @@ function SectionWithTitle({
  */
 export default function Home() {
   const { t } = useTranslation();
+  const arr = [
+    {
+      name: 'Lê Thúc Thanh Tú',
+      role: 'Bachelor in English studies, PhD in Linguistics',
+      des: 'Xin chào! Tôi là Tú, một người đam mê giảng dạy và nghiên cứu ngôn ngữ. Tôi đã tốt nghiệp Cử nhân Sư phạm Anh và tiếp tục đạt được học vị Thạc sĩ/Tiến sĩ Ngôn ngữ. Với hơn 6 năm kinh nghiệm trong việc giảng dạy tiếng Anh ở các cấp độ khác nhau, tôi luôn tận tâm giúp học viên của mình không chỉ nắm vững ngữ pháp và từ vựng mà còn phát triển kỹ năng giao tiếp và tư duy phản biện. Tôi tin rằng mỗi học viên đều có những nhu cầu và mục tiêu học tập riêng biệt, do đó, tôi luôn tùy chỉnh phương pháp giảng dạy để phù hợp với từng cá nhân. Tại TheEduConnect, tôi rất háo hức được đồng hành cùng bạn trên hành trình chinh phục tiếng Anh, từ những bước đi đầu tiên đến những thành công rực rỡ trong tương lai. Hãy cùng nhau khám phá và tận hưởng niềm vui trong việc học tiếng Anh!',
+      img: ft1,
+    },
+    {
+      name: 'Đào Việt Anh',
+      role: 'FPT University Student',
+      des: 'Xin chào! Tôi là Việt Anh, hiện đang theo học tại trường Đại học FPT, một trong những ngôi trường hàng đầu về công nghệ và đổi mới tại Việt Nam. Với nền tảng học tập vững chắc và kinh nghiệm thực tiễn từ các dự án thực tế tại trường, tôi luôn khao khát chia sẻ kiến thức và giúp đỡ các bạn học viên trong hành trình học tập của mình. Tại TheEduConnect, tôi chuyên cung cấp các khóa học từ cơ bản đến nâng cao. Với phương pháp giảng dạy linh hoạt, tập trung vào nhu cầu và khả năng của từng học viên, tôi cam kết sẽ mang đến những bài học sinh động, dễ hiểu và hiệu quả.',
+      img: ft2,
+    },
+  ];
 
+  const arrActivities = [
+    {
+      avaUrl: avaActivity_1,
+      name: 'Tiến Hoàng',
+      role: 'FPT University Student',
+      imgActivity: imgActivity_1,
+      des: 'Học, học nữa, học mãi',
+      subject: 'Mathematics',
+    },
+    {
+      avaUrl: avaActivity_2,
+      name: 'Thuyy Tramm',
+      role: 'High School Student',
+      imgActivity: imgActivity_2,
+      des: 'Giảng viên ơi, mình chill tí được hong :")',
+      subject: 'Physics',
+    },
+    {
+      avaUrl: avaActivity_3,
+      name: 'Hoàng Ngọc Huyền Trang',
+      role: 'High School Student',
+      imgActivity: imgActivity_3,
+      des: 'Việc học trở nên thật là dễ dàng khi có gia sư học cùng mình, lại còn thuận tiện nhờ học online qua EduConnect nữa. Phù hợp với các bạn sắp thi hoặc muốn rèn luyện các môn sở trường của mình',
+      subject: 'Literature',
+    },
+    {
+      avaUrl: avaActivity_4,
+      name: 'Meo Meo',
+      role: 'Hoa Sen University',
+      imgActivity: imgActivity_4,
+      des: 'Chuẩn bị một tâm hồn thật đẹp để chào mừng các bé nhé, và một xấp đề thật dày nữa ',
+      subject: 'Mathematics',
+    },
+  ];
   return (
     <>
       <HomeCarousel />
@@ -427,9 +469,8 @@ export default function Home() {
           id='trending-course'
           title='trending course'
           subTitle='discover our trending courses that suit your needs'
-        >
-          alo
-        </SectionWithTitle>
+          children={undefined}
+        />
         <section id='feature-tutor' className='w-full flex flex-col gap-6'>
           <div
             id='separator'
@@ -447,14 +488,8 @@ export default function Home() {
             </Typography>
           </div>
           <div className='flex flex-col gap-4'>
-            {[...Array(2).keys()].map((index) => (
-              <>
-                {index % 2 === 0 ? (
-                  <FeatureTutorCard />
-                ) : (
-                  <FeatureTutorCard isReverse={true} />
-                )}
-              </>
+            {arr.map((user, index) => (
+              <FeatureTutorCard isReverse={index % 2 === 0} user={user} />
             ))}
           </div>
           <Link to='/tutor/all' className='inline-flex w-full justify-center'>
@@ -487,7 +522,7 @@ export default function Home() {
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
             >
-              {capitalize(t('chất lượng học sinh được đảm bảo'))}
+              {capitalize(t('student quality is guaranteed'))}
             </Typography>
             <Typography
               variant='paragraph'
@@ -497,10 +532,9 @@ export default function Home() {
             >
               {capitalize(
                 t(
-                  `Chất lượng học sinh tham gia khóa học sẽ được đảm bảo một cách uy tín.
-                  Cam kết sau thời gian tham gia các khóa học,
-                  học sinh sẽ gặt hái được các kết quả học tập tốt hơn.`
-                )
+                  `The quality of students participating in the course will be guaranteed in a reputable way. Commitment that after participating in courses, students will achieve better learning results.`
+                ),
+                false
               )}
             </Typography>
             <Button
@@ -517,19 +551,18 @@ export default function Home() {
         <SectionWithTitle
           id='student-activity'
           title='student activities'
-          subTitle='Tham gia cộng đồng năng động của chúng tôi để luôn cập nhật tin tức và cơ hội'
+          subTitle='join our dynamic community to stay up to date with news and opportunities'
         >
           <div className='grid grid-cols-2 gap-4'>
-            <StudentActivityCard />
-            <StudentActivityCard />
-            <StudentActivityCard />
-            <StudentActivityCard />
+            {arrActivities.map((user) => (
+              <StudentActivityCard user={user} />
+            ))}
           </div>
         </SectionWithTitle>
         <SectionWithTitle
           id='student-rating'
           title={`student's reviews`}
-          subTitle='Tìm hiểu xem học viên của chúng tôi nói gì về trải nghiệm học tập của họ'
+          subTitle='find out what our students have to say about their learning experience'
         >
           <div className='grid grid-cols-3'></div>
         </SectionWithTitle>

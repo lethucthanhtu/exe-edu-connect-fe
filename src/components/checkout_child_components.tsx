@@ -16,10 +16,14 @@ import {
   CardHeader,
 } from '@material-tailwind/react';
 import api from '../api/api';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { TUser } from '../entity/user';
 import User from '../pages/user/user';
 import { TCourse } from '../entity/entity/course';
+import { Link, useNavigate } from 'react-router-dom';
+import Loading from './loading';
+import { CURR_USER_DATA_URL, TRANSACTION_URL } from '../utils/config';
+import { TTransaction } from '../entity/entity/tranaction';
 
 type TCheckoutDetailProps = {
   teacher?: TUser;
@@ -127,8 +131,40 @@ export function PaymentOptions() {
  * The QR section for customers to finish the payment.
  * @returns JSX.Element
  */
-export function QRSection({course, }: TCheckoutDetailProps) {
+export function QRSection({ course }: TCheckoutDetailProps) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+  const [currUsr, setCurrUsr] = useState<TUser>();
+
+  const handleClickCheckout = () => {
+    setIsLoading(true);
+    api
+      .post(TRANSACTION_URL, {
+        courseid: course.id,
+        userid: currUsr.id,
+        price: course.price,
+        datetime: course.startdate,
+        transactioncategoryid: 1,
+        status: 'pending',
+      })
+      // .then(() => { 
+      //   console.log('Form Sent');
+      // })
+      .then(() => {
+        setTimeout(() => {
+          setIsLoading(false);
+          navigate('/complete-checkout');
+        }, 4000);
+      });
+  };
+
+  useEffect(() => {
+    api.get(CURR_USER_DATA_URL).then((res) => {
+      setCurrUsr(res.data.returnData);
+    });
+  }, []);
+
   return (
     <Card
       className='mt-2 w-96'
@@ -237,19 +273,26 @@ export function QRSection({course, }: TCheckoutDetailProps) {
             onPointerLeaveCapture={undefined}
             color='black'
           >
-            {`Theeduconnect: ${course?.id} - `}
+            {`${course?.id} - ${currUsr?.id} - ${currUsr?.fullname}`}
           </Typography>
         </div>
         <hr className='border-gray-300 my-4' />
-        <Button
-          className='bg-primary text-center text-sm'
-          placeholder={undefined}
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-          fullWidth
-        >
-          {capitalize(t('Hủy'))}
-        </Button>
+        <div className='flex justify-center'>
+          {isLoading ? (
+            <Loading />
+          ) : (
+            <Button
+              onClick={handleClickCheckout}
+              className='bg-primary text-center text-sm'
+              placeholder={undefined}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+              fullWidth
+            >
+              {capitalize(t('hoàn tất thanh toán'))}
+            </Button>
+          )}
+        </div>
       </CardBody>
     </Card>
   );
