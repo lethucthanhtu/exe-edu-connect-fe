@@ -286,15 +286,7 @@ export default function CreateCourse() {
         setMessage(res.data.message);
         setOpen(!open);
       })
-      .catch((err) => {
-        setErrMsg(err.message);
-        // eslint-disable-next-line no-console
-        console.clear();
-        // eslint-disable-next-line no-console
-        console.log('data to send',draft);
-        // eslint-disable-next-line no-console
-        console.log(err);
-      })
+      .catch((err) => setErrMsg(err.message))
       .finally(() => setApiLoading(false));
   };
 
