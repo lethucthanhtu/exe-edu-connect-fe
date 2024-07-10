@@ -95,7 +95,7 @@ function HomeCarousel() {
 
         <div
           id='hero-text'
-          className='absolute container hidden lg:flex w-full flex-col gap-4 justify-center mt-24 
+          className='absolute container hidden lg:flex w-full flex-col gap-4 justify-center mt-24
           bg-black bg-opacity-55 px-8 py-4 rounded-xl'
         >
           <Typography
@@ -196,7 +196,7 @@ function HomeCarousel() {
 }
 
 /** */
-function FeatureTutorCard({ user = {}, isReverse = false }) {
+function FeatureTutorCard({ user, isReverse = false }) {
   const { t } = useTranslation();
   const items = [
     { icon: 'school', num: 200, text: 'students' },
@@ -288,7 +288,7 @@ function FeatureTutorCard({ user = {}, isReverse = false }) {
 }
 
 /** */
-function StudentActivityCard({ user = {} }) {
+function StudentActivityCard({ user }) {
   const { t } = useTranslation();
   return (
     <>
