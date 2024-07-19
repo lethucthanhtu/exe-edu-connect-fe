@@ -23,11 +23,11 @@ export default function CourseDetail({ course }: TCourseDetailProps) {
   return (
     <div className='relative py-5 '>
       {/* <CourseCoverImage /> */}
-      <div className='grid grid-cols-12 items-start w-full'>
-        <div className='mx-2 col-span-9'>
+      <div className='flex flex-col md:flex-row justify-center md:justify-between items-center md:items-start w-full'>
+        <div className='mx-2 md:basis-9/12'>
           <CourseDetailHeader course={course} />
         </div>
-        <div className='col-span-3'>
+        <div className='md:basis-3/12 mb-4 md:mb-0'>
           <Card
             className='basis-1/4 flex justify-center items-start xs:'
             placeholder={undefined}
