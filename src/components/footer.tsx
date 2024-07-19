@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import LanguageButton from './language.button';
 import { capitalize } from '../utils/utils';
+import Separator, { Hr } from './separator';
 
 const SITEMAP = [
   {
@@ -51,7 +52,7 @@ export default function Footer() {
     <footer className='relative w-full mt-auto border-t border-gray-200'>
       <div className='w-full'>
         <div className='flex md:flex-row flex-col'>
-          <div className='basis-2/3 mx-auto px-8 grid w-full grid-cols-1 gap-8 py-12 md:grid-cols-2 lg:grid-cols-4'>
+          <div className='basis-2/3 mx-auto px-8 grid w-full gap-8 py-12 grid-cols-2 lg:grid-cols-4'>
             {SITEMAP.map(({ title, links }, key) => (
               <div key={key} className='w-full'>
                 <Typography
@@ -87,9 +88,10 @@ export default function Footer() {
               </div>
             ))}
           </div>
+          <Hr className='w-10 block md:hidden' />
 
           <div className='basis-1/3 mx-auto md:px-8 grid w-full grid-cols-1 gap-8 py-12 md:grid-cols-1 lg:grid-cols-1 xs:px-4'>
-            <div className='w-full h-full '>
+            <div className='size-full'>
               <div className='w-full flex flex-col items-center'>
                 <Typography
                   className='font-semibold my-4 text-center'
@@ -147,7 +149,6 @@ export default function Footer() {
             </div>
           </div>
         </div>
-
         <div className='px-8 flex w-full flex-col items-center bg-primary text-white justify-center border-t border-blue-gray-50 py-4 md:flex-row md:justify-between'>
           <Typography
             variant='small'
