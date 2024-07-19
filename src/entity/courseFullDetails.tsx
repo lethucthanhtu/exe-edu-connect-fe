@@ -6,6 +6,7 @@ type TCourseFullDetails = {
     rating: number,
     startdate: string,
     enddate: string,
+    teacherid: number,
     teachername: string,
     categoryname: string
 }

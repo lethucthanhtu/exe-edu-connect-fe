@@ -40,7 +40,7 @@ export default function Course() {
 
   return (
     <>
-      <div className='container flex justify-center'>
+      <div className='container flex justify-center '>
         {loading ? <Loading /> : <CourseDetail course={courseDetail} />}
       </div>
     </>

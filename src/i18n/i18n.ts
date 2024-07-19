@@ -118,7 +118,9 @@ export default i18n
             'tìm hiểu xem học viên của chúng tôi nói gì về trải nghiệm học tập của họ',
           'join now': 'tham gia ngay',
           'main courses': 'các khóa học chính',
-          'complete the payment ':'hoàn tất thanh toán',
+          'complete the payment ': 'hoàn tất thanh toán',
+          'about the course': 'giới thiệu khóa học',
+          checkout: 'thanh toán',
         },
         jp: {
           translation: {
