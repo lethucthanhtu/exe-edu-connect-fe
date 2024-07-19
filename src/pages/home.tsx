@@ -206,10 +206,10 @@ function FeatureTutorCard({ user , isReverse = false }) {
   ];
   return (
     <div
-      className={`flex justify-center items-stretch
-                  ${isReverse && 'flex-row-reverse'}`}
+      className={`flex flex-col md:flex-row justify-center items-stretch
+                  ${isReverse && 'md:flex-row-reverse'}`}
     >
-      <div className={`w-1/3 flex flex-col`}>
+      <div className={`md:w-1/3 flex flex-col`}>
         <div
           id='img-content'
           className='relative flex justify-center items-center'
@@ -238,7 +238,7 @@ function FeatureTutorCard({ user , isReverse = false }) {
           ))}
         </div>
       </div>
-      <div className='w-2/3 flex-col gap-6 justify-center mt-16'>
+      <div className='md:w-2/3 flex-col gap-6 justify-center mt-16'>
         <div id='name-section'>
           <Typography
             variant='h3'
@@ -503,7 +503,7 @@ export default function Home() {
             </Button>
           </Link>
         </section>
-        <section id='ad' className='container flex gap-4 mt-12'>
+        <section id='ad' className='container flex flex-col md:flex-row gap-4 mt-12'>
           <div className='basis-1/2 flex gap-2 items-center'>
             <div className='basis-4/6'>
               <img src={oc} className='h-full aspect-square rounded-lg' />
@@ -553,7 +553,7 @@ export default function Home() {
           title='student activities'
           subTitle='join our dynamic community to stay up to date with news and opportunities'
         >
-          <div className='grid grid-cols-2 gap-4'>
+          <div className='grid md:grid-cols-2 gap-4'>
             {arrActivities.map((user) => (
               <StudentActivityCard user={user} />
             ))}
