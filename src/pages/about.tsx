@@ -102,9 +102,9 @@ export default function About() {
 
   return (
     <>
-      <figure className='relative h-1/3 w-full shadow-lg'>
+      <figure className='relative hidden md:block md:h-1/3 w-full shadow-lg'>
         <img
-          className='size-full rounded-xl object-cover object-center'
+          className='size-full rounded-xl object-cover object-center aspect-video'
           src={banner}
           alt='nature image'
         />
@@ -168,7 +168,7 @@ export default function About() {
           </div>
         </figcaption>
       </figure>
-      <section className='md:flex md:justify-center md:flex-row-reverse'>
+      <section className='xs:mx-4 md:mx-0 md:flex md:justify-center md:flex-row-reverse xs:mb-4 md:mb-0'>
         <img src={human} className='' />
         <div className='flex flex-col justify-center md:items-start xs:justify-center md:w-1/2 xs:w-auto text-primary mx-5'>
           <Typography
@@ -226,8 +226,8 @@ export default function About() {
                 onPointerEnterCapture={undefined}
                 onPointerLeaveCapture={undefined}
               >
-                Cung cấp cho sinh viên cao đẳng/đại học cơ hội kiếm tiền và
-                tích lũy kinh nghiệm.
+                Cung cấp cho sinh viên cao đẳng/đại học cơ hội kiếm tiền và tích
+                lũy kinh nghiệm.
               </Typography>
             </li>
             <li className='list-disc'>
@@ -255,15 +255,14 @@ export default function About() {
               </Typography>
             </li>
           </ul>
-
         </div>
       </section>
-      <section className='md:flex md:justify-center md:gap-16 bg-primary-sub h-auto w-full py-8 rounded-tl-[5rem] rounded-br-[10rem] text-white'>
+      <section className='flex flex-col md:flex-row md:justify-center md:gap-16 bg-primary-sub h-auto w-full py-8 rounded-tl-[5rem] rounded-br-[7.5rem] md:rounded-br-[10rem] text-white'>
         <img
           src={learner1}
-          className='md:h-full aspect-video w-1/3 rounded-2xl object-cover object-center'
+          className='md:h-full aspect-video xs:mx-4 md:mx-0 md:w-1/3 rounded-2xl object-cover object-center'
         />
-        <div className='flex flex-col justify-center items-start basis-2/5'>
+        <div className='flex flex-col justify-center items-start md:basis-2/5 xs:mx-4 md:mx-0'>
           <Typography
             variant='h2'
             className='uppercase'
@@ -339,8 +338,8 @@ export default function About() {
         </div>
       </section>
       <div className='my-16' />
-      <section className='w-full h-auto py-10 md:flex md:justify-center gap-8 bg-primary-sub rounded-tr-[10rem] text-white'>
-        <div className='flex flex-col gap-6 xs:w-auto md:!w-2/5 justify-center items-start'>
+      <section className='w-full h-auto py-10 flex flex-col-reverse md:flex-row md:justify-center gap-8 bg-primary-sub rounded-tr-[10rem] text-white'>
+        <div className='flex flex-col gap-6 mx-4 md:mx-0 xs:w-auto md:!w-2/5 justify-center items-start'>
           <Typography
             variant='h2'
             className=''
@@ -381,7 +380,7 @@ export default function About() {
             </div>
           </form>
         </div>
-        <img src={question} className='aspect-video w-1/3 rounded-2xl' />
+        <img src={question} className='aspect-video md:w-1/3 xs:w-4/5 xs:ml-4 md:ml-0 rounded-2xl' />
       </section>
     </>
   );
