@@ -79,7 +79,7 @@ function TableRow({ transaction }: TTableRowProps) {
             onPointerEnterCapture={undefined}
             onPointerLeaveCapture={undefined}
           >
-            {transaction.courseid}
+            {transaction.userid}
           </Typography>
         </td>
         <td className='p-4'>
@@ -91,7 +91,7 @@ function TableRow({ transaction }: TTableRowProps) {
             onPointerEnterCapture={undefined}
             onPointerLeaveCapture={undefined}
           >
-            {transaction.userid}
+            {transaction.courseid}
           </Typography>
         </td>
         <td className='p-4'>
@@ -118,7 +118,7 @@ function TableRow({ transaction }: TTableRowProps) {
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
             >
-              {`${transaction.courseid} - ${transaction.userid} - ${usr.fullname}`}
+              {`${transaction.userid} - ${transaction.courseid} - ${usr.fullname}`}
             </Typography>
           )}
         </td>
@@ -126,7 +126,9 @@ function TableRow({ transaction }: TTableRowProps) {
           {editToogle ? (
             <Select
               value={transaction.status}
-              onChange={e => setStatus(ETransaction[e as keyof typeof ETransaction])}
+              onChange={(e) =>
+                setStatus(ETransaction[e as keyof typeof ETransaction])
+              }
               placeholder={undefined}
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}

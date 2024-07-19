@@ -92,7 +92,7 @@ export default function Profile() {
       .then(() => {
         setTimeout(() => {
           location.reload();
-        }, 4000);
+        }, 1500);
       })
       .catch(() => setErrMsg('Failed to update profile!'));
   };
