@@ -8,11 +8,12 @@ type TSeparatorProps = {
 
 type THrProps = {
   width?: string;
+  className?: string;
 };
 
 /** */
-function Hr({ width = 'w-full' }: THrProps) {
-  return <hr className={`${width} border-blue-gray-100`} />;
+export function Hr({ width = 'w-full', className = '' }: THrProps) {
+  return <hr className={`${width} ${className} border-blue-gray-100`} />;
 }
 
 /**

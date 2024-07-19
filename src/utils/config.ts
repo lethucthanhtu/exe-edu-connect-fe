@@ -9,6 +9,7 @@ export const LOGIN_URL          = `${PREFIX}auth/login`;
 export const GOOGLE_LOGIN_URL   = `${BASE_URL}${PREFIX}auth/login/google`;
 export const GOOGLE_SIGNUP_URL  = `${BASE_URL}${PREFIX}auth/register/google/`;
 export const COURSES_URL        = `${PREFIX}courses`;
+export const COURSE_URL        = `${PREFIX}course`;
 export const MEET_URL           = `${PREFIX}meetings/create`
 export const TRANSACTION_URL    = `${PREFIX}transactions`
 

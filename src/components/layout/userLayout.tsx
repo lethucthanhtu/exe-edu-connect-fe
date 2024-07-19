@@ -487,6 +487,27 @@ function Sidebar({ user, role, loading, isCUserProfile }: TUserProps) {
                 {capitalize(t('your course'))}
               </ListItem>
             </Link>
+            {role.toLowerCase() === 'admin' && (
+              <Link to={`/admin/dashboard`}>
+                <ListItem
+                  className='hover:bg-primary-light'
+                  placeholder={undefined}
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                >
+                  <ListItemPrefix
+                    placeholder={undefined}
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
+                  >
+                    <span className='material-symbols-outlined'>
+                      space_dashboard
+                    </span>
+                  </ListItemPrefix>
+                  {capitalize(t('dashboard'))}
+                </ListItem>
+              </Link>
+            )}
           </>
         )}
       </List>

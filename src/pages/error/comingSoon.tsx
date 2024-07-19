@@ -19,7 +19,7 @@ export default function ComingSoon() {
     <>
       <div className='size-full flex flex-grow items-center justify-center bg-gray-50'>
         <div className='rounded-lg bg-white p-8 text-center shadow-xl'>
-          <h1 className='mb-4 text-6xl font-bold'>404</h1>
+          <h1 className='mb-4 text-6xl font-bold'>500</h1>
           <Typography
             className='text-gray-600 text-2xl'
             placeholder={undefined}
@@ -29,25 +29,21 @@ export default function ComingSoon() {
             <span className='font-medium mr-1'>
               {`${capitalize(t('Oops!'))}`}
             </span>
-            {`${capitalize(t('Nothing here.'), false)}`}
             <span className='font-medium mx-1'>
-              {`${capitalize(t("We'll be back soon"))}`}
+              {`${capitalize(t('Too many traffic'), false)}`}
             </span>
-            .
+            {`${capitalize(t('Please try again later'))}`}.
           </Typography>
-          <Link to='/'>
-            <Button
-              className='mt-4 px-4 py-2 bg-primary'
-              size='lg'
-              placeholder={undefined}
-              onClick={routeChange}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-            >
-              {/* {t('Go back to Home')} */}
-              Go back to Home
-            </Button>
-          </Link>
+          <Button
+            className='mt-4 px-4 py-2 bg-primary'
+            size='lg'
+            onClick={() => location.reload()}
+            placeholder={undefined}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+          >
+            {t('Reload page')}
+          </Button>
         </div>
       </div>
     </>
