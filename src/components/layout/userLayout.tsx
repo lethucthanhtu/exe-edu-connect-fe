@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import {
   Card,
   Typography,
@@ -13,6 +13,8 @@ import {
   CardBody,
   Avatar,
   Button,
+  Collapse,
+  IconButton,
 } from '@material-tailwind/react';
 import { Link, Outlet, useNavigate, useParams } from 'react-router-dom';
 import { capitalize, currencyFormat } from '../../utils/utils';
@@ -29,10 +31,16 @@ type TUserProps = {
   user?: TUser;
   isCUserProfile?: boolean;
   loading?: boolean;
+  collapse?: boolean;
+  setCollapse: Dispatch<SetStateAction<boolean>>;
 };
 
 /** */
-function User({ user, role, isCUserProfile = false }: TUserProps) {
+function User({
+  user,
+  role,
+  isCUserProfile = false,
+}: Omit<TUserProps, 'collapse' | 'setCollapse'>) {
   return (
     <>
       <Card
@@ -245,16 +253,26 @@ function UserSkeleton() {
 }
 
 /** */
-function Sidebar({ user, role, loading, isCUserProfile }: TUserProps) {
+function Sidebar({
+  user,
+  role,
+  loading,
+  isCUserProfile,
+  collapse = false,
+  setCollapse,
+}: TUserProps) {
   const { t } = useTranslation();
   const { id } = useParams();
   const [open, setOpen] = useState(0);
+  // const [collapse, setCollapse] = useState(false);
 
   const handleOpen = (value) => setOpen(open === value ? 0 : value);
 
   return (
     <Card
-      className='min-h-full w-1/5 p-4 shadow-xl border-r-4'
+      className={`min-h-full md:w-1/5 p-4 shadow-xl border-r-4 ${
+        collapse && 'hidden'
+      }`}
       placeholder={undefined}
       onPointerEnterCapture={undefined}
       onPointerLeaveCapture={undefined}
@@ -263,7 +281,21 @@ function Sidebar({ user, role, loading, isCUserProfile }: TUserProps) {
         {loading ? (
           <UserSkeleton />
         ) : (
-          <User user={user} role={role} isCUserProfile={isCUserProfile} />
+          <div className='flex flex-col'>
+            <IconButton
+              onClick={() => setCollapse(!collapse)}
+              variant='text'
+              className='md:hidden mr-auto size-2 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent'
+              placeholder={undefined}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+            >
+              <span className='material-symbols-outlined size-2'>
+                arrow_back_ios
+              </span>
+            </IconButton>
+            <User user={user} role={role} isCUserProfile={isCUserProfile} />
+          </div>
         )}
       </div>
       <hr className='mb-2 border-blue-gray-50' />
@@ -556,6 +588,7 @@ export default function UserLayout() {
   const navigate = useNavigate();
   const [errMsg, setErrMsg] = useState('');
   const [loading, setLoading] = useState(false);
+  const [collapse, setCollapse] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -595,8 +628,24 @@ export default function UserLayout() {
                 }
                 isCUserProfile={isCUserProfile}
                 loading={loading}
+                collapse={collapse}
+                setCollapse={setCollapse}
               />
-              <div className='size-full'>
+              <div className={`size-full md:block `}>
+                <IconButton
+                  onClick={() => setCollapse(!collapse)}
+                  variant='text'
+                  className={`${
+                    !collapse && 'xs:hidden'
+                  } md:hidden mr-auto size-2 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent`}
+                  placeholder={undefined}
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                >
+                  <span className='material-symbols-outlined size-2'>
+                    arrow_forward_ios
+                  </span>
+                </IconButton>
                 <Outlet context={{ isCUserProfile, user }} />
               </div>
             </>

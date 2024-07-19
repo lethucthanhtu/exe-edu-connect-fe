@@ -261,7 +261,7 @@ export default function Subjects() {
       >
         <Typography
           variant='h1'
-          className='text-primary'
+          className='text-primary text-center'
           placeholder={undefined}
           onPointerEnterCapture={undefined}
           onPointerLeaveCapture={undefined}
