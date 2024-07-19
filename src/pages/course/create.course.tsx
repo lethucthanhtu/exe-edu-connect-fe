@@ -128,9 +128,9 @@ TDayProps) {
     // console.log(checks);
   };
   return (
-    <span className='flex gap-2 justify-between w-full'>
+    <span className='flex flex-wrap gap-2 justify-between w-full'>
       <ListItem
-        className='p-0'
+        className='p-0 xs:basis-1/3'
         placeholder={undefined}
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
@@ -168,7 +168,7 @@ TDayProps) {
           </ListItem>
         </label>
       </ListItem>
-      <div className='basis-2/3 flex flex-wrap sm:flex-nowrap justify-end gap-2'>
+      <div className='xs:basis-2/3 flex flex-wrap sm:flex-nowrap justify-end gap-2'>
         <Input
           accessKey={day}
           label={capitalize(t(`start time`))}
@@ -177,7 +177,7 @@ TDayProps) {
           disabled={!isChecked}
           value={isChecked && undefined}
           onChange={handleNewSchedule}
-          className='basis-2/3'
+          className='basis-1/2'
           color='teal'
           required={isChecked}
           onPointerEnterCapture={undefined}
@@ -334,7 +334,7 @@ export default function CreateCourse() {
           </Typography>
           <span className='border-2 border-primary p-4 rounded-xl flex flex-col gap-4 mb-4'>
             <Separator label='general information' />
-            <span className='flex gap-4'>
+            <span className='flex flex-col md:flex-row gap-4'>
               <span className='basis-1/3 flex flex-col gap-4'>
                 <Input
                   color='teal'

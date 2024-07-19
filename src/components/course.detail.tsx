@@ -1,9 +1,4 @@
-import {
-  Button,
-  Card,
-  CardBody,
-  Typography,
-} from '@material-tailwind/react';
+import { Button, Card, CardBody, Typography } from '@material-tailwind/react';
 import { TCourse } from '../entity/entity/course';
 import CourseDetailFooter from './coures.detail.footer';
 import { CourseDetailBody } from './course.detail.body';
@@ -22,19 +17,19 @@ export default function CourseDetail({ course }: TCourseDetailProps) {
 
   const handleClickCheckout = () => {
     // sessionStorage.setItem('teacherId', course.teachername);
-    sessionStorage.setItem('teacherId', '26');
+    sessionStorage.setItem('teacherId', `${course.teacherid}`);
     sessionStorage.setItem('courseId', `${course.id}`);
   };
   return (
-    <div className='relative py-5'>
+    <div className='relative py-5 '>
       {/* <CourseCoverImage /> */}
-      <div className='grid grid-cols-12 items-start w-full'>
-        <div className='mx-2 col-span-9'>
+      <div className='flex flex-col md:flex-row justify-center md:justify-between items-center md:items-start w-full'>
+        <div className='mx-2 md:basis-9/12'>
           <CourseDetailHeader course={course} />
         </div>
-        <div className='col-span-3'>
+        <div className='md:basis-3/12 mb-4 md:mb-0'>
           <Card
-            className='basis-1/4 flex justify-center items-start'
+            className='basis-1/4 flex justify-center items-start xs:'
             placeholder={undefined}
             onPointerEnterCapture={undefined}
             onPointerLeaveCapture={undefined}
@@ -82,11 +77,11 @@ export default function CourseDetail({ course }: TCourseDetailProps) {
                 onPointerLeaveCapture={undefined}
               >
                 <span className='flex justify-between'>
-                  {capitalize(t(`start date: `))}{' '}
+                  {capitalize(t(`start date`)) + ` :`}{' '}
                   <span className='font-normal'>{course.startdate}</span>
                 </span>
                 <span className='flex justify-between'>
-                  {capitalize(t(`end date: `))}{' '}
+                  {capitalize(t(`end date`)) + `: `}{' '}
                   <span className='font-normal'>{course.enddate}</span>
                 </span>
               </Typography>

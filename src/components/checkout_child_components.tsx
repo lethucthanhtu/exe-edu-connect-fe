@@ -39,7 +39,7 @@ export function CheckoutDetails({ teacher, course }: TCheckoutDetailProps) {
 
   return (
     <Card
-      className='w-96 h-full'
+      className=' h-full'
       placeholder={undefined}
       onPointerEnterCapture={undefined}
       onPointerLeaveCapture={undefined}
@@ -100,7 +100,7 @@ export function PaymentOptions() {
   const { t } = useTranslation();
   return (
     <Card
-      className='w-96'
+      className=''
       placeholder={undefined}
       onPointerEnterCapture={undefined}
       onPointerLeaveCapture={undefined}
@@ -148,7 +148,7 @@ export function QRSection({ course }: TCheckoutDetailProps) {
         transactioncategoryid: 1,
         status: 'pending',
       })
-      // .then(() => { 
+      // .then(() => {
       //   console.log('Form Sent');
       // })
       .then(() => {
@@ -167,7 +167,7 @@ export function QRSection({ course }: TCheckoutDetailProps) {
 
   return (
     <Card
-      className='mt-2 w-96'
+      className='mt-2'
       placeholder={undefined}
       onPointerEnterCapture={undefined}
       onPointerLeaveCapture={undefined}

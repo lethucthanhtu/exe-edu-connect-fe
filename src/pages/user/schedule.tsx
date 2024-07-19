@@ -55,7 +55,7 @@ export default function Schedule() {
   useEffect(() => {
     api
       .get(`/api/course-schedules/student/${id}`)
-      .then((res) => setData(res.data.returnData))
+      .then((res) => setData(res.data.returnData));
   }, []);
 
   return (
@@ -103,7 +103,7 @@ export default function Schedule() {
             </div>
           </CardHeader>
           <CardBody
-            className='px-0 overflow-x-scroll'
+            className='px-0 overflow-x-scroll xs:flex justify-center items-center md:flex-none'
             placeholder={undefined}
             onPointerEnterCapture={undefined}
             onPointerLeaveCapture={undefined}
@@ -220,7 +220,7 @@ export default function Schedule() {
             </table>
           </CardBody>
           <CardFooter
-            className='flex items-center justify-between border-t border-blue-gray-50 p-4'
+            className='xs:hidden md:block flex items-center justify-between border-t border-blue-gray-50 p-4'
             placeholder={undefined}
             onPointerEnterCapture={undefined}
             onPointerLeaveCapture={undefined}

@@ -118,7 +118,13 @@ export default i18n
             'tìm hiểu xem học viên của chúng tôi nói gì về trải nghiệm học tập của họ',
           'join now': 'tham gia ngay',
           'main courses': 'các khóa học chính',
-          'complete the payment ':'hoàn tất thanh toán',
+          'complete the payment ': 'hoàn tất thanh toán',
+          'Almost done, give us few minutes to check your translation.':
+            'Gần xong rồi, đợi chúng tôi vài phút để kiểm tra giao dịch nhé.',
+          'In that time, you can continue discover other lesson u prefer':
+            'Trong thời gian chờ đợi, bạn có thể tiếp tục khám phá các bài học khác mà bạn thích.',
+          'about the course': 'giới thiệu khóa học',
+          checkout: 'thanh toán',
         },
         jp: {
           translation: {
