@@ -121,7 +121,7 @@ export default function Profile() {
             {capitalize(t('profile'))}
           </Typography>
           <Separator className='mt-4 mb-6' />
-          <div className='flex gap-8'>
+          <div className='flex flex-wrap gap-8'>
             <Input
               className='basis-1/2'
               color='teal'
@@ -153,7 +153,7 @@ export default function Profile() {
             />
           </div>
           <Separator className='mt-4 mb-6' />
-          <div className='flex gap-8 mb-6'>
+          <div className='flex flex-wrap gap-8 mb-6'>
             <InputEmail
               className='basis-1/2'
               name='email'
@@ -214,7 +214,7 @@ export default function Profile() {
               <Button
                 // onClick={handleSubmit}
                 type='submit'
-                className='bg-primary w-2/12 py-4'
+                className='bg-primary md:w-2/12 py-4'
                 variant='filled'
                 size='sm'
                 placeholder={undefined}

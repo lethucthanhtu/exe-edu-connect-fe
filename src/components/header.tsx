@@ -288,33 +288,35 @@ export default function Header() {
         </section>
         <Collapse open={openNav}>
           <NavList />
-          <div className='flex justify-center items-center w-full gap-x-1'>
-            <Link to='/login' className='w-full'>
-              <Button
-                fullWidth
-                variant='text'
-                size='sm'
-                className='w-full'
-                placeholder={undefined}
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
-              >
-                <span>{t('log in')}</span>
-              </Button>
-            </Link>
-            <Link to='/signup' className='w-full'>
-              <Button
-                fullWidth
-                size='sm'
-                className='bg-primary w-full'
-                placeholder={undefined}
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
-              >
-                <span>{t('sign up')}</span>
-              </Button>
-            </Link>
-          </div>
+          {!token && (
+            <div className='flex justify-center items-center w-full gap-x-1'>
+              <Link to='/login' className='w-full'>
+                <Button
+                  fullWidth
+                  variant='text'
+                  size='sm'
+                  className='w-full'
+                  placeholder={undefined}
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                >
+                  <span>{t('log in')}</span>
+                </Button>
+              </Link>
+              <Link to='/signup' className='w-full'>
+                <Button
+                  fullWidth
+                  size='sm'
+                  className='bg-primary w-full'
+                  placeholder={undefined}
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                >
+                  <span>{t('sign up')}</span>
+                </Button>
+              </Link>
+            </div>
+          )}
         </Collapse>
       </Navbar>
     </>

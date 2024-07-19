@@ -16,11 +16,12 @@ export default function CourseDetail({ course }: TCourseDetailProps) {
   const { t } = useTranslation();
 
   const handleClickCheckout = () => {
+    // sessionStorage.setItem('teacherId', course.teachername);
     sessionStorage.setItem('teacherId', `${course.teacherid}`);
     sessionStorage.setItem('courseId', `${course.id}`);
   };
   return (
-    <div className='relative py-5'>
+    <div className='relative py-5 '>
       {/* <CourseCoverImage /> */}
       <div className='grid grid-cols-12 items-start w-full'>
         <div className='mx-2 col-span-9'>
@@ -28,7 +29,7 @@ export default function CourseDetail({ course }: TCourseDetailProps) {
         </div>
         <div className='col-span-3'>
           <Card
-            className='basis-1/4 flex justify-center items-start'
+            className='basis-1/4 flex justify-center items-start xs:'
             placeholder={undefined}
             onPointerEnterCapture={undefined}
             onPointerLeaveCapture={undefined}

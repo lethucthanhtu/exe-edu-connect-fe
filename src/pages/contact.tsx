@@ -18,7 +18,7 @@ export default function Contact() {
 
   return (
     <>
-      <section id='main' className='container flex justify-center gap-6'>
+      <section id='main' className='container flex flex-col md:flex-row justify-center gap-6'>
         <div className='basis-1/2 flex aspect-square justify-center items-center gap-8'>
           <div className='basis-1/3 flex flex-col relative'>
             <div className='aspect-square basis-1/3 relative'>
@@ -154,7 +154,7 @@ export default function Contact() {
       </section>
       <section
         id='sub'
-        className='flex justify-center bg-primary-light gap-4 px-24 py-8'
+        className='flex flex-col md:flex-row-reverse justify-center bg-primary-light gap-4 xs:px-12 md:px-24 py-8'
       >
         <div id='text' className='basis-1/2'>
           <Typography
