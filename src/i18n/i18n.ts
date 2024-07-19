@@ -119,15 +119,12 @@ export default i18n
           'join now': 'tham gia ngay',
           'main courses': 'các khóa học chính',
           'complete the payment ': 'hoàn tất thanh toán',
-<<<<<<< HEAD
           'Almost done, give us few minutes to check your translation.':
             'Gần xong rồi, đợi chúng tôi vài phút để kiểm tra giao dịch nhé.',
           'In that time, you can continue discover other lesson u prefer':
             'Trong thời gian chờ đợi, bạn có thể tiếp tục khám phá các bài học khác mà bạn thích.',
-=======
           'about the course': 'giới thiệu khóa học',
           checkout: 'thanh toán',
->>>>>>> tultt
         },
         jp: {
           translation: {

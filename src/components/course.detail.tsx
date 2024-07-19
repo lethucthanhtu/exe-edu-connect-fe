@@ -77,11 +77,11 @@ export default function CourseDetail({ course }: TCourseDetailProps) {
                 onPointerLeaveCapture={undefined}
               >
                 <span className='flex justify-between'>
-                  {capitalize(t(`start date: `))}{' '}
+                  {capitalize(t(`start date`)) + ` :`}{' '}
                   <span className='font-normal'>{course.startdate}</span>
                 </span>
                 <span className='flex justify-between'>
-                  {capitalize(t(`end date: `))}{' '}
+                  {capitalize(t(`end date`)) + `: `}{' '}
                   <span className='font-normal'>{course.enddate}</span>
                 </span>
               </Typography>
