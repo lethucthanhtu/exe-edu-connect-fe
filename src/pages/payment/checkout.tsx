@@ -34,20 +34,20 @@ export default function Checkout() {
       setCourse(res.data.returnData);
     });
   }, []);
-  
+
   return (
     <>
-      <div className='container my-5'>
+      <div className='container my-5 hidden md:block'>
         <CheckoutWarningNotification />
       </div>
-      <div className='container my-10 grid justify-items-center'>
-        <div className='flex'>
-          <div className='me-3'>
+      <div className='container flex justify-center items-center mx-4'>
+        <div className='flex flex-wrap md:flex-nowrap justify-center items-center gap-8 w-full'>
+          <div className='md:basis-1/2'>
             {teacher && <CheckoutDetails teacher={teacher} course={course} />}
           </div>
-          <div className='ms-3'>
+          <div className='md:basis-1/2'>
             <PaymentOptions />
-            <QRSection course={course}/>
+            <QRSection course={course} />
           </div>
         </div>
       </div>
